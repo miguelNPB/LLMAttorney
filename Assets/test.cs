@@ -2,18 +2,20 @@ using UnityEngine;
 
 public class test : MonoBehaviour
 {
+    public API_TYPE apiType;
+    public string llmConfig;
     public string prompt;
 
-    private GeminiAPI gemini;
+    private LLMAttorney_API llm;
 
 
-    void DebugPrompt(string text)
+    void DebugPrompt(bool success, string text)
     {
         Debug.Log(text);
     }
     void Start()
     {
-        gemini = GetComponent<GeminiAPI>();
+        llm = GetComponent<LLMAttorney_API>();
     }
 
     // Update is called once per frame
@@ -21,7 +23,7 @@ public class test : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            gemini.SendPrompt(prompt, DebugPrompt);
+            llm.SendPrompt(apiType, prompt, llmConfig, DebugPrompt);
         }
     }
 }

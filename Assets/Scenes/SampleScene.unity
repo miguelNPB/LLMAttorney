@@ -265,7 +265,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 356190110}
-  - component: {fileID: 356190109}
+  - component: {fileID: 356190111}
   - component: {fileID: 356190108}
   m_Layer: 0
   m_Name: test
@@ -286,21 +286,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 287b94ed13af0704587699982f6a17cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  apiType: 0
+  llmConfig: 
   prompt: cuanto es 1 + 1
---- !u!114 &356190109
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 356190107}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd0974767b8ba6f4cbeba825869dd461, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  apiKey: AIzaSyAomKqz8kI2ucE7R6WY2aFZydEgHeCpM-Q
-  endpoint: https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=
 --- !u!4 &356190110
 Transform:
   m_ObjectHideFlags: 0
@@ -316,6 +304,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &356190111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 356190107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ae057d2ee9958f409c5b13790e76b92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
