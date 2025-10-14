@@ -2,12 +2,10 @@ using UnityEngine;
 
 public class test : MonoBehaviour
 {
+    private LLMAttorney_API llm;
     public API_TYPE apiType;
     public string llmConfig;
     public string prompt;
-
-    private LLMAttorney_API llm;
-
 
     void DebugPrompt(bool success, string text)
     {
@@ -15,7 +13,7 @@ public class test : MonoBehaviour
     }
     void Start()
     {
-        llm = GetComponent<LLMAttorney_API>();
+        llm = LLMAttorney_API.Instance;
     }
 
     // Update is called once per frame

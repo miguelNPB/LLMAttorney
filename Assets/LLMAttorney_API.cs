@@ -23,6 +23,8 @@ public class LLMAttorneyResponse
 public enum API_TYPE { GEMINI, LLAMA }
 public class LLMAttorney_API : MonoBehaviour
 {
+    public static LLMAttorney_API Instance { get; private set; }
+
     private string APItypeToString(API_TYPE type)
     {
         switch (type)
@@ -67,5 +69,19 @@ public class LLMAttorney_API : MonoBehaviour
         string response = success ? jsonResponse.answer : ("Error LLMAtorney: " + www.error);
 
         onComplete?.Invoke(success, response);
+    }
+
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+
+        DontDestroyOnLoad(gameObject);
     }
 }

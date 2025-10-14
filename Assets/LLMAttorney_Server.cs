@@ -1,51 +1,72 @@
-using UnityEngine;
-using UnityEditor;
 using System.Diagnostics;
-public class LLMAttorney_Server : EditorWindow
+using System.IO;
+using UnityEditor;
+using UnityEditor.Experimental.GraphView;
+using UnityEngine;
+using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
+
+public class LLMAttorney_Server : MonoBehaviour
 {
-    string batFilePath = @"C:\Ruta\TuArchivo.bat"; // Cambia la ruta aquí
+    public static LLMAttorney_Server Instance { get; private set; }
 
-    // Crear menú para abrir la ventana
-    [MenuItem("Herramientas/Bat Runner")]
-    public static void ShowWindow()
+
+    private Process backendProcess;
+    private void OnEnable()
     {
-        GetWindow<LLMAttorney_Server>("Bat Runner");
+        Init();
+    }
+    private void OnDisable()
+    {
+        Release();
     }
 
-    private void OnGUI()
+    private void OnDestroy()
     {
-        GUILayout.Label("Ejecutar archivo .bat", EditorStyles.boldLabel);
-
-        // Campo para cambiar la ruta del .bat
-        batFilePath = EditorGUILayout.TextField("Ruta del .bat", batFilePath);
-
-        GUILayout.Space(10);
-
-        // Botón que ejecuta el .bat
-        if (GUILayout.Button("Ejecutar .bat"))
-        {
-            EjecutarBat();
-        }
+        Release();
     }
-
-    private void EjecutarBat()
+    private void Init()
     {
+        string path = Path.Combine(Application.dataPath, @"..\PythonServer\");
+        path = Path.GetFullPath(path);
+
+        ProcessStartInfo psi = new ProcessStartInfo();
+        psi.FileName = "uvicorn";
+        psi.Arguments = "main:app --reload --host 0.0.0.0 --port 8000";
+        psi.WorkingDirectory = path;
+        psi.UseShellExecute = true;
+        psi.WindowStyle = ProcessWindowStyle.Normal;
+
         try
         {
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.FileName = batFilePath;
-            startInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(batFilePath);
-            startInfo.CreateNoWindow = true;
-            startInfo.UseShellExecute = true;
-
-            Process process = Process.Start(startInfo);
-            process.WaitForExit(); // Opcional: espera a que termine
-
-            UnityEngine.Debug.Log(".bat ejecutado correctamente.");
+            backendProcess = Process.Start(psi);
+            UnityEngine.Debug.Log("LLMAttorneyAPI backend inicado");
         }
-        catch (System.Exception e)
+        catch (System.Exception ex)
         {
-            UnityEngine.Debug.LogError("Error al ejecutar el .bat: " + e.Message);
+            UnityEngine.Debug.LogError("Error al ejecutar el backend: " + ex.Message);
         }
+    }
+    private void Release()
+    {
+        if (backendProcess != null && !backendProcess.HasExited)
+        {
+            backendProcess.Kill();
+            backendProcess = null;
+            UnityEngine.Debug.Log("LLMAttorneyAPI backend cerrado");
+        }
+    }
+
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+
+        DontDestroyOnLoad(gameObject);
     }
 }
