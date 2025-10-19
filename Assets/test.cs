@@ -1,15 +1,25 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class test : MonoBehaviour
 {
     private LLMAttorney_API llm;
     public API_TYPE apiType;
-    public string llmConfig;
-    public string prompt;
 
-    void DebugPrompt(bool success, string text)
+    [SerializeField] private TMP_Text outputText;
+    [SerializeField] private TMP_InputField promptField;
+    [SerializeField] private TMP_InputField llmConfigField;
+    public void SendPrompt()
     {
-        Debug.Log(text);
+        llm.SendPrompt(apiType, promptField.text, llmConfigField.text, PrintPrompt);
+
+        promptField.text = "";
+        llmConfigField.text = "";
+    }
+    void PrintPrompt(bool success, string text)
+    {
+        outputText.text = text;
     }
     void Start()
     {
@@ -19,9 +29,6 @@ public class test : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            llm.SendPrompt(apiType, prompt, llmConfig, DebugPrompt);
-        }
+
     }
 }

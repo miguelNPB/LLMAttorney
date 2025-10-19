@@ -50,6 +50,10 @@ public class LLMAttorney_Server : MonoBehaviour
     {
         if (backendProcess != null && !backendProcess.HasExited)
         {
+            foreach (var proc in Process.GetProcessesByName("python"))
+            {
+                proc.Kill();
+            }
             backendProcess.Kill();
             backendProcess = null;
             UnityEngine.Debug.Log("LLMAttorneyAPI backend cerrado");
@@ -68,5 +72,10 @@ public class LLMAttorney_Server : MonoBehaviour
         Instance = this;
 
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void Update()
+    {
+
     }
 }
