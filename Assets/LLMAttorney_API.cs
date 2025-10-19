@@ -12,6 +12,8 @@ public class LLMAttorneyRequest
     public string mode;
     public string LLMConfig;
     public string prompt;
+    public float temperature;
+    public int max_length;
 }
 [System.Serializable]
 public class LLMAttorneyResponse
@@ -38,7 +40,7 @@ public class LLMAttorney_API : MonoBehaviour
         }
     }
 
-    public void SendPrompt(API_TYPE apiType, string prompt, string LLMConfig, Action<bool, string> onComplete)
+    public void SendPrompt(API_TYPE apiType, string prompt, string LLMConfig, float temperature, int max_length, Action<bool, string> onComplete)
     {
         
             var requestData = new LLMAttorneyRequest
@@ -46,6 +48,8 @@ public class LLMAttorney_API : MonoBehaviour
                 mode = APItypeToString(apiType),
                 LLMConfig = LLMConfig,
                 prompt = prompt,
+                temperature = temperature,
+                max_length = max_length,
             };
 
             string json = JsonConvert.SerializeObject(requestData);
