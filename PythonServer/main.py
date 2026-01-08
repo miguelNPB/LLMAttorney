@@ -1,8 +1,8 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import httpx
-import asyncio
 from ollama import *
+
 
 # Abrimos apikey de gemini
 try:
@@ -11,7 +11,12 @@ try:
 except FileNotFoundError:
     raise Exception(f"El archivo Gemini_APIKEY.txt no fue encontrado, crearlo y meter dentro la APIKEY de gemini")
 
-GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + Gemini_APIKEY
+GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + Gemini_APIKEY
+
+# se crea API
+app = FastAPI(title="LLMAttorney Server")
+
+# --- 
 
 # estructura de json de entrada, pide un campo prompt que es un string
 class Query(BaseModel):
@@ -21,9 +26,7 @@ class Query(BaseModel):
     temperature: float # 0 = Creativo 1 = Estricto
     max_length: int # Longitud maxima del output
 
-# se crea API
-app = FastAPI(title="API server")
-
+# Crea la query y la ejecuta para Gemini
 async def sendGeminiQuery(prompt, LLMConfig, temperature, max_length):
 
     async with httpx.AsyncClient() as client:
@@ -49,6 +52,7 @@ async def sendGeminiQuery(prompt, LLMConfig, temperature, max_length):
     response.raise_for_status()
     return response
 
+# Crea la query y la ejecuta para Ollama
 async def sendLlamaQuery(prompt, LLMConfig, temperature, max_length):
     client = AsyncClient() 
     output = await client.chat(

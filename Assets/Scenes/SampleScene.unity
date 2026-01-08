@@ -1318,7 +1318,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 678728330}
-  - component: {fileID: 678728329}
   - component: {fileID: 678728328}
   m_Layer: 0
   m_Name: AttorneyLLM
@@ -1339,18 +1338,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ae057d2ee9958f409c5b13790e76b92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &678728329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 678728327}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bef3a5698d9751d478689efdce54b166, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  ip: localhost
+  port: 8000
 --- !u!4 &678728330
 Transform:
   m_ObjectHideFlags: 0

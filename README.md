@@ -1,5 +1,8 @@
 # LLMAttorney - Unity
 
+Ejecutamos un servidor de python para poder procesar las requests de prompts y en el servidor hacemos la llamada a Gemini, Ollama etc...
+El servidor se ejecuta desde dentro de un docker que contiene todas las dependencias y así evitamos que funcione distinto en sistemas distintos, para ejecutarlo llamar a ```run.bat``` o compilar el docker con ```docker build -t llmattorney .``` y ejecutarlo desde cualquier cmd con ```docker run -p 8000:8000 llmattorney```
+
 ## Prerequisitos
 
 ### Uvicorn
