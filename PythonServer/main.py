@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import httpx
-from ollama import *
+import requests
 
 
 # Abrimos apikey de gemini
@@ -12,7 +12,7 @@ except FileNotFoundError:
     raise Exception(f"El archivo Gemini_APIKEY.txt no fue encontrado, crearlo y meter dentro la APIKEY de gemini")
 
 GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + Gemini_APIKEY
-
+OLLAMA_ENDPOINT = "http://ollama:11434/api/generate"
 # se crea API
 app = FastAPI(title="LLMAttorney Server")
 
@@ -53,18 +53,28 @@ async def sendGeminiQuery(prompt, LLMConfig, temperature, max_length):
     return response
 
 # Crea la query y la ejecuta para Ollama
-async def sendLlamaQuery(prompt, LLMConfig, temperature, max_length):
-    client = AsyncClient() 
-    output = await client.chat(
-        model='llama3:8b',
-        messages=[{'role': 'system', 'content': LLMConfig},
-                  {'role': 'user', 'content': prompt}],
-        options={
-            'temperature': temperature,
-            'num_predict': max_length
-        }
-        )
-    return output['message']['content']
+async def sendLlamaQuery(prompt, LLMConfig, temperature, max_length):    
+    payload = {
+        "model": "llama3:8b",
+        "messages": [
+            {"role": "system", "content": LLMConfig},
+            {"role": "user", "content": prompt}
+        ],
+        "options": {
+            "temperature": temperature,
+            "num_predict": max_length
+        },
+        "stream": False  # Importante: para recibir la respuesta de una sola vez
+    }
+    try:
+        response = requests.post(OLLAMA_ENDPOINT, json=payload)
+        response.raise_for_status() # Lanza un error si la petición falla
+        
+        data = response.json()
+        return data['message']['content']
+    
+    except requests.exceptions.RequestException as e:
+        return f"Error al conectar con Ollama: {e}"
 
 
 # endpoint principal
