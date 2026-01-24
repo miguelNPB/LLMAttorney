@@ -13,6 +13,19 @@ public class test : MonoBehaviour
     [SerializeField] private TMP_Text outputText;
     [SerializeField] private TMP_InputField promptField;
     [SerializeField] private TMP_InputField llmConfigField;
+
+
+    /// <summary>
+    /// Genera el caso juridico inicial
+    /// </summary>
+    public void GenerateCase()
+    {
+
+    }
+
+    /// <summary>
+    /// Metodo de prueba de mandar prompts
+    /// </summary>
     public void SendPrompt()
     {
         llm.SendPrompt(apiType, promptField.text, llmConfigField.text, temperature, max_length, PrintPrompt);
@@ -20,6 +33,11 @@ public class test : MonoBehaviour
         promptField.text = "";
         llmConfigField.text = "";
     }
+    /// <summary>
+    /// Printea el prompt al canvas
+    /// </summary>
+    /// <param name="success">True si ha salido bien</param>
+    /// <param name="text">El texot</param>
     void PrintPrompt(bool success, string text)
     {
         outputText.text = text;

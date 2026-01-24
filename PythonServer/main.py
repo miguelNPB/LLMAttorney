@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+from typing import Optional, Dict, Any
 import httpx
 import requests
 
@@ -25,32 +26,47 @@ class Query(BaseModel):
     LLMConfig: str
     temperature: float # 0 = Creativo 1 = Estricto
     max_length: int # Longitud maxima del output
+    # Nuevo campo: Recibe el esquema JSON deseado. 
+    # Si es None, funciona en modo texto normal.
+    json_schema: Optional[Dict[str, Any]] = None
+
+
+# ---
 
 # Crea la query y la ejecuta para Gemini
-async def sendGeminiQuery(prompt, LLMConfig, temperature, max_length):
+async def sendGeminiQuery(prompt, LLMConfig, temperature, max_length, json_schema=None):
+    # Configuración base
+    generation_config = {
+        "temperature": temperature * 2, # Gemini usa escala 0.0 - 2.0
+        "maxOutputTokens": max_length,
+    }
+
+    # Si hay esquema, activamos modo json
+    if json_schema:
+        generation_config["responseMimeType"] = "application/json"
+        generation_config["responseSchema"] = json_schema
+
+    payload = {
+        "systemInstruction": {
+            "parts": [{"text": LLMConfig}]
+        },
+        "generationConfig": generation_config,
+        "contents": [
+            {
+                "parts": [{"text": prompt}]
+            }
+        ]
+    }
 
     async with httpx.AsyncClient() as client:
-        response = await client.post(GEMINI_ENDPOINT, json=
-        {
-            "systemInstruction": {
-                    "parts":[
-                        {"text": LLMConfig}
-                    ]
-                },
-            "generationConfig": {
-                    "temperature": temperature * 2, # USAN RANGO 0-2
-                    "maxOutputTokens": max_length,
-                },
-            "contents": [
-                {
-                    "parts": [
-                        {"text": prompt}
-                    ]
-                }
-            ]
-        })
-    response.raise_for_status()
-    return response
+        # Aumentamos timeout porque generar JSON complejo puede tardar unos segundos
+        response = await client.post(GEMINI_ENDPOINT, json=payload, timeout=60.0) 
+        
+        if response.status_code != 200:
+            # Para ver el error real de Google si falla
+            raise HTTPException(status_code=response.status_code, detail=response.text)
+            
+        return response
 
 # Crea la query y la ejecuta para Ollama
 async def sendLlamaQuery(prompt, LLMConfig, temperature, max_length):    
