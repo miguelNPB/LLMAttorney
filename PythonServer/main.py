@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from typing import Optional, Dict, Any
 import httpx
 import requests
+import json
 
 
 # Abrimos apikey de gemini
@@ -12,7 +13,7 @@ try:
 except FileNotFoundError:
     raise Exception(f"El archivo Gemini_APIKEY.txt no fue encontrado, crearlo y meter dentro la APIKEY de gemini")
 
-GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + Gemini_APIKEY
+GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=" + Gemini_APIKEY
 OLLAMA_ENDPOINT = "http://ollama:11434/api/generate"
 # se crea API
 app = FastAPI(title="LLMAttorney Server")
@@ -65,8 +66,15 @@ async def sendGeminiQuery(prompt, LLMConfig, temperature, max_length, json_schem
         if response.status_code != 200:
             # Para ver el error real de Google si falla
             raise HTTPException(status_code=response.status_code, detail=response.text)
-            
-        return response
+        
+        data = response.json()
+        response_raw = data["candidates"][0]["content"]["parts"][0]["text"]        
+        if json_schema:
+            json_limpio = json.loads(response_raw) # Convierte el texto de Gemini en objeto Python
+            return json_limpio
+        else:
+            return { "answer": response_raw }
+
 
 # Crea la query y la ejecuta para Ollama
 async def sendLlamaQuery(prompt, LLMConfig, temperature, max_length):    
@@ -98,12 +106,11 @@ async def sendLlamaQuery(prompt, LLMConfig, temperature, max_length):
 async def ask_LLMAttorney(query: Query):
     try:
         if query.mode == "Gemini":
-            answer = await sendGeminiQuery(query.prompt, query.LLMConfig, query.temperature, query.max_length)
-            answer = answer.json()["candidates"][0].get("content")["parts"][0].get("text")
+            answer = await sendGeminiQuery(query.prompt, query.LLMConfig, query.temperature, query.max_length, query.json_schema)
         elif query.mode == "Llama":
             answer = await sendLlamaQuery(query.prompt, query.LLMConfig, query.temperature, query.max_length)
 
-        return {"answer": answer }
+        return answer
     except httpx.HTTPStatusError as e:
         raise HTTPException(status_code=e.response.status_code, detail=str(e))
     except Exception as e:

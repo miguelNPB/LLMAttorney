@@ -5,22 +5,70 @@ El servidor se ejecuta desde dentro de un docker que contiene todas las dependen
 
 ## Prerequisitos
 
-### Uvicorn
+### Tener instalado docker desktop
 
-Primero instalar uvicorn, el gestor REST de la API de nuestro servidor de python y meterlo en el path  
+https://www.docker.com/get-started/
 
-Lo puedes instalar desde un cmd con ```pip install uvicorn``` y luego comprobar que la carpeta ```C:\Python310\Scripts\``` está en las variables de entorno, el path, para poder llamar a uvicorn desde cmd.  
+Una vez iniciado el docker desktop engine, ejecutar el run.bat dentro de PythonServer
 
-Enlace: https://uvicorn.dev/  
 
 ### Gemini
 Para que funcione GEMINI debes incluir la APIKEY en el fichero Gemini_APIKEY.txt dentro de la carpeta PythonServer, la APIKEY se encuentra en el notion en la pestaña de Gemini.
 
 ### Ollama (Llama, )
-Para poder correr Llama necesitas Ollama. Los modelos se descargarán la primera vez que se corra el programa, son 5gb cada uno aproximadamente.  
-También hace falta instalar el paquete de python, en un cmd ejecuta ```pip install ollama```.
+NO VA !
 
 En caso de tener amd seguir el siguiente tutorial: https://github.com/likelovewant/ollama-for-amd
 
 Enlace: https://ollama.com
 
+## Formato de prompts que acepta LLMAttorney
+
+Recibe un json con los siguientes campos:
+- mode: Puede ser `Gemini` o `Llama`
+- prompt: El texto del prompt
+- LLMConfig: La configuracion de como quieres que responda el LLM
+- temperature: El valor de 'creatividad' del LLM. 0 es nada y 1 es el maximo de creatividad.
+- json_schema: (OPCIONAL) Incluye un esquema JSON que devolverá el LLM. En LLMConfig hay que decirle como rellenarlo.
+
+#### Prompt de ejemplo sin esquema json
+```
+{
+	"mode":"Gemini",
+	"prompt": "Hola gemini !",
+  "LLMConfig": "Solo puedes contestar diciendo adios.",
+  "temperature": 0.8,
+  "max_length": 4000
+}
+```
+
+#### Prompt de ejemplo con esquema json
+```
+{
+	"mode":"Gemini",
+	"prompt": "Hola gemini !",
+  "LLMConfig": "Genera 6 items en D y pon en ellos chistes sobre delfines. En el campo A pon un dato sobre Pedro Sanchez",
+  "temperature": 0.8,
+  "max_length": 4000,
+  "json_schema": {
+    "type": "OBJECT",
+    "properties": {
+      "A": { "type": "STRING" },
+      "B": { "type": "BOOLEAN" },
+      "C": { "type": "INTEGER" },
+      "D": { 
+        "type": "ARRAY",
+        "items":{
+            "type": "OBJECT",
+						"properties": {
+            	"E": { "type": "STRING" },
+            	"F": { "type": "BOOLEAN" }
+						},
+            "required": ["E", "F"]
+        }
+      }
+    },
+    "required": ["A", "B", "C", "D"]
+  }
+}
+```
