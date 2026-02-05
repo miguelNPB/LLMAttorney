@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+pydantic
+httpx
+requests
+langchain 
+langchain-text-splitters 
+langchain-community 
+bs4
