@@ -1,10 +1,31 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import Optional, Dict, Any
+from langchain_community.document_loaders import PyPDFLoader
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 import httpx
 import requests
 import json
+import bs4
 
+# Carga de archivos Rag
+def load_RAG_file():
+    # Carga del documento PDF dando la ruta y el modo de carga (todo en un bloque, sin array)
+    loader = PyPDFLoader("./CodigoCivilYLegislacion.pdf", mode = "single")
+    docs = loader.load()
+
+    # División de todo el texto en sectores
+    text_splitter = RecursiveCharacterTextSplitter(
+        chunk_size=500,  # chunk size (characters)
+        chunk_overlap=100,  # chunk overlap (characters)
+        add_start_index=True,  # track index in original document
+    )
+
+    all_splits = text_splitter.split_documents(docs) 
+
+    print("ALGO")
+    print(f"Total characters: {len(docs[0].page_content)}")
+    print(f"Split blog post into {len(all_splits)} sub-documents.")
 
 # Abrimos apikey de gemini
 try:
@@ -12,6 +33,9 @@ try:
         Gemini_APIKEY = archivo.read()
 except FileNotFoundError:
     raise Exception(f"El archivo Gemini_APIKEY.txt no fue encontrado, crearlo y meter dentro la APIKEY de gemini")
+
+print("ALgo erno")
+load_RAG_file()
 
 GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=" + Gemini_APIKEY
 OLLAMA_ENDPOINT = "http://ollama:11434/api/generate"
