@@ -3,10 +3,11 @@ from pydantic import BaseModel
 from typing import Optional, Dict, Any
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-import httpx
-import requests
-import json
-import bs4
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from langchain_core.vectorstores import InMemoryVectorStore
+
+import httpx, requests, json, bs4, getpass, os
+
 
 # Carga de archivos Rag
 def load_RAG_file():
@@ -27,6 +28,21 @@ def load_RAG_file():
     print(f"Total characters: {len(docs[0].page_content)}")
     print(f"Split blog post into {len(all_splits)} sub-documents.")
 
+    #EMBEDDINGS!
+    embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
+    #vector_1 = embeddings.embed_query(all_splits[0].page_content)
+    #vector_2 = embeddings.embed_query(all_splits[1].page_content)
+    assert len(vector_1) == len(vector_2)
+    #PRINTEA LOS VECTORES GENERADOS POR LOS EMBEDDINGS
+    print(f"Generated vectors of length {len(vector_1)}\n")
+    print(vector_1[:10])
+
+    
+    vector_store = InMemoryVectorStore(embeddings)
+    ids = vector_store.add_documents(documents=all_splits)
+    results = vector_store.similarity_search("Quien tiene derecho a solicitar la nacionalidad española?")
+    print(results[0])
+
 # Abrimos apikey de gemini
 try:
     with open("./Gemini_APIKEY.txt", "r", encoding="utf-8") as archivo:
@@ -35,6 +51,11 @@ except FileNotFoundError:
     raise Exception(f"El archivo Gemini_APIKEY.txt no fue encontrado, crearlo y meter dentro la APIKEY de gemini")
 
 print("ALgo erno")
+
+if not os.environ.get("GOOGLE_API_KEY"):
+    os.environ["GOOGLE_API_KEY"]= Gemini_APIKEY
+
+
 load_RAG_file()
 
 GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=" + Gemini_APIKEY
