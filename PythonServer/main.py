@@ -4,6 +4,7 @@ from typing import Optional, Dict, Any
 import httpx
 import requests
 import json
+from guidance import models
 
 
 # Abrimos apikey de gemini
@@ -14,7 +15,7 @@ except FileNotFoundError:
     raise Exception(f"El archivo Gemini_APIKEY.txt no fue encontrado, crearlo y meter dentro la APIKEY de gemini")
 
 GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=" + Gemini_APIKEY
-OLLAMA_ENDPOINT = "http://ollama:11434/api/generate"
+OLLAMA_ENDPOINT = "http://ollama-server:11434/api/chat"
 # se crea API
 app = FastAPI(title="LLMAttorney Server")
 
@@ -79,7 +80,7 @@ async def sendGeminiQuery(prompt, LLMConfig, temperature, max_length, json_schem
 # Crea la query y la ejecuta para Ollama
 async def sendLlamaQuery(prompt, LLMConfig, temperature, max_length):    
     payload = {
-        "model": "llama3:8b",
+        "model": "llama3",
         "messages": [
             {"role": "system", "content": LLMConfig},
             {"role": "user", "content": prompt}
