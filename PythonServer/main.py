@@ -5,6 +5,10 @@ from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_core.vectorstores import InMemoryVectorStore
+import httpx
+import requests
+import json
+from guidance import models
 
 import httpx, requests, json, bs4, getpass, os
 
@@ -59,7 +63,7 @@ if not os.environ.get("GOOGLE_API_KEY"):
 load_RAG_file()
 
 GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=" + Gemini_APIKEY
-OLLAMA_ENDPOINT = "http://ollama:11434/api/generate"
+OLLAMA_ENDPOINT = "http://ollama-server:11434/api/chat"
 # se crea API
 app = FastAPI(title="LLMAttorney Server")
 
@@ -122,9 +126,19 @@ async def sendGeminiQuery(prompt, LLMConfig, temperature, max_length, json_schem
 
 
 # Crea la query y la ejecuta para Ollama
-async def sendLlamaQuery(prompt, LLMConfig, temperature, max_length):    
+async def sendLlamaQuery(prompt, LLMConfig, temperature, max_length, json_schema=None):    
+
+    if json_schema:
+        # Añadimos instrucciones explícitas y el esquema convertido a texto
+        LLMConfig += (
+            "\n\n### INSTRUCCIONES DE FORMATO:\n"
+            "Debes responder EXCLUSIVAMENTE con un objeto JSON válido.\n"
+            "No incluyas texto antes ni después del JSON.\n"
+            f"Sigue estrictamente este esquema:\n{json.dumps(json_schema, indent=2)}"
+        )
+
     payload = {
-        "model": "llama3:8b",
+        "model": "llama3",
         "messages": [
             {"role": "system", "content": LLMConfig},
             {"role": "user", "content": prompt}
@@ -135,11 +149,22 @@ async def sendLlamaQuery(prompt, LLMConfig, temperature, max_length):
         },
         "stream": False  # Importante: para recibir la respuesta de una sola vez
     }
+    
+    if json_schema:
+        payload["format"] = "json"
+    
     try:
         response = requests.post(OLLAMA_ENDPOINT, json=payload)
         response.raise_for_status() # Lanza un error si la petición falla
         
         data = response.json()
+
+        if json_schema:
+            try:
+                return json.loads(data['message']['content'])
+            except json.JSONDecodeError:
+                return {"answer": data['message']['content'], "error": "El modelo no devolvió un JSON válido"}
+        
         return data['message']['content']
     
     except requests.exceptions.RequestException as e:
@@ -153,7 +178,7 @@ async def ask_LLMAttorney(query: Query):
         if query.mode == "Gemini":
             answer = await sendGeminiQuery(query.prompt, query.LLMConfig, query.temperature, query.max_length, query.json_schema)
         elif query.mode == "Llama":
-            answer = await sendLlamaQuery(query.prompt, query.LLMConfig, query.temperature, query.max_length)
+            answer = await sendLlamaQuery(query.prompt, query.LLMConfig, query.temperature, query.max_length, query.json_schema)
 
         return answer
     except httpx.HTTPStatusError as e:
