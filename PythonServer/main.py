@@ -1,11 +1,24 @@
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import Optional, Dict, Any
 import httpx
 import requests
 import json
-from guidance import models
+import guidance
+from guidance import models, gen, select
+from guidance import json as gen_json
+import asyncio
 
+'''
+'''
+# --- Constantes
+
+GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key="
+OLLAMA_ENDPOINT_NVIDIA = "http://ollama-server:11434/v1"
+OLLAMA_ENDPOINT_AMD_VULKAN = "http://host.docker.internal:11434/v1"
+OLLAMA_USE_VULKAN = True
+
+# ---
 
 # Abrimos apikey de gemini
 try:
@@ -14,8 +27,6 @@ try:
 except FileNotFoundError:
     raise Exception(f"El archivo Gemini_APIKEY.txt no fue encontrado, crearlo y meter dentro la APIKEY de gemini")
 
-GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=" + Gemini_APIKEY
-OLLAMA_ENDPOINT = "http://ollama-server:11434/api/chat"
 # se crea API
 app = FastAPI(title="LLMAttorney Server")
 
@@ -32,6 +43,12 @@ class Query(BaseModel):
     # Si es None, funciona en modo texto normal.
     json_schema: Optional[Dict[str, Any]] = None
 
+
+class BloodPressure(BaseModel):
+    systolic: int = Field(gt=300, le=400)
+    diastolic: int = Field(gt=0, le=20)
+    location: str = Field(max_length=50)
+    model_config = dict(extra="forbid")
 
 # ---
 
@@ -62,7 +79,7 @@ async def sendGeminiQuery(prompt, LLMConfig, temperature, max_length, json_schem
 
     async with httpx.AsyncClient() as client:
         # Aumentamos timeout porque generar JSON complejo puede tardar unos segundos
-        response = await client.post(GEMINI_ENDPOINT, json=payload, timeout=60.0) 
+        response = await client.post(GEMINI_ENDPOINT + Gemini_APIKEY, json=payload, timeout=60.0) 
         
         if response.status_code != 200:
             # Para ver el error real de Google si falla
@@ -76,52 +93,25 @@ async def sendGeminiQuery(prompt, LLMConfig, temperature, max_length, json_schem
         else:
             return { "answer": response_raw }
 
-
 # Crea la query y la ejecuta para Ollama
-async def sendLlamaQuery(prompt, LLMConfig, temperature, max_length, json_schema=None):    
+async def sendLlamaQuery(prompt, LLMConfig, temperature, max_length, json_schema=None):
+    lm = models.OpenAI(
+        model="llama3",  # Modelo Ollama
+        base_url= OLLAMA_ENDPOINT_AMD_VULKAN if OLLAMA_USE_VULKAN else OLLAMA_ENDPOINT_NVIDIA, 
+        api_key="ollama"
+    )
+
+    with guidance.system():
+        lm += LLMConfig
+
+    with guidance.user():
+        lm += prompt
 
     if json_schema:
-        # Añadimos instrucciones explícitas y el esquema convertido a texto
-        LLMConfig += (
-            "\n\n### INSTRUCCIONES DE FORMATO:\n"
-            "Debes responder EXCLUSIVAMENTE con un objeto JSON válido.\n"
-            "No incluyas texto antes ni después del JSON.\n"
-            f"Sigue estrictamente este esquema:\n{json.dumps(json_schema, indent=2)}"
-        )
+        with guidance.assistant():
+            lm += gen_json("result", schema=json_schema, temperature=temperature)
 
-    payload = {
-        "model": "llama3",
-        "messages": [
-            {"role": "system", "content": LLMConfig},
-            {"role": "user", "content": prompt}
-        ],
-        "options": {
-            "temperature": temperature,
-            "num_predict": max_length
-        },
-        "stream": False  # Importante: para recibir la respuesta de una sola vez
-    }
-    
-    if json_schema:
-        payload["format"] = "json"
-    
-    try:
-        response = requests.post(OLLAMA_ENDPOINT, json=payload)
-        response.raise_for_status() # Lanza un error si la petición falla
-        
-        data = response.json()
-
-        if json_schema:
-            try:
-                return json.loads(data['message']['content'])
-            except json.JSONDecodeError:
-                return {"answer": data['message']['content'], "error": "El modelo no devolvió un JSON válido"}
-        
-        return data['message']['content']
-    
-    except requests.exceptions.RequestException as e:
-        return f"Error al conectar con Ollama: {e}"
-
+    return json.loads(lm['result'])
 
 # endpoint principal
 @app.post("/ask")
@@ -131,7 +121,8 @@ async def ask_LLMAttorney(query: Query):
             answer = await sendGeminiQuery(query.prompt, query.LLMConfig, query.temperature, query.max_length, query.json_schema)
         elif query.mode == "Llama":
             answer = await sendLlamaQuery(query.prompt, query.LLMConfig, query.temperature, query.max_length, query.json_schema)
-
+        else:
+            raise HTTPException(status_code=400)
         return answer
     except httpx.HTTPStatusError as e:
         raise HTTPException(status_code=e.response.status_code, detail=str(e))

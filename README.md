@@ -15,12 +15,9 @@ Una vez iniciado el docker desktop engine, ejecutar el run.bat dentro de PythonS
 ### Gemini
 Para que funcione GEMINI debes incluir la APIKEY en el fichero Gemini_APIKEY.txt dentro de la carpeta PythonServer, la APIKEY se encuentra en el notion en la pestaña de Gemini.
 
-### Ollama (Llama, )
-NO VA !
+### Ollama 
 
-En caso de tener amd seguir el siguiente tutorial: https://github.com/likelovewant/ollama-for-amd
-
-Enlace: https://ollama.com
+Si usas nvidia: Cambiar constante USE_OLLAMA_VULKAN a FALSE en main.py
 
 ## Formato de prompts que acepta LLMAttorney
 
@@ -45,30 +42,21 @@ Recibe un json con los siguientes campos:
 #### Prompt de ejemplo con esquema json
 ```
 {
-	"mode":"Gemini",
-	"prompt": "Hola gemini !",
-  "LLMConfig": "Genera 6 items en D y pon en ellos chistes sobre delfines. En el campo A pon un dato sobre Pedro Sanchez",
+	"mode":"Llama",
+	"prompt": "Genera un personaje de rol",
+  "LLMConfig": "Eres un master de dungeons n dragons",
   "temperature": 0.8,
   "max_length": 4000,
   "json_schema": {
-    "type": "OBJECT",
+    "type": "object",
     "properties": {
-      "A": { "type": "STRING" },
-      "B": { "type": "BOOLEAN" },
-      "C": { "type": "INTEGER" },
-      "D": { 
-        "type": "ARRAY",
-        "items":{
-            "type": "OBJECT",
-						"properties": {
-            	"E": { "type": "STRING" },
-            	"F": { "type": "BOOLEAN" }
-						},
-            "required": ["E", "F"]
-        }
-      }
+      "nombre": { "type": "string" },
+      "clase": { "type": "string", "enum": ["Guerrero", "Mago", "Ladrón"] },
+      "nivel": { "type": "integer", "minimum": 1, "maximum": 20 }
     },
-    "required": ["A", "B", "C", "D"]
+    "required": ["nombre", "clase", "nivel"]
   }
 }
+
+
 ```
