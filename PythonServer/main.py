@@ -39,16 +39,10 @@ class Query(BaseModel):
     LLMConfig: str
     temperature: float # 0 = Creativo 1 = Estricto
     max_length: int # Longitud maxima del output
-    # Nuevo campo: Recibe el esquema JSON deseado. 
-    # Si es None, funciona en modo texto normal.
+    # Nuevo campo: Recibe el esquema JSON deseado
+    # Si es None, funciona en modo texto normal
     json_schema: Optional[Dict[str, Any]] = None
 
-
-class BloodPressure(BaseModel):
-    systolic: int = Field(gt=300, le=400)
-    diastolic: int = Field(gt=0, le=20)
-    location: str = Field(max_length=50)
-    model_config = dict(extra="forbid")
 
 # ---
 
