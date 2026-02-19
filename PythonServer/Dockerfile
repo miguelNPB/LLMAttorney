@@ -10,6 +10,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install -U "langchain[google-genai]"
 RUN pip install -U "langchain[ollama]"
 RUN pip install -qU langchain-google-genai
+RUN pip install -qU langchain-ollama
+RUN pip install -qU langchain-chroma
 
 # Copiamos el codigo y, si esta, el Gemini_APIKEY
 COPY . .
