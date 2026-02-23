@@ -1,11 +1,16 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import Optional, Dict, Any
+#Text management
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+#Embeddings
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_ollama import OllamaEmbeddings
+#VectorStore
+from langchain_chroma import Chroma
 from langchain_core.vectorstores import InMemoryVectorStore
+from langchain.tools import tool
 import httpx
 import requests
 import json
@@ -13,6 +18,8 @@ from guidance import models
 
 import httpx, requests, json, bs4, getpass, os
 
+vector_store = None
+retriever = None
 
 # Carga de archivos Rag
 def load_RAG_file():
@@ -29,24 +36,37 @@ def load_RAG_file():
 
     all_splits = text_splitter.split_documents(docs) 
 
-    print("ALGO")
-    print(f"Total characters: {len(docs[0].page_content)}")
-    print(f"Split blog post into {len(all_splits)} sub-documents.")
-
     #EMBEDDINGS!
-    embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
-    #vector_1 = embeddings.embed_query(all_splits[0].page_content)
-    #vector_2 = embeddings.embed_query(all_splits[1].page_content)
+    #embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
+    embeddings = OllamaEmbeddings(model="llama3")
+    vector_1 = embeddings.embed_query(all_splits[0].page_content)
+    vector_2 = embeddings.embed_query(all_splits[1].page_content)
     assert len(vector_1) == len(vector_2)
-    #PRINTEA LOS VECTORES GENERADOS POR LOS EMBEDDINGS
-    print(f"Generated vectors of length {len(vector_1)}\n")
-    print(vector_1[:10])
 
-    
-    vector_store = InMemoryVectorStore(embeddings)
+    #Vector Store
+    vector_store = InMemoryVectorStore(embeddings = embeddings)
     ids = vector_store.add_documents(documents=all_splits)
-    results = vector_store.similarity_search("Quien tiene derecho a solicitar la nacionalidad española?")
-    print(results[0])
+    #results = vector_store.similarity_search("Quien tiene derecho a solicitar la nacionalidad española?")
+    #print(results[0])
+
+    #Retriever a partir del vector store
+    retriever = vector_store.as_retriever()
+    retriever_test = retriever.invoke("Quien tiene derecho a solicitar la nacionalidad española?")
+    print(retriever_test[0].page_content)
+
+
+#Este metodo se encarga de recibir una peticion del usuario y dar contexto al LLM dados los documentos que almacena en el vector store.
+#devuelve dos datos, el content que es el texto plano con el contenido de los documentos recuperados y los propios documentos que usa para dar esa respuesta.
+@tool(response_format="content_and_artifact")
+def retrieve_context(query: str):
+    retrieved_docs = vector_store.similarity_search(query, k=3)  # Recupera los 3 documentos más relevantes segun la vectorizacion
+
+    #traduccion del texto de los documentos a un formato mas interpretable y ordenado para el LLM.
+    serialized = "\n\n".join(
+        (f"Source: {doc.metadata}\nContent: {doc.page_content}") for doc in retrieved_docs
+    )
+
+    return serialized, retrieved_docs
 
 # Abrimos apikey de gemini
 try:
@@ -73,18 +93,18 @@ app = FastAPI(title="LLMAttorney Server")
 # estructura de json de entrada, pide un campo prompt que es un string
 class Query(BaseModel):
     mode: str
-    prompt: str
-    LLMConfig: str
+    prompt: str #El texto de la pregunta o instrucción que se le da al modelo
+    LLMConfig: str #La configuración o instrucciones para el modelo, que pueden incluir contexto adicional
     temperature: float # 0 = Creativo 1 = Estricto
     max_length: int # Longitud maxima del output
     # Nuevo campo: Recibe el esquema JSON deseado. 
     # Si es None, funciona en modo texto normal.
     json_schema: Optional[Dict[str, Any]] = None
-
+    rag_use: bool #Flag que indica si queremos usar RAG para la consulta que se le hace al modelo
 
 # ---
 
-# Crea la query y la ejecuta para Gemini
+# Crea la query y la ejecuta para Gemini, los distintos datos que se aportan son
 async def sendGeminiQuery(prompt, LLMConfig, temperature, max_length, json_schema=None):
     # Configuración base
     generation_config = {
@@ -175,6 +195,20 @@ async def sendLlamaQuery(prompt, LLMConfig, temperature, max_length, json_schema
 # endpoint principal
 @app.post("/ask")
 async def ask_LLMAttorney(query: Query):
+
+
+    #Comprobacion de uso de rag y obtencio de contexto
+    if query.rag_use:
+        contexto, docs_usados = retrieve_context(query.prompt)
+        #Anyadimos el contexto a la configuracion del LLM para que lo use como referencia a la hora de generar la respuesta
+        query.LLMConfig += (
+            "\n\n### CONTEXTO DE APOYO:\n"
+            "Utiliza esta informacion como apoyo de tu respuesta\n"
+            "No incluyas enlaces ni citas exactas al contexto pasado, simplemente usalo para informarte y generar una respuesta mas precisa y fundamentada\n"
+            f"{contexto}"
+        )
+
+    #Peticiones a los servidores de Gemini y Llama que residen en los respectivos dockers
     try:
         if query.mode == "Gemini":
             answer = await sendGeminiQuery(query.prompt, query.LLMConfig, query.temperature, query.max_length, query.json_schema)
