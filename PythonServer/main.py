@@ -38,13 +38,16 @@ def load_RAG_file():
 
     #EMBEDDINGS!
     #embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
-    embeddings = OllamaEmbeddings(model="llama3")
-    vector_1 = embeddings.embed_query(all_splits[0].page_content)
-    vector_2 = embeddings.embed_query(all_splits[1].page_content)
+    embeddingsRag = OllamaEmbeddings(
+        model="nomic-embed-text",
+        base_url="http://host.docker.internal:11434"
+    )
+    vector_1 = embeddingsRag.embed_query(all_splits[0].page_content)
+    vector_2 = embeddingsRag.embed_query(all_splits[1].page_content)
     assert len(vector_1) == len(vector_2)
 
     #Vector Store
-    vector_store = InMemoryVectorStore(embeddings = embeddings)
+    vector_store = InMemoryVectorStore(embedding=embeddingsRag)
     ids = vector_store.add_documents(documents=all_splits)
     #results = vector_store.similarity_search("Quien tiene derecho a solicitar la nacionalidad española?")
     #print(results[0])
@@ -54,19 +57,6 @@ def load_RAG_file():
     retriever_test = retriever.invoke("Quien tiene derecho a solicitar la nacionalidad española?")
     print(retriever_test[0].page_content)
 
-
-#Este metodo se encarga de recibir una peticion del usuario y dar contexto al LLM dados los documentos que almacena en el vector store.
-#devuelve dos datos, el content que es el texto plano con el contenido de los documentos recuperados y los propios documentos que usa para dar esa respuesta.
-@tool(response_format="content_and_artifact")
-def retrieve_context(query: str):
-    retrieved_docs = vector_store.similarity_search(query, k=3)  # Recupera los 3 documentos más relevantes segun la vectorizacion
-
-    #traduccion del texto de los documentos a un formato mas interpretable y ordenado para el LLM.
-    serialized = "\n\n".join(
-        (f"Source: {doc.metadata}\nContent: {doc.page_content}") for doc in retrieved_docs
-    )
-
-    return serialized, retrieved_docs
 
 # Abrimos apikey de gemini
 try:
@@ -80,13 +70,12 @@ print("ALgo erno")
 if not os.environ.get("GOOGLE_API_KEY"):
     os.environ["GOOGLE_API_KEY"]= Gemini_APIKEY
 
-
-load_RAG_file()
-
 GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=" + Gemini_APIKEY
 OLLAMA_ENDPOINT = "http://ollama-server:11434/api/chat"
 # se crea API
 app = FastAPI(title="LLMAttorney Server")
+
+load_RAG_file()
 
 # --- 
 
@@ -101,6 +90,21 @@ class Query(BaseModel):
     # Si es None, funciona en modo texto normal.
     json_schema: Optional[Dict[str, Any]] = None
     rag_use: bool #Flag que indica si queremos usar RAG para la consulta que se le hace al modelo
+
+# ---
+
+#Este metodo se encarga de recibir una peticion del usuario y dar contexto al LLM dados los documentos que almacena en el vector store.
+#devuelve dos datos, el content que es el texto plano con el contenido de los documentos recuperados y los propios documentos que usa para dar esa respuesta.
+@tool(response_format="content_and_artifact")
+def retrieve_context(query: str):
+    retrieved_docs = vector_store.similarity_search(query, k=3)  # Recupera los 3 documentos más relevantes segun la vectorizacion
+
+    #traduccion del texto de los documentos a un formato mas interpretable y ordenado para el LLM.
+    serialized = "\n\n".join(
+        (f"Source: {doc.metadata}\nContent: {doc.page_content}") for doc in retrieved_docs
+    )
+
+    return serialized, retrieved_docs
 
 # ---
 
