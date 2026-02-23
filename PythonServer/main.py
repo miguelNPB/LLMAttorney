@@ -95,7 +95,8 @@ class Query(BaseModel):
 
 #Este metodo se encarga de recibir una peticion del usuario y dar contexto al LLM dados los documentos que almacena en el vector store.
 #devuelve dos datos, el content que es el texto plano con el contenido de los documentos recuperados y los propios documentos que usa para dar esa respuesta.
-@tool(response_format="content_and_artifact")
+@tool(description="Devuelve el contexto relevante para una consulta dada, basado en los documentos almacenados en el vector store.",
+      response_format="content_and_artifact")
 def retrieve_context(query: str):
     retrieved_docs = vector_store.similarity_search(query, k=3)  # Recupera los 3 documentos más relevantes segun la vectorizacion
 
