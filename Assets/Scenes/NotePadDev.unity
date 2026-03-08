@@ -450,6 +450,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 769316567}
     m_Modifications:
+    - target: {fileID: 1704195806330178749, guid: f18a19dd2eb656240824c2c016e8d83c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704195806330178749, guid: f18a19dd2eb656240824c2c016e8d83c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3611333202471334509, guid: f18a19dd2eb656240824c2c016e8d83c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -530,13 +538,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3680923732616700997, guid: f18a19dd2eb656240824c2c016e8d83c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3940488973620357413, guid: f18a19dd2eb656240824c2c016e8d83c, type: 3}
       propertyPath: m_Name
       value: Notepad
       objectReference: {fileID: 0}
+    - target: {fileID: 3993779468969796493, guid: f18a19dd2eb656240824c2c016e8d83c, type: 3}
+      propertyPath: startingPos.x
+      value: -2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3993779468969796493, guid: f18a19dd2eb656240824c2c016e8d83c, type: 3}
+      propertyPath: startingPos.y
+      value: -2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6413664127167437978, guid: f18a19dd2eb656240824c2c016e8d83c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6413664127167437978, guid: f18a19dd2eb656240824c2c016e8d83c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6719024946225350286, guid: f18a19dd2eb656240824c2c016e8d83c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6879206633675327656, guid: f18a19dd2eb656240824c2c016e8d83c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
