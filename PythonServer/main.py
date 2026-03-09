@@ -47,7 +47,7 @@ def load_RAG_file():
         print("No existe el directorio del vector store, creando uno nuevo a partir del PDF...")
 
         # Carga del documento PDF dando la ruta y el modo de carga (todo en un bloque, sin array)
-        loader = PyPDFLoader("./CodigoCivilYLegislacion.pdf", mode = "single")
+        loader = PyPDFLoader("./documentos_rag/boe_codigo_civil_legislacion_complementaria.pdf", mode = "single")
         docs = loader.load()
 
         # División de todo el texto en sectores
