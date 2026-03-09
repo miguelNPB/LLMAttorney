@@ -1,3 +1,5 @@
+from importlib.resources import path
+
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import Optional, Dict, Any
@@ -8,9 +10,10 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_ollama import OllamaEmbeddings
 #VectorStore
-from langchain_chroma import Chroma
+from langchain_community.vectorstores.chroma import Chroma
 from langchain_core.vectorstores import InMemoryVectorStore
 from langchain.tools import tool
+from pathlib import Path
 import httpx
 import requests
 import json
@@ -23,39 +26,63 @@ retriever = None
 
 # Carga de archivos Rag
 def load_RAG_file():
-    # Carga del documento PDF dando la ruta y el modo de carga (todo en un bloque, sin array)
-    loader = PyPDFLoader("./CodigoCivilYLegislacion.pdf", mode = "single")
-    docs = loader.load()
 
-    # División de todo el texto en sectores
-    text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=500,  # chunk size (characters)
-        chunk_overlap=100,  # chunk overlap (characters)
-        add_start_index=True,  # track index in original document
-    )
-
-    all_splits = text_splitter.split_documents(docs) 
+    path_civilCode = Path("/vector_db/CodigoCivil_db")
+    path_civilCode.mkdir(parents=True, exist_ok=True)
 
     #EMBEDDINGS!
     #embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
     embeddingsRag = OllamaEmbeddings(
         model="nomic-embed-text",
         base_url="http://host.docker.internal:11434"
-    )
-    vector_1 = embeddingsRag.embed_query(all_splits[0].page_content)
-    vector_2 = embeddingsRag.embed_query(all_splits[1].page_content)
-    assert len(vector_1) == len(vector_2)
+    ) 
 
-    #Vector Store
-    vector_store = InMemoryVectorStore(embedding=embeddingsRag)
-    ids = vector_store.add_documents(documents=all_splits)
-    #results = vector_store.similarity_search("Quien tiene derecho a solicitar la nacionalidad española?")
-    #print(results[0])
+    if not any(path_civilCode.iterdir()):
 
-    #Retriever a partir del vector store
-    retriever = vector_store.as_retriever()
-    retriever_test = retriever.invoke("Quien tiene derecho a solicitar la nacionalidad española?")
-    print(retriever_test[0].page_content)
+        print("No existe el directorio del vector store, creando uno nuevo a partir del PDF...")
+
+        # Carga del documento PDF dando la ruta y el modo de carga (todo en un bloque, sin array)
+        loader = PyPDFLoader("./CodigoCivilYLegislacion.pdf", mode = "single")
+        docs = loader.load()
+
+        # División de todo el texto en sectores
+        text_splitter = RecursiveCharacterTextSplitter(
+            chunk_size=500,  # chunk size (characters)
+            chunk_overlap=100,  # chunk overlap (characters)
+            add_start_index=True,  # track index in original document
+        )
+
+        all_splits = text_splitter.split_documents(docs)   
+
+        #Vector Store
+        vector_store = Chroma.from_documents(
+            documents=all_splits,
+            embedding=embeddingsRag,
+            persist_directory=str(path_civilCode),
+            collection_name="codigo_civil"
+        )
+
+        vector_store.persist()
+
+        #Retriever a partir del vector store
+        retriever = vector_store.as_retriever()
+        retriever_test = retriever.invoke("Quien tiene derecho a solicitar la nacionalidad española?")
+        print(retriever_test[0].page_content)
+
+    else:
+
+        print("Si existe el directorio del vector store, cargando el vector store ya creado...")
+
+        vector_store = Chroma(
+            persist_directory=str(path_civilCode),
+            embedding_function=embeddingsRag,
+            collection_name="codigo_civil"
+        )
+
+        #Retriever a partir del vector store
+        retriever = vector_store.as_retriever()
+        retriever_test = retriever.invoke("Quien tiene derecho a solicitar la nacionalidad española?")
+        print(retriever_test[0].page_content)
 
 
 # Abrimos apikey de gemini
@@ -72,10 +99,13 @@ if not os.environ.get("GOOGLE_API_KEY"):
 
 GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=" + Gemini_APIKEY
 OLLAMA_ENDPOINT = "http://ollama-server:11434/api/chat"
+
 # se crea API
 app = FastAPI(title="LLMAttorney Server")
 
-load_RAG_file()
+@app.on_event("startup")
+def startup():
+    load_RAG_file()
 
 # --- 
 
