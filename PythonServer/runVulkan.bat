@@ -82,7 +82,7 @@ pause
 
 :: 5. docker del server de python
 docker build -t llmattorney .
-docker run --rm -p 8000:8000 --network ollama-net --name llmattorney-server llmattorney
+docker run --rm -p 8000:8000 --network ollama-net -v "%cd%\vector_db:/vector_db" --name llmattorney-server llmattorney
 
 
 pause
