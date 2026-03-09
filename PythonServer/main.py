@@ -1,5 +1,4 @@
 from importlib.resources import path
-
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 from typing import Optional, Dict, Any
@@ -21,6 +20,7 @@ import guidance
 from guidance import models, gen, select
 from guidance import json as gen_json
 import asyncio
+import datetime
 
 import httpx, requests, json, bs4, getpass, os
 
@@ -29,6 +29,8 @@ retriever = None
 
 # Carga de archivos Rag
 def load_RAG_file():
+
+    a = datetime.datetime.now()
 
     path_civilCode = Path("/vector_db/CodigoCivil_db")
     path_civilCode.mkdir(parents=True, exist_ok=True)
@@ -67,6 +69,10 @@ def load_RAG_file():
 
         vector_store.persist()
 
+        b = datetime.datetime.now()
+
+        print(f"Tiempo de carga y vectorizacion: {b-a}")
+
         #Retriever a partir del vector store
         retriever = vector_store.as_retriever()
         retriever_test = retriever.invoke("Quien tiene derecho a solicitar la nacionalidad española?")
@@ -81,6 +87,10 @@ def load_RAG_file():
             embedding_function=embeddingsRag,
             collection_name="codigo_civil"
         )
+
+        b = datetime.datetime.now()
+
+        print(f"Tiempo de carga y vectorizacion: {b-a}")
 
         #Retriever a partir del vector store
         retriever = vector_store.as_retriever()
