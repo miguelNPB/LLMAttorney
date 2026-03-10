@@ -19,6 +19,9 @@ public class CharacterCreator : MonoBehaviour
 
     [SerializeField]
     private Sprite[] _femaleHairs;
+
+    [SerializeField]
+    private Sprite[] _femaleBehindHairs;
     #endregion
 
     #region Colors
@@ -48,6 +51,9 @@ public class CharacterCreator : MonoBehaviour
     [SerializeField]
     private SpriteRenderer _hairRef;
 
+    [SerializeField]
+    private SpriteRenderer _hairBehindRef;
+
     #endregion
 
     [SerializeField, Range(0, 1)]
@@ -76,16 +82,19 @@ public class CharacterCreator : MonoBehaviour
             //Es mujer
             int hairValue = Random.Range(0, _femaleHairs.Length);
             _hairRef.sprite = _femaleHairs[hairValue];
+            _hairBehindRef.sprite = _femaleBehindHairs[hairValue];
         }
         else
         {
             //Es hombre
             int hairValue = Random.Range(0, _maleHairs.Length);
             _hairRef.sprite = _maleHairs[hairValue];
+            
         }
 
         int hairColorValue = Random.Range(0, _hairColor.Length);
         _hairRef.color = _hairColor[hairColorValue];
+        _hairBehindRef.color = _hairColor[hairColorValue];
 
         //Cuerpo
         int principalColor = Random.Range(0, _skinColor.Length);
