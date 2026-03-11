@@ -4,6 +4,13 @@ using UnityEngine;
 public class CharacterCreator : MonoBehaviour
 {
 
+    enum Roles
+    {
+        Lawyer,
+        Judge,
+        Client
+    }
+
     #region BodyParts
     [SerializeField]
     private Sprite[] _eyes;
@@ -22,6 +29,19 @@ public class CharacterCreator : MonoBehaviour
 
     [SerializeField]
     private Sprite[] _femaleBehindHairs;
+
+    [SerializeField]
+    private Sprite _maleLawyerClothes;
+
+    [SerializeField]
+    private Sprite _femaleLawyerClothes;
+
+    [SerializeField]
+    private Sprite _judgeClothes;
+
+    [SerializeField]
+    private Sprite _normalClothes;
+
     #endregion
 
     #region Colors
@@ -31,6 +51,9 @@ public class CharacterCreator : MonoBehaviour
 
     [SerializeField]
     private Color32[] _hairColor;
+
+    [SerializeField]
+    private Color32[] _shirtColor;
 
     #endregion
 
@@ -54,10 +77,16 @@ public class CharacterCreator : MonoBehaviour
     [SerializeField]
     private SpriteRenderer _hairBehindRef;
 
+    [SerializeField]
+    private SpriteRenderer _clothesRef;
+
     #endregion
 
     [SerializeField, Range(0, 1)]
     private float _maleProbability;
+
+    [SerializeField]
+    private Roles _role; 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -116,5 +145,28 @@ public class CharacterCreator : MonoBehaviour
         _noseRef.sprite = _noses[noseValue];
         _noseRef.color = _skinColor[principalColor];
 
+        //Ropa
+
+        if(_role == Roles.Client)
+        {
+            int clothesColor = Random.Range(0, _shirtColor.Length);
+            _clothesRef.sprite = _normalClothes;
+            _clothesRef.color = _shirtColor[clothesColor];
+        }
+        else if(_role == Roles.Judge)
+        {
+            _clothesRef.sprite = _judgeClothes;
+        }
+        else
+        {
+            if (genderValue > _maleProbability)
+            {
+                _clothesRef.sprite = _femaleLawyerClothes;
+            }
+            else
+            {
+                _clothesRef.sprite = _maleLawyerClothes;
+            }
+        }
     }
 }

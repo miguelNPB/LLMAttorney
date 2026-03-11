@@ -821,7 +821,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: cbd11d1aba8a3bf438731e91cb1f4a88, type: 3}
   m_Color: {r: 0.6603774, g: 0.46900237, b: 0.10341754, a: 1}
   m_FlipX: 0
@@ -869,6 +869,7 @@ Transform:
   - {fileID: 37367760}
   - {fileID: 1524339601}
   - {fileID: 812889332}
+  - {fileID: 1759157662}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1553372049
@@ -949,6 +950,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: aaa2854b94344854ab1b1a2c6480deb6, type: 3}
   - {fileID: 21300000, guid: 671b0b1545670c544bb612922a874738, type: 3}
   - {fileID: 21300000, guid: 9c7a4423b98224549bd169bc7d443c5c, type: 3}
+  _maleLawyerClothes: {fileID: 21300000, guid: 8bfb3370296731d4a99aa3d5b03b3028, type: 3}
+  _femaleLawyerClothes: {fileID: 21300000, guid: 191adc2cc6112a946addd3a91c8ce09a, type: 3}
+  _judgeClothes: {fileID: 21300000, guid: 2932b969ae213db4c8c2941e149909fc, type: 3}
+  _normalClothes: {fileID: 21300000, guid: b729f26d716199a47a87e97bfd1b75cb, type: 3}
   _skinColor:
   - serializedVersion: 2
     rgba: 4279322555
@@ -968,24 +973,127 @@ MonoBehaviour:
   - serializedVersion: 2
     rgba: 4279047199
   - serializedVersion: 2
-    rgba: 4281349496
-  - serializedVersion: 2
     rgba: 4291295227
   - serializedVersion: 2
-    rgba: 4279378777
+    rgba: 4279837504
   - serializedVersion: 2
     rgba: 4280722111
   - serializedVersion: 2
     rgba: 4280701887
   - serializedVersion: 2
     rgba: 4280694463
+  _shirtColor:
+  - serializedVersion: 2
+    rgba: 4283195212
+  - serializedVersion: 2
+    rgba: 4284790718
+  - serializedVersion: 2
+    rgba: 4285424830
+  - serializedVersion: 2
+    rgba: 4290667701
+  - serializedVersion: 2
+    rgba: 4290667623
+  - serializedVersion: 2
+    rgba: 4290690148
   _bodyRef: {fileID: 2132373102}
   _eyesRef: {fileID: 1013370608}
   _noseRef: {fileID: 990830687}
   _mouthRef: {fileID: 37367761}
   _hairRef: {fileID: 1524339602}
   _hairBehindRef: {fileID: 812889331}
+  _clothesRef: {fileID: 1759157663}
   _maleProbability: 0.5
+  _role: 2
+--- !u!1 &1759157661
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1759157662}
+  - component: {fileID: 1759157663}
+  m_Layer: 0
+  m_Name: Clothes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1759157662
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1759157661}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1553372048}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1759157663
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1759157661}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 3
+  m_Sprite: {fileID: 21300000, guid: 8bfb3370296731d4a99aa3d5b03b3028, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &2132373100
 GameObject:
   m_ObjectHideFlags: 0
