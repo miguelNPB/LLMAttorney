@@ -558,7 +558,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1417171369
 RectTransform:
   m_ObjectHideFlags: 0
@@ -591,7 +591,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7056604, g: 0.7056604, b: 0.7056604, a: 1}
+  m_Color: {r: 0.61572665, g: 1, b: 0.48113203, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -938,7 +938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6156863, g: 1, b: 0.48235294, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1112,6 +1112,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BotonChatCliente
       objectReference: {fileID: 0}
+    - target: {fileID: 3297432148304798067, guid: 1a42d13b3a376da48b0032cba42e1bae, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3838750178931281249, guid: 1a42d13b3a376da48b0032cba42e1bae, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1126,7 +1130,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3838750178931281249, guid: 1a42d13b3a376da48b0032cba42e1bae, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3838750178931281249, guid: 1a42d13b3a376da48b0032cba42e1bae, type: 3}
       propertyPath: m_AnchorMin.x
@@ -1134,15 +1138,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3838750178931281249, guid: 1a42d13b3a376da48b0032cba42e1bae, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3838750178931281249, guid: 1a42d13b3a376da48b0032cba42e1bae, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 3838750178931281249, guid: 1a42d13b3a376da48b0032cba42e1bae, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 3838750178931281249, guid: 1a42d13b3a376da48b0032cba42e1bae, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1174,11 +1178,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3838750178931281249, guid: 1a42d13b3a376da48b0032cba42e1bae, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 175
       objectReference: {fileID: 0}
     - target: {fileID: 3838750178931281249, guid: 1a42d13b3a376da48b0032cba42e1bae, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -175
       objectReference: {fileID: 0}
     - target: {fileID: 3838750178931281249, guid: 1a42d13b3a376da48b0032cba42e1bae, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
