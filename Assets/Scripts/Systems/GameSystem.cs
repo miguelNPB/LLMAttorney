@@ -16,7 +16,9 @@ public class GameSystem : MonoBehaviour
         _caseData.clientMessages.Add(new ConversationMessage("Hola abogado!", false));
         _caseData.clientMessages.Add(new ConversationMessage("Me llamo Carlos Leon, y me comunico contigo para que me ayudes con una disputa que he tenido con mi vecino, Guillermo Jimenez", false));
         _caseData.clientMessages.Add(new ConversationMessage("Claro! Cuentame!", true));
-        _caseData.clientMessages.Add(new ConversationMessage("asdf", false));
+        _caseData.clientMessages.Add(new ConversationMessage("Sabes que esto es una prueba de un sistema de texto de conversacion estilo whatsap?", false));
+        _caseData.clientMessages.Add(new ConversationMessage("Bklajdsñkjfñlsajdfñkljasñkdfjlkasjdfñkaskfjasdfjsdkfjalkdsfklfkljdkfñaldskasdfñsdñkfasdjfkfklñkñdfksfjdfkñsdkflkdflkdfkñakjlkñsfljadkflañksjflkjdfkñ aklajsdkfljasdkñfjaklsdjfñklajsdñkfljañkljdflk aksdjfklñ?", true));
+        _caseData.clientMessages.Add(new ConversationMessage("Estas bien?", false));
     }
 
     private void Awake()

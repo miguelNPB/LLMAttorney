@@ -14,7 +14,8 @@ using UnityEngine.InputSystem;
         }
         public void ScrollPerformed(InputAction.CallbackContext context)
         {
-            OnScrollPerformed?.Invoke(context.ReadValue<float>());
+            if (context.performed)
+                OnScrollPerformed?.Invoke(context.ReadValue<float>());
         }
 
         private void Awake()
