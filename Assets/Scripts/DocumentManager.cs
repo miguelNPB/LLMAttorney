@@ -28,7 +28,7 @@ public class DocumentManager : MonoBehaviour
     private Vector2 targetPos;
     private float lerpProgress = 0f;
 
-    private Vector2 docPos = new Vector2(-60, 30);
+    private Vector2 docPos = new Vector2(-3, 30);
     private List<GameObject> documents;
 
     // Drag state
@@ -238,14 +238,14 @@ public class DocumentManager : MonoBehaviour
     #region Documentos
     public void CreateDocument(string docName, DocType docType, string content, bool valid)
     {
-        docPos.x += 20;
-        if (docPos.x > 40) { docPos.x = -40; docPos.y -= 20; }
+        docPos.x++;
+        if (docPos.x > 2) { docPos.x = -2; docPos.y -= 220; }
 
         GameObject aux = Instantiate(documentPrefab);
         aux.GetComponent<Document>().SetDoc(docName, docType, content, valid);
 
         aux.transform.SetParent(documentTab.transform);
-        aux.transform.localPosition = docPos;
+        aux.transform.localPosition = new Vector3(docPos.x * 200, docPos.y, 0);
         aux.transform.localScale = Vector3.one;
 
         Button docButton = aux.GetComponentInChildren<Button>();

@@ -15,17 +15,29 @@ public class Document : MonoBehaviour
     TMP_Text fileNameObject;
 
     [SerializeField]
-    TMP_Text fileContentObject;
+    GameObject fileContentObject;
+    
+    [SerializeField]
+    [InspectorName("Document button")]
+    GameObject documentButton;
+
+    [SerializeField]
+    [InspectorName("Exit button")]
+    GameObject exitButton;
 
     private DocType docType;
 
+    private string fileName;
+    private string content;
     private bool valid = false;
 
     private bool changed = false;
     void Start()
     {
-        this.gameObject.GetComponent<Button>().onClick.AddListener(OnClickDocument);
         fileContentObject.gameObject.SetActive(false);
+        exitButton.GetComponent<Button>().onClick.AddListener(OnClickDocument);
+        documentButton.GetComponent<Button>().onClick.AddListener(OnClickDocument);
+
     }
 
     // Update is called once per frame
@@ -39,11 +51,19 @@ public class Document : MonoBehaviour
         if (!changed)
         {
             changed = true;
-            this.gameObject.GetComponent<Image>().sprite = imageChange;
+            documentButton.GetComponent<Image>().sprite = imageChange;
         }
 
-        fileContentObject.gameObject.SetActive(!fileContentObject.gameObject.active);
+        fileContentObject.gameObject.SetActive(!fileContentObject.gameObject.activeSelf);
     }
+
+    #region GET&SET
+
+    public string GetDocName() { return this.fileName; }
+    public DocType GetDocType() { return this.docType; }
+    public string GetContent() { return this.content; }
+    public bool IsValid() {  return this.valid; }
+
 
     /// <summary>
     /// Metodo para cambiar el nombre del documento
@@ -51,7 +71,9 @@ public class Document : MonoBehaviour
     /// <param name="name">Nombre nuevo del documento</param>
     public void SetDocName(string name)
     {
-        fileNameObject.text = name;
+        this.fileName = name;
+        fileNameObject.text = fileName;
+        
     }
     /// <summary>
     /// Metodo para cambiar el contenido del documento
@@ -59,7 +81,8 @@ public class Document : MonoBehaviour
     /// <param name="content">Contenido nuevo del dodumento</param>
     public void SetDocContent(string content)
     {
-        fileContentObject.text = content;
+        this.content = content;
+        fileContentObject.GetComponentInChildren<TMP_Text>().text = this.content;
     }
 
     /// <summary>
@@ -76,4 +99,7 @@ public class Document : MonoBehaviour
         this.valid = valid;
         this.docType = docType;
     }
+
+
+    #endregion
 }
