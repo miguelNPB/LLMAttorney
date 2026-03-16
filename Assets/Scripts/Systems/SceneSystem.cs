@@ -16,7 +16,12 @@ public class SceneSystem : MonoBehaviour
 
     private void Awake()
     {
+        if (SceneSystem.Instance != null)
+            Destroy(this);
+
         instance = this;
+
+        DontDestroyOnLoad(gameObject);
     }
 
     public static SceneSystem Instance { get { return instance; } }

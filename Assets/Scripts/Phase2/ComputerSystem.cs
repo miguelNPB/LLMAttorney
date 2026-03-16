@@ -4,6 +4,7 @@ using UnityEngine;
 [Serializable] public enum Page { MainMenu, ChatClient }
 public class ComputerSystem : MonoBehaviour
 {
+    public GameObject exitButton;
     public GameObject mainMenuPage;
     public GameObject chatClientPage;
 
@@ -19,6 +20,8 @@ public class ComputerSystem : MonoBehaviour
         TogglePage(currentPage, false);
         TogglePage(page, true);
         currentPage = page;
+
+        exitButton.SetActive(page != Page.MainMenu);
     }
 
     private void TogglePage(Page page, bool on)

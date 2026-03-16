@@ -1,13 +1,22 @@
 using System.Collections.Generic;
 
-
-public struct Message
+public struct ConversationMessage
 {
-    public bool fromPlayer;
     public string text;
+    public bool fromPlayer;
+
+    public ConversationMessage(string text, bool fromPlayer)
+    {
+        this.text = text;
+        this.fromPlayer = fromPlayer;
+    }
 }
 
 public class CaseData
 {
-    List<Message> clientMessages; 
+    // datos interacciones cliente
+    public List<ConversationMessage> clientMessages = new List<ConversationMessage>();
+    public string clientName = "";
+
+    // resto
 }
