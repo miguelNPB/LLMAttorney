@@ -119,17 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &199425628 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3155943295086059753, guid: 852933553285a6740a5814b19dd8a800, type: 3}
-  m_PrefabInstance: {fileID: 881671296470191079}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64dd1ce8fea02504b962392dff28afaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ComputerSystem
 --- !u!1 &324044552
 GameObject:
   m_ObjectHideFlags: 0
@@ -751,10 +740,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Phase2PCCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 3323866479899265576, guid: 852933553285a6740a5814b19dd8a800, type: 3}
-      propertyPath: computerSystem
-      value: 
-      objectReference: {fileID: 199425628}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
