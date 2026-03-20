@@ -6,10 +6,8 @@ Para obtener una respuesta de la LLM, debemos llamar a ```LLMAttorney_API.Instan
 
 Para esquematizar la respuesta del LLM, si pasamos null al campo JsonSchema, el LLM devolverá un string como hace cualquier llm como chatgpt en su web.  
 Si queremos que responda en formato JSON, con campos con variables de tipos, debemos pasar un JsonSchema. Para crearlo se crea haciendo new, y luego se tienen que añadir en properties clases de tipo PropertyInfo, que contienen un valor que pasar al inicializar con el tipo de variable posible.  
-Hay 5 tipos: String, Float, Integer, Boolean, Object (un propertyInfo que contiene otros propertyInfo), y Array (Array de strings)
-
-
-
+Hay 5 tipos: String, Float, Integer, Boolean, Object (un propertyInfo que contiene otros propertyInfo), y Array (Array de strings)  
+Luego de pasar el prompt, al recibirlo hay que serializarlo en unas clases que crearemos, que contienen los mismos campos y mismos nombres que hemos creado en el JsonSchema.
 
 ### Código de ejemplo
 ```
