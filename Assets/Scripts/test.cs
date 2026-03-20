@@ -28,7 +28,7 @@ public class test : MonoBehaviour
     /// </summary>
     public void SendPrompt()
     {
-        llm.SendPrompt(apiType, promptField.text, llmConfigField.text, temperature, max_length, PrintPrompt);
+        //llm.SendPrompt(apiType, promptField.text, llmConfigField.text, temperature, max_length, PrintPrompt);
 
         promptField.text = "";
         llmConfigField.text = "";

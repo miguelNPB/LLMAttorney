@@ -31,6 +31,8 @@ public class GameSystem : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         CreateExampleCaseData();
+
+        //Cursor.lockState = CursorLockMode.Confined;
     }
 
 

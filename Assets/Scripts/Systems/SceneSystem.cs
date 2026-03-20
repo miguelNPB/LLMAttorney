@@ -20,8 +20,6 @@ public class SceneSystem : MonoBehaviour
             Destroy(this);
 
         instance = this;
-
-        DontDestroyOnLoad(gameObject);
     }
 
     public static SceneSystem Instance { get { return instance; } }

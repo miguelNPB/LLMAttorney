@@ -103,9 +103,14 @@ async def sendLlamaQuery(prompt, LLMConfig, temperature, max_length, json_schema
 
     if json_schema:
         with guidance.assistant():
-            lm += gen_json("result", schema=json_schema, temperature=temperature)
+            lm += gen_json("result", schema=json_schema, temperature=temperature, max_tokens=max_length)
+        return json.loads(lm['result'])
+    else:
+        with guidance.assistant():
+            lm += gen(name="result", temperature=temperature, max_tokens=max_length)
+        return lm['result']
 
-    return json.loads(lm['result'])
+    
 
 # endpoint principal
 @app.post("/ask")

@@ -24,8 +24,6 @@ using UnityEngine.InputSystem;
                 Destroy(this);
 
             instance = this;
-
-            DontDestroyOnLoad(gameObject);
         }
 
         public static InputSystem Instance { get { return instance; } }
