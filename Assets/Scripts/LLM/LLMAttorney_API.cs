@@ -110,6 +110,8 @@ public class LLMAttorney_API : MonoBehaviour
     public string ip = "localhost";
     public int port = 8000;
 
+    private bool _sendingPrompt = false;
+
     public static LLMAttorney_API Instance { get; private set; }
 
     /**
@@ -152,9 +154,13 @@ public class LLMAttorney_API : MonoBehaviour
      * @param schema Esquema JSON de como queremos que responda el LLM de forma mas guiada. En caso de no necesitarlo, pasar null y devolvera un string
      * @param temperature float en el rango [0f, 1f] que indica como de creativo es el LLM. 0 = Predecible 1 = Creativo
      * @param max_length Tokens maximos del texto, esto no usarlo mucho q no funciona muy bien
+     * @return Devuelve true si se ha podido mandar, si no hay ningun prompt encolado
      */
-    public void SendPrompt(API_TYPE apiType, Action<bool, string> onComplete, string prompt, string LLMConfig, JsonSchema schema = null, float temperature = 0.8f, int max_length = 99999)
+    public bool SendPrompt(API_TYPE apiType, Action<bool, string> onComplete, string prompt, string LLMConfig, JsonSchema schema = null, float temperature = 0.8f, int max_length = 99999)
     {
+        if (_sendingPrompt)
+            return false;
+
         if (schema == null)
         {
             // Crear la request
@@ -194,6 +200,8 @@ public class LLMAttorney_API : MonoBehaviour
 
             StartCoroutine(SendRequest(json, onComplete));
         }
+
+        return true;
     }
 
     /**
@@ -201,6 +209,8 @@ public class LLMAttorney_API : MonoBehaviour
      */
     private IEnumerator SendRequest(string json, Action<bool, string> onComplete)
     {
+        _sendingPrompt = true;
+
         UnityWebRequest www = new UnityWebRequest(ip + ":" + port.ToString() + "/ask", "POST");
 
         // empaquetamos el contenido en la UnityWebRequest
@@ -219,6 +229,8 @@ public class LLMAttorney_API : MonoBehaviour
 
         // llamamos al callback
         onComplete?.Invoke(success, response);
+
+        _sendingPrompt = false;
     }
 
 

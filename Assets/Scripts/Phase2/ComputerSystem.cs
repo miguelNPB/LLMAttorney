@@ -6,7 +6,10 @@ public class ComputerSystem : MonoBehaviour
 {
     public GameObject exitButton;
     public GameObject mainMenuPage;
-    public GameObject chatClientPage;
+    public PCPage chatClientPage;
+
+    [Header("Notifications")]
+    public GameObject chatClientNotification;
 
 
     private Page currentPage = Page.MainMenu;
@@ -24,6 +27,16 @@ public class ComputerSystem : MonoBehaviour
         exitButton.SetActive(page != Page.MainMenu);
     }
 
+    public void ToggleNotification(Page page, bool on)
+    {
+        switch (page)
+        {
+            case Page.ChatClient:
+                chatClientNotification.SetActive(on);
+                break;
+        }
+    }
+
     private void TogglePage(Page page, bool on)
     {
         switch (page)
@@ -32,7 +45,10 @@ public class ComputerSystem : MonoBehaviour
                 mainMenuPage.SetActive(on);
                 break;
             case Page.ChatClient:
-                chatClientPage.SetActive(on);
+                if (on)
+                    chatClientPage.Open();
+                else
+                    chatClientPage.Close();
                 break;
         }
     }
