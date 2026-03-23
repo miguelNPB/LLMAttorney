@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing.Text;
 using System.Text;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -19,6 +20,7 @@ public class LLMAttorneyRequest
     public string prompt;
     public float temperature;
     public int max_length;
+    public bool rag_use;
 }
 
 /// <summary>
@@ -33,6 +35,7 @@ public class LLMAttorneyRequestJSONSchema
     public float temperature;
     public int max_length;
     public JsonSchema json_schema;
+    public bool rag_use;
 }
 
 /// <summary>
@@ -153,10 +156,11 @@ public class LLMAttorney_API : MonoBehaviour
      * @param LLMConfig Texto con instrucciones de como debe responder el LLM
      * @param schema Esquema JSON de como queremos que responda el LLM de forma mas guiada. En caso de no necesitarlo, pasar null y devolvera un string
      * @param temperature float en el rango [0f, 1f] que indica como de creativo es el LLM. 0 = Predecible 1 = Creativo
+     * @param ragUse bool que marca si el LLM debe usar la informacion aportada con el Rag para responder al prompt o no
      * @param max_length Tokens maximos del texto, esto no usarlo mucho q no funciona muy bien
      * @return Devuelve true si se ha podido mandar, si no hay ningun prompt encolado
      */
-    public bool SendPrompt(API_TYPE apiType, Action<bool, string> onComplete, string prompt, string LLMConfig, JsonSchema schema = null, float temperature = 0.8f, int max_length = 99999)
+    public bool SendPrompt(API_TYPE apiType, Action<bool, string> onComplete, string prompt, string LLMConfig, JsonSchema schema = null, float temperature = 0.8f, bool ragUse = false, int max_length = 99999)
     {
         if (_sendingPrompt)
             return false;
@@ -171,6 +175,7 @@ public class LLMAttorney_API : MonoBehaviour
                 prompt = prompt,
                 temperature = temperature,
                 max_length = max_length,
+                rag_use = ragUse
             };
 
             string json = JsonConvert.SerializeObject(requestData, Formatting.Indented);
@@ -194,6 +199,7 @@ public class LLMAttorney_API : MonoBehaviour
                 temperature = temperature,
                 max_length = max_length,
                 json_schema = schema,
+                rag_use = ragUse
             };
 
             string json = JsonConvert.SerializeObject(requestData, Formatting.Indented);
