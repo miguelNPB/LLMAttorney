@@ -204,11 +204,17 @@ async def sendLlamaQuery(prompt, LLMConfig, temperature, max_length, json_schema
         api_key="ollama"
     )
 
+    print("Modelo Llama configurado, preparando prompt...")
+
     with guidance.system():
         lm += LLMConfig
 
+    print("guidance system preparado, añadiendo prompt...")
+
     with guidance.user():
         lm += prompt
+
+    print("guidance user preparado, añadiendo prompt...")
 
     if json_schema:
         with guidance.assistant():
@@ -218,6 +224,8 @@ async def sendLlamaQuery(prompt, LLMConfig, temperature, max_length, json_schema
         with guidance.assistant():
             lm += gen(name="result", temperature=temperature, max_tokens=max_length)
         return lm['result']
+    
+    
 
 # endpoint principal
 @app.post("/ask")
