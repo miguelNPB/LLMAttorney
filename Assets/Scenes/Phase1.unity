@@ -1414,10 +1414,42 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 912615290}
     m_Modifications:
+    - target: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: _ragUse
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2800977689686718766, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 4665822228252766508}
+    - target: {fileID: 2800977689686718766, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SendChatMessage
       objectReference: {fileID: 0}
+    - target: {fileID: 2800977689686718766, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LLMConectorSearch, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3648675196692939725, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: inputField
+      value: 
+      objectReference: {fileID: 4665822228252766505}
+    - target: {fileID: 3865521762525230761, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: m_fontSize
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3865521762525230761, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5126775781348832107, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: resultText
+      value: 
+      objectReference: {fileID: 4665822228252766506}
+    - target: {fileID: 5126775781348832107, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: ConversationMessageUIPrefab
+      value: 
+      objectReference: {fileID: 4665822228252766507}
     - target: {fileID: 5307846417687057373, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1507,6 +1539,44 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+--- !u!114 &4665822228252766505 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6603538375019839910, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+  m_PrefabInstance: {fileID: 4665822228252766504}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TMP_InputField
+--- !u!114 &4665822228252766506 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5204978409469182492, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+  m_PrefabInstance: {fileID: 4665822228252766504}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!1 &4665822228252766507 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8755090858604579984, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+  m_PrefabInstance: {fileID: 4665822228252766504}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4665822228252766508 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3648675196692939725, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+  m_PrefabInstance: {fileID: 4665822228252766504}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81b4fcb9cca22ec41b2e5a41a78b185b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LLMConectorSearch
 --- !u!224 &7996628435419659413 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2216014338794435774, guid: a66b197d1a3e783458cb95c7672f8ca8, type: 3}

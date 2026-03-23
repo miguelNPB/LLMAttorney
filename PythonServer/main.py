@@ -24,11 +24,12 @@ import datetime
 
 import httpx, requests, json, bs4, getpass, os
 
-vector_store = None
-retriever = None
+
 
 # Carga de archivos Rag
 def load_RAG_file():
+
+    global vector_store
 
     a = datetime.datetime.now()
 
@@ -218,8 +219,6 @@ async def sendLlamaQuery(prompt, LLMConfig, temperature, max_length, json_schema
             lm += gen(name="result", temperature=temperature, max_tokens=max_length)
         return lm['result']
 
-    
-
 # endpoint principal
 @app.post("/ask")
 async def ask_LLMAttorney(query: Query):
@@ -227,14 +226,25 @@ async def ask_LLMAttorney(query: Query):
 
     #Comprobacion de uso de rag y obtencio de contexto
     if query.rag_use:
-        contexto, docs_usados = retrieve_context(query.prompt)
+
+        print("vector_store:", vector_store)
+
+        retriever_output = vector_store.as_retriever().invoke(query.prompt)  # Recupera los documentos relevantes para la consulta
+
+        print("retriever_output tomado")
+
+        contexto = "\n\n".join([doc.page_content for doc in retriever_output])
+
+        print("contexto generado: ", contexto)
+
         #Anyadimos el contexto a la configuracion del LLM para que lo use como referencia a la hora de generar la respuesta
         query.LLMConfig += (
             "\n\n### CONTEXTO DE APOYO:\n"
             "Utiliza esta informacion como apoyo de tu respuesta\n"
             "No incluyas enlaces ni citas exactas al contexto pasado, simplemente usalo para informarte y generar una respuesta mas precisa y fundamentada\n"
-            f"{contexto}"
+            f"{contexto}"  # Aqui se añade el contenido recuperado al final de la configuracion del LLM
         )
+
 
     #Peticiones a los servidores de Gemini y Llama que residen en los respectivos dockers
     try:
