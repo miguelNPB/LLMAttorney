@@ -67,13 +67,7 @@ public class LLMConectorSearch : LLMConector
 
         Debug.Log("PROMPT: " + prompt);
         Debug.Log("CONTEXT: " + configLLM);
-        Debug.Log("Schema: " + schema);
-
-        foreach(KeyValuePair<string, PropertyInfo> property in schema.properties){
-            Debug.Log(property.Key);
-        }
-        Debug.Log("Schema required: " + schema.required);
-        Debug.Log("Schema to string: " + schema.ToString());
+        
 
         LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, RecieveChatMessage, prompt, configLLM, schema, 
             _config.getTemperature(), _config.getRagUse());

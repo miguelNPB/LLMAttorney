@@ -107,7 +107,7 @@ def load_RAG_file():
 GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key="
 OLLAMA_ENDPOINT_NVIDIA = "http://ollama-server:11434/v1"
 OLLAMA_ENDPOINT_AMD_VULKAN = "http://host.docker.internal:11434/v1"
-OLLAMA_USE_VULKAN = True
+OLLAMA_USE_VULKAN = False
 
 # ---
 
