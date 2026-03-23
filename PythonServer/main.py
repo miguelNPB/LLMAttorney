@@ -38,10 +38,12 @@ def load_RAG_file():
 
     #EMBEDDINGS!
     #embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
+    OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://localhost:11434")
+
     embeddingsRag = OllamaEmbeddings(
         model="nomic-embed-text",
-        base_url="http://ollama-server:11434"
-    ) 
+        base_url=OLLAMA_HOST
+    )
 
     if not any(path_civilCode.iterdir()):
 

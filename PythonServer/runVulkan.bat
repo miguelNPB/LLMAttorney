@@ -21,7 +21,7 @@ docker rm -f ollama-server llmattorney-server >nul 2>&1
 echo Intentando iniciar Ollama con soporte de GPU (NVIDIA)...
 
 :: Intentar con soporte de GPU
-docker run -d --rm --gpus all -p 11434:11434 -v ollama:/root/.ollama --network ollama-net -e OLLAMA_HOST=0.0.0.0 --name ollama-server ollama/ollama
+docker run -d --rm --gpus all -p 11434:11434 -v ollama:/root/.ollama --network ollama-net -e OLLAMA_HOST=http://ollama-server:11434 --name ollama-server ollama/ollama
 
 :: Fallback a VULKAN
 if %ERRORLEVEL% NEQ 0 (
@@ -40,8 +40,10 @@ docker exec -it ollama-server ollama pull nomic-embed-text
 
 docker exec ollama-server ollama list
 
-goto START_SERVER
+docker build -t llmattorney .
+docker run --rm -p 8000:8000 --network ollama-net -e OLLAMA_HOST=http://ollama-server:11434 --name llmattorney-server llmattorney
 
+goto END
 
 :TRY_LOCAL_OLLAMA
 
@@ -62,31 +64,22 @@ echo Iniciando Ollama local con soporte Vulkan...
 echo.
 
 set OLLAMA_VULKAN=1
-
+set OLLAMA_HOST=0.0.0.0:11434
 start "" ollama serve
 
 timeout /t 5 >nul
 
 echo Descargando modelo llama3...
 ollama pull llama3
-
-goto START_SERVER
-
-
-:START_SERVER
+echo Descargando el modelo de embeddings
+ollama pull nomic-embed-text
 
 echo.
 echo Iniciando servidor Python...
 echo.
 
 docker build -t llmattorney .
-docker run --rm -p 8000:8000 --network ollama-net --name llmattorney-server llmattorney
+docker run --rm -p 8000:8000 --network ollama-net -e OLLAMA_HOST=http://host.docker.internal:11434 --name llmattorney-server llmattorney
 
-pause
-
-:: 5. docker del server de python
-docker build -t llmattorney .
-docker run --rm -p 8000:8000 --network ollama-net -v "%cd%\vector_db:/vector_db" --name llmattorney-server llmattorney
-
-
+:END
 pause
