@@ -64,6 +64,7 @@ public class DocumentManager : MonoBehaviour
         SetupNavBarDrag();
     }
 
+    #region Movimiento
     void OnApplicationFocus(bool hasFocus)
     {
         if (!hasFocus) ReleaseWindow();
@@ -187,6 +188,7 @@ public class DocumentManager : MonoBehaviour
             draggedWindow = null;
         }
     }
+    #endregion
 
     void Update()
     {
