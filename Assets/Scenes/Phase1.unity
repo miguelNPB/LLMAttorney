@@ -909,6 +909,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5307846417687057373, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
   m_PrefabInstance: {fileID: 4665822228252766504}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1354476312 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1930201742431689120, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+  m_PrefabInstance: {fileID: 4665822228252766504}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12cf9ed0eda07534c8f25bd152cde01c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GenericButtonCanvas
 --- !u!1 &1374555049
 GameObject:
   m_ObjectHideFlags: 0
@@ -1430,6 +1441,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: LLMConectorSearch, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 3581517679354425161, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3581517679354425161, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3581517679354425161, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3648675196692939725, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: inputField
       value: 
@@ -1442,6 +1465,22 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 3999462084663920315, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: m_Content
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3999462084663920315, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: m_HorizontalScrollbar
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4368636262190149212, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5006084629657794191, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e0a8fb419c6322846bd80598a2862738, type: 3}
     - target: {fileID: 5126775781348832107, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: resultText
       value: 
@@ -1450,6 +1489,10 @@ PrefabInstance:
       propertyPath: ConversationMessageUIPrefab
       value: 
       objectReference: {fileID: 4665822228252766507}
+    - target: {fileID: 5204978409469182492, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: m_text
+      value: "New Text\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nj\xF1lkjl\xF1k\xF1l\n\n\n\n\n\n\n\n\n\n\nkl"
+      objectReference: {fileID: 0}
     - target: {fileID: 5307846417687057373, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1533,6 +1576,42 @@ PrefabInstance:
     - target: {fileID: 6929784444275368796, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_Name
       value: SearchMenuStage1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7001034304512668244, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7001034304512668244, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7155077089268858831, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7155077089268858831, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7155077089268858831, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1354476312}
+    - target: {fileID: 7155077089268858831, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7155077089268858831, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 7155077089268858831, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GenericButtonCanvas, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7155077089268858831, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
