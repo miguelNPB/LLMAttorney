@@ -28,6 +28,11 @@ public class UISearchManager : MonoBehaviour
 
     }
 
+    public void ShowMessage()
+    {
+        resultText.ForceMeshUpdate();
+    }
+
     /// <summary>
     /// Llamar a esto para añadir un mensaje que tenga una animacion de puntos suspensivos hasta que se llame a EndPendingMessage
     /// </summary>
@@ -56,8 +61,9 @@ public class UISearchManager : MonoBehaviour
         }
 
         resultText.text = pendingMessage;
+
         // actualizar caja de texto y lineas totales
-        resultText.ForceMeshUpdate();
+        //resultText.ForceMeshUpdate();
 
     }
 

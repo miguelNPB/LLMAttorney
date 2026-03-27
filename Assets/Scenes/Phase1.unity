@@ -1530,6 +1530,21 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -0.00079345703
       objectReference: {fileID: 0}
+    - target: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: _stepChecks.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: '_stepChecks.Array.data[0]'
+      value: Asegurate que el texto de arriba te habla exactamente igual que un buscador
+        de google o operaGX, debe decir las cosas de manera objetiva y sin ningun
+        rasgo humano.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: '_stepChecks.Array.data[1]'
+      value: "Asegurate que la respuesta esta completamente en espa\xF1ol. En caso
+        de no estarlo traducelo a este idioma."
+      objectReference: {fileID: 0}
     - target: {fileID: 3576421791690390405, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_VerticalFit
       value: 2

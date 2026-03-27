@@ -162,6 +162,9 @@ public class LLMAttorney_API : MonoBehaviour
      */
     public bool SendPrompt(API_TYPE apiType, Action<bool, string> onComplete, string prompt, string LLMConfig, JsonSchema schema = null, float temperature = 0.8f, bool ragUse = false, int max_length = 99999)
     {
+
+        Debug.Log("Envio de prompt: " + _sendingPrompt);
+
         if (_sendingPrompt)
             return false;
 
