@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Drawing.Text;
 using System.Text;
 using Unity.VisualScripting;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -213,6 +214,72 @@ public class LLMAttorney_API : MonoBehaviour
         }
 
         return true;
+    }
+
+    /// <summary>
+    /// Manda la request igual al servidor, pero espera a recibir respuesta antes de seguir.
+    /// </summary>
+    /// <param name="apiType"></param>
+    /// <param name="onComplete"></param>
+    /// <param name="prompt"></param>
+    /// <param name="LLMConfig"></param>
+    /// <param name="schema"></param>
+    /// <param name="temperature"></param>
+    /// <param name="ragUse"></param>
+    /// <param name="max_length"></param>
+    /// <returns></returns>
+    /// 
+    public IEnumerator SendPromptAsync(API_TYPE apiType, Action<bool, string> onComplete, string prompt, string LLMConfig, JsonSchema schema = null, float temperature = 0.8f, bool ragUse = false, int max_length = 99999)
+    {
+
+        Debug.Log("Envio de prompt: " + _sendingPrompt);
+
+        if (_sendingPrompt)
+            yield break;
+
+        if (schema == null)
+        {
+            // Crear la request
+            var requestData = new LLMAttorneyRequest
+            {
+                mode = APItypeToString(apiType),
+                LLMConfig = LLMConfig,
+                prompt = prompt,
+                temperature = temperature,
+                max_length = max_length,
+                rag_use = ragUse
+            };
+
+            string json = JsonConvert.SerializeObject(requestData, Formatting.Indented);
+            yield return StartCoroutine(SendRequest(json, onComplete));
+        }
+        else
+        {
+            schema.required = new List<string>();
+            foreach (var pinfo in schema.properties)
+            {
+                schema.required.Add(pinfo.Key);
+                UpdateRequiredField(pinfo.Value);
+            }
+
+            // Crear la request
+            var requestData = new LLMAttorneyRequestJSONSchema
+            {
+                mode = APItypeToString(apiType),
+                LLMConfig = LLMConfig,
+                prompt = prompt,
+                temperature = temperature,
+                max_length = max_length,
+                json_schema = schema,
+                rag_use = ragUse
+            };
+
+            string json = JsonConvert.SerializeObject(requestData, Formatting.Indented);
+
+            Debug.Log(json);
+
+            yield return StartCoroutine(SendRequest(json, onComplete));
+        }
     }
 
     /**

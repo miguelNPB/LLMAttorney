@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public enum DocType { Perito, Testigo, Informe }
+public enum PromptType { Pregunta, Dialogo, Perito, Informe, Testigo, DocAlt }
 
 public class DocumentManager : MonoBehaviour
 {
@@ -59,7 +59,7 @@ public class DocumentManager : MonoBehaviour
 
         documents = new List<GameObject>();
         for (int i = 0; i < 10; i++)
-            CreateDocument("DOC" + i + ".txt", DocType.Perito, "ESTE ES EL DOC " + i, true);
+            CreateDocument("DOC" + i + ".txt", PromptType.Perito, "ESTE ES EL DOC " + i, true);
 
         SetupNavBarDrag();
     }
@@ -238,7 +238,7 @@ public class DocumentManager : MonoBehaviour
     #endregion
 
     #region Documentos
-    public void CreateDocument(string docName, DocType docType, string content, bool valid)
+    public void CreateDocument(string docName, PromptType docType, string content, bool valid)
     {
         docPos.x++;
         if (docPos.x > 2) { docPos.x = -2; docPos.y -= 220; }
