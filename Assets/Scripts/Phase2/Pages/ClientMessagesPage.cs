@@ -3,8 +3,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ClientMessages : MessagesUIComponent
+public class ClientMessagesPage : MessagesUIComponent
 {
+    /// <summary>
+    /// Formato para el LLM de la respuesta del cliente
+    /// </summary>
     [Serializable]
     private class ClientMessageResponse
     {
@@ -35,7 +38,7 @@ public class ClientMessages : MessagesUIComponent
         EndPendingMessage(jsonResponse.answer);
 
         if (!isOpen)
-            computerSystem.ToggleNotification(Page.ChatClient, true);
+            computerSystem.ToggleNotification(Page.ChatCliente, true);
     }
     public void RecieveDocumentMessage(bool success, string answer)
     {
@@ -45,7 +48,7 @@ public class ClientMessages : MessagesUIComponent
         //EndPendingMessage(jsonResponse.ContenidoDocumento);
 
         if (!isOpen)
-            computerSystem.ToggleNotification(Page.ChatClient, true);
+            computerSystem.ToggleNotification(Page.ChatCliente, true);
     }
 
     public void SendChatMessage()
@@ -133,7 +136,7 @@ public class ClientMessages : MessagesUIComponent
 
     public override void Open()
     {
-        computerSystem.ToggleNotification(Page.ChatClient, false);
+        computerSystem.ToggleNotification(Page.ChatCliente, false);
 
         for (int i = 0; i < gameObject.transform.childCount; i++)
             gameObject.transform.GetChild(i).gameObject.SetActive(true);

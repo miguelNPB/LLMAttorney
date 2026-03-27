@@ -204,6 +204,8 @@ public class LLMAttorney_API : MonoBehaviour
 
             string json = JsonConvert.SerializeObject(requestData, Formatting.Indented);
 
+            Debug.Log(json);
+
             StartCoroutine(SendRequest(json, onComplete));
         }
 
