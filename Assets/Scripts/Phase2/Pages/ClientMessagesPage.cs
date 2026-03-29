@@ -79,7 +79,7 @@ public class ClientMessagesPage : MessagesUIComponent
                 2 = Informe pericial (documento técnico elaborado por un experto con conclusiones profesionales)
                 3 = Informe (documento descriptivo o informativo sin carácter pericial)
                 4 = Declaración de testigo (relato de hechos en primera persona o atribuido a un testigo)
-                5 = Recibo (Factura de compra, ticket)
+                5 = Peticion de recibo (Factura, ticket)
 
                 Reglas:
                 Responde solo con un JSON válido
@@ -145,6 +145,8 @@ public class ClientMessagesPage : MessagesUIComponent
             case PromptType.Testigo :   configLLM = Constants.LLM_CONFIG_TESTIGO;           break;
             case PromptType.DocAlt  :   configLLM = Constants.LLM_CONFIG_DOC_ALT;           break;
         }
+
+        configLLM += Constants.LLM_JSON_EXAMPLE;
 
         string prompt = inputField.text;
         LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, RecieveDocumentMessage, prompt, configLLM, schema);
