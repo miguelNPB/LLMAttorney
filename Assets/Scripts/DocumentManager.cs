@@ -60,7 +60,7 @@ public class DocumentManager : MonoBehaviour
 
         documents = new List<GameObject>();
         for (int i = 0; i < 60; i++)
-            CreateDocument("DOC" + i + ".txt", DocType.Perito, "ESTE ES EL DOC " + i, true);
+            CreateDocument("DOC" + i + ".txt", PromptType.Perito, "ESTE ES EL DOC " + i, true);
 
         SetupNavBarDrag();
 
