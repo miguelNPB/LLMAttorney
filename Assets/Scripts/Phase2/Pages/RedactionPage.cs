@@ -1,7 +1,19 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RedactionPage : PCPage
 {
+    public RectTransform demandaLayout;
+
+    public void OnType()
+    {
+        LayoutRebuilder.ForceRebuildLayoutImmediate(demandaLayout);
+    }
+
+    private void Awake()
+    {
+        LayoutRebuilder.ForceRebuildLayoutImmediate(demandaLayout);
+    }
     public override void Open()
     {
         // activar los gameobject de la pagina
