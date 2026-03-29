@@ -57,9 +57,9 @@ public class DocumentManager : MonoBehaviour
         foreach (Button b in documentButtons)
             b.onClick.AddListener(OnClickDocumentsIcon);
 
-        documents = new List<GameObject>();
-        for (int i = 0; i < 10; i++)
-            CreateDocument("DOC" + i + ".txt", PromptType.Perito, "ESTE ES EL DOC " + i, true);
+        //documents = new List<GameObject>();
+        //for (int i = 0; i < 10; i++)
+        //    CreateDocument("DOC" + i + ".txt", PromptType.Perito, "ESTE ES EL DOC " + i, true);
 
         SetupNavBarDrag();
     }

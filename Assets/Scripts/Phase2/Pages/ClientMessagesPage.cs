@@ -58,6 +58,8 @@ public class ClientMessagesPage : MessagesUIComponent
 
         if (!isOpen)
             computerSystem.ToggleNotification(Page.ChatCliente, true);
+        GameSystem.Instance.myDocumentManager.CreateDocument(jsonResponse.NombreDocumento, jsonResponse.TipoDocumento, jsonResponse.ContenidoDocumento, jsonResponse.DocumentoValido);
+
     }
 
     public void AssignPrompt(bool success, string answer)

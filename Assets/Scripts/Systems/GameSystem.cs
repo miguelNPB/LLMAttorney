@@ -5,6 +5,9 @@ public class GameSystem : MonoBehaviour
     private static GameSystem instance = null; public static GameSystem Instance { get { return instance; } }
     private CaseData _caseData = null; public CaseData CaseData { get { return _caseData; } }
 
+    [SerializeField]
+    public DocumentManager myDocumentManager;
+
 
     /// <summary>
     /// Crea caseData con datos ejemplo para placeholder antes de usar la LLM
