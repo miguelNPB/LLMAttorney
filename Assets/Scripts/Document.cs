@@ -25,7 +25,7 @@ public class Document : MonoBehaviour
     [InspectorName("Exit button")]
     GameObject exitButton;
 
-    private DocType docType;
+    private PromptType docType;
 
     private string fileName;
     private string content;
@@ -60,7 +60,7 @@ public class Document : MonoBehaviour
     #region GET&SET
 
     public string GetDocName() { return this.fileName; }
-    public DocType GetDocType() { return this.docType; }
+    public PromptType GetDocType() { return this.docType; }
     public string GetContent() { return this.content; }
     public bool IsValid() {  return this.valid; }
 
@@ -92,7 +92,7 @@ public class Document : MonoBehaviour
     /// <param name="docType">Tipo de documento</param>
     /// <param name="content">Contenido nuevo para el documento</param>
     /// <param name="valid">Es valido el documento</param>
-    public void SetDoc(string docName, DocType docType, string content, bool valid)
+    public void SetDoc(string docName, PromptType docType, string content, bool valid)
     {
         SetDocName(docName);
         SetDocContent(content);

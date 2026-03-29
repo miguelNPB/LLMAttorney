@@ -16,6 +16,9 @@ public class ConfigLLMInfo : MonoBehaviour
     [SerializeField, TextArea(3, 10)]
     private string _safeguard;
 
+    [SerializeField, TextArea(3, 10)]
+    private string[] _stepChecks;
+
     [SerializeField, Range(0f, 1f)]
     private float _temperature;
 
@@ -35,6 +38,11 @@ public class ConfigLLMInfo : MonoBehaviour
     public string getSafeguard()
     {
         return _safeguard;
+    }
+
+    public string[] getStepsChecks()
+    {
+        return _stepChecks;
     }
 
     public float getTemperature()

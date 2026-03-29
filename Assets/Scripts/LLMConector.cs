@@ -8,6 +8,8 @@ public abstract class LLMConector : MonoBehaviour
     [SerializeField]
     protected ConfigLLMInfo _config;
 
+    protected int _stepCounter;
+
     /**
      * Metodo encargado de recoger la respuesta del LLM y transmitirla a la clase que muestre el output de este
      * @param success: muestra si ha podido obtenerse una respuesta del LLM
@@ -20,4 +22,5 @@ public abstract class LLMConector : MonoBehaviour
      */
     public abstract void SendChatMessage();
 
+    public abstract void securityStepsCheck(string prompt);
 }

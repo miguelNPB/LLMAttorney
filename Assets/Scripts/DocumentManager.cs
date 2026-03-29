@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public enum DocType { Perito, Testigo, Informe }
+public enum PromptType { Pregunta, Dialogo, Perito, Informe, Testigo, DocAlt }
 
 public class DocumentManager : MonoBehaviour
 {
@@ -73,6 +73,7 @@ public class DocumentManager : MonoBehaviour
 
     }
 
+    #region Movimiento
     void OnApplicationFocus(bool hasFocus)
     {
         if (!hasFocus) ReleaseWindow();
@@ -196,6 +197,7 @@ public class DocumentManager : MonoBehaviour
             draggedWindow = null;
         }
     }
+    #endregion
 
     void Update()
     {
@@ -245,7 +247,7 @@ public class DocumentManager : MonoBehaviour
     #endregion
 
     #region Documentos
-    public void CreateDocument(string docName, DocType docType, string content, bool valid)
+    public void CreateDocument(string docName, PromptType docType, string content, bool valid)
     {
         docPos.x++;
         if (docPos.x > 2)

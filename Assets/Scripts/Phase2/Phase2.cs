@@ -1,16 +1,16 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Phase2 : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Button audienciaPreviaButton;
 
-    // Update is called once per frame
-    void Update()
+    /// <summary>
+    /// Se llama una vez se ha mandado la demanda al procurador y la devuelve completa y lista sin quejas
+    /// </summary>
+    /// <param name="on"></param>
+    public void EnableAudienciaPrevia(bool on)
     {
-        
+        audienciaPreviaButton.interactable = on;
     }
 }
