@@ -9,6 +9,7 @@ public class DocumentManager : MonoBehaviour
 {
     [SerializeField] Button[] documentButtons;
     [SerializeField] GameObject documentTab;
+    [SerializeField] GameObject documentContainer;
     [SerializeField] GameObject documentPrefab;
     [SerializeField] Vector2 startingPos;
     [SerializeField] Vector2 openPos;
@@ -28,7 +29,7 @@ public class DocumentManager : MonoBehaviour
     private Vector2 targetPos;
     private float lerpProgress = 0f;
 
-    private Vector2 docPos = new Vector2(-3, 30);
+    private Vector2 docPos = new Vector2(-3, -30);
     private List<GameObject> documents;
 
     // Drag state
@@ -58,10 +59,18 @@ public class DocumentManager : MonoBehaviour
             b.onClick.AddListener(OnClickDocumentsIcon);
 
         documents = new List<GameObject>();
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 60; i++)
             CreateDocument("DOC" + i + ".txt", DocType.Perito, "ESTE ES EL DOC " + i, true);
 
         SetupNavBarDrag();
+
+
+        // RectTransform contentRT = documentContainer.GetComponent<RectTransform>();
+        // contentRT.anchorMin = new Vector2(0.5f, 1f);
+        // contentRT.anchorMax = new Vector2(0.5f, 1f);
+        // contentRT.pivot = new Vector2(0.5f, 1f);
+        // contentRT.anchoredPosition = Vector2.zero;
+
     }
 
     void OnApplicationFocus(bool hasFocus)
@@ -239,14 +248,27 @@ public class DocumentManager : MonoBehaviour
     public void CreateDocument(string docName, DocType docType, string content, bool valid)
     {
         docPos.x++;
-        if (docPos.x > 2) { docPos.x = -2; docPos.y -= 220; }
+        if (docPos.x > 2)
+        {
+            docPos.x = -2;
+            docPos.y -= 220;
+        }
 
-        GameObject aux = Instantiate(documentPrefab);
+        GameObject aux = Instantiate(documentPrefab, documentContainer.transform);
         aux.GetComponent<Document>().SetDoc(docName, docType, content, valid);
-
-        aux.transform.SetParent(documentTab.transform);
-        aux.transform.localPosition = new Vector3(docPos.x * 200, docPos.y, 0);
         aux.transform.localScale = Vector3.one;
+
+        // Position relative to top of content rect
+        RectTransform rt = aux.GetComponent<RectTransform>();
+        rt.anchorMin = new Vector2(0.5f, 1f);
+        rt.anchorMax = new Vector2(0.5f, 1f);
+        rt.pivot = new Vector2(0.5f, 1f);
+        rt.anchoredPosition = new Vector2(docPos.x * 200f, docPos.y); // Y is negative, goes downward
+
+        // Resize content to fit
+        RectTransform contentRT = documentContainer.GetComponent<RectTransform>();
+        float neededHeight = Mathf.Abs(docPos.y) + 220f;
+        contentRT.sizeDelta = new Vector2(contentRT.sizeDelta.x, neededHeight);
 
         Button docButton = aux.GetComponentInChildren<Button>();
         if (docButton != null)
@@ -256,7 +278,6 @@ public class DocumentManager : MonoBehaviour
         }
 
         documents.Add(aux);
-        Debug.Log(documents.Count);
     }
 
     void SetWindowTitle(string title)

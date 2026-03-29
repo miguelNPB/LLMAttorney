@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -8,6 +9,8 @@ public class NavBarDrag : MonoBehaviour
     [SerializeField] Vector2 dragOffset;
     [SerializeField] Vector2 defaultTabSize;
     [SerializeField] RectTransform targetWindow;
+
+    [SerializeField] TMP_Text winTitle;
 
     [Header("Snapping")]
     [SerializeField] float snapDistance = 80f;
@@ -33,6 +36,10 @@ public class NavBarDrag : MonoBehaviour
         documentTabRect = targetWindow != null ? targetWindow : transform.parent.GetComponent<RectTransform>();
 
         SetupNavBarDrag();
+
+        if (winTitle != null)
+            //Search in children for a TMP_Text component to set the title
+            GetComponentInChildren<TMP_Text>().text = winTitle.text;
     }
 
     void OnApplicationFocus(bool hasFocus)
@@ -169,4 +176,4 @@ public class NavBarDrag : MonoBehaviour
 
     Camera GetCamera() =>
         rootCanvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : rootCanvas.worldCamera;
-}
+} 
