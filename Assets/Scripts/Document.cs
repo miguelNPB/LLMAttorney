@@ -26,10 +26,10 @@ public class Document : MonoBehaviour
     GameObject exitButton;
 
     private PromptType docType;
-
     private string fileName;
     private string content;
     private bool valid = false;
+    private int cost =0;
 
     private bool changed = false;
     void Start()
@@ -92,12 +92,13 @@ public class Document : MonoBehaviour
     /// <param name="docType">Tipo de documento</param>
     /// <param name="content">Contenido nuevo para el documento</param>
     /// <param name="valid">Es valido el documento</param>
-    public void SetDoc(string docName, PromptType docType, string content, bool valid)
+    public void SetDoc(string docName, PromptType docType, string content, bool valid, int cost)
     {
         SetDocName(docName);
         SetDocContent(content);
         this.valid = valid;
         this.docType = docType;
+        this.cost = cost;
     }
 
 

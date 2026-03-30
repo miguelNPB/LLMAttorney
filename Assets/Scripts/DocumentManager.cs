@@ -48,7 +48,7 @@ public class DocumentManager : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Confined;
 
-        rootCanvas = GetComponentInParent<Canvas>();
+        rootCanvas = documentTab.GetComponentInParent<Canvas>();
         while (rootCanvas != null && !rootCanvas.isRootCanvas)
             rootCanvas = rootCanvas.transform.parent?.GetComponentInParent<Canvas>();
 
@@ -59,8 +59,8 @@ public class DocumentManager : MonoBehaviour
             b.onClick.AddListener(OnClickDocumentsIcon);
 
         documents = new List<GameObject>();
-        for (int i = 0; i < 60; i++)
-            CreateDocument("DOC" + i + ".txt", PromptType.Perito, "ESTE ES EL DOC " + i, true);
+        //for (int i = 0; i < 60; i++)
+        //    CreateDocument("DOC" + i + ".txt", PromptType.Perito, "ESTE ES EL DOC " + i, true, 10);
 
         SetupNavBarDrag();
 
@@ -247,7 +247,7 @@ public class DocumentManager : MonoBehaviour
     #endregion
 
     #region Documentos
-    public void CreateDocument(string docName, PromptType docType, string content, bool valid)
+    public void CreateDocument(string docName, PromptType docType, string content, bool valid, int cost)
     {
         docPos.x++;
         if (docPos.x > 2)
@@ -257,7 +257,7 @@ public class DocumentManager : MonoBehaviour
         }
 
         GameObject aux = Instantiate(documentPrefab, documentContainer.transform);
-        aux.GetComponent<Document>().SetDoc(docName, docType, content, valid);
+        aux.GetComponent<Document>().SetDoc(docName, docType, content, valid, cost);
         aux.transform.localScale = Vector3.one;
 
         // Position relative to top of content rect

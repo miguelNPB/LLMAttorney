@@ -18,7 +18,7 @@ public class Constants
                 3. Si no puedes generar un JSON válido, responde:
                     { ""error"": ""No se pudo generar un JSON válido"" }
                 4. Escapa correctamente comillas, saltos de línea y caracteres especiales.
-                5. El campo ContenidoDocumento debe estar en Rich Text válido, solo puedes usar estas etiquetas: <align>, <allcaps>, <alpha>, <b>, <color>, <cspace>, <gradient>, <i>, <indent>, <line-height>, <line-indent>, <link>, <lowercase>, <margin>, <mark>, <mspace>, <nobr>, <noparse>, <page>, <pos>, <rotate>, <s>, <size>, <smallcaps>, <space>, <sprite>, <sub>, <sup>, <u>, <uppercase>, <voffset>, <width>. 
+                5. El campo ContenidoDocumento debe estar en Rich Text válido, solo puedes usar estas etiquetas: <align>, <allcaps>, <b>, <color>, <cspace>, <gradient>, <i>, <indent>, <line-height>, <line-indent>, <link>, <lowercase>, <margin>, <mark>, <mspace>, <nobr>, <noparse>, <page>, <pos>, <rotate>, <s>, <size>, <smallcaps>, <space>, <sprite>, <sub>, <sup>, <u>, <uppercase>, <voffset>, <width>. 
                 Incluir exactamente estas secciones como encabezados:
                     - Introducción
                     - Descripción de los hechos
@@ -28,12 +28,12 @@ public class Constants
                 6. El campo Coste debe ser exclusivamente un número entero (ej: 5000), si no tiene coste de obtencion, muestra 0. 
                    No debe incluir símbolos de moneda ($, €, etc.), texto ni espacios.
                    Si se incluye cualquier otro formato, la salida se considera inválido
-                   El valor de """"Coste"""" representa exclusivamente **el coste de obtener o generar el documento**. 
+                   El valor de Coste representa exclusivamente **el coste de obtener o generar el documento**. 
                         - Por ejemplo: si se necesita contactar a un profesional para elaborar un informe pericial, o pagar un servicio de gestión para obtener un documento oficial. 
                         - Representa únicamente el coste estimado para obtener o gestionar el documento, como honorarios de un perito, tasas administrativas o gastos de gestión.. 
                         - Nunca lo pongas automáticamente a 0 a menos que no haya ningún gasto posible para obtener el documento
                     Coste: 1500
-                    # Esto significa que la obtención del informe pericial implicó aproximadamente 1500 EUR en honorarios y gestión.
+                    # Esto significa que la obtención del informe pericial implicó aproximadamente 1500 EUR en honorarios y gestión, no que haya que hacer una reparacion de 1500 euros tras el analisis del perito.
                 7. El documento debe generarse en España.
                 8. La moneda utilizada en el documento debe ser EUR (€).
                     - En el ContenidoDocumento puedes mostrar ""€""
@@ -58,7 +58,7 @@ public class Constants
                 3. Si no puedes generar un JSON válido, responde:
                     { ""error"": ""No se pudo generar un JSON válido"" }
                 4. Escapa correctamente comillas, saltos de línea y caracteres especiales.
-                5. El campo ContenidoDocumento debe estar en Rich Text válido, solo puedes usar estas etiquetas: <align>, <allcaps>, <alpha>, <b>, <color>, <cspace>, <gradient>, <i>, <indent>, <line-height>, <line-indent>, <link>, <lowercase>, <margin>, <mark>, <mspace>, <nobr>, <noparse>, <page>, <pos>, <rotate>, <s>, <size>, <smallcaps>, <space>, <sprite>, <sub>, <sup>, <u>, <uppercase>, <voffset>, <width>. 
+                5. El campo ContenidoDocumento debe estar en Rich Text válido, solo puedes usar estas etiquetas: <align>, <allcaps>, <b>, <color>, <cspace>, <gradient>, <i>, <indent>, <line-height>, <line-indent>, <link>, <lowercase>, <margin>, <mark>, <mspace>, <nobr>, <noparse>, <page>, <pos>, <rotate>, <s>, <size>, <smallcaps>, <space>, <sprite>, <sub>, <sup>, <u>, <uppercase>, <voffset>, <width>. 
                 Incluir exactamente estas secciones como encabezados:
                     - Datos del testigo (nombre ficticio, edad, profesión)
                     - Relato en primera persona
@@ -94,7 +94,7 @@ public class Constants
                 3. Si no puedes generar un JSON válido, responde:
                     { ""error"": ""No se pudo generar un JSON válido"" }
                 4. Escapa correctamente comillas, saltos de línea y caracteres especiales.
-                5. El campo ContenidoDocumento debe estar en Rich Text válido, solo puedes usar estas etiquetas: <align>, <allcaps>, <alpha>, <b>, <color>, <cspace>, <gradient>, <i>, <indent>, <line-height>, <line-indent>, <link>, <lowercase>, <margin>, <mark>, <mspace>, <nobr>, <noparse>, <page>, <pos>, <rotate>, <s>, <size>, <smallcaps>, <space>, <sprite>, <sub>, <sup>, <u>, <uppercase>, <voffset>, <width>. 
+                5. El campo ContenidoDocumento debe estar en Rich Text válido, solo puedes usar estas etiquetas: <align>, <allcaps>, <b>, <color>, <cspace>, <gradient>, <i>, <indent>, <line-height>, <line-indent>, <link>, <lowercase>, <margin>, <mark>, <mspace>, <nobr>, <noparse>, <page>, <pos>, <rotate>, <s>, <size>, <smallcaps>, <space>, <sprite>, <sub>, <sup>, <u>, <uppercase>, <voffset>, <width>. 
                 Incluir exactamente estas secciones como encabezados:
                     - Título
                     - Introducción
@@ -135,7 +135,7 @@ public class Constants
                 3. Si no puedes generar un JSON válido, responde:
                     { ""error"": ""No se pudo generar un JSON válido"" }
                 4. Escapa correctamente comillas, saltos de línea y caracteres especiales.
-                5. El campo ContenidoDocumento debe estar en Rich Text válido, solo puedes usar estas etiquetas: <align>, <allcaps>, <alpha>, <b>, <color>, <cspace>, <gradient>, <i>, <indent>, <line-height>, <line-indent>, <link>, <lowercase>, <margin>, <mark>, <mspace>, <nobr>, <noparse>, <page>, <pos>, <rotate>, <s>, <size>, <smallcaps>, <space>, <sprite>, <sub>, <sup>, <u>, <uppercase>, <voffset>, <width>. 
+                5. El campo ContenidoDocumento debe estar en Rich Text válido, solo puedes usar estas etiquetas: <align>, <allcaps>, <b>, <color>, <cspace>, <gradient>, <i>, <indent>, <line-height>, <line-indent>, <link>, <lowercase>, <margin>, <mark>, <mspace>, <nobr>, <noparse>, <page>, <pos>, <rotate>, <s>, <size>, <smallcaps>, <space>, <sprite>, <sub>, <sup>, <u>, <uppercase>, <voffset>, <width>. 
                 Incluir exactamente estas secciones como encabezados:
                     - Nombre del negocio: [nombre]
                     - Dirección: [opcional]
@@ -169,7 +169,7 @@ public class Constants
             ""NombreDocumento"": ""Informe Pericial Completo - Ejemplo de Tags"",
             ""TipoDocumento"": 2,
             ""Coste"": 2500,
-            ""ContenidoDocumento"": ""<b>Introducción</b>\n<align=justified>Este informe demuestra el uso de <allcaps>todos los tags permitidos</allcaps> en Rich Text. <alpha>Ejemplo de letra griega</alpha>. Se incluyen estilos de <i>cursiva</i>, <u>subrayado</u>, <b>negrita</b>, <smallcaps>small caps</smallcaps>, <uppercase>MAYÚSCULAS</uppercase> y <size=14pt>tamaño de fuente 14pt</size>.</align>\n\n<b>Descripción de los hechos</b>\n<indent=20>Se han analizado los datos con <color=#FF0000>color rojo</color> y <gradient=start:#00FF00;end:#0000FF>gradiente de verde a azul</gradient>. Se han utilizado <link=www.ejemplo.com>enlaces</link> y <mark>marcados importantes</mark>. Ejemplo de <mspace=5>espacio manual</mspace> y <cspace=10>espaciado de caracteres</cspace>.</indent>\n\n<b>Metodología de análisis</b>\n<line-height=150%>Se aplicó un análisis detallado con <line-indent=15>alineación y sangría ajustadas</line-indent>. Se utilizaron <sprite=name>iconos</sprite> y <page>paginación</page>. Ejemplo de <pos=x:10,y:20>posición absoluta</pos> y <rotate=45>rotación de 45°</rotate>.</line-height>\n\n<b>Resultados</b>\n<width=80%>El coste total es <b>EUR 2500</b>. Se aplicaron estilos de <sub>subíndice</sub>, <sup>superíndice</sup>, <space=5>espacios manuales</space> y <voffset=10>desplazamiento vertical</voffset>. Se mostraron notas con <nobr>no saltar línea</nobr> y <noparse>&lt;etiqueta inválida&gt;</noparse> para escapar contenido literal.</width>\n\n<b>Conclusiones</b>\n<margin=10>Se concluye que el informe es <s>técnicamente sólido</s>. Se recomienda su uso formal en España.</margin>"",
+            ""ContenidoDocumento"": ""<b>Introducción</b>\n<align=justified>Este informe demuestra el uso de <allcaps>todos los tags permitidos</allcaps> en Rich Text. Se incluyen estilos de <i>cursiva</i>, <u>subrayado</u>, <b>negrita</b>, <smallcaps>small caps</smallcaps>, <uppercase>MAYÚSCULAS</uppercase> y <size=14pt>tamaño de fuente 14pt</size>.</align>\n\n<b>Descripción de los hechos</b>\n<indent=20>Se han analizado los datos con <color=#FF0000>color rojo</color> y <gradient=start:#00FF00;end:#0000FF>gradiente de verde a azul</gradient>. Se han utilizado <link=www.ejemplo.com>enlaces</link> y <mark>marcados importantes</mark>. Ejemplo de <mspace=5>espacio manual</mspace> y <cspace=10>espaciado de caracteres</cspace>.</indent>\n\n<b>Metodología de análisis</b>\n<line-height=150%>Se aplicó un análisis detallado con <line-indent=15>alineación y sangría ajustadas</line-indent>. Se utilizaron <sprite=name>iconos</sprite> y <page>paginación</page>. Ejemplo de <pos=x:10,y:20>posición absoluta</pos> y <rotate=45>rotación de 45°</rotate>.</line-height>\n\n<b>Resultados</b>\n<width=80%>El coste total es <b>EUR 2500</b>. Se aplicaron estilos de <sub>subíndice</sub>, <sup>superíndice</sup>, <space=5>espacios manuales</space> y <voffset=10>desplazamiento vertical</voffset>. Se mostraron notas con <nobr>no saltar línea</nobr> y <noparse>&lt;etiqueta inválida&gt;</noparse> para escapar contenido literal.</width>\n\n<b>Conclusiones</b>\n<margin=10>Se concluye que el informe es <s>técnicamente sólido</s>. Se recomienda su uso formal en España.</margin>"",
             ""EsValido"": true
             }
             

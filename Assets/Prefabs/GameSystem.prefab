@@ -1,5 +1,68 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &214798650414380032
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2863728413356394423}
+  - component: {fileID: 6998000207546729099}
+  m_Layer: 5
+  m_Name: DocumentsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2863728413356394423
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214798650414380032}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 276294508596376722}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 152.78064, y: -5.7001953}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6998000207546729099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214798650414380032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea4d2fcc20c71404d86ab6d6311118c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  documentButtons:
+  - {fileID: 0}
+  - {fileID: 0}
+  documentTab: {fileID: 0}
+  documentContainer: {fileID: 0}
+  documentPrefab: {fileID: 6451211221277070338, guid: c1d02dde94920f540a16dc5cc0fc5fcd, type: 3}
+  startingPos: {x: -2000, y: -2000}
+  openPos: {x: 100, y: 0}
+  moveSpeed: 5
+  navBar: {fileID: 0}
+  dragOffset: {x: 0, y: 0}
+  winTitle: {fileID: 0}
+  snapDistance: 0
+  snapLerpSpeed: 0
+  defaultTabSize: {x: 0, y: 0}
 --- !u!1 &1389461138961107346
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,6 +249,7 @@ Transform:
   - {fileID: 4287579008500812322}
   - {fileID: 9096839212859988123}
   - {fileID: 7378174376166987205}
+  - {fileID: 2863728413356394423}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5230731981517884603
@@ -200,6 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d7eab78a10f9de48abc885088c3257a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameSystem
+  myDocumentManager: {fileID: 6998000207546729099}
 --- !u!1 &5620953649153386031
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,9 +21,9 @@ public class ClientMessagesPage : MessagesUIComponent
     {
         public string NombreDocumento;
         public PromptType TipoDocumento;
-        public int CosteDocumento;
         public string ContenidoDocumento;
         public bool DocumentoValido;
+        public int CosteDocumento;
     }
 
     [Serializable]
@@ -39,7 +39,7 @@ public class ClientMessagesPage : MessagesUIComponent
 
     private bool isOpen = false;
 
-    public void RecieveChatMessage(bool success, string answer)
+    public void ReceiveChatMessage(bool success, string answer)
     {
         // deserializamos la respuesta
         ClientMessageResponse jsonResponse = JsonUtility.FromJson<ClientMessageResponse>(answer);
@@ -49,25 +49,46 @@ public class ClientMessagesPage : MessagesUIComponent
         if (!isOpen)
             computerSystem.ToggleNotification(Page.ChatCliente, true);
     }
-    public void RecieveDocumentMessage(bool success, string answer)
+    
+    
+    /// <summary>
+    /// Recibe el mensaje de vuelta del LLM y genera un documento a partir de el
+    /// </summary>
+    /// <param name="success"></param>
+    /// <param name="answer"></param>
+    public void ReceiveDocumentMessage(bool success, string answer)
     {
         // deserializamos la respuesta
         DocumentResponse jsonResponse = JsonUtility.FromJson<DocumentResponse>(answer);
+#if DEBUG
         Debug.Log(answer);
+#endif
         //EndPendingMessage(jsonResponse.ContenidoDocumento);
 
         if (!isOpen)
             computerSystem.ToggleNotification(Page.ChatCliente, true);
-        GameSystem.Instance.myDocumentManager.CreateDocument(jsonResponse.NombreDocumento, jsonResponse.TipoDocumento, jsonResponse.ContenidoDocumento, jsonResponse.DocumentoValido);
-
+        
+        GameSystem.Instance.myDocumentManager.CreateDocument(jsonResponse.NombreDocumento, jsonResponse.TipoDocumento, jsonResponse.ContenidoDocumento, jsonResponse.DocumentoValido, jsonResponse.CosteDocumento);
+        
+        EndPendingMessage("Tu cliente te ha mandado "+jsonResponse.NombreDocumento + ".txt");
     }
 
+    /// <summary>
+    /// Callback para saber de que tipo de prompt se trata
+    /// </summary>
+    /// <param name="success"></param>
+    /// <param name="answer"></param>
     public void AssignPrompt(bool success, string answer)
     {
         PromptTypeRequest typeRequest = JsonUtility.FromJson<PromptTypeRequest>(answer);
         Debug.Log(answer);
         lastTypeRequest = typeRequest.QueryType;
     }
+    
+    /// <summary>
+    /// Llamada asincrona a el modelo para clasificar el prompt en una de 6 categorias, dependiendo de la que sea generando un documento o haciendo una pregunta al LLM
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator CheckPrompt()
     {
         JsonSchema schema = new JsonSchema();
@@ -119,7 +140,7 @@ public class ClientMessagesPage : MessagesUIComponent
         string configLLM = "Eres un cliente de un abogado y estas hablando con el. Yo soy el abogado, el abogado te escribe en el prompt, tu responde como cliente civil. Te llamas " + GameSystem.Instance.CaseData.clientName + ". Esta es la conversación hasta ahora entre tu y el abogado: "
             + conversation + " responde a la pregunta que te ha hecho el abogado en el campo answer." + safeGuard;
 
-        LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, RecieveChatMessage, prompt, configLLM, schema);
+        LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, ReceiveChatMessage, prompt, configLLM, schema);
 
         inputField.text = "";
 
@@ -127,6 +148,9 @@ public class ClientMessagesPage : MessagesUIComponent
         StartPendingMessage(false);
     }
 
+    /// <summary>
+    /// Genera un documento en la categoria dada por el resultado de checkprompt
+    /// </summary>
     public void RequestDocument()
     {
         JsonSchema schema = new JsonSchema();
@@ -151,7 +175,7 @@ public class ClientMessagesPage : MessagesUIComponent
         configLLM += Constants.LLM_JSON_EXAMPLE;
 
         string prompt = inputField.text;
-        LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, RecieveDocumentMessage, prompt, configLLM, schema);
+        LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, ReceiveDocumentMessage, prompt, configLLM, schema);
 
         inputField.text = "";
 
@@ -180,7 +204,7 @@ public class ClientMessagesPage : MessagesUIComponent
         isOpen = false;
     }
 
-    public void Awake()
+    public void Start()
     {
         Open();
 
@@ -190,7 +214,7 @@ public class ClientMessagesPage : MessagesUIComponent
         Close();
     }
 
-    public void OnClick()
+    public void OnCheckPrompt()
     {
         StartCoroutine(CheckPrompt());
     }
