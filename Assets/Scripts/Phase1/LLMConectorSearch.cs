@@ -45,6 +45,7 @@ public class LLMConectorSearch : LLMConector
             else
             {
                 Debug.Log("Respuesta final");
+                _stepCounter = 0;
                 _uiSearch.ShowMessage();
             }
         }
@@ -97,8 +98,8 @@ public class LLMConectorSearch : LLMConector
 
         Debug.Log("PROMPT de security checks: " + prompt);
 
-        string configLLM = "Teniendo el siguiente texto: \n" + prompt + "\n Quiero que lo alteres y lo corrijas usando de base la siguiente directiva: " + 
-            _config.getStepsChecks()[_stepCounter];
+        string configLLM = "Teniendo el siguiente texto: \n" + prompt + "\n Y teniedo la siguiente directiva de seguridad" + _config.getSafeguardSteps() + 
+            "\n Quiero que hagas lo siguiente: " + _config.getStepsChecks()[_stepCounter];
 
         StartCoroutine(CoroutineSendPrompt(prompt, configLLM, schema)); 
 

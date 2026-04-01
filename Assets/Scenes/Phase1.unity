@@ -1531,19 +1531,112 @@ PrefabInstance:
       value: -0.00079345703
       objectReference: {fileID: 0}
     - target: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: _ragUse
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: _context
+      value: "Eres una herramienta que busca presupuestos relacionados con la preparaci\xF3n
+        de un caso civil. Debes indicar datos monetarios cuando se soliciten. Los
+        precios deben estar en euros (\u20AC) y basados en los costes habituales
+        del mercado en Espa\xF1a."
+      objectReference: {fileID: 0}
+    - target: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: _safeguard
+      value: 'Escribir toda la informacion en un solo parrafo.
+
+        Argumenta
+        las cosas y no des el precio sin nada de texto.
+
+        Habla solo del precio
+        del producto, no incluyas en tu respuesta cualquier contexto que te puedan
+        dar entorno al producto.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: _temperature
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: _safeguardSteps
+      value: 'SALIDA PERMITIDA:
+
+        solo el texto final.
+
+        solo el texto
+        que se ha recibido si se da el caso.
+
+
+        SALIDA NO PERMITIDA:
+
+        explicaciones
+
+        confirmaciones
+
+        comentarios
+
+        etiquetas'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: _stepChecks.Array.size
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: '_stepChecks.Array.data[0]'
-      value: Asegurate que el texto de arriba te habla exactamente igual que un buscador
-        de google o operaGX, debe decir las cosas de manera objetiva y sin ningun
-        rasgo humano.
+      value: "Revisa el texto recibido.\r\n\r\nComprueba si contiene al menos una
+        palabra relacionada con servicios legales civiles.\r\n\r\nPalabras v\xE1lidas
+        incluyen:\r\n\r\nnotario\r\nabogado\r\nprocurador\r\nperito\r\ninforme pericial\r\ntribunal\r\njuicio
+        civil\r\ndemanda\r\ntasas judiciales\r\ndocumentos legales\r\nescritura\r\ncontrato\r\ncoste\r\nprecio\r\npresupuesto\r\n\r\nReglas:\r\n\r\nSi
+        el texto contiene alguna de estas palabras, devu\xE9lvelo exactamente igual.\r\nSi
+        no contiene ninguna, devuelve exactamente \"Sin informaci\xF3n\"."
       objectReference: {fileID: 0}
     - target: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: '_stepChecks.Array.data[1]'
-      value: "Asegurate que la respuesta esta completamente en espa\xF1ol. En caso
-        de no estarlo traducelo a este idioma."
+      value: "Revisa el texto recibido.\n\nConsidera texto inv\xE1lido solo si:\n\nes
+        una secuencia sin sentido como asdfgh, 123123123, xxxxx\ncontiene s\xEDmbolos
+        aleatorios sin palabras\ntiene m\xE1s del 50% de caracteres no alfab\xE9ticos\n\nReglas:\n\nSi
+        el texto es normal y entendible, devu\xE9lvelo exactamente igual.\nSi es
+        claramente aleatorio, devuelve \"Sin informaci\xF3n\"."
+      objectReference: {fileID: 0}
+    - target: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: '_stepChecks.Array.data[2]'
+      value: "Revisa el texto recibido.\n\nReglas:\n\nSi hay errores ortogr\xE1ficos,
+        corr\xEDgelos.\nSi no hay errores, devuelve el texto sin cambios.\n\nNo a\xF1adas
+        informaci\xF3n nueva."
+      objectReference: {fileID: 0}
+    - target: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: '_stepChecks.Array.data[3]'
+      value: "Comprueba si el texto est\xE1 completamente en espa\xF1ol.\n\nReglas:\n-
+        Si el texto no est\xE1 en espa\xF1ol, trad\xFAcelo al espa\xF1ol.\n- Si el
+        texto ya est\xE1 en espa\xF1ol, devu\xE9lvelo exactamente igual.\n\nNo expliques
+        nada.\nNo confirmes si estaba o no en espa\xF1ol.\nDevuelve \xFAnicamente
+        el texto final."
+      objectReference: {fileID: 0}
+    - target: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: '_stepChecks.Array.data[4]'
+      value: "evisa el texto recibido.\n\nReglas:\n\nSi hay simbolos externos al
+        texto o al dinero como (), {}, *, ^,\xA8,\xB4... eliminalos del texto.\nSi
+        no hay errores, devuelve el texto sin cambios.\n\nNo a\xF1adas informaci\xF3n
+        nueva."
+      objectReference: {fileID: 0}
+    - target: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: '_stepChecks.Array.data[5]'
+      value: "Reescribe el texto para que sea claro, objetivo y directo.\n\nReglas:\n-
+        No a\xF1adas explicaciones.\n- No describas el cambio realizado.\n- No confirmes
+        que lo has reescrito.\n\nDevuelve \xFAnicamente el texto final reescrito."
+      objectReference: {fileID: 0}
+    - target: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: '_stepChecks.Array.data[6]'
+      value: "Reescribe el texto para que sea claro, objetivo y directo.\n\nReglas:\n-
+        No a\xF1adas explicaciones.\n- No describas el cambio realizado.\n- No confirmes
+        que lo has reescrito.\n\nDevuelve \xFAnicamente el texto final reescrito."
+      objectReference: {fileID: 0}
+    - target: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: '_stepChecks.Array.data[7]'
+      value: 'Si el texto que te llega es exactamente "" sustituyelo por el texto
+        "NO TENEMOS ESA INFORMACION"
+
+        En caso de que haya algo escrito, aunque
+        sea una sola letra devuelve el texto exactamente igual a como estaba.'
       objectReference: {fileID: 0}
     - target: {fileID: 3576421791690390405, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_VerticalFit

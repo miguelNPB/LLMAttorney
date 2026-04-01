@@ -17,6 +17,9 @@ public class ConfigLLMInfo : MonoBehaviour
     private string _safeguard;
 
     [SerializeField, TextArea(3, 10)]
+    private string _safeguardSteps;
+
+    [SerializeField, TextArea(3, 10)]
     private string[] _stepChecks;
 
     [SerializeField, Range(0f, 1f)]
@@ -38,6 +41,11 @@ public class ConfigLLMInfo : MonoBehaviour
     public string getSafeguard()
     {
         return _safeguard;
+    }
+
+    public string getSafeguardSteps()
+    {
+        return _safeguardSteps;
     }
 
     public string[] getStepsChecks()
