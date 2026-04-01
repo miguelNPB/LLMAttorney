@@ -1,32 +1,89 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class RedactionPage : PCPage
 {
-    public RectTransform demandaLayout;
+    public VerticalLayoutGroup verticalLayoutDemanda;
+    public VerticalLayoutGroup verticalLayoutRespuestaDemanda;
+    public RectTransform lastElementLayoutDemanda;
+    public RectTransform lastElementLayoutRespuestaDemanda;
+    public int scrollSpeed = 5;
 
-    public void OnType()
+    private RectTransform _rectTrDemanda;
+    private RectTransform _rectTrRespuestaDemanda;
+
+    private float _totalHeight;
+
+    private void OnScroll(float direction)
     {
-        LayoutRebuilder.ForceRebuildLayoutImmediate(demandaLayout);
+        if (GameSystem.Instance.CaseData.isDemanda)
+        {
+            int oldValue = verticalLayoutDemanda.padding.top;
+            verticalLayoutDemanda.padding.top = Mathf.Clamp(oldValue + (scrollSpeed * (int)direction), (int)lastElementLayoutDemanda.position.y - verticalLayoutDemanda.padding.top - 3000, 20);
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_rectTrDemanda);
+        }
+        else
+        {
+            int oldValue = verticalLayoutDemanda.padding.top;
+            verticalLayoutRespuestaDemanda.padding.top = Mathf.Clamp(oldValue + (scrollSpeed * (int)direction), (int)lastElementLayoutRespuestaDemanda.position.y - verticalLayoutDemanda.padding.top - 3000  , 20);
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_rectTrRespuestaDemanda);
+        }   
+    }
+
+    private void OnDisable()    
+    {
+        InputSystem.Instance.OnScrollPerformed -= OnScroll;
+    }
+
+    private void OnEnable()
+    {
+        InputSystem.Instance.OnScrollPerformed += OnScroll;
     }
 
     private void Awake()
     {
-        LayoutRebuilder.ForceRebuildLayoutImmediate(demandaLayout);
+        _rectTrDemanda = verticalLayoutDemanda.GetComponent<RectTransform>();
+        _rectTrRespuestaDemanda = verticalLayoutRespuestaDemanda.GetComponent<RectTransform>();
     }
     public override void Open()
     {
-        // activar los gameobject de la pagina
-        computerSystem.ToggleNotification(Page.ChatCliente, false);
+        computerSystem.ToggleNotification(Page.Redaccion, false);
 
-        for (int i = 0; i < gameObject.transform.childCount; i++)
-            gameObject.transform.GetChild(i).gameObject.SetActive(true);
+        // activar los gameobject de la pagina
+        if (GameSystem.Instance.CaseData.isDemanda)
+        {
+            _rectTrDemanda.gameObject.SetActive(true);
+            for (int i = 0; i < _rectTrDemanda.transform.childCount; i++)
+                _rectTrDemanda.GetChild(i).gameObject.SetActive(true);
+
+            verticalLayoutDemanda.padding.top = 20;
+
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_rectTrDemanda);
+        } 
+        else
+        {
+            _rectTrRespuestaDemanda.gameObject.SetActive(true);
+            for (int i = 0; i < _rectTrRespuestaDemanda.transform.childCount; i++)
+                _rectTrRespuestaDemanda.GetChild(i).gameObject.SetActive(true);
+
+            verticalLayoutRespuestaDemanda.padding.top = 20;
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_rectTrRespuestaDemanda);
+        }
     }
 
     public override void Close()
     {
         // desactivar los gameobject de la pagina
-        for (int i = 0; i < gameObject.transform.childCount; i++)
-            gameObject.transform.GetChild(i).gameObject.SetActive(false);
+        if (GameSystem.Instance.CaseData.isDemanda)
+        {
+            for (int i = 0; i < _rectTrDemanda.transform.childCount; i++)
+                _rectTrDemanda.GetChild(i).gameObject.SetActive(false);
+        }
+        else
+        {
+            for (int i = 0; i < _rectTrRespuestaDemanda.transform.childCount; i++)
+                _rectTrRespuestaDemanda.GetChild(i).gameObject.SetActive(false);
+        }
     }
 }

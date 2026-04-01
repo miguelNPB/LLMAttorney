@@ -14,6 +14,7 @@ public struct ConversationMessage
 
 public class CaseData
 {
+    public bool isDemanda = true; // true = demanda, false = respuesta a demanda
     // datos interacciones cliente
     public List<ConversationMessage> clientMessages = new List<ConversationMessage>();
     public string clientName = "";
