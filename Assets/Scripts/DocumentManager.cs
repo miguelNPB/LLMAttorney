@@ -46,7 +46,7 @@ public class DocumentManager : MonoBehaviour
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Confined;
+        //Cursor.lockState = CursorLockMode.Confined;
 
         rootCanvas = documentTab.GetComponentInParent<Canvas>();
         while (rootCanvas != null && !rootCanvas.isRootCanvas)
