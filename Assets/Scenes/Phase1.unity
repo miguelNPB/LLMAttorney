@@ -1546,11 +1546,7 @@ PrefabInstance:
       value: 'Escribir toda la informacion en un solo parrafo.
 
         Argumenta
-        las cosas y no des el precio sin nada de texto.
-
-        Habla solo del precio
-        del producto, no incluyas en tu respuesta cualquier contexto que te puedan
-        dar entorno al producto.'
+        las cosas y no des el precio sin nada de texto.'
       objectReference: {fileID: 0}
     - target: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: _temperature
@@ -1579,6 +1575,22 @@ PrefabInstance:
     - target: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: _stepChecks.Array.size
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: _historicalConversation
+      value: "Analiza el hist\xF3rico de conversaci\xF3n que se te proporciona junto
+        con la nueva pregunta.\n\nEl hist\xF3rico contiene pares de pregunta y respuesta
+        anteriores.\n\nReglas:\n\nBusca en el hist\xF3rico si existe una pregunta
+        igual o muy similar a la nueva pregunta.\nSi encuentras una pregunta igual
+        o muy similar, devuelve exactamente la misma respuesta que aparece en el
+        hist\xF3rico, manteniendo el mismo contenido y formato.\nSi no existe una
+        pregunta igual pero s\xED una pregunta relacionada con el mismo tema, usa
+        la respuesta del hist\xF3rico como referencia y mant\xE9n coherencia en precios,
+        datos y estilo de respuesta.\nSi no existe ninguna pregunta similar en el
+        hist\xF3rico, responde normalmente siguiendo las dem\xE1s directivas.\n\nReglas
+        adicionales:\n\nNo menciones el hist\xF3rico en la respuesta.\nNo expliques
+        que est\xE1s utilizando respuestas anteriores.\nDevuelve \xFAnicamente la
+        respuesta final."
       objectReference: {fileID: 0}
     - target: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: '_stepChecks.Array.data[0]'

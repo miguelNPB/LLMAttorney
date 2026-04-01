@@ -20,6 +20,9 @@ public class ConfigLLMInfo : MonoBehaviour
     private string _safeguardSteps;
 
     [SerializeField, TextArea(3, 10)]
+    private string _historicalConversation;
+
+    [SerializeField, TextArea(3, 10)]
     private string[] _stepChecks;
 
     [SerializeField, Range(0f, 1f)]
@@ -46,6 +49,11 @@ public class ConfigLLMInfo : MonoBehaviour
     public string getSafeguardSteps()
     {
         return _safeguardSteps;
+    }
+
+    public string getHistoricalConversation()
+    {
+        return _historicalConversation;
     }
 
     public string[] getStepsChecks()

@@ -21,6 +21,8 @@ public class LLMConectorSearch : LLMConector
     [Header("Search Messages")]
     public TMP_InputField inputField;
 
+    private List<String> _historical = new List<string>();
+
     /**
      * Metodo encargado de recoger la respuesta del LLM y transmitirla a la clase que muestre el output de este
      * @param success: muestra si ha podido obtenerse una respuesta del LLM
@@ -39,12 +41,12 @@ public class LLMConectorSearch : LLMConector
 
             if (_stepCounter < _config.getStepsChecks().Length)
             {
-                Debug.Log("Revisa el texto: " + jsonResponse.answer);
                 securityStepsCheck(jsonResponse.answer);
             }
             else
             {
                 Debug.Log("Respuesta final");
+                _historical.Add("Respuesta :" + jsonResponse.answer);
                 _stepCounter = 0;
                 _uiSearch.ShowMessage();
             }
@@ -68,25 +70,26 @@ public class LLMConectorSearch : LLMConector
 
         string prompt = inputField.text;
 
-        //string conversation = "";
-        //foreach (ConversationMessage m in GameSystem.Instance.CaseData.clientMessages)
-        //{
-        //    conversation += (m.fromPlayer ? "Abogado:" : "Tu:") + m.text;
-        //}
-
         string configLLM = _config.getContext()
             + _config.getSafeguard();
 
+        configLLM = configLLM + "\n " + _config.getHistoricalConversation() + "\n Historico: \n";
+
+        foreach (String s in _historical)
+        {
+            configLLM = configLLM + s + "\n";
+        }
+
         Debug.Log("PROMPT: " + prompt);
         Debug.Log("CONTEXT: " + configLLM);
-        
+
+        _historical.Add("Pregunta: " + prompt);
 
         LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, RecieveChatMessage, prompt, configLLM, schema, 
             _config.getTemperature(), _config.getRagUse());
 
         inputField.text = "";
 
-        //_uiSearch.AddMessage(prompt);
         _uiSearch.StartPendingMessage();
     }
 

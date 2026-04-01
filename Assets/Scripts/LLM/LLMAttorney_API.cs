@@ -22,6 +22,7 @@ public class LLMAttorneyRequest
     public float temperature;
     public int max_length;
     public bool rag_use;
+    public int rag_index;
 }
 
 /// <summary>
@@ -37,6 +38,7 @@ public class LLMAttorneyRequestJSONSchema
     public int max_length;
     public JsonSchema json_schema;
     public bool rag_use;
+    public int rag_index;
 }
 
 /// <summary>
@@ -158,10 +160,11 @@ public class LLMAttorney_API : MonoBehaviour
      * @param schema Esquema JSON de como queremos que responda el LLM de forma mas guiada. En caso de no necesitarlo, pasar null y devolvera un string
      * @param temperature float en el rango [0f, 1f] que indica como de creativo es el LLM. 0 = Predecible 1 = Creativo
      * @param ragUse bool que marca si el LLM debe usar la informacion aportada con el Rag para responder al prompt o no
+     * @param ragIndex int que marca el rag que debemos de utilizar para la llamada
      * @param max_length Tokens maximos del texto, esto no usarlo mucho q no funciona muy bien
      * @return Devuelve true si se ha podido mandar, si no hay ningun prompt encolado
      */
-    public bool SendPrompt(API_TYPE apiType, Action<bool, string> onComplete, string prompt, string LLMConfig, JsonSchema schema = null, float temperature = 0.8f, bool ragUse = false, int max_length = 99999)
+    public bool SendPrompt(API_TYPE apiType, Action<bool, string> onComplete, string prompt, string LLMConfig, JsonSchema schema = null, float temperature = 0.8f, bool ragUse = false, int ragIndex = 0, int max_length = 99999)
     {
 
         Debug.Log("Envio de prompt: " + _sendingPrompt);
@@ -179,7 +182,8 @@ public class LLMAttorney_API : MonoBehaviour
                 prompt = prompt,
                 temperature = temperature,
                 max_length = max_length,
-                rag_use = ragUse
+                rag_use = ragUse,
+                rag_index = ragIndex
             };
 
             string json = JsonConvert.SerializeObject(requestData, Formatting.Indented);
@@ -203,7 +207,8 @@ public class LLMAttorney_API : MonoBehaviour
                 temperature = temperature,
                 max_length = max_length,
                 json_schema = schema,
-                rag_use = ragUse
+                rag_use = ragUse,
+                rag_index = ragIndex
             };
 
             string json = JsonConvert.SerializeObject(requestData, Formatting.Indented);
@@ -226,10 +231,11 @@ public class LLMAttorney_API : MonoBehaviour
     /// <param name="schema"></param>
     /// <param name="temperature"></param>
     /// <param name="ragUse"></param>
+    /// <param name="ragIndex"></param>
     /// <param name="max_length"></param>
     /// <returns></returns>
     /// 
-    public IEnumerator SendPromptAsync(API_TYPE apiType, Action<bool, string> onComplete, string prompt, string LLMConfig, JsonSchema schema = null, float temperature = 0.8f, bool ragUse = false, int max_length = 99999)
+    public IEnumerator SendPromptAsync(API_TYPE apiType, Action<bool, string> onComplete, string prompt, string LLMConfig, JsonSchema schema = null, float temperature = 0.8f, bool ragUse = false, int ragIndex = 0, int max_length = 99999)
     {
 
         Debug.Log("Envio de prompt: " + _sendingPrompt);
@@ -247,7 +253,8 @@ public class LLMAttorney_API : MonoBehaviour
                 prompt = prompt,
                 temperature = temperature,
                 max_length = max_length,
-                rag_use = ragUse
+                rag_use = ragUse,
+                rag_index = ragIndex
             };
 
             string json = JsonConvert.SerializeObject(requestData, Formatting.Indented);
@@ -271,7 +278,8 @@ public class LLMAttorney_API : MonoBehaviour
                 temperature = temperature,
                 max_length = max_length,
                 json_schema = schema,
-                rag_use = ragUse
+                rag_use = ragUse,
+                rag_index = ragIndex
             };
 
             string json = JsonConvert.SerializeObject(requestData, Formatting.Indented);

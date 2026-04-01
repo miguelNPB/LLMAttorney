@@ -21,19 +21,40 @@ from guidance import models, gen, select
 from guidance import json as gen_json
 import asyncio
 import datetime
+from dataclasses import dataclass
 
 import httpx, requests, json, bs4, getpass, os
 
+#Nos definimos una clase para manejar los archivos que usemos para la creacion de vector
+@dataclass
+class ArchivoRag:
+    pathGuardado: str
+    pathArchivo: str
+    collectionName: str
 
+#Creamos los distintos archivos de rag que tengamos y los almacenamos en un array
+ragCodigoCivil = ArchivoRag(
+    pathGuardado="./vector_db/CodigoCivil_db",
+    pathArchivo="./documentos_rag/boe_codigo_civil_legislacion_complementaria.pdf",
+    collectionName="codigo_civil"
+)
+
+ragsFiles = [ragCodigoCivil]
+
+#Nos creamos el array de vector stores global
+vector_stores = []
+
+def vector_store_addition(data):
+    global vector_stores
+
+    vector_stores.append(data)
 
 # Carga de archivos Rag
-def load_RAG_file():
-
-    global vector_store
+def load_RAG_file(archivo: ArchivoRag):
 
     a = datetime.datetime.now()
 
-    path_civilCode = Path("/vector_db/CodigoCivil_db")
+    path_civilCode = Path(archivo.pathGuardado)
     path_civilCode.mkdir(parents=True, exist_ok=True)
 
     #EMBEDDINGS!
@@ -49,8 +70,11 @@ def load_RAG_file():
 
         print("No existe el directorio del vector store, creando uno nuevo a partir del PDF...")
 
+        if not os.path.exists(archivo.pathArchivo):
+            raise Exception(f"Archivo RAG no encontrado: {archivo.pathArchivo}")
+
         # Carga del documento PDF dando la ruta y el modo de carga (todo en un bloque, sin array)
-        loader = PyPDFLoader("./documentos_rag/boe_codigo_civil_legislacion_complementaria.pdf", mode = "single")
+        loader = PyPDFLoader(archivo.pathArchivo, mode = "single")
         docs = loader.load()
 
         # División de todo el texto en sectores
@@ -67,19 +91,17 @@ def load_RAG_file():
             documents=all_splits,
             embedding=embeddingsRag,
             persist_directory=str(path_civilCode),
-            collection_name="codigo_civil"
+            collection_name=archivo.collectionName
         )
 
         vector_store.persist()
+
+        vector_store_addition(vector_store)
 
         b = datetime.datetime.now()
 
         print(f"Tiempo de carga y vectorizacion: {b-a}")
 
-        #Retriever a partir del vector store
-        retriever = vector_store.as_retriever()
-        retriever_test = retriever.invoke("Quien tiene derecho a solicitar la nacionalidad española?")
-        print(retriever_test[0].page_content)
 
     else:
 
@@ -88,17 +110,15 @@ def load_RAG_file():
         vector_store = Chroma(
             persist_directory=str(path_civilCode),
             embedding_function=embeddingsRag,
-            collection_name="codigo_civil"
+            collection_name=archivo.collectionName
         )
+
+        vector_store_addition(vector_store)
 
         b = datetime.datetime.now()
 
         print(f"Tiempo de carga y vectorizacion: {b-a}")
 
-        #Retriever a partir del vector store
-        retriever = vector_store.as_retriever()
-        retriever_test = retriever.invoke("Quien tiene derecho a solicitar la nacionalidad española?")
-        print(retriever_test[0].page_content)
 
 '''
 '''
@@ -123,7 +143,9 @@ app = FastAPI(title="LLMAttorney Server")
 
 @app.on_event("startup")
 def startup():
-    load_RAG_file()
+    for archivo in ragsFiles:
+        print(f"Cargando archivo RAG: {archivo.pathArchivo} con collection name: {archivo.collectionName}")
+        load_RAG_file(archivo)
 
 # --- 
 
@@ -138,6 +160,7 @@ class Query(BaseModel):
     # Si es None, funciona en modo texto normal
     json_schema: Optional[Dict[str, Any]] = None
     rag_use: bool #Flag que indica si queremos usar RAG para la consulta que se le hace al modelo
+    rag_index: int = 0 #Indice del vector store a usar en caso de que se quiera usar RAG, por defecto el primero creado (en este caso el del codigo civil)
 
 # ---
 
@@ -145,8 +168,8 @@ class Query(BaseModel):
 #devuelve dos datos, el content que es el texto plano con el contenido de los documentos recuperados y los propios documentos que usa para dar esa respuesta.
 @tool(description="Devuelve el contexto relevante para una consulta dada, basado en los documentos almacenados en el vector store.",
       response_format="content_and_artifact")
-def retrieve_context(query: str):
-    retrieved_docs = vector_store.similarity_search(query, k=3)  # Recupera los 3 documentos más relevantes segun la vectorizacion
+def retrieve_context(query: str, index: int = 0):
+    retrieved_docs = vector_stores[index].similarity_search(query, k=3)  # Recupera los 3 documentos más relevantes segun la vectorizacion
 
     #traduccion del texto de los documentos a un formato mas interpretable y ordenado para el LLM.
     serialized = "\n\n".join(
@@ -237,9 +260,12 @@ async def ask_LLMAttorney(query: Query):
     #Comprobacion de uso de rag y obtencio de contexto
     if query.rag_use:
 
-        print("vector_store:", vector_store)
+        if query.rag_index >= len(vector_stores) or query.rag_index < 0:
+            raise HTTPException(status_code=400, detail=f"RAG index {query.rag_index} is out of range. Available vector stores: 0 to {len(vector_stores)-1}")
 
-        retriever_output = vector_store.as_retriever().invoke(query.prompt)  # Recupera los documentos relevantes para la consulta
+        print("vector_store:", vector_stores[query.rag_index])
+
+        retriever_output = vector_stores[query.rag_index].as_retriever().invoke(query.prompt)  # Recupera los documentos relevantes para la consulta
 
         print("retriever_output tomado")
 
