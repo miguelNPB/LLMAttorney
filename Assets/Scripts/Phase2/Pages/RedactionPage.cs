@@ -20,13 +20,13 @@ public class RedactionPage : PCPage
         if (GameSystem.Instance.CaseData.isDemanda)
         {
             int oldValue = verticalLayoutDemanda.padding.top;
-            verticalLayoutDemanda.padding.top = Mathf.Clamp(oldValue + (scrollSpeed * (int)direction), (int)lastElementLayoutDemanda.position.y - verticalLayoutDemanda.padding.top - 3000, 20);
+            verticalLayoutDemanda.padding.top = Mathf.Clamp(oldValue + (scrollSpeed * (int)direction), (int)lastElementLayoutDemanda.position.y + verticalLayoutDemanda.padding.top - 1000, 20);
             LayoutRebuilder.ForceRebuildLayoutImmediate(_rectTrDemanda);
         }
         else
         {
             int oldValue = verticalLayoutDemanda.padding.top;
-            verticalLayoutRespuestaDemanda.padding.top = Mathf.Clamp(oldValue + (scrollSpeed * (int)direction), (int)lastElementLayoutRespuestaDemanda.position.y - verticalLayoutDemanda.padding.top - 3000  , 20);
+            verticalLayoutRespuestaDemanda.padding.top = Mathf.Clamp(oldValue + (scrollSpeed * (int)direction), (int)lastElementLayoutRespuestaDemanda.position.y + verticalLayoutDemanda.padding.top - 1000, 20);
             LayoutRebuilder.ForceRebuildLayoutImmediate(_rectTrRespuestaDemanda);
         }   
     }

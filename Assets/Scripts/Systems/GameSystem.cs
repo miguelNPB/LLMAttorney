@@ -2,7 +2,23 @@ using UnityEngine;
 
 public class GameSystem : MonoBehaviour
 {
-    private static GameSystem instance = null; public static GameSystem Instance { get { return instance; } }
+    private static GameSystem instance = null;
+    private bool initialized = false;
+    public static GameSystem Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindFirstObjectByType<GameSystem>();
+                if (instance != null && instance._caseData == null)
+                {
+                    instance.Init();
+                }
+            }
+            return instance;
+        }
+    }
     private CaseData _caseData = null; public CaseData CaseData { get { return _caseData; } }
 
     [SerializeField]
@@ -26,19 +42,24 @@ public class GameSystem : MonoBehaviour
         _caseData.clientMessages.Add(new ConversationMessage("Estas bien?", false));
     }
 
-    private void Awake()
+    private void Init()
     {
-        if (GameSystem.Instance != null)
-            Destroy(this);
-
-        instance = this;
-
         DontDestroyOnLoad(gameObject);
 
         CreateExampleCaseData();
 
-        //Cursor.lockState = CursorLockMode.Confined;
+        initialized = true;
     }
 
+    private void Awake()
+    {
+        if (GameSystem.Instance != null && Instance != this)
+            Destroy(this);
 
+        if (!initialized)
+        {
+            instance = this;
+            Init();
+        }
+    }
 }

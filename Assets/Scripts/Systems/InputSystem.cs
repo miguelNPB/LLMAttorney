@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 
     public class InputSystem : MonoBehaviour
     {
+        private bool initialized = false;
+
         public Action OnSkipTextPerformed;
         public Action<float> OnScrollPerformed;
 
@@ -18,15 +20,38 @@ using UnityEngine.InputSystem;
                 OnScrollPerformed?.Invoke(context.ReadValue<float>());
         }
 
+
+        private void Init()
+        {
+        
+        }
         private void Awake()
         {
-            if (Instance != null)
+            if (InputSystem.Instance != null && Instance != this)
                 Destroy(this);
 
-            instance = this;
+            if (!initialized)
+            {
+                instance = this;
+                Init();
+            }
         }
 
-        public static InputSystem Instance { get { return instance; } }
+        public static InputSystem Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = FindFirstObjectByType<InputSystem>();
+                    if (instance != null)
+                    {
+                        instance.Init();
+                    }
+                }
+                return instance;
+            }
+        }
         private static InputSystem instance = null;
     }
 
