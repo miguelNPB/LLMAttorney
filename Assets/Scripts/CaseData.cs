@@ -18,6 +18,8 @@ public class CaseData
     // datos interacciones cliente
     public List<ConversationMessage> clientMessages = new List<ConversationMessage>();
     public string clientName = "";
+    public string procuradorName = "";
+    public string clienteRivalName = ""; // demandado o demandador en caso de ser respuesta
 
     // resto
 }

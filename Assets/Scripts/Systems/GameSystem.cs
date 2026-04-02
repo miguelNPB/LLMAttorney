@@ -34,6 +34,8 @@ public class GameSystem : MonoBehaviour
 
         _caseData.isDemanda = true;
         _caseData.clientName = "Carlos Leon";
+        _caseData.procuradorName = "Procuratus Maximus";
+        _caseData.clienteRivalName = "Guillermo Jimenez";
         _caseData.clientMessages.Add(new ConversationMessage("Hola abogado!", false));
         _caseData.clientMessages.Add(new ConversationMessage("Me llamo Carlos Leon, y me comunico contigo para que me ayudes con una disputa que he tenido con mi vecino, Guillermo Jimenez", false));
         _caseData.clientMessages.Add(new ConversationMessage("Claro! Cuentame!", true));
