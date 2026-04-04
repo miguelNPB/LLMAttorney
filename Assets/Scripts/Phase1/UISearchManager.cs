@@ -6,12 +6,17 @@ using UnityEngine.UI;
 public class UISearchManager : MonoBehaviour
 {
 
+    [SerializeField]
+    private WriteTextSystem _writeTextSystem;
+
+    [SerializeField]
+    private GameObject _searchToolButton;
+
     [SerializeField] private TMP_Text resultText;
     //[SerializeField] private VerticalLayoutGroup layoutGroup;
 
     [SerializeField] private int scrollSpeed = 1;
 
-    private GameObject lastMessageAdded = null;
     private string pendingMessage = "";
     private bool waitingPendingMessage = false;
 
@@ -77,4 +82,12 @@ public class UISearchManager : MonoBehaviour
 
         waitingPendingMessage = false;
     }
+
+    public void ShowSearchToolButton()
+    {
+
+        _searchToolButton.SetActive(!_writeTextSystem.IsTyping());
+        
+    }
+
 }

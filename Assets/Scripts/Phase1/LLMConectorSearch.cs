@@ -120,7 +120,7 @@ public class LLMConectorSearch : LLMConector
         float timer = 0;
 
         while (!LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, RecieveChatMessage, prompt, configLLM, schema,
-            _config.getTemperature(), _config.getRagUse()))
+            _config.getTemperature(), false))
         {
             timer += Time.deltaTime;
 
