@@ -86,7 +86,7 @@ public class LLMConectorSearch : LLMConector
         _historical.Add("Pregunta: " + prompt);
 
         LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, RecieveChatMessage, prompt, configLLM, schema, 
-            _config.getTemperature(), _config.getRagUse());
+            _config.getTemperature(), _config.getRagUse(), (int)_config.getRagFileType());
 
         inputField.text = "";
 

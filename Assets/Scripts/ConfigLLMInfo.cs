@@ -5,6 +5,13 @@ using UnityEngine;
  */
 public class ConfigLLMInfo : MonoBehaviour
 {
+
+    public enum RagFiles
+    {
+        CodigoCivil,
+        Precios
+    }
+
     //Para mas informacion sobre las variables revisar LLMAttorney_API.cs
 
     [SerializeField]
@@ -31,6 +38,9 @@ public class ConfigLLMInfo : MonoBehaviour
     [SerializeField]
     private bool _ragUse;
 
+    [SerializeField]
+    private RagFiles _ragFile;
+
     public API_TYPE getApiType()
     {
         return _apiType;
@@ -54,6 +64,7 @@ public class ConfigLLMInfo : MonoBehaviour
     public string getHistoricalConversation()
     {
         return _historicalConversation;
+
     }
 
     public string[] getStepsChecks()
@@ -69,5 +80,10 @@ public class ConfigLLMInfo : MonoBehaviour
     public bool getRagUse()
     {
         return _ragUse;
+    }
+
+    public RagFiles getRagFileType()
+    {
+        return _ragFile;
     }
 }
