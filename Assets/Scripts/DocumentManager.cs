@@ -280,6 +280,9 @@ public class DocumentManager : MonoBehaviour
         }
 
         documents.Add(aux);
+
+        if (BudgetManager.Instance != null)
+            BudgetManager.Instance.AddExpense($"0 {cost}", docType, docName);
     }
 
     void SetWindowTitle(string title)
