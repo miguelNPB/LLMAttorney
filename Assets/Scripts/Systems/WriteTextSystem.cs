@@ -75,6 +75,7 @@ public class WriteTextSystem : MonoBehaviour
         _isTyping = false;
 
         textContainer.text = "";
+
     }
 
     
