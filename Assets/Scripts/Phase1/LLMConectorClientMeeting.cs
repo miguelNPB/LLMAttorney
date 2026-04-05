@@ -13,13 +13,15 @@ public class LLMConectorClientMeeting : LLMConector
     private class MeetingResponse
     {
         public string answer;
-        public bool acceptTerms;
+        public bool contratar_abogado;
     }
 
     [Header("Search Messages")]
     public TMP_InputField inputField;
 
     private List<String> _historical = new List<string>();
+
+    private bool _abogadoContratado = false;
 
     /**
      * Metodo encargado de recoger la respuesta del LLM y transmitirla a la clase que muestre el output de este
@@ -28,14 +30,21 @@ public class LLMConectorClientMeeting : LLMConector
      */
     public override void RecieveChatMessage(bool success, string answer)
     {
-        Debug.Log("Respuesta cruda: " + answer);
-
+        
         if (success)
         {
             // deserializamos la respuesta
             MeetingResponse jsonResponse = JsonUtility.FromJson<MeetingResponse>(answer);
 
-            _uiMeeting.EndPendingMessage(jsonResponse.answer);
+            Debug.Log("Respuesta cruda: " + jsonResponse.answer);
+
+            if (_stepCounter == 0)
+            {
+                Debug.Log("Respuesta contratar abogado: " + jsonResponse.contratar_abogado);
+                _abogadoContratado = jsonResponse.contratar_abogado;
+            }
+
+            _uiMeeting.EndPendingMessage(jsonResponse.answer);          
 
             if (_stepCounter < _config.getStepsChecks().Length)
             {
@@ -46,7 +55,7 @@ public class LLMConectorClientMeeting : LLMConector
                 Debug.Log("Respuesta final");
                 _historical.Add("Respuesta :" + jsonResponse.answer);
                 _stepCounter = 0;
-                _uiMeeting.ShowMessage();
+                _uiMeeting.ShowMessage(_abogadoContratado);
             }
         }
         else
@@ -65,7 +74,7 @@ public class LLMConectorClientMeeting : LLMConector
         JsonSchema schema = new JsonSchema();
 
         schema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
-        schema.properties.Add("acceptTerms", new PropertyInfo(JsonDataType.Boolean));
+        schema.properties.Add("contratar_abogado", new PropertyInfo(JsonDataType.Boolean));
 
         string prompt = inputField.text;
 
@@ -97,7 +106,6 @@ public class LLMConectorClientMeeting : LLMConector
         JsonSchema schema = new JsonSchema();
 
         schema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
-        schema.properties.Add("acceptTerms", new PropertyInfo(JsonDataType.Boolean));
 
         Debug.Log("PROMPT de security checks: " + prompt);
 

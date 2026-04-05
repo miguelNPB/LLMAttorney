@@ -7,15 +7,10 @@ public class UISearchManager : MonoBehaviour
 {
 
     [SerializeField]
-    private WriteTextSystem _writeTextSystem;
-
-    [SerializeField]
     private GameObject _searchToolButton;
 
     [SerializeField] private TMP_Text resultText;
     //[SerializeField] private VerticalLayoutGroup layoutGroup;
-
-    [SerializeField] private int scrollSpeed = 1;
 
     private string pendingMessage = "";
     private bool waitingPendingMessage = false;
@@ -81,13 +76,6 @@ public class UISearchManager : MonoBehaviour
         pendingMessage = text;
 
         waitingPendingMessage = false;
-    }
-
-    public void ShowSearchToolButton()
-    {
-
-        _searchToolButton.SetActive(!_writeTextSystem.IsTyping());
-        
     }
 
 }

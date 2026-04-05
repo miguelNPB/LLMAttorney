@@ -16,10 +16,11 @@ public class UIClientMeetingManager : MonoBehaviour
     [SerializeField]
     private GameObject _userMessageUI;
 
+    [SerializeField]
+    private GameObject _changePhaseButton;
+
     [SerializeField] private TMP_Text resultText;
     //[SerializeField] private VerticalLayoutGroup layoutGroup;
-
-    [SerializeField] private int scrollSpeed = 1;
 
     private string pendingMessage = "";
     private bool waitingPendingMessage = false;
@@ -37,9 +38,14 @@ public class UIClientMeetingManager : MonoBehaviour
 
     }
 
-    public void ShowMessage()
+    public void ShowMessage(bool changePhase)
     {
         _writeTextSystem.WriteText(resultText.text);
+
+        if (changePhase)
+        {
+            _changePhaseButton.SetActive(true);
+        }
     }
 
     /// <summary>
@@ -102,7 +108,6 @@ public class UIClientMeetingManager : MonoBehaviour
             _userMessageUI.SetActive(!_writeTextSystem.IsTyping());
             _searchToolButton.SetActive(!_writeTextSystem.IsTyping());
 
-            Debug.Log(_searchToolButton.activeSelf);
         }
 
         

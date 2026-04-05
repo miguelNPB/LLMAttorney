@@ -9,9 +9,16 @@ public class SceneSystem : MonoBehaviour
 {
     [SerializeField] private SceneAsset MainMenu;
 
+    [SerializeField] private SceneAsset Phase2;
+
     public void LoadMainMenu()
     {
         SceneManager.LoadScene(MainMenu.name);
+    }
+
+    public void LoadPhase2()
+    {
+        SceneManager.LoadScene(Phase2.name);
     }
 
     private void Awake()
