@@ -39,6 +39,9 @@ public class WriteTextSystem : MonoBehaviour
     /// <returns></returns>
     public IEnumerator TypeConversation(string text)
     {
+
+        Debug.Log("Write Conversation: " + text);
+
         _waitingInputToContinue = false;
         _isTyping = true;
 

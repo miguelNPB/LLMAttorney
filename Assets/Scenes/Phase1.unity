@@ -671,12 +671,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28d5ac701697b184095000ff0f8d2252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Phase1
-  writeTextSystem: {fileID: 0}
+  writeTextSystem: {fileID: 1280167836}
+--- !u!114 &1280167836 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 429528152396629215, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+  m_PrefabInstance: {fileID: 6430441125739056708}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4cf7a3d40d4b93468a0b13c4922a1c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WriteTextSystem
 --- !u!224 &1293320631 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5307846417687057373, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
   m_PrefabInstance: {fileID: 4665822228252766504}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1440402565 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5051894018414952572, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+  m_PrefabInstance: {fileID: 6430441125739056708}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b007d5736bffb3b418f51a3ab5215dd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIClientMeetingManager
 --- !u!1 &1482587221
 GameObject:
   m_ObjectHideFlags: 0
@@ -929,7 +951,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 533189375153599252, guid: be336779a8efeb549896730c5b892e7b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000014497674
+      value: 0.000021763595
       objectReference: {fileID: 0}
     - target: {fileID: 2903242016931602870, guid: be336779a8efeb549896730c5b892e7b, type: 3}
       propertyPath: m_Color.a
@@ -1409,6 +1431,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 912615290}
     m_Modifications:
+    - target: {fileID: 176762525620822964, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3943315449560428967, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212130492581518115, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5051894018414952572, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: resultText
+      value: 
+      objectReference: {fileID: 6430441125739056712}
+    - target: {fileID: 5051894018414952572, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: _userMessageUI
+      value: 
+      objectReference: {fileID: 6430441125739056713}
+    - target: {fileID: 5051894018414952572, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: _clientMessageUI
+      value: 
+      objectReference: {fileID: 6430441125739056710}
+    - target: {fileID: 5051894018414952572, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: _searchToolButton
+      value: 
+      objectReference: {fileID: 884402661}
     - target: {fileID: 5801002719280535378, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1489,9 +1539,182 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6094443189713731950, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6094443189713731950, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1440402565}
+    - target: {fileID: 6094443189713731950, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SwitchMenusConversation
+      objectReference: {fileID: 0}
+    - target: {fileID: 6094443189713731950, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UIClientMeetingManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6094443189713731950, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6486600762471374973, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
       propertyPath: m_Name
       value: ConversationStage1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6430441125739056711}
+    - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 6430441125739056710}
+    - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 6430441125739056713}
+    - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 1440402565}
+    - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SendChatMessage
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: SwitchMenusConversation
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LLMConectorClientMeeting, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
+      value: UIClientMeetingManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_BoolArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: _safeguardSteps
+      value: 'SALIDA PERMITIDA:
+
+        solo el texto final.
+
+        solo el texto
+        que se ha recibido si se da el caso.
+
+
+        SALIDA NO PERMITIDA:
+
+        explicaciones
+
+        confirmaciones
+
+        comentarios
+
+        etiquetas'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: _stepChecks.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: '_stepChecks.Array.data[0]'
+      value: "Revisa el texto recibido.\n\nConsidera texto inv\xE1lido solo si:\n\nes
+        una secuencia sin sentido como asdfgh, 123123123, xxxxx\ncontiene s\xEDmbolos
+        aleatorios sin palabras\ntiene m\xE1s del 50% de caracteres no alfab\xE9ticos\n\nReglas:\n\nSi
+        el texto es normal y entendible, devu\xE9lvelo exactamente igual.\nSi es
+        claramente aleatorio, devuelve \"Sin informaci\xF3n\"."
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: '_stepChecks.Array.data[1]'
+      value: "Revisa el texto recibido.\n\nReglas:\n\nSi hay errores ortogr\xE1ficos,
+        corr\xEDgelos.\nSi no hay errores, devuelve el texto sin cambios.\n\nNo a\xF1adas
+        informaci\xF3n nueva."
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: '_stepChecks.Array.data[2]'
+      value: "Comprueba si el texto est\xE1 completamente en espa\xF1ol.\n\nReglas:\n-
+        Si el texto no est\xE1 en espa\xF1ol, trad\xFAcelo al espa\xF1ol.\n- Si el
+        texto ya est\xE1 en espa\xF1ol, devu\xE9lvelo exactamente igual.\n\nNo expliques
+        nada.\nNo confirmes si estaba o no en espa\xF1ol.\nDevuelve \xFAnicamente
+        el texto final."
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: '_stepChecks.Array.data[3]'
+      value: "evisa el texto recibido.\n\nReglas:\n\nSi hay simbolos externos al
+        texto o al dinero como (), {}, *, ^,\xA8,\xB4... eliminalos del texto.\nSi
+        no hay errores, devuelve el texto sin cambios.\n\nNo a\xF1adas informaci\xF3n
+        nueva."
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: '_stepChecks.Array.data[4]'
+      value: "Reescribe el texto para que sea claro, objetivo y directo.\n\nReglas:\n-
+        No a\xF1adas explicaciones.\n- No describas el cambio realizado.\n- No confirmes
+        que lo has reescrito.\n\nDevuelve \xFAnicamente el texto final reescrito."
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: '_stepChecks.Array.data[5]'
+      value: "Reescribe el texto para que sea claro, objetivo y directo.\n\nReglas:\n-
+        No a\xF1adas explicaciones.\n- No describas el cambio realizado.\n- No confirmes
+        que lo has reescrito.\n\nDevuelve \xFAnicamente el texto final reescrito."
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1501,6 +1724,38 @@ PrefabInstance:
 --- !u!224 &6430441125739056709 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5801002719280535378, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+  m_PrefabInstance: {fileID: 6430441125739056708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6430441125739056710 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7643672185323699533, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+  m_PrefabInstance: {fileID: 6430441125739056708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6430441125739056711 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 560960862846232664, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+  m_PrefabInstance: {fileID: 6430441125739056708}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 226b6958ccfde4a43a7a2f4f22a0d647, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LLMConectorClientMeeting
+--- !u!114 &6430441125739056712 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8057441202603224496, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+  m_PrefabInstance: {fileID: 6430441125739056708}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!1 &6430441125739056713 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3943315449560428967, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
   m_PrefabInstance: {fileID: 6430441125739056708}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &7996628435419659413 stripped

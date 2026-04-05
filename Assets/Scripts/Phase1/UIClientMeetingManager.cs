@@ -10,6 +10,12 @@ public class UIClientMeetingManager : MonoBehaviour
     [SerializeField]
     private GameObject _searchToolButton;
 
+    [SerializeField]
+    private GameObject _clientMessageUI;
+
+    [SerializeField]
+    private GameObject _userMessageUI;
+
     [SerializeField] private TMP_Text resultText;
     //[SerializeField] private VerticalLayoutGroup layoutGroup;
 
@@ -33,7 +39,7 @@ public class UIClientMeetingManager : MonoBehaviour
 
     public void ShowMessage()
     {
-        resultText.ForceMeshUpdate();
+        _writeTextSystem.WriteText(resultText.text);
     }
 
     /// <summary>
@@ -81,10 +87,24 @@ public class UIClientMeetingManager : MonoBehaviour
         waitingPendingMessage = false;
     }
 
-    public void ShowSearchToolButton()
+
+    public void SwitchMenusConversation(bool activeUserMenu)
     {
 
-        _searchToolButton.SetActive(!_writeTextSystem.IsTyping());
+        if (!activeUserMenu)
+        {
+            _clientMessageUI.SetActive(true);
+            _userMessageUI.SetActive(false);
+        }
+        else
+        {
+            _clientMessageUI.SetActive(_writeTextSystem.IsTyping());
+            _userMessageUI.SetActive(!_writeTextSystem.IsTyping());
+            _searchToolButton.SetActive(!_writeTextSystem.IsTyping());
 
+            Debug.Log(_searchToolButton.activeSelf);
+        }
+
+        
     }
 }
