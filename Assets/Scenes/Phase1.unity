@@ -1006,7 +1006,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2, y: 48}
+  m_AnchoredPosition: {x: 769, y: -23}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1612897686
@@ -1218,7 +1218,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 533189375153599252, guid: be336779a8efeb549896730c5b892e7b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000019558498
+      value: 0.00007076317
       objectReference: {fileID: 0}
     - target: {fileID: 2903242016931602870, guid: be336779a8efeb549896730c5b892e7b, type: 3}
       propertyPath: m_Color.a
@@ -1805,6 +1805,30 @@ PrefabInstance:
     - target: {fileID: 6486600762471374973, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
       propertyPath: m_Name
       value: ConversationStage1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: '_stepChecks.Array.data[0]'
+      value: "Revisa el texto recibido.\n\nConsidera texto inv\xE1lido solo si:\n\nes
+        una secuencia sin sentido como asdfgh, 123123123, xxxxx\ncontiene s\xEDmbolos
+        aleatorios sin palabras\ntiene m\xE1s del 50% de caracteres no alfab\xE9ticos\n\nReglas:\n\nSi
+        el texto es normal y entendible, devu\xE9lvelo exactamente igual en el apartado
+        answer..\nSi es claramente aleatorio, devuelve \"Sin informaci\xF3n\" en
+        el apartado answer.."
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: '_stepChecks.Array.data[1]'
+      value: "Revisa el texto recibido.\n\nReglas:\n\nSi hay errores ortogr\xE1ficos,
+        corr\xEDgelos.\nSi no hay errores, devuelve el texto sin cambios en el apartado
+        answer.\n\nNo a\xF1adas informaci\xF3n nueva."
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: '_stepChecks.Array.data[2]'
+      value: "Comprueba si el texto est\xE1 completamente en espa\xF1ol.\n\nReglas:\n-
+        Si el texto no est\xE1 en espa\xF1ol, trad\xFAcelo al espa\xF1ol y escribelo
+        en el apartado answer.\n- Si el texto ya est\xE1 en espa\xF1ol, devu\xE9lvelo
+        exactamente igual en el apartado answer.\n\nBAJO NINGUNA CIRCUNSTANCIA RELLENES
+        EL APARTADO ANSWER CON ALGO QUE NO SEA EL PROPMT RECIBIDO O UNA TRADUCCION
+        DE ESTE."
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
