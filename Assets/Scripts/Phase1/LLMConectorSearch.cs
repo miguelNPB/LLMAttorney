@@ -23,6 +23,8 @@ public class LLMConectorSearch : LLMConector
 
     private List<String> _historical = new List<string>();
 
+    private bool _promptSent = false;
+
     /**
      * Metodo encargado de recoger la respuesta del LLM y transmitirla a la clase que muestre el output de este
      * @param success: muestra si ha podido obtenerse una respuesta del LLM
@@ -49,6 +51,7 @@ public class LLMConectorSearch : LLMConector
                 _historical.Add("Respuesta :" + jsonResponse.answer);
                 _stepCounter = 0;
                 _uiSearch.ShowMessage();
+                _promptSent = false;
             }
         }
         else
@@ -64,33 +67,39 @@ public class LLMConectorSearch : LLMConector
      */
     public override void SendChatMessage()
     {
-        JsonSchema schema = new JsonSchema();
 
-        schema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
-
-        string prompt = inputField.text;
-
-        string configLLM = _config.getContext()
-            + _config.getSafeguard();
-
-        configLLM = configLLM + "\n " + _config.getHistoricalConversation() + "\n Historico: \n";
-
-        foreach (String s in _historical)
+        if (!_promptSent)
         {
-            configLLM = configLLM + s + "\n";
+            JsonSchema schema = new JsonSchema();
+
+            schema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
+
+            string prompt = inputField.text;
+
+            string configLLM = _config.getContext()
+                + _config.getSafeguard();
+
+            configLLM = configLLM + "\n " + _config.getHistoricalConversation() + "\n Historico: \n";
+
+            foreach (String s in _historical)
+            {
+                configLLM = configLLM + s + "\n";
+            }
+
+            Debug.Log("PROMPT: " + prompt);
+            Debug.Log("CONTEXT: " + configLLM);
+
+            _historical.Add("Pregunta: " + prompt);
+
+            _promptSent = true;
+
+            StartCoroutine(CoroutineSendPrompt(prompt, configLLM, schema));
+
+            inputField.text = "";
+
+            _uiSearch.StartPendingMessage();
         }
-
-        Debug.Log("PROMPT: " + prompt);
-        Debug.Log("CONTEXT: " + configLLM);
-
-        _historical.Add("Pregunta: " + prompt);
-
-        LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, RecieveChatMessage, prompt, configLLM, schema, 
-            _config.getTemperature(), _config.getRagUse(), (int)_config.getRagFileType());
-
-        inputField.text = "";
-
-        _uiSearch.StartPendingMessage();
+        
     }
 
     public override void securityStepsCheck(string prompt)
@@ -104,7 +113,7 @@ public class LLMConectorSearch : LLMConector
         string configLLM = "Teniendo el siguiente texto: \n" + prompt + "\n Y teniedo la siguiente directiva de seguridad" + _config.getSafeguardSteps() + 
             "\n Quiero que hagas lo siguiente: " + _config.getStepsChecks()[_stepCounter];
 
-        StartCoroutine(CoroutineSendPrompt(prompt, configLLM, schema)); 
+        StartCoroutine(CoroutineSendPromptSteps(prompt, configLLM, schema)); 
 
         inputField.text = "";
 
@@ -114,7 +123,7 @@ public class LLMConectorSearch : LLMConector
         _stepCounter++;
     }
 
-    private IEnumerator CoroutineSendPrompt(string prompt, string configLLM, JsonSchema schema)
+    private IEnumerator CoroutineSendPromptSteps(string prompt, string configLLM, JsonSchema schema)
     {
 
         float timer = 0;
@@ -127,7 +136,20 @@ public class LLMConectorSearch : LLMConector
             yield return null;
         }
 
+    }
 
+    private IEnumerator CoroutineSendPrompt(string prompt, string configLLM, JsonSchema schema)
+    {
+
+        float timer = 0;
+
+        while (!LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, RecieveChatMessage, prompt, configLLM, schema,
+            _config.getTemperature(), _config.getRagUse(), (int)_config.getRagFileType()))
+        {
+            timer += Time.deltaTime;
+
+            yield return null;
+        }
 
     }
 
