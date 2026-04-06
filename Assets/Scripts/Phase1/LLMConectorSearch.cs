@@ -18,13 +18,6 @@ public class LLMConectorSearch : LLMConector
         //public string[] documents;
     }
 
-    [Header("Search Messages")]
-    public TMP_InputField inputField;
-
-    private List<String> _historical = new List<string>();
-
-    private bool _promptSent = false;
-
     /**
      * Metodo encargado de recoger la respuesta del LLM y transmitirla a la clase que muestre el output de este
      * @param success: muestra si ha podido obtenerse una respuesta del LLM
@@ -41,9 +34,9 @@ public class LLMConectorSearch : LLMConector
 
             _uiSearch.EndPendingMessage(jsonResponse.answer);
 
-            if (_stepCounter < _config.getStepsChecks().Length)
+            if (_stepCounter < _config[_indexConfig].getStepsChecks().Length)
             {
-                securityStepsCheck(jsonResponse.answer);
+                SendSecuritySteps(jsonResponse.answer);
             }
             else
             {
@@ -62,96 +55,56 @@ public class LLMConectorSearch : LLMConector
 
     }
 
+    public void CallSendContext(int indexConfig = 0)
+    {
+        SendContextMessage(indexConfig);
+    }
+
     /**
      * Metodo encargado de enviar un mensaje al LLM con todas las especificaciones obtenidas de ConfigLLMInfo
      */
-    public override void SendChatMessage()
+    protected override bool SendContextMessage(int indexConfig = 0)
     {
-
-        if (!_promptSent)
-        {
-            JsonSchema schema = new JsonSchema();
-
-            schema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
-
-            string prompt = inputField.text;
-
-            string configLLM = _config.getContext()
-                + _config.getSafeguard();
-
-            configLLM = configLLM + "\n " + _config.getHistoricalConversation() + "\n Historico: \n";
-
-            foreach (String s in _historical)
-            {
-                configLLM = configLLM + s + "\n";
-            }
-
-            Debug.Log("PROMPT: " + prompt);
-            Debug.Log("CONTEXT: " + configLLM);
-
-            _historical.Add("Pregunta: " + prompt);
-
-            _promptSent = true;
-
-            StartCoroutine(CoroutineSendPrompt(prompt, configLLM, schema));
-
-            inputField.text = "";
-
-            _uiSearch.StartPendingMessage();
-        }
-        
-    }
-
-    public override void securityStepsCheck(string prompt)
-    {
-        JsonSchema schema = new JsonSchema();
-
-        schema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
-
-        Debug.Log("PROMPT de security checks: " + prompt);
-
-        string configLLM = "Teniendo el siguiente texto: \n" + prompt + "\n Y teniedo la siguiente directiva de seguridad" + _config.getSafeguardSteps() + 
-            "\n Quiero que hagas lo siguiente: " + _config.getStepsChecks()[_stepCounter];
-
-        StartCoroutine(CoroutineSendPromptSteps(prompt, configLLM, schema)); 
-
-        inputField.text = "";
-
-        //_uiSearch.AddMessage(prompt);
         _uiSearch.StartPendingMessage();
 
-        _stepCounter++;
-    }
+        bool messageSent = base.SendContextMessage(indexConfig);
 
-    private IEnumerator CoroutineSendPromptSteps(string prompt, string configLLM, JsonSchema schema)
-    {
-
-        float timer = 0;
-
-        while (!LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, RecieveChatMessage, prompt, configLLM, schema,
-            _config.getTemperature(), false))
+        if (!messageSent)
         {
-            timer += Time.deltaTime;
-
-            yield return null;
+            _uiSearch.EndPendingMessage("Fallo de conexion, escriba de nuevo la pregunta");
         }
 
+        return messageSent;
     }
 
-    private IEnumerator CoroutineSendPrompt(string prompt, string configLLM, JsonSchema schema)
+    protected override bool SendSecuritySteps(string prompt)
     {
+        _uiSearch.StartPendingMessage();
 
-        float timer = 0;
+        bool securityStepSent = base.SendSecuritySteps(prompt);
 
-        while (!LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, RecieveChatMessage, prompt, configLLM, schema,
-            _config.getTemperature(), _config.getRagUse(), (int)_config.getRagFileType()))
+        if (!securityStepSent)
         {
-            timer += Time.deltaTime;
-
-            yield return null;
+            _uiSearch.EndPendingMessage("Fallo de conexion, escriba de nuevo la pregunta");
         }
 
+        return securityStepSent;
     }
 
+    protected override void createJsonSchemas()
+    {
+        _contextSchema = new JsonSchema();
+        _contextSchema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
+
+        _stepsSchema = new JsonSchema();
+        _stepsSchema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
+
+        _schemasCreated = true;
+    }
+
+    private void Awake()
+    {
+        createJsonSchemas();
+    }
 
 }

@@ -795,6 +795,28 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5307846417687057373, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
   m_PrefabInstance: {fileID: 4665822228252766504}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1293320632 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3648675196692939725, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+  m_PrefabInstance: {fileID: 4665822228252766504}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81b4fcb9cca22ec41b2e5a41a78b185b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LLMConectorSearch
+--- !u!114 &1293320634 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+  m_PrefabInstance: {fileID: 4665822228252766504}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
 --- !u!1 &1482587221
 GameObject:
   m_ObjectHideFlags: 0
@@ -1285,7 +1307,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 533189375153599252, guid: be336779a8efeb549896730c5b892e7b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.00019334847
+      value: 0.000011203292
       objectReference: {fileID: 0}
     - target: {fileID: 2903242016931602870, guid: be336779a8efeb549896730c5b892e7b, type: 3}
       propertyPath: m_Color.a
@@ -1437,6 +1459,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 912615290}
     m_Modifications:
+    - target: {fileID: 2800977689686718766, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2800977689686718766, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1293320632}
+    - target: {fileID: 2800977689686718766, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CallSendContext
+      objectReference: {fileID: 0}
+    - target: {fileID: 3648675196692939725, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: '_config.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1293320634}
     - target: {fileID: 5307846417687057373, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1534,6 +1572,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 912615290}
     m_Modifications:
+    - target: {fileID: 560960862846232664, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: '_config.Array.data[0]'
+      value: 
+      objectReference: {fileID: 6430441125739056712}
     - target: {fileID: 5051894018414952572, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
       propertyPath: _searchToolButton
       value: 
@@ -1626,6 +1668,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: ConversationStage1
       objectReference: {fileID: 0}
+    - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6430441125739056710}
+    - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CallSendContext
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: _temperature
+      value: 0.7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1636,6 +1694,28 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5801002719280535378, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
   m_PrefabInstance: {fileID: 6430441125739056708}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6430441125739056710 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 560960862846232664, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+  m_PrefabInstance: {fileID: 6430441125739056708}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 226b6958ccfde4a43a7a2f4f22a0d647, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LLMConectorClientMeeting
+--- !u!114 &6430441125739056712 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+  m_PrefabInstance: {fileID: 6430441125739056708}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
 --- !u!224 &7996628435419659413 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2216014338794435774, guid: a66b197d1a3e783458cb95c7672f8ca8, type: 3}
