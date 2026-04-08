@@ -42,6 +42,8 @@ public class GameSystem : MonoBehaviour
         _caseData.clientMessages.Add(new ConversationMessage("Sabes que esto es una prueba de un sistema de texto de conversacion estilo whatsap?", false));
         _caseData.clientMessages.Add(new ConversationMessage("Bklajdsñkjfñlsajdfñkljasñkdfjlkasjdfñkaskfjasdfjsdkfjalkdsfklfkljdkfñaldskasdfñsdñkfasdjfkfklñkñdfksfjdfkñsdkflkdflkdfkñakjlkñsfljadkflañksjflkjdfkñ aklajsdkfljasdkñfjaklsdjfñklajsdñkfljañkljdflk aksdjfklñ?", true));
         _caseData.clientMessages.Add(new ConversationMessage("Estas bien?", false));
+
+        _caseData.procuradorMessages.Add(new ConversationMessage("Buenas! Mi nombre es " + _caseData.procuradorName + ", seré tu procurador para este caso. Cualquier documento que consideres pertinente adjuntar al proceso, mándamelo y lo registraré.", false));
     }
 
     private void Init()

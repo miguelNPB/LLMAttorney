@@ -17,6 +17,7 @@ public class CaseData
     public bool isDemanda = true; // true = demanda, false = respuesta a demanda
     // datos interacciones cliente
     public List<ConversationMessage> clientMessages = new List<ConversationMessage>();
+    public List<ConversationMessage> procuradorMessages = new List<ConversationMessage>();
     public string clientName = "";
     public string procuradorName = "";
     public string clienteRivalName = ""; // demandado o demandador en caso de ser respuesta
