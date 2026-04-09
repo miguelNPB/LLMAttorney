@@ -292,8 +292,11 @@ public class LLMAttorney_API : MonoBehaviour
     private IEnumerator SendRequest(string json, Action<bool, string> onComplete)
     {
         _sendingPrompt = true;
+        string _ip = ip;
+        if (ip != "localhost")
+            _ip = "http://" + ip;
 
-        UnityWebRequest www = new UnityWebRequest(ip + ":" + port.ToString() + "/ask", "POST");
+        UnityWebRequest www = new UnityWebRequest(_ip + ":" + port.ToString() + "/ask", "POST");
 
         // empaquetamos el contenido en la UnityWebRequest
         byte[] bodyRaw = Encoding.UTF8.GetBytes(json);
