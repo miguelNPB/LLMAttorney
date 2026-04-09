@@ -12,10 +12,10 @@ public class Document : MonoBehaviour
     Sprite imageChange;
 
     [SerializeField]
-    TMP_Text fileNameObject;
+    TMP_Text fileNameObject = null;
 
     [SerializeField]
-    GameObject fileContentObject;
+    GameObject fileContentObject = null;
     
     [SerializeField]
     [InspectorName("Document button")]
@@ -30,6 +30,8 @@ public class Document : MonoBehaviour
     private string content;
     private bool valid = false;
     private int cost =0;
+
+    private bool sentToProcurador = false;
 
     private bool changed = false;
     void Start()
@@ -63,7 +65,17 @@ public class Document : MonoBehaviour
     public PromptType GetDocType() { return this.docType; }
     public string GetContent() { return this.content; }
     public bool IsValid() {  return this.valid; }
+    public bool GetSentToProcurador() {  return sentToProcurador; }
 
+
+
+    /// <summary>
+    /// Llamar al mandar al procurador el documento
+    /// </summary>
+    public void OnSentToProcurador()
+    {
+        sentToProcurador = true;
+    }
 
     /// <summary>
     /// Metodo para cambiar el nombre del documento
@@ -72,7 +84,9 @@ public class Document : MonoBehaviour
     public void SetDocName(string name)
     {
         this.fileName = name;
-        fileNameObject.text = fileName;
+
+        if (fileNameObject != null)
+            fileNameObject.text = fileName;
         
     }
     /// <summary>
@@ -82,7 +96,8 @@ public class Document : MonoBehaviour
     public void SetDocContent(string content)
     {
         this.content = content;
-        fileContentObject.GetComponentInChildren<TMP_Text>().text = this.content;
+        if (fileContentObject != null)
+            fileContentObject.GetComponentInChildren<TMP_Text>().text = this.content;
     }
 
     /// <summary>
@@ -100,6 +115,8 @@ public class Document : MonoBehaviour
         this.docType = docType;
         this.cost = cost;
     }
+
+
 
 
     #endregion
