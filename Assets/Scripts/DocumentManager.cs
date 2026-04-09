@@ -30,7 +30,7 @@ public class DocumentManager : MonoBehaviour
     private float lerpProgress = 0f;
 
     private Vector2 docPos = new Vector2(-3, -30);
-    private List<GameObject> documents;
+    public List<Document> documents;
 
     // Drag state
     private RectTransform draggedWindow = null;
@@ -58,7 +58,7 @@ public class DocumentManager : MonoBehaviour
         foreach (Button b in documentButtons)
             b.onClick.AddListener(OnClickDocumentsIcon);
 
-        documents = new List<GameObject>();
+        documents = new List<Document>();
         //for (int i = 0; i < 60; i++)
         //    CreateDocument("DOC" + i + ".txt", PromptType.Perito, "ESTE ES EL DOC " + i, true, 10);
 
@@ -279,7 +279,7 @@ public class DocumentManager : MonoBehaviour
             docButton.onClick.AddListener(() => SetWindowTitle(capturedName));
         }
 
-        documents.Add(aux);
+        documents.Add(aux.GetComponent<Document>());
 
         if (BudgetManager.Instance != null)
             BudgetManager.Instance.AddExpense($"0 {cost}", docType, docName);
