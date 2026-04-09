@@ -13,7 +13,14 @@ public class ProcuradorMessagesPage : MessagesUIComponent {
         public string answer;
     }
 
+
+    public GameObject docsUIContainer;
     private bool isOpen = false;
+
+    private void SetupUIDocuments()
+    {
+        docsUIContainer.
+    }
 
     public void ReceiveChatMessage(bool success, string answer)
     {
