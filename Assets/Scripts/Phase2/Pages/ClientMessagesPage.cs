@@ -151,29 +151,30 @@ public class ClientMessagesPage : MessagesUIComponent
     /// </summary>
     public void RequestDocument()
     {
-        JsonSchema schema = new JsonSchema();
+        llmConnectorDocs.CallSendContext();
+        // JsonSchema schema = new JsonSchema();
 
-        schema.properties.Add("NombreDocumento", new PropertyInfo(JsonDataType.String));
-        schema.properties.Add("TipoDocumento", new PropertyInfo(JsonDataType.Integer));
-        schema.properties.Add("CosteDocumento", new PropertyInfo(JsonDataType.String));
-        schema.properties.Add("ContenidoDocumento", new PropertyInfo(JsonDataType.String));
-        schema.properties.Add("DocumentoValido", new PropertyInfo(JsonDataType.Boolean));
+        // schema.properties.Add("NombreDocumento", new PropertyInfo(JsonDataType.String));
+        // schema.properties.Add("TipoDocumento", new PropertyInfo(JsonDataType.Integer));
+        // schema.properties.Add("CosteDocumento", new PropertyInfo(JsonDataType.String));
+        // schema.properties.Add("ContenidoDocumento", new PropertyInfo(JsonDataType.String));
+        // schema.properties.Add("DocumentoValido", new PropertyInfo(JsonDataType.Boolean));
 
-        string configLLM = "";
+        // string configLLM = "";
 
-        switch (lastTypeRequest)
-        {
-            default                 :   configLLM = "No has podido encontrar el documento"; break;
-            case PromptType.Perito  :   configLLM = Constants.LLM_CONFIG_PERITO;            break;
-            case PromptType.Informe :   configLLM = Constants.LLM_CONFIG_INFORME;           break;
-            case PromptType.Testigo :   configLLM = Constants.LLM_CONFIG_TESTIGO;           break;
-            case PromptType.DocAlt  :   configLLM = Constants.LLM_CONFIG_DOC_ALT;           break;
-        }
+        // switch (lastTypeRequest)
+        // {
+        //     default                 :   configLLM = "No has podido encontrar el documento"; break;
+        //     case PromptType.Perito  :   configLLM = Constants.LLM_CONFIG_PERITO;            break;
+        //     case PromptType.Informe :   configLLM = Constants.LLM_CONFIG_INFORME;           break;
+        //     case PromptType.Testigo :   configLLM = Constants.LLM_CONFIG_TESTIGO;           break;
+        //     case PromptType.DocAlt  :   configLLM = Constants.LLM_CONFIG_DOC_ALT;           break;
+        // }
 
-        configLLM += Constants.LLM_JSON_EXAMPLE;
+        // configLLM += Constants.LLM_JSON_EXAMPLE;
 
-        string prompt = inputField.text;
-        LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, ReceiveDocumentMessage, prompt, configLLM, schema);
+        // string prompt = inputField.text;
+        // LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, ReceiveDocumentMessage, prompt, configLLM, schema);
     }
 
     public override void Open()

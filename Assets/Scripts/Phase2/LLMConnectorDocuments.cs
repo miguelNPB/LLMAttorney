@@ -29,11 +29,6 @@ public class LLMConnectorDocuments : LLMConector
             // deserializamos la respuesta
             DocumentResponse jsonResponse = JsonUtility.FromJson<DocumentResponse>(answer);
 
-            GameSystem.Instance.myDocumentManager.CreateDocument(jsonResponse.NombreDocumento, jsonResponse.TipoDocumento, jsonResponse.ContenidoDocumento, jsonResponse.DocumentoValido, jsonResponse.CosteDocumento);
-
-            
-            _msgUIComponent.EndPendingMessage("Tu cliente te ha mandado " + jsonResponse.NombreDocumento + ".txt");
-
 
 
             _msgUIComponent.computerSystem.ToggleNotification(Page.ChatCliente, true);
@@ -49,6 +44,11 @@ public class LLMConnectorDocuments : LLMConector
                 _stepCounter = 0;
                 _promptSent = false;
             }
+            
+            GameSystem.Instance.myDocumentManager.CreateDocument(jsonResponse.NombreDocumento, jsonResponse.TipoDocumento, jsonResponse.ContenidoDocumento, jsonResponse.DocumentoValido, jsonResponse.CosteDocumento);
+
+            
+            _msgUIComponent.EndPendingMessage("Tu cliente te ha mandado " + jsonResponse.NombreDocumento + ".txt");
 
 
         }
@@ -100,10 +100,19 @@ public class LLMConnectorDocuments : LLMConector
     protected override void createJsonSchemas()
     {
         _contextSchema = new JsonSchema();
-        _contextSchema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
+        _contextSchema.properties.Add("NombreDocumento", new PropertyInfo(JsonDataType.String));
+        _contextSchema.properties.Add("TipoDocumento", new PropertyInfo(JsonDataType.String));
+        _contextSchema.properties.Add("ContenidoDocumento", new PropertyInfo(JsonDataType.String));
+        _contextSchema.properties.Add("DocumentoValido", new PropertyInfo(JsonDataType.Boolean));
+        _contextSchema.properties.Add("CosteDocumento", new PropertyInfo(JsonDataType.Integer));
 
         _stepsSchema = new JsonSchema();
-        _stepsSchema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
+        _stepsSchema.properties.Add("NombreDocumento", new PropertyInfo(JsonDataType.String));
+        _stepsSchema.properties.Add("TipoDocumento", new PropertyInfo(JsonDataType.String));
+        _stepsSchema.properties.Add("ContenidoDocumento", new PropertyInfo(JsonDataType.String));
+        _stepsSchema.properties.Add("DocumentoValido", new PropertyInfo(JsonDataType.Boolean));
+        _stepsSchema.properties.Add("CosteDocumento", new PropertyInfo(JsonDataType.Integer));
+
 
         _schemasCreated = true;
     }
