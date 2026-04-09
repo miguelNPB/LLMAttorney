@@ -63,14 +63,13 @@ public class ClientMessagesPage : MessagesUIComponent
 #if DEBUG
         Debug.Log(answer);
 #endif
-        //EndPendingMessage(jsonResponse.ContenidoDocumento);
+
+        GameSystem.Instance.myDocumentManager.CreateDocument(jsonResponse.NombreDocumento, jsonResponse.TipoDocumento, jsonResponse.ContenidoDocumento, jsonResponse.DocumentoValido, jsonResponse.CosteDocumento);
+
+        EndPendingMessage("Tu cliente te ha mandado " + jsonResponse.NombreDocumento + ".txt");
 
         if (!isOpen)
             computerSystem.ToggleNotification(Page.ChatCliente, true);
-        
-        GameSystem.Instance.myDocumentManager.CreateDocument(jsonResponse.NombreDocumento, jsonResponse.TipoDocumento, jsonResponse.ContenidoDocumento, jsonResponse.DocumentoValido, jsonResponse.CosteDocumento);
-        
-        EndPendingMessage("Tu cliente te ha mandado "+jsonResponse.NombreDocumento + ".txt");
     }
 
     /// <summary>
@@ -89,12 +88,11 @@ public class ClientMessagesPage : MessagesUIComponent
     /// Llamada asincrona a el modelo para clasificar el prompt en una de 6 categorias, dependiendo de la que sea generando un documento o haciendo una pregunta al LLM
     /// </summary>
     /// <returns></returns>
-    public IEnumerator CheckPrompt()
+    public IEnumerator CheckPrompt(string prompt)
     {
         JsonSchema schema = new JsonSchema();
         schema.properties.Add("QueryType", new PropertyInfo(JsonDataType.Integer));
 
-        string prompt = inputField.text;
         string configLLM = @"Clasifica el siguiente texto en una única categoría y responde solo con un número:
 
                 0 = Pregunta (texto cuyo objetivo principal es solicitar información)
@@ -113,8 +111,8 @@ public class ClientMessagesPage : MessagesUIComponent
         yield return LLMAttorney_API.Instance.SendPromptAsync(API_TYPE.LLAMA, AssignPrompt, prompt, configLLM, schema);
 
         switch (lastTypeRequest) {
-            case PromptType.Pregunta    : SendChatMessage(); break;
-            case PromptType.Dialogo     : SendChatMessage(); break;
+            case PromptType.Pregunta    : SendChatMessage(prompt); break;
+            case PromptType.Dialogo     : SendChatMessage(prompt); break;
             case PromptType.Perito      : RequestDocument(); break;
             case PromptType.Informe     : RequestDocument(); break;
             case PromptType.Testigo     : RequestDocument(); break;
@@ -122,13 +120,25 @@ public class ClientMessagesPage : MessagesUIComponent
         }
     }
 
-    public void SendChatMessage()
+    // Se llama CUANDO SE PULSA EL BOTON DE MANDAR
+    public void OnSendMessage()
+    {
+        string prompt = inputField.text;
+        AddMessage(prompt, true);
+        inputField.text = "";
+
+        StartPendingMessage(false);
+
+        StartCoroutine(CheckPrompt(prompt));
+    }
+
+    // Formato mensaje de convseracion
+    private void SendChatMessage(string prompt)
     {
         JsonSchema schema = new JsonSchema();
 
         schema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
 
-        string prompt = inputField.text;
 
         string conversation = "";
         foreach (ConversationMessage m in GameSystem.Instance.CaseData.clientMessages)
@@ -141,11 +151,6 @@ public class ClientMessagesPage : MessagesUIComponent
             + conversation + " responde a la pregunta que te ha hecho el abogado en el campo answer." + safeGuard;
 
         LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, ReceiveChatMessage, prompt, configLLM, schema);
-
-        inputField.text = "";
-
-        AddMessage(prompt, true);
-        StartPendingMessage(false);
     }
 
     /// <summary>
@@ -176,12 +181,6 @@ public class ClientMessagesPage : MessagesUIComponent
 
         string prompt = inputField.text;
         LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, ReceiveDocumentMessage, prompt, configLLM, schema);
-
-        inputField.text = "";
-
-        AddMessage(prompt, true);
-        StartPendingMessage(false);
-
     }
 
     public override void Open()
@@ -212,11 +211,6 @@ public class ClientMessagesPage : MessagesUIComponent
         ScrollToLastMessage();
 
         Close();
-    }
-
-    public void OnCheckPrompt()
-    {
-        StartCoroutine(CheckPrompt());
     }
 
     private void AssignPromptType(ref PromptType promptType, PromptType toCopy)

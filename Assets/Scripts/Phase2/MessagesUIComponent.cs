@@ -12,6 +12,7 @@ public abstract class MessagesUIComponent : PCPage
 {
     [SerializeField] private GameObject ConversationMessageUIPrefab;
     [SerializeField] private VerticalLayoutGroup layoutGroup;
+    [SerializeField] private Button sendButton;
 
     [SerializeField] private Color otherPersonColor = Color.blue;
     [SerializeField] private Color playerColor = Color.green;
@@ -67,6 +68,7 @@ public abstract class MessagesUIComponent : PCPage
     /// <param name="fromPlayer"></param>
     protected void StartPendingMessage(bool fromPlayer)
     {
+        sendButton.interactable = false;
         AddMessage(".", fromPlayer);
 
         StartCoroutine(CoroutinePendingMessage());
@@ -107,6 +109,8 @@ public abstract class MessagesUIComponent : PCPage
     /// <param name="text"></param>
     protected void EndPendingMessage(string text)
     {
+        sendButton.interactable = true;
+
         pendingMessage = text;
 
         waitingPendingMessage = false;
