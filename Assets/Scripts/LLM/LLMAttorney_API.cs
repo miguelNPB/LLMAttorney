@@ -309,8 +309,15 @@ public class LLMAttorney_API : MonoBehaviour
         bool success = www.result == UnityWebRequest.Result.Success;
         string response = success ? recievedString : ("Error LLMAtorney: " + www.error);
 
-        // llamamos al callback
-        onComplete?.Invoke(success, response);
+
+        if (success)
+        {
+            // llamamos al callback
+            onComplete?.Invoke(success, response);
+        }
+        else
+            Debug.LogError(response);
+
 
         _sendingPrompt = false;
     }
