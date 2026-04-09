@@ -1,0 +1,294 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &826148867899595046
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4371753351771009265}
+  - component: {fileID: 8807911649745812658}
+  m_Layer: 0
+  m_Name: TestigoConfig
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4371753351771009265
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826148867899595046}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1567364696727931899}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8807911649745812658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826148867899595046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
+  _apiType: 1
+  _context: 
+  _safeguard: 
+  _safeguardSteps: 
+  _historicalConversation: 
+  _stepChecks: []
+  _temperature: 0
+  _ragUse: 0
+  _ragFile: 0
+--- !u!1 &1366278667898622133
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 830932086389214143}
+  - component: {fileID: 4360963193325396214}
+  m_Layer: 0
+  m_Name: InformeConfig
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &830932086389214143
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366278667898622133}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1567364696727931899}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4360963193325396214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366278667898622133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
+  _apiType: 1
+  _context: 
+  _safeguard: 
+  _safeguardSteps: 
+  _historicalConversation: 
+  _stepChecks: []
+  _temperature: 0
+  _ragUse: 0
+  _ragFile: 0
+--- !u!1 &2631701987432723114
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1567364696727931899}
+  - component: {fileID: 2630248356911528553}
+  m_Layer: 0
+  m_Name: LLMConfigs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1567364696727931899
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2631701987432723114}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6719.353, y: 0.00006, z: 37964.414}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6132415732333725734}
+  - {fileID: 830932086389214143}
+  - {fileID: 4371753351771009265}
+  - {fileID: 6719658926686526215}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2630248356911528553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2631701987432723114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aa6d650c28fe624bb42345e8e7be9c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorDocuments
+  _config:
+  - {fileID: 1100449084152679590}
+  inputField: {fileID: 0}
+  _useSecuritySteps: 1
+  _useHistoricalInContext: 1
+  _useHistoricalInSteps: 1
+  _msgUIComponent: {fileID: 0}
+--- !u!1 &5215221924467636720
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6719658926686526215}
+  - component: {fileID: 4738533614726852998}
+  m_Layer: 0
+  m_Name: DocAltConfig
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6719658926686526215
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5215221924467636720}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1567364696727931899}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4738533614726852998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5215221924467636720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
+  _apiType: 1
+  _context: 
+  _safeguard: 
+  _safeguardSteps: 
+  _historicalConversation: 
+  _stepChecks: []
+  _temperature: 0
+  _ragUse: 0
+  _ragFile: 0
+--- !u!1 &9096626862424920768
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6132415732333725734}
+  - component: {fileID: 1100449084152679590}
+  m_Layer: 0
+  m_Name: PeritoConfig
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6132415732333725734
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9096626862424920768}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1567364696727931899}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1100449084152679590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9096626862424920768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
+  _apiType: 1
+  _context: "Eres un perito profesional sobre lo que se ha pedido\n\nEl informe debe
+    ser formal, t\xE9cnico y detallado\n\n Incluir exactamente estas secciones como
+    encabezados:\r\n                    - Introduccion\r\n                    - Descripcion
+    de los hechos\r\n                    - Metodologia de analisis\r\n                   
+    - Resultados\r\n                    - Conclusiones"
+  _safeguard: " Debes incluir los siguientes campos:\n                - NombreDocumento
+    (string)\n                - TipoDocumento (int, siempre 2)\n                -
+    Coste (int, sin simbolo de moneda, sin texto, sin decimales, solo d\uFFFDgitos,
+    por ejemplo: 1000)\n                - ContenidoDocumento (string en Rich Text)\n               
+    - EsValido (boolean)\n\n\nSALIDA NO PERMITIDA:\nexplicaciones\nconfirmaciones\ncomentarios\netiquetas"
+  _safeguardSteps: 'No acortes el texto ni modifiques las variables del JSON que
+    no se indican en el prompt.
+
+
+    Devuelve siempre al final el JSON que se te
+    proporciona solo modificando el campo que se te indique.'
+  _historicalConversation: "Analiza el hist\xF3rico de conversaci\xF3n que se te
+    proporciona junto con la nueva pregunta.\n\nEl hist\xF3rico contiene pares de
+    pregunta y respuesta anteriores.\n\nSi el documento es relevante a lo que se
+    esta hablando, pon el campo EsValido a true, si no, a false"
+  _stepChecks:
+  - "Comprueba que en el JSON generado el campo de ContenidoDocumento tenga estas
+    secciones:\n                    - Introduccion\n                    - Descripcion
+    de los hechos\n                    - Metodologia de analisis\n                   
+    - Resultados\n                    - Conclusiones\n\nSi no existen, a\xF1adekas
+    al campo del JSON generado "
+  - Haz que en el campo de ContenidoDocumento del JSON tenga etiquetas de estilo
+    RICHTEXT
+  - 
+  - 
+  _temperature: 0
+  _ragUse: 1
+  _ragFile: 1

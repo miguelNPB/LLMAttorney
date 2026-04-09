@@ -63,10 +63,10 @@ public abstract class MessagesUIComponent : PCPage
     }
 
     /// <summary>
-    /// Llamar a esto para añadir un mensaje que tenga una animacion de puntos suspensivos hasta que se llame a EndPendingMessage
+    /// Llamar a esto para aï¿½adir un mensaje que tenga una animacion de puntos suspensivos hasta que se llame a EndPendingMessage
     /// </summary>
     /// <param name="fromPlayer"></param>
-    protected void StartPendingMessage(bool fromPlayer)
+    public void StartPendingMessage(bool fromPlayer)
     {
         sendButton.interactable = false;
         AddMessage(".", fromPlayer);
@@ -107,7 +107,7 @@ public abstract class MessagesUIComponent : PCPage
     /// Llamar esto para detener la animacion de puntos suspensivos y rellenar el mensaje con el contenido del texto
     /// </summary>
     /// <param name="text"></param>
-    protected void EndPendingMessage(string text)
+    public void EndPendingMessage(string text)
     {
         sendButton.interactable = true;
 

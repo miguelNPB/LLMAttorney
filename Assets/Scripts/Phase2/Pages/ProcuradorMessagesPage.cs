@@ -19,7 +19,7 @@ public class ProcuradorMessagesPage : MessagesUIComponent {
 
     private void SetupUIDocuments()
     {
-        docsUIContainer.
+        
     }
 
     public void ReceiveChatMessage(bool success, string answer)
