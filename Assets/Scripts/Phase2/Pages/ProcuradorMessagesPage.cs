@@ -123,4 +123,27 @@ public class ProcuradorMessagesPage : MessagesUIComponent {
         GameSystem.Instance.myDocumentManager.documents.Add(doc1);
         GameSystem.Instance.myDocumentManager.documents.Add(doc2);
     }
+
+
+    public void StartPendingOpponentMessage()
+    {
+        StartPendingMessage(false);
+
+        if (!isOpen)
+            computerSystem.ToggleNotification(Page.ChatProcurador, true);
+    }
+
+
+    public void ReceiveOpponentDocMessage(string summary)
+    {
+        EndPendingMessage(summary);
+
+        if (!isOpen)
+            computerSystem.ToggleNotification(Page.ChatProcurador, true);
+    }
+
+    public void CancelPendingOpponentMessage()
+    {
+        EndPendingMessage("...");
+    }
 }

@@ -101,14 +101,14 @@ public class LLMConnectorDocuments : LLMConector
     {
         _contextSchema = new JsonSchema();
         _contextSchema.properties.Add("NombreDocumento", new PropertyInfo(JsonDataType.String));
-        _contextSchema.properties.Add("TipoDocumento", new PropertyInfo(JsonDataType.String));
+        _contextSchema.properties.Add("TipoDocumento", new PropertyInfo(JsonDataType.Integer));
         _contextSchema.properties.Add("ContenidoDocumento", new PropertyInfo(JsonDataType.String));
         _contextSchema.properties.Add("DocumentoValido", new PropertyInfo(JsonDataType.Boolean));
         _contextSchema.properties.Add("CosteDocumento", new PropertyInfo(JsonDataType.Integer));
 
         _stepsSchema = new JsonSchema();
         _stepsSchema.properties.Add("NombreDocumento", new PropertyInfo(JsonDataType.String));
-        _stepsSchema.properties.Add("TipoDocumento", new PropertyInfo(JsonDataType.String));
+        _stepsSchema.properties.Add("TipoDocumento", new PropertyInfo(JsonDataType.Integer));
         _stepsSchema.properties.Add("ContenidoDocumento", new PropertyInfo(JsonDataType.String));
         _stepsSchema.properties.Add("DocumentoValido", new PropertyInfo(JsonDataType.Boolean));
         _stepsSchema.properties.Add("CosteDocumento", new PropertyInfo(JsonDataType.Integer));

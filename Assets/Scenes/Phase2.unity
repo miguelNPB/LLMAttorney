@@ -466,6 +466,90 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1100449084152679590, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: _context
+      value: "Eres un perito profesional sobre lo que se ha pedido\n\nEl informe
+        debe ser formal, t\xE9cnico y detallado\n\n Incluir exactamente estas secciones
+        como encabezados:\r\n                    - Introduccion\r\n                   
+        - Descripcion de los hechos\r\n                    - Metodologia de analisis\r\n                   
+        - Resultados\r\n                    - Conclusiones\n\n\nNo generes ningun
+        tag de HTML en el texto generado"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1100449084152679590, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: _safeguard
+      value: " Debes incluir los siguientes campos de JSON:\n                - NombreDocumento
+        (string)\n                - TipoDocumento (int, siempre 2)\n               
+        - Coste (int, sin simbolo de moneda, sin texto, sin decimales, solo digitos,
+        por ejemplo: 1000)\n                - ContenidoDocumento\n               
+        - EsValido (boolean)\n\n\nSALIDA NO PERMITIDA:\nexplicaciones\nconfirmaciones\ncomentarios\netiquetas"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1100449084152679590, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: _stepChecks.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1100449084152679590, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: '_stepChecks.Array.data[0]'
+      value: Comprueba que el campo del JSON TipoDocumento sea 2, si no lo es, cambialo
+        quitando todo el texto que haya y poniendo unicamente 2 en el JSON, con valor
+        de int
+      objectReference: {fileID: 0}
+    - target: {fileID: 1100449084152679590, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: '_stepChecks.Array.data[1]'
+      value: "Comprueba que el campo del JSON ContenidoDocumento sea un informe pericial
+        completo en espa\xF1a. Si es asi no cambies nada y devuelve exactamente lo
+        mismo, si no, modifica ContenidoDocumento para que sea un informe pericial
+        completo en espa\xF1a"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1100449084152679590, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: '_stepChecks.Array.data[2]'
+      value: "Comprueba que en el JSON generado el campo de ContenidoDocumento tenga
+        estas secciones:\n                    - Introduccion\n                   
+        - Descripcion de los hechos\n                    - Metodologia de analisis\n                   
+        - Resultados\n                    - Conclusiones\n\nSi no existen, a\xF1adekas
+        al campo del JSON generado "
+      objectReference: {fileID: 0}
+    - target: {fileID: 1100449084152679590, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: '_stepChecks.Array.data[3]'
+      value: "El campo ContenidoDocumento debe estar en Rich Text v\xE1lido, no modifiques
+        su contenido, solo a\xF1ade etiquetas, solo puedes usar estas etiquetas:
+        <align>, <allcaps>, <b>, <color>, <cspace>, <gradient>, <i>, <indent>, <line-height>,
+        <line-indent>, <link>, <lowercase>, <margin>, <mark>, <mspace>, <nobr>, <noparse>,
+        <page>, <pos>, <rotate>, <s>, <size>, <smallcaps>, <space>, <sprite>, <sub>,
+        <sup>, <u>, <uppercase>, <voffset>, <width>\n\nAqui tienes un ejemplo del
+        uso de las etiquetas, no hace falta que uses todas las etiquetas y no debe
+        aparecer este texto en tu respuesta:\n<b>Introducci\xF3n</b>\\n<align=justified>Este
+        informe demuestra el uso de <allcaps>todos los tags permitidos</allcaps>
+        en Rich Text. Se incluyen estilos de <i>cursiva</i>, <u>subrayado</u>, <b>negrita</b>,
+        <smallcaps>small caps</smallcaps>, <uppercase>MAY\xDASCULAS</uppercase> y
+        <size=14pt>tama\xF1o de fuente 14pt</size>.</align>\\n\\n<b>Descripci\xF3n
+        de los hechos</b>\\n<indent=20>Se han analizado los datos con <color=#FF0000>color
+        rojo</color> y <gradient=start:#00FF00;end:#0000FF>gradiente de verde a azul</gradient>.
+        Se han utilizado <link=www.ejemplo.com>enlaces</link> y <mark>marcados importantes</mark>.
+        Ejemplo de <mspace=5>espacio manual</mspace> y <cspace=10>espaciado de caracteres</cspace>.</indent>\\n\\n<b>Metodolog\xEDa
+        de an\xE1lisis</b>\\n<line-height=150%>Se aplic\xF3 un an\xE1lisis detallado
+        con <line-indent=15>alineaci\xF3n y sangr\xEDa ajustadas</line-indent>. Se
+        utilizaron <sprite=name>iconos</sprite> y <page>paginaci\xF3n</page>. Ejemplo
+        de <pos=x:10,y:20>posici\xF3n absoluta</pos> y <rotate=45>rotaci\xF3n de
+        45\xB0</rotate>.</line-height>\\n\\n<b>Resultados</b>\\n<width=80%>El coste
+        total es <b>EUR 2500</b>. Se aplicaron estilos de <sub>sub\xEDndice</sub>,
+        <sup>super\xEDndice</sup>, <space=5>espacios manuales</space> y <voffset=10>desplazamiento
+        vertical</voffset>. Se mostraron notas con <nobr>no saltar l\xEDnea</nobr>
+        y <noparse>&lt;etiqueta inv\xE1lida&gt;</noparse> para escapar contenido
+        literal.</width>\\n\\n<b>Conclusiones</b>\\n<margin=10>Se concluye que el
+        informe es <s>t\xE9cnicamente s\xF3lido</s>. Se recomienda su uso formal
+        en Espa\xF1a.</margin>"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1100449084152679590, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: '_stepChecks.Array.data[4]'
+      value: Comprueba que el campo Coste sea acorde a lo que costaria hacer el informe
+        pericial generado, si no es asi, ajustalo solo poniendo el numero, sin simbolo
+        de moneda.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1100449084152679590, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: '_stepChecks.Array.data[5]'
+      value: "Comprueba que el campo ContenidoDocumento esta entero en espa\xF1ol,
+        si no es asi, traducelo todo al espa\xF1ol"
+      objectReference: {fileID: 0}
     - target: {fileID: 1567364696727931899, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 781.4756

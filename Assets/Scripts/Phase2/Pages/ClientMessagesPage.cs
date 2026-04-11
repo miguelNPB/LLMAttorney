@@ -118,7 +118,7 @@ public class ClientMessagesPage : MessagesUIComponent
     {
         string prompt = inputField.text;
         AddMessage(prompt, true);
-        inputField.text = "";
+        //inputField.text = "";
 
         StartPendingMessage(false);
 
@@ -152,6 +152,7 @@ public class ClientMessagesPage : MessagesUIComponent
     public void RequestDocument()
     {
         llmConnectorDocs.CallSendContext();
+        inputField.text = "";
         // JsonSchema schema = new JsonSchema();
 
         // schema.properties.Add("NombreDocumento", new PropertyInfo(JsonDataType.String));
