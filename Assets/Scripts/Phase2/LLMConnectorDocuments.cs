@@ -31,7 +31,7 @@ public class LLMConnectorDocuments : LLMConector
 
 
 
-            _msgUIComponent.computerSystem.ToggleNotification(Page.ChatCliente, true);
+            
 
             if (_stepCounter < _config[_indexConfig].getStepsChecks().Length)
             {
@@ -43,11 +43,13 @@ public class LLMConnectorDocuments : LLMConector
                 _historical.Add("Respuesta :" + answer);
                 _stepCounter = 0;
                 _promptSent = false;
+                
             }
-            
             GameSystem.Instance.myDocumentManager.CreateDocument(jsonResponse.NombreDocumento, jsonResponse.TipoDocumento, jsonResponse.ContenidoDocumento, jsonResponse.DocumentoValido, jsonResponse.CosteDocumento);
+            _msgUIComponent.computerSystem.ToggleNotification(Page.ChatCliente, true);
 
-            
+
+
             _msgUIComponent.EndPendingMessage("Tu cliente te ha mandado " + jsonResponse.NombreDocumento + ".txt");
 
 

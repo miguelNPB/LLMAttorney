@@ -18,6 +18,8 @@ public class LLMConnectorOpponentDocuments : LLMConector
 
     [SerializeField] private ProcuradorMessagesPage _procuradorPage;
 
+    [SerializeField] public string oppPrompt;
+
 
     protected override void createJsonSchemas()
     {
@@ -49,7 +51,7 @@ public class LLMConnectorOpponentDocuments : LLMConector
         if (!success)
         {
             Debug.LogError("[OpponentDoc] LLM error: " + answer);
-            //_procuradorPage.CancelPendingOpponentMessage();
+            _procuradorPage.CancelPendingOpponentMessage();
             _promptSent = false;
             _stepCounter = 0;
             return;
@@ -73,49 +75,101 @@ public class LLMConnectorOpponentDocuments : LLMConector
         catch (Exception e)
         {
             Debug.LogWarning("[OpponentDoc] JSON parse failed: " + e.Message);
-            //_procuradorPage.CancelPendingOpponentMessage();
+            _procuradorPage.CancelPendingOpponentMessage();
             return;
         }
 
         if (response == null || !response.DocumentoValido)
         {
-            //_procuradorPage.CancelPendingOpponentMessage();
+            _procuradorPage.CancelPendingOpponentMessage();
             return;
         }
 
-        //GameSystem.Instance.myDocumentManager.CreateOpponentDocument(
-        //    response.NombreDocumento,
-        //    (PromptType)response.TipoDocumento,
-        //    response.ContenidoDocumento,
-        //    response.DocumentoValido,
-        //    response.CosteDocumento
-        //);
+        GameSystem.Instance.myDocumentManager.CreateDocument(
+           response.NombreDocumento,
+           (PromptType)response.TipoDocumento,
+           response.ContenidoDocumento,
+           false,
+           0
+        );
 
-        //_procuradorPage.ReceiveOpponentDocMessage(response.answer);
+        _procuradorPage.ReceiveOpponentDocMessage(response.answer);
     }
-
 
     protected override bool SendContextMessage(int indexConfig = 0)
     {
-        //_procuradorPage.StartPendingOpponentMessage();
 
-        bool sent = base.SendContextMessage(indexConfig);
+        _procuradorPage.StartPendingOpponentMessage();
 
-        //if (!sent)
-        //    _procuradorPage.CancelPendingOpponentMessage();
+        if (!_promptSent && _schemasCreated)
+        {
 
-        return sent;
+            if (_config.Length <= 0)
+            {
+                Debug.LogError("Ningun Config LLM asignado");
+                return false;
+            }
+
+            _indexConfig = indexConfig;
+
+            string prompt = oppPrompt;
+
+            string configLLM = _config[_indexConfig].getContext()
+                + _config[_indexConfig].getSafeguard();
+
+            configLLM = configLLM + "\n " + _config[_indexConfig].getHistoricalConversation() + "\n Historico: \n";
+
+            if (_useHistoricalInContext)
+            {
+                foreach (String s in _historical)
+                {
+                    configLLM = configLLM + s + "\n";
+                }
+            }
+            
+            Debug.Log("PROMPT: " + prompt);
+            Debug.Log("CONTEXT: " + configLLM);
+
+            _historical.Add("Pregunta: " + prompt);
+
+            _promptSent = true;
+
+            StartCoroutine(CoroutineSendPrompt(prompt, configLLM, _contextSchema));
+
+            //inputField.text = "";
+
+            return true;
+        }
+
+        _procuradorPage.CancelPendingOpponentMessage();
+
+        return false;
+
     }
+
+
+
+    // protected override bool SendContextMessage(int indexConfig = 0)
+    // {
+    //     _procuradorPage.StartPendingOpponentMessage();
+
+    //     bool sent = base.SendContextMessage(indexConfig);
+
+    //     if (!sent)
+    //        _procuradorPage.CancelPendingOpponentMessage();
+
+    //     return sent;
+    // }
 
     protected override bool SendSecuritySteps(string prompt)
     {
-        //_procuradorPage.StartPendingOpponentMessage();
+        _procuradorPage.StartPendingOpponentMessage();
 
         bool sent = base.SendSecuritySteps(prompt);
 
         if (!sent)
             return false;
-            //_procuradorPage.CancelPendingOpponentMessage();
+            _procuradorPage.CancelPendingOpponentMessage();
 
         return sent;
     }

@@ -42,7 +42,8 @@ public class OpponentDocProcuration : MonoBehaviour
     {
         string prompt =
             $"El abogado contrario ha presentado el documento: {playerDoc.GetDocName()}. " +
-            $"Genera un documento que lo contradiga o debilite sus argumentos.";
+            $"Genera un documento que lo contradiga o debilite sus argumentos."+
+            $"No menciones el documento del jugador, pero puedes basarte en su contenido para refutarlo";
 
         SetInputAndSend(prompt);
     }
@@ -77,7 +78,7 @@ public class OpponentDocProcuration : MonoBehaviour
 
     private void SetInputAndSend(string prompt)
     {
-        _llmConnector.inputField.text = prompt;
+        _llmConnector.oppPrompt = prompt;
         _llmConnector.CallSendContext();
     }
 }

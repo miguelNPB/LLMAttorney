@@ -149,7 +149,7 @@ public abstract class LLMConector : MonoBehaviour
 
     }
 
-    private IEnumerator CoroutineSendPrompt(string prompt, string configLLM, JsonSchema schema)
+    protected IEnumerator CoroutineSendPrompt(string prompt, string configLLM, JsonSchema schema)
     {
 
         float timer = 0;
