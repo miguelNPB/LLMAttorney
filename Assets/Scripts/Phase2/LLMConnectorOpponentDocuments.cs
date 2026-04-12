@@ -136,7 +136,7 @@ public class LLMConnectorOpponentDocuments : LLMConector
 
             StartCoroutine(CoroutineSendPrompt(prompt, configLLM, _contextSchema));
 
-            //inputField.text = "";
+            inputField.text = "";
 
             return true;
         }

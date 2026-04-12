@@ -151,7 +151,7 @@ public class ClientMessagesPage : MessagesUIComponent
     /// </summary>
     public void RequestDocument()
     {
-        llmConnectorDocs.CallSendContext();
+        llmConnectorDocs.CallSendContext((int)lastTypeRequest - 2);
         inputField.text = "";
         // JsonSchema schema = new JsonSchema();
 

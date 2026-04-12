@@ -29,10 +29,6 @@ public class LLMConnectorDocuments : LLMConector
             // deserializamos la respuesta
             DocumentResponse jsonResponse = JsonUtility.FromJson<DocumentResponse>(answer);
 
-
-
-            
-
             if (_stepCounter < _config[_indexConfig].getStepsChecks().Length)
             {
                 SendSecuritySteps(answer);
@@ -43,24 +39,17 @@ public class LLMConnectorDocuments : LLMConector
                 _historical.Add("Respuesta :" + answer);
                 _stepCounter = 0;
                 _promptSent = false;
-                
+
+                GameSystem.Instance.myDocumentManager.CreateDocument(jsonResponse.NombreDocumento, jsonResponse.TipoDocumento, jsonResponse.ContenidoDocumento, jsonResponse.DocumentoValido, jsonResponse.CosteDocumento);
+                _msgUIComponent.computerSystem.ToggleNotification(Page.ChatCliente, true);
+                _msgUIComponent.EndPendingMessage("Tu cliente te ha mandado " + jsonResponse.NombreDocumento + ".txt");
             }
-            GameSystem.Instance.myDocumentManager.CreateDocument(jsonResponse.NombreDocumento, jsonResponse.TipoDocumento, jsonResponse.ContenidoDocumento, jsonResponse.DocumentoValido, jsonResponse.CosteDocumento);
-            _msgUIComponent.computerSystem.ToggleNotification(Page.ChatCliente, true);
-
-
-
-            _msgUIComponent.EndPendingMessage("Tu cliente te ha mandado " + jsonResponse.NombreDocumento + ".txt");
-
-
         }
         else
         {
             Debug.LogError("Error en la llamada al LLM: " + answer);
             _msgUIComponent.EndPendingMessage("Error al contactar con el modelo.");
         }
-        
-
     }
 
     public void CallSendContext(int indexConfig = 0)
@@ -73,7 +62,7 @@ public class LLMConnectorDocuments : LLMConector
      */
     protected override bool SendContextMessage(int indexConfig = 0)
     {
-        _msgUIComponent.StartPendingMessage(false);
+        //_msgUIComponent.StartPendingMessage(false);
 
         bool messageSent = base.SendContextMessage(indexConfig);
 
@@ -87,7 +76,7 @@ public class LLMConnectorDocuments : LLMConector
 
     protected override bool SendSecuritySteps(string prompt)
     {
-        _msgUIComponent.StartPendingMessage(false);
+        //_msgUIComponent.StartPendingMessage(false);
 
         bool securityStepSent = base.SendSecuritySteps(prompt);
 
