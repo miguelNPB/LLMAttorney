@@ -15,19 +15,36 @@ public class ProcuradorDocUI : MonoBehaviour
     [HideInInspector]public Document documentInfo;
     public void Unselect()
     {
-        Debug.Log("unselect");
         selected.SetActive(false);
 
     }
 
     public void Select()
     {
-        Debug.Log("select");
         selected.SetActive(true);
 
         _procuradorMessagesPage.SelectDocument(this);
     }
 
+    public void SentToProcurador()
+    {
+        tickSent.SetActive(true);
+        button.interactable = false;
+
+        int i = 0;
+        bool found = false;
+        while (!found && i < GameSystem.Instance.myDocumentManager.documents.Count)
+        {
+
+            if (documentInfo.GetDocName() == GameSystem.Instance.myDocumentManager.documents[i].GetDocName())
+            {
+                found = true;
+                GameSystem.Instance.myDocumentManager.documents[i].OnSentToProcurador();
+            }
+
+            i++;
+        }
+    }
     public void OnDocumentPressed()
     {
         if (!selected.activeSelf)

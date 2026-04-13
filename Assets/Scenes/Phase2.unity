@@ -979,6 +979,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1130881731630529416, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1672697016457844634, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -41
+      objectReference: {fileID: 0}
+    - target: {fileID: 1672697016457844634, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -75
+      objectReference: {fileID: 0}
     - target: {fileID: 1894591831164182506, guid: 852933553285a6740a5814b19dd8a800, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1043,6 +1055,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3001207610810359613, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 3001207610810359613, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -75
+      objectReference: {fileID: 0}
     - target: {fileID: 3001717616816341921, guid: 852933553285a6740a5814b19dd8a800, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1075,6 +1095,10 @@ PrefabInstance:
       propertyPath: llmConnectorDocs
       value: 
       objectReference: {fileID: 512123790}
+    - target: {fileID: 3540182835561198383, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3570999057251703347, guid: 852933553285a6740a5814b19dd8a800, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1195,10 +1219,46 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6180023431465619310, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 633692589}
+    - target: {fileID: 6180023431465619310, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnSendDocument
+      objectReference: {fileID: 0}
+    - target: {fileID: 6180023431465619310, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ProcuradorMessagesPage, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6650095816771290006, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: playerColor.b
+      value: 0.42733178
+      objectReference: {fileID: 0}
+    - target: {fileID: 6650095816771290006, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: playerColor.g
+      value: 0.9150943
+      objectReference: {fileID: 0}
+    - target: {fileID: 6650095816771290006, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: playerColor.r
+      value: 0.42733178
+      objectReference: {fileID: 0}
     - target: {fileID: 6650095816771290006, guid: 852933553285a6740a5814b19dd8a800, type: 3}
       propertyPath: docsUIContainer
       value: 
       objectReference: {fileID: 1068791369}
+    - target: {fileID: 6650095816771290006, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: otherPersonColor.b
+      value: 0.5707547
+      objectReference: {fileID: 0}
+    - target: {fileID: 6650095816771290006, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: otherPersonColor.g
+      value: 0.6216446
+      objectReference: {fileID: 0}
+    - target: {fileID: 6650095816771290006, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: otherPersonColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6650095816771290006, guid: 852933553285a6740a5814b19dd8a800, type: 3}
       propertyPath: sendDocumentButton
       value: 

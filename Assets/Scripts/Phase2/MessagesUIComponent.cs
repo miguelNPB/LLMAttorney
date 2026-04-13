@@ -30,7 +30,7 @@ public abstract class MessagesUIComponent : PCPage
     /// <param name="messages"></param>
     protected void PlaceMessages(List<ConversationMessage> messages)
     {
-        totalHeight = 0;
+        totalHeight = -225;
         foreach (ConversationMessage message in messages)
         {
             AddMessage(message.text, message.fromPlayer);
@@ -124,7 +124,7 @@ public abstract class MessagesUIComponent : PCPage
     {
         int oldValue = layoutGroup.padding.top;
 
-        layoutGroup.padding.top = Mathf.Clamp((oldValue + (scrollSpeed * (int)direction)), -totalHeight, 20);
+        layoutGroup.padding.top = Mathf.Clamp((oldValue + (scrollSpeed * (int)direction)), -totalHeight, Mathf.Max(20, layoutGroup.padding.top));
         LayoutRebuilder.ForceRebuildLayoutImmediate(layoutGroup.GetComponent<RectTransform>());
     }
 

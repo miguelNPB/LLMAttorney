@@ -1,20 +1,10 @@
-using NUnit.Framework;
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ProcuradorMessagesPage : MessagesUIComponent {
-    /// <summary>
-    /// Formato para el LLM de la respuesta del cliente
-    /// </summary>
-    [Serializable]
-    private class ProcuradorMessageResponse
-    {
-        public string answer;
-    }
-
 
     public GameObject docsUIContainer;
     public GameObject procuradorDocUIPrefab;
@@ -35,7 +25,7 @@ public class ProcuradorMessagesPage : MessagesUIComponent {
     private void SetupUIDocuments()
     {
         for (int i = 0; i < docsUIContainer.transform.childCount; i++)
-            Destroy(docsUIContainer.transform.GetChild(i));
+            Destroy(docsUIContainer.transform.GetChild(i).gameObject);
 
 
         List<Document> documents = GameSystem.Instance.myDocumentManager.documents;
@@ -47,15 +37,38 @@ public class ProcuradorMessagesPage : MessagesUIComponent {
         }
     }
 
-    public void ReceiveChatMessage(bool success, string answer)
+    public void ReceiveChatMessage(string answer)
     {
-        // deserializamos la respuesta
-        ProcuradorMessageResponse jsonResponse = JsonUtility.FromJson<ProcuradorMessageResponse>(answer);
-
-        EndPendingMessage(jsonResponse.answer);
+        EndPendingMessage(answer);
 
         if (!isOpen)
             computerSystem.ToggleNotification(Page.ChatProcurador, true);
+    }
+  
+    private IEnumerator ProcessDocument(string docName)
+    {
+        sendDocumentButton.interactable = false;
+
+        // simulamos que piensa
+        float randomWait = UnityEngine.Random.Range(1f, 3f);
+        yield return new WaitForSeconds(randomWait);
+
+
+        int randomMessageSelection = UnityEngine.Random.Range(0, 2);
+
+        string message = "";
+        switch (randomMessageSelection)
+        {
+            case 0:
+                message = "Okay, mando el documento " + docName + " al juzgado y a la parte contraria.";
+                break;
+            case 1:
+                message = "Gracias por pasarmelo, se lo adjunto el documento " + docName + " al juzgado y una copia a la parte contraria.";
+                break;
+        }
+        ReceiveChatMessage(message);
+
+        sendDocumentButton.interactable = true;
     }
 
     /// <summary>
@@ -67,15 +80,17 @@ public class ProcuradorMessagesPage : MessagesUIComponent {
 
         schema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
 
-        string prompt = "Hola! Te adjunto el siguiente documento para que lo incluyas en el proceso: " + selectedDoc.documentInfo.GetDocName();
 
-        // TODO mandar prompt 
+        // mandar doc
+        StartCoroutine(ProcessDocument(selectedDoc.documentInfo.GetDocName()));
+        selectedDoc.SentToProcurador();
+
+        string message = "Hola! Te adjunto el siguiente documento para que lo incluyas en el proceso: " + selectedDoc.documentInfo.GetDocName();
+        AddMessage(message, true);
+        StartPendingMessage(false);
 
         selectedDoc.Unselect();
         SelectDocument(null);
-
-        AddMessage(prompt, true);
-        StartPendingMessage(false);
     }
 
     public override void Open()
@@ -84,7 +99,7 @@ public class ProcuradorMessagesPage : MessagesUIComponent {
 
         for (int i = 0; i < gameObject.transform.childCount; i++)
             gameObject.transform.GetChild(i).gameObject.SetActive(true);
-
+        
         SetupUIDocuments();
 
         SelectDocument(null);
@@ -111,6 +126,9 @@ public class ProcuradorMessagesPage : MessagesUIComponent {
 
         Close();
 
+
+
+        /*
         Document doc = new Document();
         Document doc1 = new Document();
         Document doc2 = new Document();
@@ -122,6 +140,7 @@ public class ProcuradorMessagesPage : MessagesUIComponent {
         GameSystem.Instance.myDocumentManager.documents.Add(doc);
         GameSystem.Instance.myDocumentManager.documents.Add(doc1);
         GameSystem.Instance.myDocumentManager.documents.Add(doc2);
+        ^*/
     }
 
 
