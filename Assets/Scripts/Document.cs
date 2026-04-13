@@ -25,6 +25,9 @@ public class Document : MonoBehaviour
     [InspectorName("Exit button")]
     GameObject exitButton;
 
+    [SerializeField]
+    GameObject sentToProcuradorVisualFeedback = null;
+
     private PromptType docType;
     private string fileName;
     private string content;
@@ -75,6 +78,7 @@ public class Document : MonoBehaviour
     public void OnSentToProcurador()
     {
         sentToProcurador = true;
+        sentToProcuradorVisualFeedback.SetActive(true);
     }
 
     /// <summary>

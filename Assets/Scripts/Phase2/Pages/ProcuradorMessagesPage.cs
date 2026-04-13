@@ -76,6 +76,9 @@ public class ProcuradorMessagesPage : MessagesUIComponent {
     /// </summary>
     public void OnSendDocument()
     {
+        if (!selectedDoc)
+            return;
+
         JsonSchema schema = new JsonSchema();
 
         schema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
@@ -141,6 +144,8 @@ public class ProcuradorMessagesPage : MessagesUIComponent {
         GameSystem.Instance.myDocumentManager.documents.Add(doc1);
         GameSystem.Instance.myDocumentManager.documents.Add(doc2);
         ^*/
+
+        GameSystem.Instance.myDocumentManager.CreateDocument("test", PromptType.Pregunta, "añskdjf", true, 49);
     }
 
 
