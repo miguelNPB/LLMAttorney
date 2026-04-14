@@ -134,7 +134,7 @@ public abstract class LLMConector : MonoBehaviour
         return true;
     }
 
-    private IEnumerator CoroutineSendPromptSteps(string prompt, string configLLM, JsonSchema schema)
+    protected IEnumerator CoroutineSendPromptSteps(string prompt, string configLLM, JsonSchema schema)
     {
 
         float timer = 0;

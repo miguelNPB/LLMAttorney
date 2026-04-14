@@ -37,6 +37,8 @@ public class Document : MonoBehaviour
     private bool sentToProcurador = false;
 
     private bool changed = false;
+
+    private bool oppDoc = false;
     void Start()
     {
         fileContentObject.gameObject.SetActive(false);
@@ -69,6 +71,8 @@ public class Document : MonoBehaviour
     public string GetContent() { return this.content; }
     public bool IsValid() {  return this.valid; }
     public bool GetSentToProcurador() {  return sentToProcurador; }
+
+    public bool IsOpponentDoc() { return oppDoc; }
 
 
 
@@ -111,13 +115,14 @@ public class Document : MonoBehaviour
     /// <param name="docType">Tipo de documento</param>
     /// <param name="content">Contenido nuevo para el documento</param>
     /// <param name="valid">Es valido el documento</param>
-    public void SetDoc(string docName, PromptType docType, string content, bool valid, int cost)
+    public void SetDoc(string docName, PromptType docType, string content, bool valid, int cost, bool isOpponentDoc = false)
     {
         SetDocName(docName);
         SetDocContent(content);
         this.valid = valid;
         this.docType = docType;
         this.cost = cost;
+        this.oppDoc = isOpponentDoc;
     }
 
 

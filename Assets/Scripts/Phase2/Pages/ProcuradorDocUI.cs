@@ -13,6 +13,8 @@ public class ProcuradorDocUI : MonoBehaviour
     public GameObject selected;
 
     [HideInInspector]public Document documentInfo;
+
+    private DocumentManager myDocManager;
     public void Unselect()
     {
         selected.SetActive(false);
@@ -26,6 +28,11 @@ public class ProcuradorDocUI : MonoBehaviour
         _procuradorMessagesPage.SelectDocument(this);
     }
 
+    public void Awake()
+    {
+        myDocManager = GameSystem.Instance.myDocumentManager;
+    }
+
     public void SentToProcurador()
     {
         tickSent.SetActive(true);
@@ -33,13 +40,14 @@ public class ProcuradorDocUI : MonoBehaviour
 
         int i = 0;
         bool found = false;
-        while (!found && i < GameSystem.Instance.myDocumentManager.documents.Count)
+        while (!found && i < myDocManager.documents.Count)
         {
 
-            if (documentInfo.GetDocName() == GameSystem.Instance.myDocumentManager.documents[i].GetDocName())
+            if (documentInfo.GetDocName() == myDocManager.documents[i].GetDocName())
             {
                 found = true;
-                GameSystem.Instance.myDocumentManager.documents[i].OnSentToProcurador();
+                myDocManager.documents[i].OnSentToProcurador();
+                myDocManager.AddSentDocInfo(documentInfo.GetDocName(), documentInfo.GetContent());
             }
 
             i++;

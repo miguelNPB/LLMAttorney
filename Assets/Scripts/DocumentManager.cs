@@ -44,6 +44,20 @@ public class DocumentManager : MonoBehaviour
     private Vector2 snapTarget;
     private bool isSnapped = false;
 
+    private string allSentDocInfo = ""; //Para el procurador enemigo
+
+    public string getAllSentDocsInfo()
+    {
+        return allSentDocInfo;
+    }
+
+    public void AddSentDocInfo(string docName, string docContent)
+    {
+        string docInfo = $"Documento enviado: {docName}\nContenido: {docContent}";
+    
+        allSentDocInfo += docInfo + "\n";
+    }
+
     void Start()
     {
         //Cursor.lockState = CursorLockMode.Confined;
@@ -247,7 +261,7 @@ public class DocumentManager : MonoBehaviour
     #endregion
 
     #region Documentos
-    public void CreateDocument(string docName, PromptType docType, string content, bool valid, int cost)
+    public void CreateDocument(string docName, PromptType docType, string content, bool valid, int cost, bool isOpponentDoc = false)
     {
         docPos.x++;
         if (docPos.x > 2)
@@ -257,7 +271,8 @@ public class DocumentManager : MonoBehaviour
         }
 
         GameObject aux = Instantiate(documentPrefab, documentContainer.transform);
-        aux.GetComponent<Document>().SetDoc(docName, docType, content, valid, cost);
+        aux.GetComponent<Document>().SetDoc(docName, docType, content, valid, cost, isOpponentDoc);
+
         aux.transform.localScale = Vector3.one;
 
         // Position relative to top of content rect

@@ -22,5 +22,7 @@ public class CaseData
     public string procuradorName = "";
     public string clienteRivalName = ""; // demandado o demandador en caso de ser respuesta
 
+    public string caseDescription = ""; // Descripcion del caso para pasar a llm contraria
+
     // resto
 }

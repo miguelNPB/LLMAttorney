@@ -21,6 +21,7 @@ public class LLMConnectorOpponentDocuments : LLMConector
     [SerializeField] public string oppPrompt;
 
 
+
     protected override void createJsonSchemas()
     {
         _contextSchema = new JsonSchema();
@@ -90,7 +91,8 @@ public class LLMConnectorOpponentDocuments : LLMConector
            (PromptType)response.TipoDocumento,
            response.ContenidoDocumento,
            false,
-           0
+           0,
+            true
         );
 
         _procuradorPage.ReceiveOpponentDocMessage(response.answer);
@@ -117,15 +119,20 @@ public class LLMConnectorOpponentDocuments : LLMConector
             string configLLM = _config[_indexConfig].getContext()
                 + _config[_indexConfig].getSafeguard();
 
+            // Grab all documents from the document manager to add to the context
+            string documentsContext = "Documentos actuales enviados por el jugador:\n" + GameSystem.Instance.myDocumentManager.getSentDocsInfo() + "\n";
+
             configLLM = configLLM + "\n " + _config[_indexConfig].getHistoricalConversation() + "\n Historico: \n";
 
-            if (_useHistoricalInContext)
-            {
-                foreach (String s in _historical)
-                {
-                    configLLM = configLLM + s + "\n";
-                }
-            }
+            // if (_useHistoricalInContext)
+            // {
+            //     foreach (String s in _historical)
+            //     {
+            //         configLLM = configLLM + s + "\n";
+            //     }
+            // }
+
+            configLLM = configLLM + documentsContext;
             
             Debug.Log("PROMPT: " + prompt);
             Debug.Log("CONTEXT: " + configLLM);
@@ -136,7 +143,7 @@ public class LLMConnectorOpponentDocuments : LLMConector
 
             StartCoroutine(CoroutineSendPrompt(prompt, configLLM, _contextSchema));
 
-            inputField.text = "";
+            //inputField.text = "";
 
             return true;
         }
@@ -161,17 +168,43 @@ public class LLMConnectorOpponentDocuments : LLMConector
     //     return sent;
     // }
 
+    // protected override bool SendSecuritySteps(string prompt)
+    // {
+    //     _procuradorPage.StartPendingOpponentMessage();
+
+    //     bool sent = base.SendSecuritySteps(prompt);
+
+    //     if (!sent)
+    //         return false;
+    //         _procuradorPage.CancelPendingOpponentMessage();
+
+    //     return sent;
+    // }
+
     protected override bool SendSecuritySteps(string prompt)
     {
-        _procuradorPage.StartPendingOpponentMessage();
+        
+        Debug.Log("PROMPT de security checks: " + prompt);
 
-        bool sent = base.SendSecuritySteps(prompt);
+        string configLLM = "Teniendo el siguiente texto: \n" + prompt + "\n Y teniedo la siguiente directiva de seguridad" +
+            _config[_indexConfig].getSafeguardSteps() +
+            "\n Quiero que hagas lo siguiente: " + _config[_indexConfig].getStepsChecks()[_stepCounter];
 
-        if (!sent)
-            return false;
-            _procuradorPage.CancelPendingOpponentMessage();
+        if (_useHistoricalInSteps)
+        {
+            foreach (String s in _historical)
+            {
+                configLLM = configLLM + s + "\n";
+            }
+        }
 
-        return sent;
+        StartCoroutine(CoroutineSendPromptSteps(prompt, configLLM, _stepsSchema));
+
+        //inputField.text = "";
+
+        _stepCounter++;
+
+        return true;
     }
 
 

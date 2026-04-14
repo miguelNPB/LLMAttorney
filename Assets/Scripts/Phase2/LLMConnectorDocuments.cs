@@ -17,6 +17,7 @@ public class LLMConnectorDocuments : LLMConector
     [SerializeField]
     private MessagesUIComponent _msgUIComponent;
 
+    private bool firstTime = true;
 
     public override void RecieveChatMessage(bool success, string answer)
     {
@@ -63,7 +64,11 @@ public class LLMConnectorDocuments : LLMConector
     protected override bool SendContextMessage(int indexConfig = 0)
     {
         //_msgUIComponent.StartPendingMessage(false);
-
+        if(firstTime)
+        {
+            _historical.Add(GameSystem.Instance.CaseData.caseDescription);
+            firstTime = false;
+        }
         bool messageSent = base.SendContextMessage(indexConfig);
 
         if (!messageSent)
