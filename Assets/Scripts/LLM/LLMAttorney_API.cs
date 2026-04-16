@@ -105,7 +105,7 @@ public class PropertyInfo
     }
 }
 
-public enum API_TYPE { GEMINI, LLAMA }
+public enum API_TYPE { LLAMA }
 
 /**
  * Clase Singleton que sirve para hacer llamadas a nuestro servidor LLMAttorney
@@ -127,8 +127,6 @@ public class LLMAttorney_API : MonoBehaviour
     {
         switch (type)
         {
-            case API_TYPE.GEMINI:
-                return "Gemini";
             case API_TYPE.LLAMA:
                 return "Llama";
             default:
