@@ -127,4 +127,10 @@ public class ComputerSystem : MonoBehaviour
                 break;
         }
     }
+
+
+    public void ToggleExitButton(bool on)
+    {
+        exitButton.SetActive(on);
+    }
 }

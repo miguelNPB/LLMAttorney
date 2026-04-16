@@ -46,7 +46,7 @@ public class DocumentManager : MonoBehaviour
 
     private string allSentDocInfo = ""; //Para el procurador enemigo
 
-    public string getAllSentDocsInfo()
+    public string getSentDocsInfo()
     {
         return allSentDocInfo;
     }

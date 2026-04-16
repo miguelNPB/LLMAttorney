@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ConciliacionPage : PCPage
 {
+    [SerializeField] private Phase2 phase2Manager;
     [SerializeField] private Animator clientCharacterAnimator;
     [SerializeField] private Animator rivalCharacterAnimator;
     [SerializeField] private Button sendButton;
@@ -14,42 +15,30 @@ public class ConciliacionPage : PCPage
     [SerializeField] private GameObject clientTabExclamation;
     [SerializeField] private GameObject rivalTabExclamation;
     [SerializeField] private TMP_InputField inputFieldText;
-    [SerializeField] private GameObject popupConfirmSend;
+    [SerializeField] private GameObject popupClientRejects;
     [SerializeField] private GameObject inputConciliacionTabHolder;
     [SerializeField] private GameObject clientTabHolder;
     [SerializeField] private GameObject rivalTabHolder;
     [SerializeField] private TMP_Text clienteAnswerText;
     [SerializeField] private TMP_Text rivalAnswerText;
     [SerializeField] private GameObject popupAfterFailedConciliation;
+    [SerializeField] private GameObject popupAfterSuccessfulConciliation;
+
+    private bool _open = false;
 
 
     // Llamado al pulsar el boton de mandar intento de conciliacion
-    public void TrySend()
+    public void SendAttempt()
     {
         sendButton.interactable = false;
-        popupConfirmSend.SetActive(true);
-    }
-
-    // Llamado al pulsar "Si" en el popup de confirmacion
-    public void ConfirmSend()
-    {
-        popupConfirmSend.SetActive(false);
 
         SendProposition();
     }
 
-
-    // Llamado al pulsar "No" en el popup de confirmacion
-    public void CancelSend()
-    {
-        sendButton.interactable = true;
-        popupConfirmSend.SetActive(false);
-    }
-
-
     // llamado cuando se manda la proposicion, se desactiva el boton y la escritura en el input
     private void SendProposition()
     {
+        popupClientRejects.SetActive(false);
         inputFieldText.interactable = false;
         EnableClientResponse();
     }
@@ -57,6 +46,7 @@ public class ConciliacionPage : PCPage
     // pasa si no acepta el cliente
     private void RestartProposition()
     {
+        popupClientRejects.SetActive(true);
         inputFieldText.interactable = true;
         sendButton.interactable = true;
         inputFieldText.text = "";
@@ -68,16 +58,21 @@ public class ConciliacionPage : PCPage
         clientTabExclamation.SetActive(true);
         changeToClientTabButton.interactable = true;
 
-        // mandar a LLM cliente para que responda
+        // mandar a LLM prompt para que responda el cliente
         StartCoroutine(PromptClientResponse());
     }
 
     private IEnumerator PromptClientResponse()
     {
-        yield return null;
+        clientCharacterAnimator.SetTrigger("Thinking");
 
+        yield return new WaitForSeconds(3f);
 
-        bool clientAgrees = false;
+        bool clientAgrees = true;
+
+        if (!_open)
+            computerSystem.ToggleNotification(Page.Conciliacion, true);
+
 
         if (clientAgrees)
         {
@@ -87,18 +82,72 @@ public class ConciliacionPage : PCPage
         else
         {
             clientCharacterAnimator.SetTrigger("Rejection");
+
             RestartProposition();
         }
     }
 
     private void EnableRivalResponse()
     {
+        rivalTabExclamation.SetActive(true);
+        changeToRivalTabButton.interactable = true;
 
+        // mandar a LLM prompt para que responda el rival
+        StartCoroutine(PromptRivalResponse());
+    }
+
+    private IEnumerator PromptRivalResponse()
+    {
+        rivalCharacterAnimator.SetTrigger("Thinking");
+
+        yield return new WaitForSeconds(3f);
+
+        bool rivalAgrees = true;
+
+        if (!_open)
+            computerSystem.ToggleNotification(Page.Conciliacion, true);
+
+
+        if (rivalAgrees)
+        {
+            rivalCharacterAnimator.SetTrigger("Success");
+            popupAfterSuccessfulConciliation.SetActive(true);
+            computerSystem.ToggleExitButton(false);
+        }
+        else
+        {
+            rivalCharacterAnimator.SetTrigger("Rejection");
+            popupAfterFailedConciliation.SetActive(true);
+            phase2Manager.FailedConciliation();
+            computerSystem.ToggleNotification(Page.Redaccion, true);
+        }
     }
 
 
+
+    public void GoToPropuestaTab()
+    {
+        inputConciliacionTabHolder.SetActive(true);
+        clientTabHolder.SetActive(false);
+        rivalTabHolder.SetActive(false);
+    }
+    public void GoToClienteTab()
+    {
+        inputConciliacionTabHolder.SetActive(false);
+        clientTabHolder.SetActive(true);
+        rivalTabHolder.SetActive(false);
+    }
+    public void GoToRivalTab()
+    {
+        inputConciliacionTabHolder.SetActive(false);
+        clientTabHolder.SetActive(false);
+        rivalTabHolder.SetActive(true);
+    }
+
     public override void Open()
     {
+        _open = true;
+
         computerSystem.ToggleNotification(Page.Conciliacion, false);
 
         for (int i = 0; i < gameObject.transform.childCount; i++)
@@ -108,6 +157,8 @@ public class ConciliacionPage : PCPage
 
     public override void Close()
     {
+        _open = false;
+
         for (int i = 0; i < gameObject.transform.childCount; i++)
             gameObject.transform.GetChild(i).gameObject.SetActive(false);
 

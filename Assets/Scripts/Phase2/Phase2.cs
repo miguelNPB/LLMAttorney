@@ -24,4 +24,18 @@ public class Phase2 : MonoBehaviour
     {
         redactarButton.interactable = on;
     }
+
+
+    public void SuccesfulConciliation()
+    {
+        GameSystem.Instance.CaseData.attemptedConciliation = true;
+
+        // volver al menu / escena de victoria
+    }
+
+    public void FailedConciliation()
+    {
+        EnableRedactar(true);
+        GameSystem.Instance.CaseData.attemptedConciliation = true;
+    }
 }
