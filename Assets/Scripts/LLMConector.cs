@@ -76,10 +76,10 @@ public abstract class LLMConector : MonoBehaviour
             string configLLM = _config[_indexConfig].getContext()
                 + _config[_indexConfig].getSafeguard();
 
-            configLLM = configLLM + "\n " + _config[_indexConfig].getHistoricalConversation() + "\n Historico: \n";
-
             if (_useHistoricalInContext)
             {
+                configLLM = configLLM + "\n " + _config[_indexConfig].getHistoricalConversation() + "\n Historico: \n";
+
                 foreach (String s in _historical)
                 {
                     configLLM = configLLM + s + "\n";
@@ -162,5 +162,10 @@ public abstract class LLMConector : MonoBehaviour
             yield return null;
         }
 
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 }

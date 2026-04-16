@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ConciliacionPage : PCPage
 {
     [SerializeField] private Phase2 phase2Manager;
+    [SerializeField] private LLMConnectorConciliation llmConnector;
     [SerializeField] private Animator clientCharacterAnimator;
     [SerializeField] private Animator rivalCharacterAnimator;
     [SerializeField] private Button sendButton;
@@ -25,7 +26,21 @@ public class ConciliacionPage : PCPage
     [SerializeField] private GameObject popupAfterSuccessfulConciliation;
 
     private bool _open = false;
+    private bool clientAgrees = false;
+    private bool rivalAgrees = false;
+    private string clientAnswer = "";
+    private string rivalAnswer = "";
 
+    public void SetClientAgrees(bool value, string answer)
+    {
+        clientAgrees = value;
+        clientAnswer = answer;
+    }
+    public void SetRivalAgrees(bool value, string answer)
+    {
+        rivalAgrees = value;
+        rivalAnswer = answer;
+    }
 
     // Llamado al pulsar el boton de mandar intento de conciliacion
     public void SendAttempt()
@@ -62,13 +77,15 @@ public class ConciliacionPage : PCPage
         StartCoroutine(PromptClientResponse());
     }
 
+
+
     private IEnumerator PromptClientResponse()
     {
         clientCharacterAnimator.SetTrigger("Thinking");
 
-        yield return new WaitForSeconds(3f);
+        yield return StartCoroutine(llmConnector.SendClientPrompt());
 
-        bool clientAgrees = true;
+        clienteAnswerText.text = clientAnswer;
 
         if (!_open)
             computerSystem.ToggleNotification(Page.Conciliacion, true);
@@ -100,9 +117,14 @@ public class ConciliacionPage : PCPage
     {
         rivalCharacterAnimator.SetTrigger("Thinking");
 
-        yield return new WaitForSeconds(3f);
+        float random = Random.Range(0.0f, 1.0f);
 
-        bool rivalAgrees = true;
+        if (random > GameSystem.Instance.CaseData.conciliationRivalInstantRejectProbability)
+            yield return StartCoroutine(llmConnector.SendRivalPromptNormal());
+        else
+            yield return StartCoroutine(llmConnector.SendRivalPromptRejectionConfirmed());
+
+        rivalAnswerText.text = rivalAnswer;
 
         if (!_open)
             computerSystem.ToggleNotification(Page.Conciliacion, true);
@@ -162,5 +184,10 @@ public class ConciliacionPage : PCPage
         for (int i = 0; i < gameObject.transform.childCount; i++)
             gameObject.transform.GetChild(i).gameObject.SetActive(false);
 
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 }

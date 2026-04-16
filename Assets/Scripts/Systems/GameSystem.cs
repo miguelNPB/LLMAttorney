@@ -44,6 +44,10 @@ public class GameSystem : MonoBehaviour
         _caseData.clientMessages.Add(new ConversationMessage("Estas bien?", false));
 
         _caseData.procuradorMessages.Add(new ConversationMessage("Buenas! Mi nombre es " + _caseData.procuradorName + ", seré tu procurador para este caso. Cualquier documento que consideres pertinente adjuntar al proceso, mándamelo y lo registraré.", false));
+
+        _caseData.conciliationRivalInstantRejectProbability = 1;
+
+        _caseData.caseDescription = "El cliente Carlos Leon quiere demandar a el rival Guillermo porque le ha asesinado a su perro.";
     }
 
     private void Init()
