@@ -524,10 +524,6 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3611333202471334509, guid: f18a19dd2eb656240824c2c016e8d83c, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3611333202471334509, guid: f18a19dd2eb656240824c2c016e8d83c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -578,18 +574,6 @@ PrefabInstance:
     - target: {fileID: 3940488973620357413, guid: f18a19dd2eb656240824c2c016e8d83c, type: 3}
       propertyPath: m_Name
       value: Notepad
-      objectReference: {fileID: 0}
-    - target: {fileID: 3993779468969796493, guid: f18a19dd2eb656240824c2c016e8d83c, type: 3}
-      propertyPath: startingPos.x
-      value: -2000
-      objectReference: {fileID: 0}
-    - target: {fileID: 3993779468969796493, guid: f18a19dd2eb656240824c2c016e8d83c, type: 3}
-      propertyPath: startingPos.y
-      value: -2000
-      objectReference: {fileID: 0}
-    - target: {fileID: 6879206633675327656, guid: f18a19dd2eb656240824c2c016e8d83c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
