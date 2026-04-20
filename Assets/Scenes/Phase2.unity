@@ -183,13 +183,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
-  _apiType: 1
-  _context: Patata
-  _safeguard: No devuelvas otra cosa que no sea una patata
-  _safeguardSteps: Patata
-  _historicalConversation: Patata
+  _apiType: 0
+  _context: "Act\xFAa como un abogado experto en derecho procesal civil en Espa\xF1a.
+    Tu tarea es redactar un documento jur\xEDdico completo bas\xE1ndote en un t\xEDtulo
+    que recibir\xE1s como par\xE1metro.\n\nEl resultado debe seguir estrictamente
+    esta estructura:\n\nT\xEDtulo:\n[Incluye aqu\xED el t\xEDtulo proporcionado]\n\nTipo
+    de documento:\nDebes clasificar el documento en una sola de las siguientes categor\xEDas,
+    seg\xFAn su naturaleza:\n\nInforme pericial\nInforme\nDeclaraci\xF3n de un testigo\nRecibo/Factura\n\nContenido:\nRedacta
+    el contenido del documento utilizando lenguaje jur\xEDdico formal propio del
+    \xE1mbito civil espa\xF1ol. El texto debe ser coherente con el t\xEDtulo y con
+    el tipo de documento seleccionado."
+  _safeguard: "El contenido debe ser detallado, veros\xEDmil y bien estructurado
+    en p\xE1rrafos.\nUsa terminolog\xEDa jur\xEDdica adecuada en Espa\xF1a.\nMant\xE9n
+    un tono profesional, claro y objetivo.\nSi faltan datos concretos (fechas, nombres,
+    lugares), compl\xE9talos de forma razonable.\nEl contenido debe ajustarse claramente
+    al tipo de documento elegido (por ejemplo, un informe pericial debe incluir an\xE1lisis
+    t\xE9cnico, una declaraci\xF3n de testigo debe estar en primera persona, etc.).\nNo
+    incluyas explicaciones externas ni comentarios: solo devuelve el documento final."
+  _safeguardSteps: 'No acortes el texto ni modifiques las variables del JSON que
+    no se indican en el prompt.
+
+
+    Devuelve siempre al final el JSON que se te
+    proporciona solo modificando el campo que se te indique.'
+  _historicalConversation: 
   _stepChecks:
-  - Es una patata?
+  - "Clasifica el documento seg\xFAn su tipo y modifica unicamente el campo tipoDocumento,
+    poniendo unicamente un numero.\n\nReglas de clasificaci\xF3n:\n\nSi es un informe
+    pericial: 1\nSi es un informe: 2\nSi es una declaraci\xF3n de un testigo: 3\nSi
+    es un recibo o factura: 4"
+  - "Modifica el campo contenidoDocumento:\nDebes eliminar completamente cualquier
+    fragmento entre corchetes [...].\nDebes reemplazar esos fragmentos con informaci\xF3n
+    inventada coherente y veros\xEDmil, manteniendo el contexto jur\xEDdico del documento.\nNo
+    puedes dejar corchetes ni marcas de plantilla en la salida final.\nNo expliques
+    los cambios.\nMant\xE9n el estilo de una declaraci\xF3n formal en derecho procesal
+    civil en Espa\xF1a.\nSi falta informaci\xF3n, compl\xE9tala de forma razonable
+    y consistente con el resto del texto"
   _temperature: 0
   _ragUse: 1
   _ragFile: 0
@@ -268,7 +297,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &516469882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,7 +305,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 516469881}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f48f9161540756140b313889cd5d5527, type: 3}
   m_Name: 
@@ -361,6 +390,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 276294508596376722, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 654747287374496597, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 654747287374496597, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4036924131006146065, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
