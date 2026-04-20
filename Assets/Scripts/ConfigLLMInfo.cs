@@ -9,7 +9,8 @@ public class ConfigLLMInfo : MonoBehaviour
     public enum RagFiles
     {
         CodigoCivil,
-        Precios
+        Precios,
+        CasoBase
     }
 
     //Para mas informacion sobre las variables revisar LLMAttorney_API.cs

@@ -45,7 +45,14 @@ ragPrecios = ArchivoRag(
     collectionName="precios"
 )
 
-ragsFiles = [ragCodigoCivil, ragPrecios]
+ragCasoBase = ArchivoRag(
+    pathGuardado="./vector_db/CasoBase_db",
+    pathArchivo="./documentos_rag/caso_base.pdf",
+    collectionName="caso_base"
+)
+
+
+ragsFiles = [ragCodigoCivil, ragPrecios, ragCasoBase]
 
 #Nos creamos el array de vector stores global
 vector_stores = []

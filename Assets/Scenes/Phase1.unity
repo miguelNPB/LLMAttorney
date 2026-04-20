@@ -413,6 +413,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2026908088}
     m_Modifications:
+    - target: {fileID: 1537650179759471815, guid: 9f802eb6de7f79341a30c0ea0aadc6d3, type: 3}
+      propertyPath: _maleProbability
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4099306078159137386, guid: 9f802eb6de7f79341a30c0ea0aadc6d3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1070.2336
@@ -787,36 +791,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Phase1
   writeTextSystem: {fileID: 1280167836}
-  _startingText: "Buenos d\xEDas. Gracias por recibirme con tan poca antelaci\xF3n.
-    Mire, le cuento mi caso porque estoy verdaderamente desesperado y ya no s\xE9
-    qu\xE9 hacer; esto me est\xE1 quitando el sue\xF1o.\\r\\n\\r\\nEl problema viene
-    por una reforma integral que quise hacer en una vivienda unifamiliar que hered\xE9
-    en la sierra. En marzo del a\xF1o pasado, firm\xE9 un contrato de obra con una
-    empresa constructora, 'Reformas Integrales Mart\xEDnez S.L.'. El presupuesto
-    total aceptado era de 45.000 euros, con fecha de finalizaci\xF3n estipulada para
-    el 15 de septiembre. Seg\xFAn lo acordado, les hice una transferencia de 22.500
-    euros en concepto de provisi\xF3n de fondos para acopio de materiales y empezar
-    a trabajar.\\r\\n\\r\\nAl principio todo iba bien, o eso parec\xEDa. Empezaron
-    con las demoliciones en abril. Sin embargo, a partir de junio la cuadrilla dej\xF3
-    de ir. Cuando llamaba al encargado, todo eran excusas: que si hab\xEDa escasez
-    de suministros, que si un trabajador estaba de baja... Pero lo peor no es el
-    retraso. Lo peor es que, cuando contrat\xE9 a un arquitecto t\xE9cnico por mi
-    cuenta para que fuera a revisar lo que hab\xEDan hecho, nos llevamos las manos
-    a la cabeza.\\r\\n\\r\\nResulta que tiraron un muro de carga que no estaba en
-    el proyecto de demolici\xF3n. Esto ha provocado unas grietas enormes en la estructura
-    de la casa y, de rebote, ha afectado al muro colindante del vecino, que ya me
-    ha amenazado con demandarme a m\xED. El perito que contrat\xE9 ha elaborado un
-    informe demoledor: subsanar los da\xF1os estructurales que han causado, reparar
-    la medianera del vecino y terminar la obra que dejaron a medias asciende a un
-    total de 34.200 euros.\\r\\n\\r\\nEn octubre intent\xE9 llegar a un acuerdo amistoso.
-    Les envi\xE9 un burofax con acuse de recibo y certificaci\xF3n de texto exigi\xE9ndoles
-    la resoluci\xF3n del contrato por incumplimiento y la devoluci\xF3n de los importes
-    no ejecutados, m\xE1s los da\xF1os y perjuicios. Lo recibieron, pero me han ignorado
-    por completo. Ahora ni siquiera me cogen el tel\xE9fono.\\r\\n\\r\\nNecesito
-    que los llevemos a los juzgados. Tengo todas las facturas, el contrato firmado,
-    los justificantes de las transferencias bancarias, el informe pericial y el burofax.
-    \xBFCree que tenemos un caso s\xF3lido para ir a por ellos por la v\xEDa civil
-    y recuperar mi dinero?"
+  _startingText: "Hola, buenos d\xEDas. Le explico mi situaci\xF3n porque necesito
+    asesoramiento y posible representaci\xF3n legal. Soy propietario de una vivienda
+    y desde hace aproximadamente un a\xF1o he venido sufriendo una serie de da\xF1os
+    bastante importantes en mi casa, principalmente humedades en el techo del sal\xF3n
+    y en una de las habitaciones. Con el tiempo han ido empeorando, apareciendo moho,
+    desprendi\xE9ndose la pintura e incluso afectando al suelo de parquet, que se
+    ha levantado en algunas zonas.\n\nDespu\xE9s de varias comprobaciones, todo apunta
+    a que el origen del problema est\xE1 en la vivienda de arriba, propiedad de mi
+    vecina. Seg\xFAn me indic\xF3 un t\xE9cnico que contrat\xE9, parece que hay una
+    fuga en una tuber\xEDa de su ba\xF1o, y el agua est\xE1 filtr\xE1ndose hacia
+    mi vivienda. Yo intent\xE9 solucionarlo de forma amistosa, habl\xE9 con ella
+    en varias ocasiones y le envi\xE9 un burofax solicitando que revisara la instalaci\xF3n
+    y se hiciera cargo de la reparaci\xF3n, pero no obtuve una soluci\xF3n. B\xE1sicamente
+    niega que el problema sea suyo y no ha tomado medidas efectivas.\n\nLo que me
+    gustar\xEDa saber es si con esto es viable interponer una demanda por responsabilidad
+    civil, qu\xE9 opciones tengo de ganar el caso."
 --- !u!114 &1280167836 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 429528152396629215, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
@@ -1686,6 +1676,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6603538375019839910, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: m_CharacterLimit
+      value: 140
+      objectReference: {fileID: 0}
     - target: {fileID: 6929784444275368796, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_Name
       value: SearchMenuStage1
@@ -1722,6 +1716,10 @@ PrefabInstance:
     - target: {fileID: 3943315449560428967, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4934587262290455700, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_CharacterLimit
+      value: 140
       objectReference: {fileID: 0}
     - target: {fileID: 5051894018414952572, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
       propertyPath: _searchToolButton
@@ -1828,6 +1826,10 @@ PrefabInstance:
       value: CallSendContext
       objectReference: {fileID: 0}
     - target: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: _ragUse
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
       propertyPath: _context
       value: "Contexto y rol del modelo\n\nAct\xFAa como una persona que acude a
         un abogado para solicitar ayuda con un problema relacionado con el derecho
@@ -1850,7 +1852,13 @@ PrefabInstance:
         siempre el punto de vista de un cliente que busca ayuda.\n\nRestricciones\n\nNo
         respondas como abogado ni ofrezcas asesoramiento jur\xEDdico.\nNo inventes
         leyes ni procedimientos legales.\nMant\xE9n siempre el rol de cliente que
-        solicita orientaci\xF3n y explicaci\xF3n."
+        solicita orientaci\xF3n y explicaci\xF3n.\n\nObtencion de informaci\xF3n\n\nTienes
+        informaci\xF3n sobre tu propio caso en el rag asignado. Usalo sin revelar
+        informaci\xF3n posterior al punto 2."
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: _ragFile
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
       propertyPath: _safeguard
