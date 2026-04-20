@@ -3,11 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LLMConectorClientMeeting : LLMConector
 {
     [SerializeField]
     private UIClientMeetingManager _uiMeeting;
+
+    [SerializeField]
+    private GameObject _buttonContinue;
 
     [Serializable]
     private class MeetingResponse
@@ -72,6 +76,7 @@ public class LLMConectorClientMeeting : LLMConector
                 _historical.Add("Respuesta :" + jsonResponse.answer);
                 _stepCounter = 0;
                 _uiMeeting.ShowMessage(_abogadoContratado);
+                _buttonContinue.SetActive(true);
                 _promptSent = false;
             }
         }
@@ -91,6 +96,8 @@ public class LLMConectorClientMeeting : LLMConector
     protected override bool SendContextMessage(int indexConfig = 0)
     {
         _uiMeeting.StartPendingMessage();
+
+        _buttonContinue.SetActive(false);
 
         bool messageSent = base.SendContextMessage(indexConfig);
 
