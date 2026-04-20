@@ -15,7 +15,8 @@ public class LLMConectorSearch : LLMConector
     private class SearchResponse
     {
         public string answer;
-        //public string[] documents;
+        public bool respuesta_valida;
+        public bool respuesta_coherente;
     }
 
     /**
@@ -32,9 +33,25 @@ public class LLMConectorSearch : LLMConector
             // deserializamos la respuesta
             SearchResponse jsonResponse = JsonUtility.FromJson<SearchResponse>(answer);
 
-            _uiSearch.EndPendingMessage(jsonResponse.answer);
+            Debug.Log("Respuesta valida: " + jsonResponse.respuesta_valida);
 
-            if (_stepCounter < _config[_indexConfig].getStepsChecks().Length)
+            Debug.Log("Respuesta coherente: " + jsonResponse.respuesta_coherente);
+
+            if (jsonResponse.respuesta_valida && jsonResponse.respuesta_coherente)
+            {
+                _uiSearch.EndPendingMessage(jsonResponse.answer);
+            }
+            else if (!jsonResponse.respuesta_coherente)
+            {
+                _uiSearch.EndPendingMessage("Información no disponible. Por favor centrese en cuestiones del ambito del derecho civil");
+            }
+            else
+            {
+                _uiSearch.EndPendingMessage("Error de formato. Por favor repita la pregunta");
+            }
+
+            if (_stepCounter < _config[_indexConfig].getStepsChecks().Length &&
+                (!jsonResponse.respuesta_valida || !jsonResponse.respuesta_coherente))
             {
                 SendSecuritySteps(jsonResponse.answer);
             }
@@ -95,9 +112,13 @@ public class LLMConectorSearch : LLMConector
     {
         _contextSchema = new JsonSchema();
         _contextSchema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
+        _contextSchema.properties.Add("respuesta_valida", new PropertyInfo(JsonDataType.Boolean));
+        _contextSchema.properties.Add("respuesta_coherente", new PropertyInfo(JsonDataType.Boolean));
 
         _stepsSchema = new JsonSchema();
         _stepsSchema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
+        _stepsSchema.properties.Add("respuesta_valida", new PropertyInfo(JsonDataType.Boolean));
+        _stepsSchema.properties.Add("respuesta_coherente", new PropertyInfo(JsonDataType.Boolean));
 
         _schemasCreated = true;
     }

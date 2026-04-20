@@ -1315,7 +1315,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 533189375153599252, guid: be336779a8efeb549896730c5b892e7b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0003944012
+      value: 0.0003405975
       objectReference: {fileID: 0}
     - target: {fileID: 2903242016931602870, guid: be336779a8efeb549896730c5b892e7b, type: 3}
       propertyPath: m_Color.a
@@ -1467,6 +1467,87 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 912615290}
     m_Modifications:
+    - target: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: _safeguard
+      value: "Escribir toda la informacion en un solo parrafo.\nArgumenta las cosas
+        y no des el precio sin nada de texto.\n\nDebes generar un campo booleano
+        llamado respuesta_valida.\n\nEste campo eval\xFAa \xFAnicamente la calidad
+        formal del texto, no su contenido legal ni su coherencia con el contexto.\n\nCriterios\n\nEl
+        valor ser\xE1 true solo si se cumplen todas estas condiciones:\n\nEl texto
+        esta en espa\xF1ol\n\nEl texto es comprensible y coherente a nivel ling\xFC\xEDstico,
+        sin:\ntexto sin sentido\npalabras aleatorias\ngalimat\xEDas\nsecuencias incoherentes\nEl
+        texto est\xE1 completamente en espa\xF1ol:\nNo contiene frases en otros idiomas\nNo
+        mezcla idiomas\n\nEl texto no contiene errores ortogr\xE1ficos graves:\nSe
+        permiten errores menores\nNo se permiten errores que dificulten la comprensi\xF3n\n\nEl
+        texto no contiene s\xEDmbolos externos o no deseados, como:\n( )\n[ ]\n{
+        }\n^ *\nu otros s\xEDmbolos similares que no formen parte de una redacci\xF3n
+        normal\n\nReglas\nSi todas las condiciones se cumplen \u2192\ntrue\nSi alguna
+        condici\xF3n no se cumple \u2192\nfalse\n\nRestricciones\nNo corrijas el
+        texto\nNo expliques la decisi\xF3n\nNo modifiques el contenido\nSolo eval\xFAa\n\nDebes
+        generar un campo booleano llamado respuesta_coherente.\n\nEste campo eval\xFAa
+        si la respuesta cumple con el siguiente contexto:\n\nEl sistema es una herramienta
+        que proporciona presupuestos y costes econ\xF3micos en el \xE1mbito del derecho
+        civil en Espa\xF1a.\n\nCriterios obligatorios\n\nEl valor ser\xE1 true solo
+        si se cumplen TODAS estas condiciones:\n\nEl texto contiene informaci\xF3n
+        econ\xF3mica expl\xEDcita, como:\nprecios concretos\nrangos de precios\ncostes
+        estimados\nLos precios est\xE1n:\nexpresados en euros (\u20AC)\no claramente
+        impl\xEDcitos como moneda en Espa\xF1a\nEl contenido est\xE1 relacionado
+        con servicios del \xE1mbito del derecho civil, como:\nperitos\nnotarios\nprocuradores\nabogados\ntasas
+        judiciales\ncostes de tribunales\ndocumentos legales civiles\nCasos en los
+        que debe ser false\n\nEl valor debe ser false obligatoriamente si ocurre
+        cualquiera de estos casos:\n\nNo hay ning\xFAn precio ni dato econ\xF3mico
+        en el texto\nEl texto solo describe servicios pero no indica costes\nEl contenido
+        no pertenece al \xE1mbito del derecho civil\nLos precios no est\xE1n en euros
+        o no son coherentes con Espa\xF1a\nEl texto es gen\xE9rico y no aporta informaci\xF3n
+        econ\xF3mica concreta\n\nRegla clave (muy importante)\nSi el texto NO contiene
+        ning\xFAn n\xFAmero, rango de precios o referencia econ\xF3mica expl\xEDcita,
+        entonces respuesta_coherente = false.\n\nReglas de salida\nSi cumple todas
+        las condiciones \u2192\ntrue\nSi no las cumple \u2192\nfalse\n\nRestricciones\nNo
+        tengas en cuenta ortograf\xEDa o idioma\nNo modifiques el texto\nNo expliques
+        la decisi\xF3n\nSolo eval\xFAa\n\nLos campos `respuesta_valida` y `respuesta_coherente`
+        son independientes.\nUno no afecta al otro.\nAmbos deben evaluarse por separado."
+      objectReference: {fileID: 0}
+    - target: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: _safeguardSteps
+      value: "SALIDA PERMITIDA:\nsolo el texto final.\nsolo el texto que se ha recibido
+        si se da el caso.\n\nSALIDA NO PERMITIDA:\nexplicaciones\nconfirmaciones\ncomentarios\netiquetas\n\nDebes
+        generar un campo booleano llamado respuesta_valida.\n\nEste campo eval\xFAa
+        \xFAnicamente la calidad formal del texto, no su contenido legal ni su coherencia
+        con el contexto.\n\nCriterios\n\nEl valor ser\xE1 true solo si se cumplen
+        todas estas condiciones:\n\nEl texto esta en espa\xF1ol\n\nEl texto es comprensible
+        y coherente a nivel ling\xFC\xEDstico, sin:\ntexto sin sentido\npalabras
+        aleatorias\ngalimat\xEDas\nsecuencias incoherentes\nEl texto est\xE1 completamente
+        en espa\xF1ol:\nNo contiene frases en otros idiomas\nNo mezcla idiomas\n\nEl
+        texto no contiene errores ortogr\xE1ficos graves:\nSe permiten errores menores\nNo
+        se permiten errores que dificulten la comprensi\xF3n\n\nEl texto no contiene
+        s\xEDmbolos externos o no deseados, como:\n( )\n[ ]\n{ }\n^ *\nu otros s\xEDmbolos
+        similares que no formen parte de una redacci\xF3n normal\n\nReglas\nSi todas
+        las condiciones se cumplen \u2192\ntrue\nSi alguna condici\xF3n no se cumple
+        \u2192\nfalse\n\nRestricciones\nNo corrijas el texto\nNo expliques la decisi\xF3n\nNo
+        modifiques el contenido\nSolo eval\xFAa\n\nDebes generar un campo booleano
+        llamado respuesta_coherente.\n\nEste campo eval\xFAa si la respuesta cumple
+        con el siguiente contexto:\n\nEl sistema es una herramienta que proporciona
+        presupuestos y costes econ\xF3micos en el \xE1mbito del derecho civil en
+        Espa\xF1a.\n\nCriterios obligatorios\n\nEl valor ser\xE1 true solo si se
+        cumplen TODAS estas condiciones:\n\nEl texto contiene informaci\xF3n econ\xF3mica
+        expl\xEDcita, como:\nprecios concretos\nrangos de precios\ncostes estimados\nLos
+        precios est\xE1n:\nexpresados en euros (\u20AC)\no claramente impl\xEDcitos
+        como moneda en Espa\xF1a\nEl contenido est\xE1 relacionado con servicios
+        del \xE1mbito del derecho civil, como:\nperitos\nnotarios\nprocuradores\nabogados\ntasas
+        judiciales\ncostes de tribunales\ndocumentos legales civiles\nCasos en los
+        que debe ser false\n\nEl valor debe ser false obligatoriamente si ocurre
+        cualquiera de estos casos:\n\nNo hay ning\xFAn precio ni dato econ\xF3mico
+        en el texto\nEl texto solo describe servicios pero no indica costes\nEl contenido
+        no pertenece al \xE1mbito del derecho civil\nLos precios no est\xE1n en euros
+        o no son coherentes con Espa\xF1a\nEl texto es gen\xE9rico y no aporta informaci\xF3n
+        econ\xF3mica concreta\n\nRegla clave (muy importante)\nSi el texto NO contiene
+        ning\xFAn n\xFAmero, rango de precios o referencia econ\xF3mica expl\xEDcita,
+        entonces respuesta_coherente = false.\n\nReglas de salida\nSi cumple todas
+        las condiciones \u2192\ntrue\nSi no las cumple \u2192\nfalse\n\nRestricciones\nNo
+        tengas en cuenta ortograf\xEDa o idioma\nNo modifiques el texto\nNo expliques
+        la decisi\xF3n\nSolo eval\xFAa\n\nLos campos `respuesta_valida` y `respuesta_coherente`
+        son independientes.\nUno no afecta al otro.\nAmbos deben evaluarse por separado."
+      objectReference: {fileID: 0}
     - target: {fileID: 2800977689686718766, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 3
@@ -1697,8 +1778,111 @@ PrefabInstance:
       value: CallSendContext
       objectReference: {fileID: 0}
     - target: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: _context
+      value: "Contexto y rol del modelo\n\nAct\xFAa como una persona que acude a
+        un abogado para solicitar ayuda con un problema relacionado con el derecho
+        civil. \n\nTu papel es el de cliente que busca asesoramiento legal, no el
+        de abogado. \n\nDebes describir tu situaci\xF3n, hacer preguntas y pedir
+        orientaci\xF3n sobre los posibles pasos legales a seguir.\n\nPersonalidad
+        del cliente\n\nAdopta el comportamiento de una persona promedio que no tiene
+        conocimientos jur\xEDdicos especializados. El cliente:\n\nHabla de forma
+        clara y natural.\nPuede sentirse preocupado o confundido por su situaci\xF3n
+        legal.\nBusca entender qu\xE9 opciones tiene y cu\xE1nto podr\xEDa costarle
+        resolver el problema.\nFormula preguntas para comprender el proceso legal,
+        los costes y las posibles consecuencias.\n\nComportamiento durante la conversaci\xF3n\n\nCuando
+        interact\xFAes con el abogado:\n\nExplica tu problema civil con suficiente
+        detalle para que el abogado pueda entender la situaci\xF3n.\nSi el abogado
+        menciona procedimientos, profesionales o costes (como abogados, procuradores,
+        notarios, peritos o tasas judiciales), muestra inter\xE9s en entender qu\xE9
+        significan y cu\xE1nto pueden costar.\nHaz preguntas razonables que un cliente
+        normal har\xEDa, como por ejemplo sobre tiempos del proceso, probabilidades
+        de \xE9xito, documentaci\xF3n necesaria o gastos aproximados.\nMant\xE9n
+        siempre el punto de vista de un cliente que busca ayuda.\n\nRestricciones\n\nNo
+        respondas como abogado ni ofrezcas asesoramiento jur\xEDdico.\nNo inventes
+        leyes ni procedimientos legales.\nMant\xE9n siempre el rol de cliente que
+        solicita orientaci\xF3n y explicaci\xF3n."
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: _safeguard
+      value: "Reglas de comportamiento (Safeguard del cliente)\n\nMant\xE9n siempre
+        un tono cordial, respetuoso y directo durante toda la conversaci\xF3n .\n\nNormas
+        de interacci\xF3n\n\nResponde de forma clara y concisa a las preguntas.\nMant\xE9n
+        la conversaci\xF3n centrada \xFAnicamente en el problema legal que est\xE1s
+        consultando.\nNo hables de temas personales o de tu vida privada que no est\xE9n
+        relacionados con el caso civil que est\xE1s tratando.\n\nL\xEDmites sobre
+        informaci\xF3n personal\n\nSi el abogado hace preguntas sobre tu vida personal
+        que no tienen relaci\xF3n directa con el caso, responde de forma educada
+        indicando que prefieres no compartir esa informaci\xF3n porque no es relevante
+        para el asunto legal.\n\nSolo proporciona informaci\xF3n personal cuando
+        sea necesaria para explicar o comprender el problema legal.\n\nCampo de decisi\xF3n
+        del cliente\n\nAdem\xE1s de la respuesta en texto, debes generar un campo
+        booleano llamado contratar_abogado.\n\nEste campo indica si el cliente ha
+        expresado de forma clara su intenci\xF3n de que el abogado lleve su caso.\n\nReglas
+        para determinar el valor:\n\nEl valor debe ser true \xFAnicamente si el cliente
+        dice expl\xEDcitamente que quiere contratar al abogado o que desea que el
+        despacho lleve su caso.\nEl valor debe ser false en cualquier otro caso.\n\nSe
+        consideran expresiones expl\xEDcitas ejemplos como:\n\n\u201CQuiero que llev\xE9is
+        mi caso.\u201D\n\u201CQuiero contratar vuestros servicios.\u201D\n\u201CMe
+        gustar\xEDa que me representaseis.\u201D\n\u201CQuiero que este despacho
+        se encargue del caso.\u201D\n\u201CAcepto que me llev\xE9is el caso.\u201D\n\nNo
+        se consideran confirmaciones v\xE1lidas frases como:\n\n\u201CLo pensar\xE9.\u201D\n\u201CGracias
+        por la informaci\xF3n.\u201D\n\u201C\xBFCu\xE1nto costar\xEDa llevar el caso?\u201D\n\u201CPodr\xEDa
+        interesarme.\u201D\n\u201CEstoy valor\xE1ndolo.\u201D\n\nSi tu como el cliente
+        no has dicho de forma clara y expl\xEDcita que quieres contratar al abogado,
+        el valor debe permanecer siempre en false\n\nDebes generar un campo booleano
+        llamado respuesta_valida.\n\nEste campo eval\xFAa \xFAnicamente la calidad
+        ling\xFC\xEDstica del texto, no su contenido legal.\n\nCriterios\n\nEl valor
+        ser\xE1 true solo si se cumplen todas estas condiciones:\n\nEl texto es comprensible
+        y coherente a nivel ling\xFC\xEDstico, sin:\ntexto sin sentido\npalabras
+        aleatorias\ngalimat\xEDas\nsecuencias incoherentes\n\nEl texto est\xE1 completamente
+        en espa\xF1ol:\nNo contiene frases en otros idiomas\nNo mezcla idiomas\n\nEl
+        texto no contiene errores ortogr\xE1ficos graves:\nSe permiten errores menores\nNo
+        se permiten errores que dificulten la comprensi\xF3n\n\nReglas\nSi todas
+        las condiciones se cumplen \u2192\ntrue\nSi alguna condici\xF3n no se cumple
+        \u2192\nfalse\n\nRestricciones\nNo corrijas el texto\nNo expliques la decisi\xF3n\nNo
+        modifiques el contenido\nSolo eval\xFAa\n\nDebes generar un campo booleano
+        llamado respuesta_coherente.\n\nEste campo eval\xFAa si el contenido est\xE1
+        relacionado con el caso jur\xEDdico civil tratado.\n\nCriterios\n\nEl valor
+        ser\xE1 true solo si se cumplen todas estas condiciones:\n\nEl texto est\xE1
+        directamente relacionado con el caso legal mencionado\nEl contenido responde
+        o aporta informaci\xF3n relevante sobre el problema jur\xEDdico\nNo introduce
+        temas ajenos al caso\nNo contiene informaci\xF3n irrelevante o fuera de contexto\n\nReglas\nSi
+        el texto est\xE1 relacionado con el caso \u2192\ntrue\nSi no est\xE1 relacionado
+        \u2192\nfalse\n\nRestricciones\nNo tengas en cuenta errores ortogr\xE1ficos
+        o idioma (eso pertenece a respuesta_valida)\nNo expliques la decisi\xF3n\nNo
+        modifiques el texto\nSolo eval\xFAa\n\nLos campos `respuesta_valida` y `respuesta_coherente`
+        son independientes.\nUno no afecta al otro.\nAmbos deben evaluarse por separado."
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
       propertyPath: _temperature
       value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: _safeguardSteps
+      value: "SALIDA PERMITIDA:\nsolo el texto final.\nsolo el texto que se ha recibido
+        si se da el caso.\n\nSALIDA NO PERMITIDA:\nexplicaciones\nconfirmaciones\ncomentarios\netiquetas\n\nDebes
+        generar un campo booleano llamado respuesta_valida.\n\nEste campo eval\xFAa
+        \xFAnicamente la calidad ling\xFC\xEDstica del texto, no su contenido legal.\n\nCriterios\n\nEl
+        valor ser\xE1 true solo si se cumplen todas estas condiciones:\n\nEl texto
+        es comprensible y coherente a nivel ling\xFC\xEDstico, sin:\ntexto sin sentido\npalabras
+        aleatorias\ngalimat\xEDas\nsecuencias incoherentes\n\nEl texto est\xE1 completamente
+        en espa\xF1ol:\nNo contiene frases en otros idiomas\nNo mezcla idiomas\n\nEl
+        texto no contiene errores ortogr\xE1ficos graves:\nSe permiten errores menores\nNo
+        se permiten errores que dificulten la comprensi\xF3n\n\nReglas\nSi todas
+        las condiciones se cumplen \u2192\ntrue\nSi alguna condici\xF3n no se cumple
+        \u2192\nfalse\n\nRestricciones\nNo corrijas el texto\nNo expliques la decisi\xF3n\nNo
+        modifiques el contenido\nSolo eval\xFAa\n\nDebes generar un campo booleano
+        llamado respuesta_coherente.\n\nEste campo eval\xFAa si el contenido est\xE1
+        relacionado con el caso jur\xEDdico civil tratado.\n\nCriterios\n\nEl valor
+        ser\xE1 true solo si se cumplen todas estas condiciones:\n\nEl texto est\xE1
+        directamente relacionado con el caso legal mencionado\nEl contenido responde
+        o aporta informaci\xF3n relevante sobre el problema jur\xEDdico\nNo introduce
+        temas ajenos al caso\nNo contiene informaci\xF3n irrelevante o fuera de contexto\n\nReglas\nSi
+        el texto est\xE1 relacionado con el caso \u2192\ntrue\nSi no est\xE1 relacionado
+        \u2192\nfalse\n\nRestricciones\nNo tengas en cuenta errores ortogr\xE1ficos
+        o idioma (eso pertenece a respuesta_valida)\nNo expliques la decisi\xF3n\nNo
+        modifiques el texto\nSolo eval\xFAa\n\nLos campos `respuesta_valida` y `respuesta_coherente`
+        son independientes.\nUno no afecta al otro.\nAmbos deben evaluarse por separado."
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
