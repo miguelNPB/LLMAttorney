@@ -1,68 +1,61 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
-using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
 
 public abstract class LLMConector : MonoBehaviour
 {
+    [SerializeField] protected ConfigLLMInfo[] _config;
 
-    [SerializeField]
-    protected ConfigLLMInfo[] _config;
+    [Header("Search Messages")] public TMP_InputField inputField;
 
-    [Header("Search Messages")]
-    public TMP_InputField inputField;
-
-    [Header("Parametros de personalizacion")]
-
-    [SerializeField]
+    [Header("Parametros de personalizacion")] [SerializeField]
     protected bool _useSecuritySteps = true;
 
-    [SerializeField]
-    protected bool _useHistoricalInContext = true;
+    [SerializeField] protected bool _useHistoricalInContext = true;
 
-    [SerializeField]
-    protected bool _useHistoricalInSteps = false;
-
-    protected List<String> _historical = new List<string>();
-
-    protected int _stepCounter;
-
-    protected bool _promptSent = false;
-
-    protected int _indexConfig = 0;
+    [SerializeField] protected bool _useHistoricalInSteps;
 
     protected JsonSchema _contextSchema = null;
 
-    protected JsonSchema _stepsSchema = null;
+    protected List<string> _historical = new();
+
+    protected int _indexConfig;
+
+    protected bool _promptSent;
 
     protected bool _schemasCreated = false;
 
-    /**
-     * Metodo encargado de recoger la respuesta del LLM y transmitirla a la clase que muestre el output de este
-     * @param success: muestra si ha podido obtenerse una respuesta del LLM
-     * @param answer: texto plano que ha sacado el LLM como output
-     */
+    protected int _stepCounter;
+
+    protected JsonSchema _stepsSchema = null;
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
+    }
+
+    /// <summary>
+    /// Metodo encargado de recoger la respuesta del LLM y transmitirla a la clase que muestre el output de este
+    /// </summary>
+    /// <param name="success">muestra si ha podido obtenerse una respuesta del LLM</param>
+    /// <param name="answer">texto plano que ha sacado el LLM como output</param>
     public abstract void RecieveChatMessage(bool success, string answer);
 
-    /**
-     * Metodo que crea los esquemas y propiedades que debe devolver las llamadas al LLM
-     * 
-     */
+    /// <summary>
+    /// Inicializacion de los schemas que devolvera el LLM
+    /// </summary>
     protected abstract void createJsonSchemas();
 
-    /**
-     * Metodo encargado de enviar un mensaje al LLM con todas las especificaciones obtenidas de ConfigLLMInfo
-     */
+    /// <summary>
+    /// Llamada inicial al LLM para el prompt
+    /// </summary>
+    /// <param name="indexConfig">El archivo de configuracion a leer de la lista de posibles</param>
+    /// <returns></returns>
     protected virtual bool SendContextMessage(int indexConfig = 0)
     {
-
         if (!_promptSent && _schemasCreated)
         {
-
             if (_config.Length <= 0)
             {
                 Debug.LogError("Ningun Config LLM asignado");
@@ -71,21 +64,18 @@ public abstract class LLMConector : MonoBehaviour
 
             _indexConfig = indexConfig;
 
-            string prompt = inputField.text;
+            var prompt = inputField.text;
 
-            string configLLM = _config[_indexConfig].getContext()
-                + _config[_indexConfig].getSafeguard();
+            var configLLM = _config[_indexConfig].getContext()
+                            + _config[_indexConfig].getSafeguard();
 
             if (_useHistoricalInContext)
             {
                 configLLM = configLLM + "\n " + _config[_indexConfig].getHistoricalConversation() + "\n Historico: \n";
 
-                foreach (String s in _historical)
-                {
-                    configLLM = configLLM + s + "\n";
-                }
+                foreach (var s in _historical) configLLM = configLLM + s + "\n";
             }
-            
+
             Debug.Log("PROMPT: " + prompt);
             Debug.Log("CONTEXT: " + configLLM);
 
@@ -101,29 +91,25 @@ public abstract class LLMConector : MonoBehaviour
         }
 
         return false;
-
     }
 
-    /**
-     * Metodo encargado de revisar el texto obtenido como respuesta segun un array de directivas descritas, cambiandolo segun lo especificado
-     * @param prompt: texto que debe ser revisado
-     */
+    /// <summary>
+    /// Llamada al LLM para la comprobacion por pasos de la respuesta
+    /// </summary>
+    /// <param name="prompt"></param>
+    /// <returns></returns>
     protected virtual bool SendSecuritySteps(string prompt)
     {
-        
         Debug.Log("PROMPT de security checks: " + prompt);
 
-        string configLLM = "Teniendo el siguiente texto: \n" + prompt + "\n Y teniedo la siguiente directiva de seguridad" +
-            _config[_indexConfig].getSafeguardSteps() +
-            "\n Quiero que hagas lo siguiente: " + _config[_indexConfig].getStepsChecks()[_stepCounter];
+        var configLLM = "Teniendo el siguiente texto: \n" + prompt +
+                        "\n Y teniedo la siguiente directiva de seguridad" +
+                        _config[_indexConfig].getSafeguardSteps() +
+                        "\n Quiero que hagas lo siguiente: " + _config[_indexConfig].getStepsChecks()[_stepCounter];
 
         if (_useHistoricalInSteps)
-        {
-            foreach (String s in _historical)
-            {
+            foreach (var s in _historical)
                 configLLM = configLLM + s + "\n";
-            }
-        }
 
         StartCoroutine(CoroutineSendPromptSteps(prompt, configLLM, _stepsSchema));
 
@@ -136,36 +122,28 @@ public abstract class LLMConector : MonoBehaviour
 
     protected IEnumerator CoroutineSendPromptSteps(string prompt, string configLLM, JsonSchema schema)
     {
-
         float timer = 0;
 
         while (!LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, RecieveChatMessage, prompt, configLLM, schema,
-            _config[_indexConfig].getTemperature(), false))
+                   _config[_indexConfig].getTemperature()))
         {
             timer += Time.deltaTime;
 
             yield return null;
         }
-
     }
 
     protected IEnumerator CoroutineSendPrompt(string prompt, string configLLM, JsonSchema schema)
     {
-
         float timer = 0;
 
         while (!LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, RecieveChatMessage, prompt, configLLM, schema,
-            _config[_indexConfig].getTemperature(), _config[_indexConfig].getRagUse(), (int)_config[_indexConfig].getRagFileType()))
+                   _config[_indexConfig].getTemperature(), _config[_indexConfig].getRagUse(),
+                   (int)_config[_indexConfig].getRagFileType()))
         {
             timer += Time.deltaTime;
 
             yield return null;
         }
-
-    }
-
-    private void OnDestroy()
-    {
-        StopAllCoroutines();
     }
 }

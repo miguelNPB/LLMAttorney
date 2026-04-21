@@ -17,23 +17,15 @@ public class LLMConectorClientMeeting : LLMConector
     private class MeetingResponse
     {
         public string answer;
-        public bool respuesta_valida;
-        public bool respuesta_coherente;
-        public bool contratar_abogado;
+        public bool respuestaValida;
+        public bool respuestaCoherente;
+        public bool contratarAbogado;
     }
 
     private bool _abogadoContratado = false;
 
-    
-
-    /**
-     * Metodo encargado de recoger la respuesta del LLM y transmitirla a la clase que muestre el output de este
-     * @param success: muestra si ha podido obtenerse una respuesta del LLM
-     * @param answer: texto plano que ha sacado el LLM como output
-     */
     public override void RecieveChatMessage(bool success, string answer)
     {
-        
         if (success)
         {
             // deserializamos la respuesta
@@ -43,19 +35,19 @@ public class LLMConectorClientMeeting : LLMConector
 
             if (_stepCounter == 0)
             {
-                Debug.Log("Respuesta contratar abogado: " + jsonResponse.contratar_abogado);
-                _abogadoContratado = jsonResponse.contratar_abogado;
+                Debug.Log("Respuesta contratar abogado: " + jsonResponse.contratarAbogado);
+                _abogadoContratado = jsonResponse.contratarAbogado;
             }
 
-            Debug.Log("Respuesta valida: " + jsonResponse.respuesta_valida);
+            Debug.Log("Respuesta valida: " + jsonResponse.respuestaValida);
 
-            Debug.Log("Respuesta coherente: " + jsonResponse.respuesta_coherente);
+            Debug.Log("Respuesta coherente: " + jsonResponse.respuestaCoherente);
 
-            if (jsonResponse.respuesta_valida && jsonResponse.respuesta_coherente)
+            if (jsonResponse.respuestaValida && jsonResponse.respuestaCoherente)
             {
                 _uiMeeting.EndPendingMessage(jsonResponse.answer);
             }
-            else if (!jsonResponse.respuesta_coherente)
+            else if (!jsonResponse.respuestaCoherente)
             {
                 _uiMeeting.EndPendingMessage("Perdona pero ¿Podriamos centrarnos en mi caso?");
             }
@@ -66,7 +58,7 @@ public class LLMConectorClientMeeting : LLMConector
                        
 
             if (_stepCounter < _config[_indexConfig].getStepsChecks().Length && _useSecuritySteps &&
-                (!jsonResponse.respuesta_valida || !jsonResponse.respuesta_coherente))
+                (!jsonResponse.respuestaValida || !jsonResponse.respuestaCoherente))
             {
                 SendSecuritySteps(jsonResponse.answer);
             }
@@ -127,14 +119,14 @@ public class LLMConectorClientMeeting : LLMConector
     {
         _contextSchema = new JsonSchema();
         _contextSchema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
-        _contextSchema.properties.Add("respuesta_valida", new PropertyInfo(JsonDataType.Boolean));
-        _contextSchema.properties.Add("respuesta_coherente", new PropertyInfo(JsonDataType.Boolean));
+        _contextSchema.properties.Add("respuestaValida", new PropertyInfo(JsonDataType.Boolean));
+        _contextSchema.properties.Add("respuestaCoherente", new PropertyInfo(JsonDataType.Boolean));
         _contextSchema.properties.Add("contratar_abogado", new PropertyInfo(JsonDataType.Boolean));
 
         _stepsSchema = new JsonSchema();
         _stepsSchema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
-        _stepsSchema.properties.Add("respuesta_valida", new PropertyInfo(JsonDataType.Boolean));
-        _stepsSchema.properties.Add("respuesta_coherente", new PropertyInfo(JsonDataType.Boolean));
+        _stepsSchema.properties.Add("respuestaValida", new PropertyInfo(JsonDataType.Boolean));
+        _stepsSchema.properties.Add("respuestaCoherente", new PropertyInfo(JsonDataType.Boolean));
 
         _schemasCreated = true;
     }

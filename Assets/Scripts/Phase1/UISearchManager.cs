@@ -15,34 +15,6 @@ public class UISearchManager : MonoBehaviour
     private string pendingMessage = "";
     private bool waitingPendingMessage = false;
 
-    /// <summary>
-    /// Instancia un mensaje y le cambia el color segun si es player o no
-    /// </summary>
-    /// <param name="text"></param>
-    /// <param name="fromPlayer"></param>
-    public void AddMessage(string text)
-    {
-        resultText.text = text;
-
-        resultText.ForceMeshUpdate();
-
-    }
-
-    public void ShowMessage()
-    {
-        resultText.ForceMeshUpdate();
-    }
-
-    /// <summary>
-    /// Llamar a esto para añadir un mensaje que tenga una animacion de puntos suspensivos hasta que se llame a EndPendingMessage
-    /// </summary>
-    /// <param name="fromPlayer"></param>
-    public void StartPendingMessage()
-    {
-        AddMessage(".");
-
-        StartCoroutine(CoroutinePendingMessage());
-    }
     private IEnumerator CoroutinePendingMessage()
     {
         waitingPendingMessage = true;
@@ -68,6 +40,17 @@ public class UISearchManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Llamar a esto para añadir un mensaje que tenga una animacion de puntos suspensivos hasta que se llame a EndPendingMessage
+    /// </summary>
+    /// <param name="fromPlayer"></param>
+    public void StartPendingMessage()
+    {
+        AddMessage(".");
+
+        StartCoroutine(CoroutinePendingMessage());
+    }
+
+    /// <summary>
     /// Llamar esto para detener la animacion de puntos suspensivos y rellenar el mensaje con el contenido del texto
     /// </summary>
     /// <param name="text"></param>
@@ -76,6 +59,24 @@ public class UISearchManager : MonoBehaviour
         pendingMessage = text;
 
         waitingPendingMessage = false;
+    }
+
+    /// <summary>
+    /// Instancia un mensaje y le cambia el color segun si es player o no
+    /// </summary>
+    /// <param name="text"></param>
+    /// <param name="fromPlayer"></param>
+    public void AddMessage(string text)
+    {
+        resultText.text = text;
+
+        resultText.ForceMeshUpdate();
+
+    }
+
+    public void ShowMessage()
+    {
+        resultText.ForceMeshUpdate();
     }
 
 }
