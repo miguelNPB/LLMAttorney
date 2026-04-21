@@ -58,10 +58,8 @@ public class DocumentManager : MonoBehaviour
         allSentDocInfo += docInfo + "\n";
     }
 
-    void Start()
+    void Awake()
     {
-        //Cursor.lockState = CursorLockMode.Confined;
-
         rootCanvas = documentTab.GetComponentInParent<Canvas>();
         while (rootCanvas != null && !rootCanvas.isRootCanvas)
             rootCanvas = rootCanvas.transform.parent?.GetComponentInParent<Canvas>();
@@ -73,18 +71,7 @@ public class DocumentManager : MonoBehaviour
             b.onClick.AddListener(OnClickDocumentsIcon);
 
         documents = new List<Document>();
-        //for (int i = 0; i < 60; i++)
-        //    CreateDocument("DOC" + i + ".txt", PromptType.Perito, "ESTE ES EL DOC " + i, true, 10);
-
         SetupNavBarDrag();
-
-
-        // RectTransform contentRT = documentContainer.GetComponent<RectTransform>();
-        // contentRT.anchorMin = new Vector2(0.5f, 1f);
-        // contentRT.anchorMax = new Vector2(0.5f, 1f);
-        // contentRT.pivot = new Vector2(0.5f, 1f);
-        // contentRT.anchoredPosition = Vector2.zero;
-
     }
 
     #region Movimiento
