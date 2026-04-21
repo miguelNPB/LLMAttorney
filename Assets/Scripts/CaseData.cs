@@ -20,7 +20,7 @@ public struct ConversationMessage
 /// </summary>
 public class CaseData
 {
-    public bool isDemanda = true; // true = demanda, false = respuesta a demanda
+    public bool isDemanda = false; // true = demanda realizada, false = No se ha hecho la demanda
     public bool attemptedConciliation = false;
     public float conciliationRivalInstantRejectProbability; // valor del 0.f al 1.f que indica la probabilidad de que el rival rechace cualquier intento de conciliacion (0 = nunca, 1 = siempre)
     // datos interacciones cliente
@@ -33,4 +33,9 @@ public class CaseData
     public string caseDescription = ""; // Descripcion del caso para pasar a llm contraria
 
     // resto
+
+    public void SetDemanda() 
+    {
+        isDemanda = true;
+    }
 }
