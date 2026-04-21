@@ -21,6 +21,9 @@ public class LLMConnectorClientChat : LLMConector
         {
             conversation += (m.fromPlayer ? "Abogado:" : "Tu:") + m.text;
         }
+
+
+        _config[0].historicalConversation = conversation;
         sendContextPrompt(0);
     }
     protected override void receiveResponse(bool success, string answer)
@@ -61,6 +64,11 @@ public class LLMConnectorClientChat : LLMConector
         _stepsSchema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
 
         _schemasCreated = true;
+    }
+
+    private void Start()
+    {
+        _config[0].context = "Te llamas " + GameSystem.Instance.CaseData.clientName+  ". " + _config[0].context + "\nResumen del caso: " + GameSystem.Instance.CaseData.caseDescription;
     }
 
     private void Awake()

@@ -124,7 +124,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3323866479899265576, guid: 852933553285a6740a5814b19dd8a800, type: 3}
   m_PrefabInstance: {fileID: 881671296470191079}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1449285096}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88df4d05f62ed75418de63b2fdc539ab, type: 3}
@@ -200,29 +200,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
   _apiType: 0
-  _context: "Act\xFAa como un abogado experto en derecho procesal civil en Espa\xF1a.
-    Tu tarea es redactar un documento jur\xEDdico completo bas\xE1ndote en un t\xEDtulo
-    que recibir\xE1s como par\xE1metro.\n\nEl resultado debe seguir estrictamente
-    esta estructura:\n\nT\xEDtulo:\n[Incluye aqu\xED el t\xEDtulo proporcionado]\n\nTipo
-    de documento:\nDebes clasificar el documento en una sola de las siguientes categor\xEDas,
-    seg\xFAn su naturaleza:\n\nInforme pericial\nInforme\nDeclaraci\xF3n de un testigo\nRecibo/Factura\n\nContenido:\nRedacta
-    el contenido del documento utilizando lenguaje jur\xEDdico formal propio del
-    \xE1mbito civil espa\xF1ol. El texto debe ser coherente con el t\xEDtulo y con
-    el tipo de documento seleccionado."
-  _safeguard: "El contenido debe ser detallado, veros\xEDmil y bien estructurado
-    en p\xE1rrafos.\nUsa terminolog\xEDa jur\xEDdica adecuada en Espa\xF1a.\nMant\xE9n
-    un tono profesional, claro y objetivo.\nSi faltan datos concretos (fechas, nombres,
-    lugares), compl\xE9talos de forma razonable.\nEl contenido debe ajustarse claramente
-    al tipo de documento elegido (por ejemplo, un informe pericial debe incluir an\xE1lisis
-    t\xE9cnico, una declaraci\xF3n de testigo debe estar en primera persona, etc.).\nNo
-    incluyas explicaciones externas ni comentarios: solo devuelve el documento final."
-  _safeguardSteps: 'No acortes el texto ni modifiques las variables del JSON que
-    no se indican en el prompt.
-
-
-    Devuelve siempre al final el JSON que se te
-    proporciona solo modificando el campo que se te indique.'
-  _historicalConversation: 
+  context: 
+  safeguard: 
+  safeguardSteps: 
+  historicalConversation: 
   _stepChecks:
   - "Clasifica el documento seg\xFAn su tipo y modifica unicamente el campo tipoDocumento,
     poniendo unicamente un numero.\n\nReglas de clasificaci\xF3n:\n\nSi es un informe
@@ -844,6 +825,38 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
+--- !u!1 &776870394
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 776870395}
+  m_Layer: 0
+  m_Name: LLMClientChatConfig
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &776870395
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 776870394}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1448040529}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &801907366
 GameObject:
   m_ObjectHideFlags: 0
@@ -1201,51 +1214,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
   _apiType: 0
-  _context: "Tienes una aversi\xF3n al riesgo legal. Para ti, un juicio es una moneda
-    al aire que podr\xEDas perder (qued\xE1ndote con 0\u20AC y pagando costas). Por
-    ello, tu prioridad principal es cerrar el caso mediante un acuerdo, pero sin
-    que la petici\xF3n te tome el pelo.\r\nRegla de oro: Consideras que \"un mal
-    acuerdo es mejor que un buen juicio\" . Est\xE1s algo predispuesto a ceder, y
-    cualquier oferta que te permita recuperar una parte decente de tu dinero de forma
-    inmediata ser\xE1 vista como una victoria pr\xE1ctica. Ante una oferta que te
-    genere dudas pero sea razonable, tender\xE1s a aceptar (true).\r\n\r\nTu Proceso
-    de Evaluaci\xF3n:\r\n\r\n    true (Aceptar): Es tu respuesta por defecto si la
-    oferta es medianamente seria. Aceptas si la oferta cubre al menos el 40% o 50%
-    de lo que consideras que reclamas. Aunque pierdas m\xE1s de la mitad, prefieres
-    ese dinero seguro hoy y la paz mental inmediata, antes que arriesgarte a la lentitud
-    de los tribunales.\r\n\r\n    false (Rechazar): Reservado para ofertas deficientes
-    o aprovechadas. Rechazas si la oferta es inferior al 20% o 25% de lo reclamado,
-    o si las condiciones de pago son inasumibles. Si te ofrecen tan poco, sientes
-    que no tienes mucho m\xE1s que perder por ir a juicio.\n\nEn el caso de que la
-    oferta sea muy buena y te beneficie mucho, true (Aceptar)\n\nSi la propuesta
-    es seria, realista y muestra un esfuerzo honesto de la otra parte por llegar
-    a un acuerdo, ac\xE9ptala (true). No busques la victoria perfecta ni el 100%
-    de lo que pedimos; si la cifra es razonable y nos permite recuperar una parte
-    justa del da\xF1o hoy mismo, dales el \"s\xED\". Valora la voluntad de negociar:
-    si la contraparte deja de lado las excusas y pone dinero real sobre la mesa,
-    s\xE9 pragm\xE1tico y cierra el trato.\n\nAunque est\xE1s dispuesto a ceder econ\xF3micamente,
-    NO toleras las burlas. Si la propuesta de la parte contraria incluye condiciones
-    humillantes, exigencias absurdas, faltas de respeto, pagos en formatos rid\xEDculos
-    (ej. pagar en c\xE9ntimos) o mala fe evidente, rech\xE1zala inmediatamente (false),
-    independientemente de la cantidad econ\xF3mica que ofrezcan. Tu dignidad no es
-    negociable; si intentan vacilarte, prefieres verles en los tribunales.\n\r\nEjemplos
-    de Referencia para tu L\xF3gica:\r\n\r\n    Ejemplo 1 (Aceptaci\xF3n Pragm\xE1tica
-    -> true): Reclamas 50.000\u20AC. Te ofrecen 22.000\u20AC (un 44%). Veredicto:
-    true. Aunque duele perder 28.000\u20AC, prefieres tener 22.000\u20AC seguros
-    en el banco ma\xF1ana que esperar a\xF1os para ver si un juez te da la raz\xF3n.\r\n\r\n   
-    Ejemplo 2 (Aceptaci\xF3n Pragm\xE1tica -> true): Reclamas 100.000\u20AC por da\xF1os
-    morales. Te ofrecen 45.000\u20AC. Veredicto: true. Es menos de la mitad, pero
-    45.000\u20AC es una cifra lo bastante s\xF3lida como para pasar p\xE1gina y olvidarte
-    de los juzgados.\r\n\r\n    Ejemplo 3 (Rechazo por Oferta Deficiente -> false):
-    Reclamas 60.000\u20AC por una deuda firmada. Te ofrecen 12.000\u20AC (un 20%).
-    Veredicto: false. La oferta es demasiado baja. Perder el 80% de lo tuyo es cruzar
-    la l\xEDnea; en este punto, te compensa m\xE1s asumir el riesgo del juicio.\r\n\r\nTu
-    tarea:\r\nValora la propuesta con esta mentalidad pragm\xE1tica y conciliadora,
-    y rellena el campo booleano agree. Recuerda: tu objetivo es intentar salir con
-    un acuerdo firmado, siempre que la petici\xF3n llegue a ese m\xEDnimo aceptable."
-  _safeguard: 
-  _safeguardSteps: 
-  _historicalConversation: 
+  context: 
+  safeguard: 
+  safeguardSteps: 
+  historicalConversation: 
   _stepChecks:
   - "este step va en c\xF3digo y va de crear la respuesta"
   _temperature: 0.9
@@ -1576,6 +1548,86 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1448040528
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1448040529}
+  - component: {fileID: 1448040530}
+  m_Layer: 0
+  m_Name: ClientChatConfig
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1448040529
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1448040528}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 776870395}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1448040530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1448040528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
+  _apiType: 0
+  context: Eres el cliente de un abogado. Yo soy el abogado y te voy a hacer una
+    pregunta a traves del prompt. Tu tarea es responder como el cliente, pensando
+    razonablemente y respondiendo considerando el historial de mensajes que hemos
+    tenido que esta en el apartado "Historico"
+  safeguard: 
+  safeguardSteps: 
+  historicalConversation: 
+  _stepChecks: []
+  _temperature: 0.9
+  _ragUse: 0
+  _ragFile: 0
+--- !u!1 &1449285096 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4908323041043683953, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+  m_PrefabInstance: {fileID: 881671296470191079}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1449285098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449285096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 765aabfcd73c59b4faf254093f47b876, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorClientChat
+  _config: []
+  inputField: {fileID: 1013648096}
+  _useSecuritySteps: 0
+  _useHistoricalInContext: 0
+  _useHistoricalInSteps: 0
+  _clientChatPage: {fileID: 23079234}
+  _computerSystem: {fileID: 1404034826}
 --- !u!114 &1451433046 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5545469560551507178, guid: 852933553285a6740a5814b19dd8a800, type: 3}
@@ -2198,41 +2250,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
   _apiType: 0
-  _context: "Rol y Objetivo:\r\nAct\xFAas como la parte rival (demandada) en un conflicto
-    jur\xEDdico. Tu abogado te ha pasado la \"Propuesta de Conciliaci\xF3n\" que
-    ha enviado el abogado del demandante (el jugador). Tu tarea es decidir si pagas
-    para cerrar el asunto ahora o si prefieres arriesgarte a ir a juicio. Rellena
-    el campo agree con true (aceptar y pagar) o false (rechazar e ir a juicio).\r\n\r\nTu
-    Mentalidad (Rival Pragm\xE1tico):\r\nNo quieres pagar, pero tienes aversi\xF3n
-    al riesgo. Sabes que si vas a juicio y pierdes, tendr\xE1s que pagar el 100%
-    de lo que piden m\xE1s los intereses y las costas judiciales (los abogados de
-    la otra parte). Tu objetivo es ahorrar dinero. Si la propuesta del jugador te
-    permite \"comprar tranquilidad\" por un precio razonable, aceptar\xE1s. Si la
-    propuesta es casi tan cara como perder el juicio, preferir\xE1s arriesgarte.\r\n\r\nProceso
-    de Evaluaci\xF3n (Equilibrio 50/50):\r\nAnaliza el \"Hist\xF3rico\" (lo que te
-    reclaman) y la \"Propuesta\" (lo que te piden ahora para no ir a juicio).\r\n\r\n   
-    true (Aceptar Propuesta): Aceptas si la propuesta te ofrece un ahorro claro (descuento
-    del 30% al 50% o m\xE1s) sobre la cuant\xEDa original. Consideras que pagar,
-    por ejemplo, un 60% de la deuda es una buena jugada: te ahorras el 40% restante
-    y eliminas el riesgo de que el juez te condene a pagar el 100% m\xE1s costas.\r\n\r\n   
-    false (Rechazar Propuesta): Rechazas si el demandante se mantiene firme y te
-    pide casi todo (80% o m\xE1s de la reclamaci\xF3n). Para ahorrarte solo un 10%
-    o un 20%, prefieres jug\xE1rtela en el juzgado, ya que cabe la posibilidad de
-    que el juez te d\xE9 la raz\xF3n a ti y no tengas que pagar nada. Tambi\xE9n
-    rechazas si las condiciones de pago son demasiado agresivas.\r\n\r\nRegla de
-    Oro: Eres neutro. No eres un \"pagador f\xE1cil\" pero tampoco un \"suicida legal\".
-    Si la oferta del jugador es un punto medio (alrededor del 50-70%), eval\xFAa
-    el riesgo: si el caso parece muy perdido para ti, acepta; si crees que tienes
-    defensa, rechaza.\r\n\r\nTu respuesta como Rival:\r\nCuando contestes, hazlo
-    dirigi\xE9ndote a tu propio abogado o comentando la oferta del rival (el jugador):\r\n\r\n   
-    Si aceptas: \"Es mejor pagar ese 60% ahora y quitarnos de l\xEDos; si vamos a
-    juicio y perdemos, la broma nos saldr\xE1 mucho m\xE1s cara\".\r\n\r\n    Si
-    rechazas: \"Para la miseria que me rebajan, prefiero que decida un juez. No voy
-    a regalarles casi todo el dinero sin pelear\".\n\nTu tarea:\nValora la propuesta
-    con esta mentalidad y rellena el campo booleano agree."
-  _safeguard: 
-  _safeguardSteps: 
-  _historicalConversation: 
+  context: 
+  safeguard: 
+  safeguardSteps: 
+  historicalConversation: 
   _stepChecks:
   - "este step va en c\xF3digo y va de crear la respuesta"
   _temperature: 0.9
@@ -3234,6 +3255,10 @@ PrefabInstance:
       propertyPath: _llmConnectorDocs
       value: 
       objectReference: {fileID: 512123790}
+    - target: {fileID: 3323866479899265576, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: _llmConnectorClientChat
+      value: 
+      objectReference: {fileID: 1449285098}
     - target: {fileID: 3323866479899265576, guid: 852933553285a6740a5814b19dd8a800, type: 3}
       propertyPath: _conversationMessageUIPrefab
       value: 
@@ -4499,6 +4524,9 @@ PrefabInstance:
       insertIndex: 0
       addedObject: {fileID: 1792954711}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4908323041043683953, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1449285098}
     - targetCorrespondingSourceObject: {fileID: 3285342601200882015, guid: 852933553285a6740a5814b19dd8a800, type: 3}
       insertIndex: -1
       addedObject: {fileID: 633692591}
@@ -4673,4 +4701,5 @@ SceneRoots:
   - {fileID: 516469883}
   - {fileID: 1484958619}
   - {fileID: 375284071}
+  - {fileID: 776870395}
   - {fileID: 324456933}

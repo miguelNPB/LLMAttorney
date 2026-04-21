@@ -19,16 +19,16 @@ public class ConfigLLMInfo : MonoBehaviour
     private API_TYPE _apiType;
 
     [SerializeField, TextArea(3, 10)]
-    private string _context;
+    public string context;
 
     [SerializeField, TextArea(3, 10)]
-    private string _safeguard;
+    public string safeguard;
 
     [SerializeField, TextArea(3, 10)]
-    private string _safeguardSteps;
+    public string safeguardSteps;
 
     [SerializeField, TextArea(3, 10)]
-    private string _historicalConversation;
+    public string historicalConversation;
 
     [SerializeField, TextArea(3, 10)]
     private string[] _stepChecks;
@@ -49,22 +49,22 @@ public class ConfigLLMInfo : MonoBehaviour
 
     public string getContext()
     {
-        return _context;
+        return context;
     }
 
     public string getSafeguard()
     {
-        return _safeguard;
+        return safeguard;
     }
 
     public string getSafeguardSteps()
     {
-        return _safeguardSteps;
+        return safeguardSteps;
     }
 
     public string getHistoricalConversation()
     {
-        return _historicalConversation;
+        return historicalConversation;
 
     }
 
