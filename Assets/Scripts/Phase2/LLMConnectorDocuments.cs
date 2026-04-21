@@ -24,7 +24,9 @@ public class LLMConnectorDocuments : LLMConector
     {
         #if DEBUG
         Debug.Log(answer);
-        #endif
+#endif
+
+        Debug.Log("Step: " + _stepCounter);
 
         if (success)
         {

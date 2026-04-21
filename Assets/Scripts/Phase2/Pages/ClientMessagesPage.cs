@@ -103,6 +103,8 @@ public class ClientMessagesPage : MessagesUIComponent
 
         yield return LLMAttorney_API.Instance.SendPromptAsync(API_TYPE.LLAMA, AssignPrompt, prompt, configLLM, schema);
 
+        Debug.Log("Ya se el tipo de documento que es: " + lastTypeRequest);
+
         switch (lastTypeRequest) {
             case PromptType.Pregunta    : SendChatMessage(prompt); break;
             case PromptType.Dialogo     : SendChatMessage(prompt); break;
