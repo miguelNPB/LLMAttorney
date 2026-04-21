@@ -41,22 +41,23 @@ public abstract class LLMConector : MonoBehaviour
 
     protected bool _schemasCreated = false;
 
-    /**
-     * Metodo encargado de recoger la respuesta del LLM y transmitirla a la clase que muestre el output de este
-     * @param success: muestra si ha podido obtenerse una respuesta del LLM
-     * @param answer: texto plano que ha sacado el LLM como output
-     */
-    public abstract void RecieveChatMessage(bool success, string answer);
+    /// <summary>
+    /// Metodo encargado de recoger la respuesta del LLM y transmitirla a la clase que muestre el output de este
+    /// </summary>
+    /// <param name="success">muestra si ha podido obtenerse una respuesta del LLM</param>
+    /// <param name="answer">texto plano que ha sacado el LLM como output</param>
+    public abstract void recieveChatMessage(bool success, string answer);
 
-    /**
-     * Metodo que crea los esquemas y propiedades que debe devolver las llamadas al LLM
-     * 
-     */
+    /// <summary>
+    /// Metodo que crea los esquemas y propiedades que debe devolver las llamadas al LLM
+    /// </summary>
     protected abstract void createJsonSchemas();
 
-    /**
-     * Metodo encargado de enviar un mensaje al LLM con todas las especificaciones obtenidas de ConfigLLMInfo
-     */
+    /// <summary>
+    /// Metodo encargado de enviar un mensaje al LLM con todas las especificaciones obtenidas de ConfigLLMInfo
+    /// </summary>
+    /// <param name="indexConfig">Archivo de configuracion a utilizar</param>
+    /// <returns></returns>
     protected virtual bool SendContextMessage(int indexConfig = 0)
     {
 
@@ -104,10 +105,11 @@ public abstract class LLMConector : MonoBehaviour
 
     }
 
-    /**
-     * Metodo encargado de revisar el texto obtenido como respuesta segun un array de directivas descritas, cambiandolo segun lo especificado
-     * @param prompt: texto que debe ser revisado
-     */
+    /// <summary>
+    /// Metodo encargado de revisar el texto obtenido como respuesta segun un array de directivas descritas, cambiandolo segun lo especificado
+    /// </summary>
+    /// <param name="prompt">texto que debe ser revisado</param>
+    /// <returns></returns>
     protected virtual bool SendSecuritySteps(string prompt)
     {
         
@@ -139,7 +141,7 @@ public abstract class LLMConector : MonoBehaviour
 
         float timer = 0;
 
-        while (!LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, RecieveChatMessage, prompt, configLLM, schema,
+        while (!LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, recieveChatMessage, prompt, configLLM, schema,
             _config[_indexConfig].getTemperature(), false))
         {
             timer += Time.deltaTime;
@@ -154,7 +156,7 @@ public abstract class LLMConector : MonoBehaviour
 
         float timer = 0;
 
-        while (!LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, RecieveChatMessage, prompt, configLLM, schema,
+        while (!LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, recieveChatMessage, prompt, configLLM, schema,
             _config[_indexConfig].getTemperature(), _config[_indexConfig].getRagUse(), (int)_config[_indexConfig].getRagFileType()))
         {
             timer += Time.deltaTime;

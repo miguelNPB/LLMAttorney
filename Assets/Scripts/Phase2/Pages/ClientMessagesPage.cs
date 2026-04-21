@@ -62,7 +62,7 @@ public class ClientMessagesPage : MessagesUIComponent
     /// 
     public void ReceiveDocumentMessage(bool success, string answer)
     {
-        llmConnectorDocs.RecieveChatMessage(success, answer);
+        llmConnectorDocs.recieveChatMessage(success, answer);
     }
 
     /// <summary>
