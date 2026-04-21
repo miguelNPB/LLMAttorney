@@ -16,7 +16,7 @@ public class LLMConnectorOpponentDocuments : LLMConector
     }
     
 
-    [SerializeField] private ProcuradorMessagesPage _procuradorPage;
+    [SerializeField] private ProcuratorChatPage _procuradorPage;
 
     [SerializeField] public string oppPrompt;
 
@@ -43,7 +43,7 @@ public class LLMConnectorOpponentDocuments : LLMConector
         _schemasCreated = true;
     }
 
-    public override void RecieveChatMessage(bool success, string answer)
+    protected override void recieveResponse(bool success, string answer)
     {
 #if DEBUG
         Debug.Log("[OpponentDoc] " + answer);
@@ -60,7 +60,7 @@ public class LLMConnectorOpponentDocuments : LLMConector
 
         if (_stepCounter < _config[_indexConfig].getStepsChecks().Length)
         {
-            SendSecuritySteps(answer);
+            sendSecuritySteps(answer);
             return;
         }
 
@@ -98,7 +98,7 @@ public class LLMConnectorOpponentDocuments : LLMConector
         _procuradorPage.ReceiveOpponentDocMessage(response.answer);
     }
 
-    protected override bool SendContextMessage(int indexConfig = 0)
+    protected override bool sendContextPrompt(int indexConfig = 0)
     {
 
         _procuradorPage.StartPendingOpponentMessage();
@@ -141,7 +141,7 @@ public class LLMConnectorOpponentDocuments : LLMConector
 
             _promptSent = true;
 
-            StartCoroutine(CoroutineSendPrompt(prompt, configLLM, _contextSchema));
+            StartCoroutine(coroutineSendPrompt(prompt, configLLM, _contextSchema));
 
             //inputField.text = "";
 
@@ -181,7 +181,7 @@ public class LLMConnectorOpponentDocuments : LLMConector
     //     return sent;
     // }
 
-    protected override bool SendSecuritySteps(string prompt)
+    protected override bool sendSecuritySteps(string prompt)
     {
         
         Debug.Log("PROMPT de security checks: " + prompt);
@@ -198,7 +198,7 @@ public class LLMConnectorOpponentDocuments : LLMConector
             }
         }
 
-        StartCoroutine(CoroutineSendPromptSteps(prompt, configLLM, _stepsSchema));
+        StartCoroutine(coroutineSendPromptSteps(prompt, configLLM, _stepsSchema));
 
         //inputField.text = "";
 
@@ -210,7 +210,7 @@ public class LLMConnectorOpponentDocuments : LLMConector
 
     public void CallSendContext(int indexConfig = 0)
     {
-        SendContextMessage(indexConfig);
+        sendContextPrompt(indexConfig);
     }
 
     private void Awake()

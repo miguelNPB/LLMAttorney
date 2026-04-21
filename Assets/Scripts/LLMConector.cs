@@ -2,10 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
-using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
 
 public abstract class LLMConector : MonoBehaviour
 {
@@ -46,7 +43,7 @@ public abstract class LLMConector : MonoBehaviour
     /// </summary>
     /// <param name="success">muestra si ha podido obtenerse una respuesta del LLM</param>
     /// <param name="answer">texto plano que ha sacado el LLM como output</param>
-    public abstract void recieveChatMessage(bool success, string answer);
+    protected abstract void recieveResponse(bool success, string answer);
 
     /// <summary>
     /// Metodo que crea los esquemas y propiedades que debe devolver las llamadas al LLM
@@ -58,7 +55,7 @@ public abstract class LLMConector : MonoBehaviour
     /// </summary>
     /// <param name="indexConfig">Archivo de configuracion a utilizar</param>
     /// <returns></returns>
-    protected virtual bool SendContextMessage(int indexConfig = 0)
+    protected virtual bool sendContextPrompt(int indexConfig = 0)
     {
 
         if (!_promptSent && _schemasCreated)
@@ -94,7 +91,7 @@ public abstract class LLMConector : MonoBehaviour
 
             _promptSent = true;
 
-            StartCoroutine(CoroutineSendPrompt(prompt, configLLM, _contextSchema));
+            StartCoroutine(coroutineSendPrompt(prompt, configLLM, _contextSchema));
 
             inputField.text = "";
 
@@ -110,7 +107,7 @@ public abstract class LLMConector : MonoBehaviour
     /// </summary>
     /// <param name="prompt">texto que debe ser revisado</param>
     /// <returns></returns>
-    protected virtual bool SendSecuritySteps(string prompt)
+    protected virtual bool sendSecuritySteps(string prompt)
     {
         
         Debug.Log("PROMPT de security checks: " + prompt);
@@ -127,7 +124,7 @@ public abstract class LLMConector : MonoBehaviour
             }
         }
 
-        StartCoroutine(CoroutineSendPromptSteps(prompt, configLLM, _stepsSchema));
+        StartCoroutine(coroutineSendPromptSteps(prompt, configLLM, _stepsSchema));
 
         inputField.text = "";
 
@@ -136,12 +133,12 @@ public abstract class LLMConector : MonoBehaviour
         return true;
     }
 
-    protected IEnumerator CoroutineSendPromptSteps(string prompt, string configLLM, JsonSchema schema)
+    protected IEnumerator coroutineSendPromptSteps(string prompt, string configLLM, JsonSchema schema)
     {
 
         float timer = 0;
 
-        while (!LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, recieveChatMessage, prompt, configLLM, schema,
+        while (!LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, recieveResponse, prompt, configLLM, schema,
             _config[_indexConfig].getTemperature(), false))
         {
             timer += Time.deltaTime;
@@ -151,12 +148,12 @@ public abstract class LLMConector : MonoBehaviour
 
     }
 
-    protected IEnumerator CoroutineSendPrompt(string prompt, string configLLM, JsonSchema schema)
+    protected IEnumerator coroutineSendPrompt(string prompt, string configLLM, JsonSchema schema)
     {
 
         float timer = 0;
 
-        while (!LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, recieveChatMessage, prompt, configLLM, schema,
+        while (!LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, recieveResponse, prompt, configLLM, schema,
             _config[_indexConfig].getTemperature(), _config[_indexConfig].getRagUse(), (int)_config[_indexConfig].getRagFileType()))
         {
             timer += Time.deltaTime;
@@ -166,7 +163,7 @@ public abstract class LLMConector : MonoBehaviour
 
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         StopAllCoroutines();
     }

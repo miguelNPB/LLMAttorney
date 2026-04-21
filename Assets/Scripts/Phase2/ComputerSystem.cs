@@ -1,43 +1,47 @@
 using System;
 using UnityEngine;
 
-[Serializable] public enum Page { MainMenu, ChatCliente, ChatProcurador, Documentos, Gastos, Conciliacion, Redaccion, AudienciaPrevia, AbandonarCaso }
+[Serializable] public enum Page { MainMenu, ClientChat, ProcuratorChat, Documents, Spendings, Conciliation, Redaction, PriorHearing, Surrender }
+
+/// <summary>
+/// Sistema para la navegacion de la fase 2
+/// </summary>
 public class ComputerSystem : MonoBehaviour
 {
-    public GameObject exitButton;
-    public GameObject mainMenuPage;
-    public PCPage chatClientePage;
-    public PCPage chatProcuradorPage;
-    public PCPage documentosPage;
-    public PCPage gastosPage;
-    public PCPage conciliacionPage;
-    public PCPage redaccionPage;
-    public PCPage audienciaPreviaPage;
-    public PCPage abandonarCasoPage;
+    [SerializeField] private GameObject _exitButton;
+    [SerializeField] private GameObject _mainMenuPage;
+    [SerializeField] private IPage _clientChatPage;
+    [SerializeField] private IPage _procuratorChatPage;
+    [SerializeField] private IPage _documentsPage;
+    [SerializeField] private IPage _spendingsPage;
+    [SerializeField] private IPage _conciliationPage;
+    [SerializeField] private IPage _redactionPage;
+    [SerializeField] private IPage _priorHearingPage;
+    [SerializeField] private IPage _surrenderPage;
 
     [Header("Notifications")]
-    public GameObject chatClientNotification;
-    public GameObject chatProcuradorNotification;
-    public GameObject documentosNotification;
-    public GameObject gastosNotification;
-    public GameObject conciliacionNotification;
-    public GameObject redaccionNotification;
-    public GameObject audienciaPreviaNotification;
-    public GameObject abandonarCasoNotification;
+    [SerializeField] private GameObject _clientChatNotification;
+    [SerializeField] private GameObject _procuratorChatNotification;
+    [SerializeField] private GameObject _documentsNotification;
+    [SerializeField] private GameObject _spendingsNotification;
+    [SerializeField] private GameObject _conciliationNotification;
+    [SerializeField] private GameObject _redactionNotification;
+    [SerializeField] private GameObject _priorHearingNotification;
+    [SerializeField] private GameObject _surrenderNotification;
 
 
     private Page currentPage = Page.MainMenu;
 
 
     public void GoToMainMenu() => GoTo(Page.MainMenu);
-    public void GoToClientPage() => GoTo(Page.ChatCliente);
-    public void GoToChatProcurador() => GoTo(Page.ChatProcurador);
-    public void GoToDocumentos() => GoTo(Page.Documentos);
-    public void GoToGastos() => GoTo(Page.Gastos);
-    public void GoToConciliacion() => GoTo(Page.Conciliacion);
-    public void GoToRedaccion() => GoTo(Page.Redaccion);
-    public void GoToAudienciaPrevia() => GoTo(Page.AudienciaPrevia);
-    public void GoToAbandonarCaso() => GoTo(Page.AbandonarCaso);
+    public void GoToClientChat() => GoTo(Page.ClientChat);
+    public void GoToProcuratorChat() => GoTo(Page.ProcuratorChat);
+    public void GoToDocuments() => GoTo(Page.Documents);
+    public void GoToSpendings() => GoTo(Page.Spendings);
+    public void GoToConciliation() => GoTo(Page.Conciliation);
+    public void GoToRedaction() => GoTo(Page.Redaction);
+    public void GoToPriorHearing() => GoTo(Page.PriorHearing);
+    public void GoToSurrender() => GoTo(Page.Surrender);
 
 
     /// <summary>
@@ -50,7 +54,7 @@ public class ComputerSystem : MonoBehaviour
         TogglePage(page, true);
         currentPage = page;
 
-        exitButton.SetActive(page != Page.MainMenu);
+        _exitButton.SetActive(page != Page.MainMenu);
     }
 
     /// <summary>
@@ -62,29 +66,29 @@ public class ComputerSystem : MonoBehaviour
     {
         switch (page)
         {
-            case Page.ChatCliente:
-                chatClientNotification.SetActive(on);
+            case Page.ClientChat:
+                _clientChatNotification.SetActive(on);
                 break;
-            case Page.ChatProcurador:
-                chatProcuradorNotification.SetActive(on);
+            case Page.ProcuratorChat:
+                _procuratorChatNotification.SetActive(on);
                 break;
-            case Page.Documentos:
-                documentosNotification.SetActive(on);
+            case Page.Documents:
+                _documentsNotification.SetActive(on);
                 break;
-            case Page.Gastos:
-                gastosNotification.SetActive(on);
+            case Page.Spendings:
+                _spendingsNotification.SetActive(on);
                 break;
-            case Page.Conciliacion:
-                conciliacionNotification.SetActive(on);
+            case Page.Conciliation:
+                _conciliationNotification.SetActive(on);
                 break;
-            case Page.Redaccion:
-                redaccionNotification.SetActive(on);
+            case Page.Redaction:
+                _redactionNotification.SetActive(on);
                 break;
-            case Page.AudienciaPrevia:
-                audienciaPreviaNotification.SetActive(on);
+            case Page.PriorHearing:
+                _priorHearingNotification.SetActive(on);
                 break;
-            case Page.AbandonarCaso:
-                abandonarCasoNotification.SetActive(on);
+            case Page.Surrender:
+                _surrenderNotification.SetActive(on);
                 break;
         }
     }
@@ -99,38 +103,41 @@ public class ComputerSystem : MonoBehaviour
         switch (page)
         {
             case Page.MainMenu:
-                mainMenuPage.SetActive(on);
+                _mainMenuPage.SetActive(on);
                 break;
-            case Page.ChatCliente:
-                if (on) chatClientePage.Open(); else chatClientePage.Close();
+            case Page.ClientChat:
+                if (on) _clientChatPage.Open(); else _clientChatPage.Close();
                 break;
-            case Page.ChatProcurador:
-                if (on) chatProcuradorPage.Open(); else chatProcuradorPage.Close();
+            case Page.ProcuratorChat:
+                if (on) _procuratorChatPage.Open(); else _procuratorChatPage.Close();
                 break;
-            case Page.Documentos:
-                if (on) documentosPage.Open(); else documentosPage.Close();
+            case Page.Documents:
+                if (on) _documentsPage.Open(); else _documentsPage.Close();
                 break;
-            case Page.Gastos:
-                if (on) gastosPage.Open(); else gastosPage.Close();
+            case Page.Spendings:
+                if (on) _spendingsPage.Open(); else _spendingsPage.Close();
                 break;
-            case Page.Conciliacion:
-                if (on) conciliacionPage.Open(); else conciliacionPage.Close();
+            case Page.Conciliation:
+                if (on) _conciliationPage.Open(); else _conciliationPage.Close();
                 break;
-            case Page.Redaccion:
-                if (on) redaccionPage.Open(); else redaccionPage.Close();
+            case Page.Redaction:
+                if (on) _redactionPage.Open(); else _redactionPage.Close();
                 break;
-            case Page.AudienciaPrevia:
-                if (on) audienciaPreviaPage.Open(); else audienciaPreviaPage.Close();
+            case Page.PriorHearing:
+                if (on) _priorHearingPage.Open(); else _priorHearingPage.Close();
                 break;
-            case Page.AbandonarCaso:
-                if (on) abandonarCasoPage.Open(); else abandonarCasoPage.Close();
+            case Page.Surrender:
+                if (on) _surrenderPage.Open(); else _surrenderPage.Close();
                 break;
         }
     }
 
-
+    /// <summary>
+    /// Activa o desactiva el boton de cerrar una pagina
+    /// </summary>
+    /// <param name="on"></param>
     public void ToggleExitButton(bool on)
     {
-        exitButton.SetActive(on);
+        _exitButton.SetActive(on);
     }
 }

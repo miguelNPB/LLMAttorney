@@ -4,25 +4,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ProcuradorMessagesPage : MessagesUIComponent {
+/// <summary>
+/// Pagina para gestionar el sistema de mensajes con el procurador
+/// </summary>
+public class ProcuratorChatPage : ChatPage {
 
     public GameObject docsUIContainer;
     public GameObject procuradorDocUIPrefab;
-    public Button sendDocumentButton;
     private bool isOpen = false;
 
-    private ProcuradorDocUI selectedDoc = null;
+    private ProcuratorUIDocument selectedDoc = null;
 
-    public void SelectDocument(ProcuradorDocUI doc)
+    public void SelectDocument(ProcuratorUIDocument doc)
     {
         if (selectedDoc != null && selectedDoc != doc)
             selectedDoc.Unselect();
 
         selectedDoc = doc;
 
-        sendDocumentButton.interactable = selectedDoc != null;
+        _sendButton.interactable = selectedDoc != null;
     }
-    private void SetupUIDocuments()
+    private void setupUIDocuments()
     {
         for (int i = 0; i < docsUIContainer.transform.childCount; i++)
             Destroy(docsUIContainer.transform.GetChild(i).gameObject);
@@ -33,21 +35,21 @@ public class ProcuradorMessagesPage : MessagesUIComponent {
         {
             GameObject documentInstanced = Instantiate(procuradorDocUIPrefab, docsUIContainer.transform);
 
-            documentInstanced.GetComponent<ProcuradorDocUI>().Init(this, documents[i]);
+            documentInstanced.GetComponent<ProcuratorUIDocument>().Init(this, documents[i]);
         }
     }
 
-    public void ReceiveChatMessage(string answer)
+    private void recieveChatMessage(string answer)
     {
         EndPendingMessage(answer);
 
         if (!isOpen)
-            computerSystem.ToggleNotification(Page.ChatProcurador, true);
+            computerSystem.ToggleNotification(Page.ProcuratorChat, true);
     }
   
-    private IEnumerator ProcessDocument(string docName)
+    private IEnumerator processDocument(string docName)
     {
-        sendDocumentButton.interactable = false;
+        _sendButton.interactable = false;
 
         // simulamos que piensa
         float randomWait = UnityEngine.Random.Range(1f, 3f);
@@ -66,15 +68,15 @@ public class ProcuradorMessagesPage : MessagesUIComponent {
                 message = "Gracias por pasarmelo, se lo adjunto el documento " + docName + " al juzgado y una copia a la parte contraria.";
                 break;
         }
-        ReceiveChatMessage(message);
+        recieveChatMessage(message);
 
-        sendDocumentButton.interactable = true;
+        _sendButton.interactable = true;
     }
 
     /// <summary>
     /// Se llama al pulsar el boton de mandar en un doc seleccionado
     /// </summary>
-    public void OnSendDocument()
+    public void OnPressButton()
     {
         if (!selectedDoc)
             return;
@@ -85,11 +87,11 @@ public class ProcuradorMessagesPage : MessagesUIComponent {
 
 
         // mandar doc
-        StartCoroutine(ProcessDocument(selectedDoc.documentInfo.GetDocName()));
+        StartCoroutine(processDocument(selectedDoc.documentInfo.GetDocName()));
         selectedDoc.SentToProcurador();
 
         string message = "Hola! Te adjunto el siguiente documento para que lo incluyas en el proceso: " + selectedDoc.documentInfo.GetDocName();
-        AddMessage(message, true);
+        addMessage(message, true);
         StartPendingMessage(false);
 
         selectedDoc.Unselect();
@@ -98,12 +100,12 @@ public class ProcuradorMessagesPage : MessagesUIComponent {
 
     public override void Open()
     {
-        computerSystem.ToggleNotification(Page.ChatProcurador, false);
+        computerSystem.ToggleNotification(Page.ProcuratorChat, false);
 
         for (int i = 0; i < gameObject.transform.childCount; i++)
             gameObject.transform.GetChild(i).gameObject.SetActive(true);
         
-        SetupUIDocuments();
+        setupUIDocuments();
 
         SelectDocument(null);
 
@@ -124,7 +126,7 @@ public class ProcuradorMessagesPage : MessagesUIComponent {
     {
         Open();
 
-        PlaceMessages(GameSystem.Instance.CaseData.procuradorMessages);
+        placeMessages(GameSystem.Instance.CaseData.procuratorMessages);
         ScrollToLastMessage();
 
         Close();
@@ -145,7 +147,7 @@ public class ProcuradorMessagesPage : MessagesUIComponent {
         GameSystem.Instance.myDocumentManager.documents.Add(doc2);
         ^*/
 
-        GameSystem.Instance.myDocumentManager.CreateDocument("test", PromptType.Pregunta, "añskdjf", true, 49);
+        GameSystem.Instance.myDocumentManager.CreateDocument("test", PromptType.Question, "añskdjf", true, 49);
     }
 
 
@@ -154,7 +156,7 @@ public class ProcuradorMessagesPage : MessagesUIComponent {
         StartPendingMessage(false);
 
         if (!isOpen)
-            computerSystem.ToggleNotification(Page.ChatProcurador, true);
+            computerSystem.ToggleNotification(Page.ProcuratorChat, true);
     }
 
 
@@ -163,7 +165,7 @@ public class ProcuradorMessagesPage : MessagesUIComponent {
         EndPendingMessage(summary);
 
         if (!isOpen)
-            computerSystem.ToggleNotification(Page.ChatProcurador, true);
+            computerSystem.ToggleNotification(Page.ProcuratorChat, true);
     }
 
     public void CancelPendingOpponentMessage()

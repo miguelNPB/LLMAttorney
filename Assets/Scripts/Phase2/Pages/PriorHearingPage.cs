@@ -1,17 +1,14 @@
 using UnityEngine;
 
-public class AbandonarCasoPage : PCPage
+/// <summary>
+/// Pagina de la fase 2 para avanzar a la audiencia previa, es decir, la fase 3
+/// </summary>
+public class PriorHearingPage : IPage
 {
-
-    public void Abandonar()
-    {
-        SceneSystem.Instance.LoadMainMenu();
-    }
-
     public override void Open()
     {
         // activar los gameobject de la pagina
-        computerSystem.ToggleNotification(Page.ChatCliente, false);
+        computerSystem.ToggleNotification(Page.ClientChat, false);
 
         for (int i = 0; i < gameObject.transform.childCount; i++)
             gameObject.transform.GetChild(i).gameObject.SetActive(true);

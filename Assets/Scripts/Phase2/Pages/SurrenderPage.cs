@@ -1,11 +1,22 @@
 using UnityEngine;
 
-public class AudienciaPreviaPage : PCPage
+/// <summary>
+/// Pagina para abandonar el caso y volver al menu princpial
+/// </summary>
+public class SurrenderPage : IPage
 {
+    /// <summary>
+    /// Abandona el caso y volver al menu principal
+    /// </summary>
+    public void Surrender()
+    {
+        SceneSystem.Instance.LoadMainMenu();
+    }
+
     public override void Open()
     {
         // activar los gameobject de la pagina
-        computerSystem.ToggleNotification(Page.ChatCliente, false);
+        computerSystem.ToggleNotification(Page.ClientChat, false);
 
         for (int i = 0; i < gameObject.transform.childCount; i++)
             gameObject.transform.GetChild(i).gameObject.SetActive(true);
