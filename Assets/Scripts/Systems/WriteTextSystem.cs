@@ -4,7 +4,7 @@ using System.Collections;
 
 public class WriteTextSystem : MonoBehaviour
 {
-    [Header("Configuración")]
+    [Header("Configuracion")]
     [SerializeField] private TextMeshProUGUI textContainer;
     [SerializeField] private int maxCharactersInContainer;
     [SerializeField] private float typingSpeed = 0.05f;
@@ -13,56 +13,47 @@ public class WriteTextSystem : MonoBehaviour
     private bool _isTyping = false;
     private bool _waitingInputToContinue = false;
 
-    /// <summary>
-    /// Inicia la escritura del texto.
-    /// </summary>
     public void WriteText(string text)
     {
         if (_isTyping) StopCoroutine(_typingCoroutine);
         _typingCoroutine = StartCoroutine(TypeConversation(text));
     }
-    /// <summary>
-    /// Si todavia hay texto skipea el typing y lo pone todo en pantalla. Si esta esperando a input, pone el flag 
-    /// _waitingInputToContinue a false y salta al siguiente texto
-    /// </summary>
+
     public void SkipTyping()
     {
-        textContainer.maxVisibleCharacters = textContainer.text.Length;
+        if (_isTyping && !_waitingInputToContinue)
+        {
+            textContainer.maxVisibleCharacters = textContainer.text.Length;
+        }
+
         _waitingInputToContinue = false;
     }
 
-    /// <summary>
-    /// Escribe el texto poco a poco. Si hay mas texto que lo que puede almacenar la caja de dialogo, activa el flag 
-    /// _waitingInputToContinue y espera a que sea false.
-    /// </summary>
-    /// <param name="text"></param>
-    /// <returns></returns>
     public IEnumerator TypeConversation(string text)
     {
-
-        Debug.Log("Write Conversation: " + text);
-
-        _waitingInputToContinue = false;
         _isTyping = true;
-
         int textCount = 0;
 
         while (textCount < text.Length)
         {
-            while (_waitingInputToContinue)
-                yield return null;
+            _waitingInputToContinue = false;
 
             int remainingCharacters = text.Length - textCount;
             int currentChunkSize = Mathf.Min(maxCharactersInContainer, remainingCharacters);
 
-            // logica para no cortar palabras
-            if (remainingCharacters > maxCharactersInContainer)
-            {
-                int lastSpaceIndex = text.LastIndexOfAny(new char[] { ' ', '\n' }, textCount + currentChunkSize - 1, currentChunkSize);
+            string potentialText = text.Substring(textCount, currentChunkSize);
 
-                if (lastSpaceIndex != -1 && lastSpaceIndex > textCount)
+            int lineBreakIndex = potentialText.IndexOf('\n');
+            if (lineBreakIndex != -1)
+            {
+                currentChunkSize = lineBreakIndex + 1;
+            }
+            else if (remainingCharacters > maxCharactersInContainer)
+            {
+                int lastSpaceIndex = potentialText.LastIndexOf(' ');
+                if (lastSpaceIndex > 0)
                 {
-                    currentChunkSize = lastSpaceIndex - textCount;
+                    currentChunkSize = lastSpaceIndex + 1;
                 }
             }
 
@@ -72,44 +63,37 @@ public class WriteTextSystem : MonoBehaviour
 
             textCount += currentChunkSize;
 
-            _waitingInputToContinue = textCount < text.Length;
+            if (textCount < text.Length)
+            {
+                _waitingInputToContinue = true;
+                while (_waitingInputToContinue)
+                    yield return null;
+            }
         }
 
         _isTyping = false;
-
-        //textContainer.text = "";
-
     }
 
-    
-    /// <summary>
-    /// Simplemente escribe el texto poco a poco
-    /// </summary>
-    /// <param name="text"></param>
-    /// <returns></returns>
     public IEnumerator TypeText(string text)
     {
         textContainer.text = text;
         textContainer.maxVisibleCharacters = 0;
-
         textContainer.ForceMeshUpdate();
 
-        int visibleCount = 0;
+        int totalVisibleCharacters = text.Length;
+        int counter = 0;
 
-        while (textContainer.maxVisibleCharacters < textContainer.text.Length)
+        while (counter <= totalVisibleCharacters)
         {
-            textContainer.maxVisibleCharacters = Mathf.Max(textContainer.maxVisibleCharacters, visibleCount);
-            visibleCount++;
+            // Si el usuario hizo SkipTyping, maxVisibleCharacters ya será igual al length
+            if (textContainer.maxVisibleCharacters >= totalVisibleCharacters)
+                yield break;
+
+            textContainer.maxVisibleCharacters = counter;
+            counter++;
             yield return new WaitForSeconds(typingSpeed);
         }
     }
-    
 
-    /// <summary>
-    /// Comprueba si todavia queda texto por mostrar, o esta esperando a input para avanzar el texto
-    /// </summary>
-    public bool IsTyping()
-    {
-        return _isTyping;
-    }
+    public bool IsTyping() => _isTyping;
 }
