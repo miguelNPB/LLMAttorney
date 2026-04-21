@@ -2366,7 +2366,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 817277161058648533, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: -502.2
       objectReference: {fileID: 0}
     - target: {fileID: 1229239301423809702, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2455,7 +2455,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1903123574358110914, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2800977689686718766, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
