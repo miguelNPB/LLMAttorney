@@ -129,7 +129,7 @@ public class LLMConnectorConciliation : LLMConector
                 }
                     
 
-                SendSecuritySteps(nextPrompt);
+                sendSecuritySteps(nextPrompt);
             }
             else
             {
@@ -153,7 +153,7 @@ public class LLMConnectorConciliation : LLMConector
 
     public IEnumerator SendClientPrompt()
     {
-        SendContextMessage(0);
+        sendContextMessage(0);
         currentPromptType = CurrentPromptType.Cliente;
         _promptSent = true;
 
@@ -171,7 +171,7 @@ public class LLMConnectorConciliation : LLMConector
 
     public IEnumerator SendRivalPromptNormal()
     {
-        SendContextMessage(1);
+        sendContextMessage(1);
         currentPromptType = CurrentPromptType.RivalNormal;
         _promptSent = true;
 

@@ -11,10 +11,4 @@ public class Phase1 : MonoBehaviour
     {
         writeTextSystem.WriteText(_startingText);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
