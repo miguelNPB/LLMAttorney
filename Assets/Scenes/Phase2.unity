@@ -1595,8 +1595,8 @@ MonoBehaviour:
   _apiType: 0
   context: Eres el cliente de un abogado. Yo soy el abogado y te voy a hacer una
     pregunta a traves del prompt. Tu tarea es responder como el cliente, pensando
-    razonablemente y respondiendo considerando el historial de mensajes que hemos
-    tenido que esta en el apartado "Historico"
+    razonablemente y respondiendo considerando el resumen del caso en "Resumen del
+    caso", y el historial de mensajes que hemos tenido que esta en el apartado "Historico"
   safeguard: 
   safeguardSteps: 
   historicalConversation: 
@@ -3122,6 +3122,10 @@ PrefabInstance:
     - target: {fileID: 3018074653573899191, guid: 852933553285a6740a5814b19dd8a800, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -55.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 3064588443144473997, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3139416339436177362, guid: 852933553285a6740a5814b19dd8a800, type: 3}
       propertyPath: m_AnchorMax.y

@@ -773,7 +773,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6650095816771290006}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ProcuradorMessagesPage, Assembly-CSharp
         m_MethodName: OnSendDocument
         m_Mode: 1
@@ -3802,7 +3802,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 8412229806096565139}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ConciliacionPage, Assembly-CSharp
         m_MethodName: GoToRivalTab
         m_Mode: 1
@@ -5598,8 +5598,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5370896326043612141}
   - {fileID: 8439186346144055364}
+  - {fileID: 5370896326043612141}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -6050,7 +6050,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 8412229806096565139}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ConciliacionPage, Assembly-CSharp
         m_MethodName: GoToClienteTab
         m_Mode: 1
@@ -8031,7 +8031,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7795150218730733808}
-  - component: {fileID: 6650095816771290006}
   m_Layer: 5
   m_Name: ProcuradorConversationsPage
   m_TagString: Untagged
@@ -8059,28 +8058,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1600, y: 900}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &6650095816771290006
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3285342601200882015}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ad7a2dc94d52e442af7d202ba051b75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ProcuradorMessagesPage
-  computerSystem: {fileID: 3155943295086059753}
-  ConversationMessageUIPrefab: {fileID: 4834547625763915104, guid: b82ab97cc6cdb3d4d95dc0ecc42755b6, type: 3}
-  layoutGroup: {fileID: 6748367841060353987}
-  sendButton: {fileID: 6180023431465619310}
-  otherPersonColor: {r: 1, g: 0.6216446, b: 0.5707547, a: 1}
-  playerColor: {r: 0.42733178, g: 0.9150943, b: 0.42733178, a: 1}
-  scrollSpeed: 25
-  docsUIContainer: {fileID: 5435730048808260862}
-  procuradorDocUIPrefab: {fileID: 5804448027057478526, guid: c6a5935b13b1fc040bd5eefe7017e1b0, type: 3}
-  sendDocumentButton: {fileID: 6180023431465619310}
 --- !u!1 &3332757741787059767
 GameObject:
   m_ObjectHideFlags: 0
@@ -8637,7 +8614,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8412229806096565139}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ConciliacionPage, Assembly-CSharp
         m_MethodName: GoToPropuestaTab
         m_Mode: 1
@@ -11308,14 +11285,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClientMessages
   computerSystem: {fileID: 3155943295086059753}
-  ConversationMessageUIPrefab: {fileID: 4834547625763915104, guid: b82ab97cc6cdb3d4d95dc0ecc42755b6, type: 3}
-  layoutGroup: {fileID: 2692711750752368360}
-  sendButton: {fileID: 9029362397476411483}
-  otherPersonColor: {r: 0.216981, g: 0.216981, b: 1, a: 0.6313726}
-  playerColor: {r: 0, g: 1, b: 0, a: 0.65882355}
-  scrollSpeed: 25
-  inputField: {fileID: 1775541809972531543}
-  llmConnectorDocs: {fileID: 0}
+  _conversationMessageUIPrefab: {fileID: 0}
+  _layoutGroup: {fileID: 0}
+  _sendButton: {fileID: 0}
+  _otherPersonColor: {r: 0, g: 0, b: 1, a: 1}
+  _playerColor: {r: 0, g: 1, b: 0, a: 1}
+  _scrollSpeed: 1
+  _inputField: {fileID: 0}
+  _llmConnectorDocs: {fileID: 0}
+  _llmConnectorClientChat: {fileID: 0}
 --- !u!1 &4921536781154600525
 GameObject:
   m_ObjectHideFlags: 0
@@ -11385,24 +11363,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64dd1ce8fea02504b962392dff28afaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ComputerSystem
-  exitButton: {fileID: 8637142221760509903}
-  mainMenuPage: {fileID: 1617507205687400116}
-  chatClientePage: {fileID: 3323866479899265576}
-  chatProcuradorPage: {fileID: 6650095816771290006}
-  documentosPage: {fileID: 0}
-  gastosPage: {fileID: 3402184677716545009}
-  conciliacionPage: {fileID: 8412229806096565139}
-  redaccionPage: {fileID: 3916221965029604021}
-  audienciaPreviaPage: {fileID: 3167536425547029707}
-  abandonarCasoPage: {fileID: 4628348493265246011}
-  chatClientNotification: {fileID: 6611497401256176881}
-  chatProcuradorNotification: {fileID: 407236463330837340}
-  documentosNotification: {fileID: 7017747881856834798}
-  gastosNotification: {fileID: 1327045425015285343}
-  conciliacionNotification: {fileID: 5310778946241292909}
-  redaccionNotification: {fileID: 3256740440800944792}
-  audienciaPreviaNotification: {fileID: 4156489626305700742}
-  abandonarCasoNotification: {fileID: 8696651760171492338}
+  _exitButton: {fileID: 0}
+  _mainMenuPage: {fileID: 0}
+  _clientChatPage: {fileID: 0}
+  _procuratorChatPage: {fileID: 0}
+  _documentsPage: {fileID: 0}
+  _spendingsPage: {fileID: 0}
+  _conciliationPage: {fileID: 0}
+  _redactionPage: {fileID: 0}
+  _priorHearingPage: {fileID: 0}
+  _surrenderPage: {fileID: 0}
+  _clientChatNotification: {fileID: 0}
+  _procuratorChatNotification: {fileID: 0}
+  _documentsNotification: {fileID: 0}
+  _spendingsNotification: {fileID: 0}
+  _conciliationNotification: {fileID: 0}
+  _redactionNotification: {fileID: 0}
+  _priorHearingNotification: {fileID: 0}
+  _surrenderNotification: {fileID: 0}
 --- !u!1 &4957467691162902635
 GameObject:
   m_ObjectHideFlags: 0
@@ -15632,7 +15610,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8412229806096565139}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ConciliacionPage, Assembly-CSharp
         m_MethodName: SendAttempt
         m_Mode: 1
@@ -15653,7 +15631,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3346926175443810342}
-  - component: {fileID: 8412229806096565139}
   m_Layer: 5
   m_Name: ConciliacionPage
   m_TagString: Untagged
@@ -15681,38 +15658,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8412229806096565139
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6693204663329582666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a67b7dc09830d343993122af2dea2f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ConciliacionPage
-  computerSystem: {fileID: 3155943295086059753}
-  phase2Manager: {fileID: 0}
-  llmConnector: {fileID: 0}
-  clientCharacterAnimator: {fileID: 7043664702808062708}
-  rivalCharacterAnimator: {fileID: 8382777504878304756}
-  sendButton: {fileID: 8671730956162043229}
-  changeToTextTab: {fileID: 680807812739541026}
-  changeToClientTabButton: {fileID: 5545469560551507178}
-  changeToRivalTabButton: {fileID: 2296501695379829729}
-  clientTabExclamation: {fileID: 3114750700140983267}
-  rivalTabExclamation: {fileID: 5836333550467718330}
-  inputFieldText: {fileID: 8538225620191032992}
-  popupClientRejects: {fileID: 2854461610900755012}
-  inputConciliacionTabHolder: {fileID: 8706406964133055101}
-  clientTabHolder: {fileID: 2458795325861595746}
-  rivalTabHolder: {fileID: 4216587695174276355}
-  clienteAnswerText: {fileID: 8104667845634764920}
-  rivalAnswerText: {fileID: 3510066099158683952}
-  popupAfterFailedConciliation: {fileID: 3362023428683631452}
-  popupAfterSuccessfulConciliation: {fileID: 9057374122822817897}
 --- !u!1 &6714464641314944094
 GameObject:
   m_ObjectHideFlags: 0
@@ -23265,27 +23210,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RedactionPage
   computerSystem: {fileID: 3155943295086059753}
-  scrollSpeed: 50
-  verticalLayoutDemanda: {fileID: 1485849340685281754}
-  lastElementLayoutDemanda: {fileID: 7358785815085523497}
-  textNombreProcuradorDemanda: {fileID: 4494864134805333575}
-  textNombreClienteDemanda: {fileID: 4249296815900695383}
-  textEntidadDemandanteDemanda: {fileID: 2660157418293372166}
-  inputNombreAbogadoDemanda: {fileID: 4077072594646872180}
-  inputResumenDemanda: {fileID: 5363707413776511643}
-  inputListaHechosDemanda: {fileID: 6126701329835281088}
-  inputResumenIntentoConciliacionDemanda: {fileID: 370896234912974011}
-  inputListaArticulosUsadosDemanda: {fileID: 8116875623581419649}
-  inputPeticionTribunalDemanda: {fileID: 9038946230110108308}
-  verticalLayoutRespuestaDemanda: {fileID: 8350227335566113859}
-  lastElementLayoutRespuestaDemanda: {fileID: 4867340911764655135}
-  textNombreProcuradorRespuestaDemanda: {fileID: 7727592813489312154}
-  textNombreClienteRespuestaDemanda: {fileID: 6259119940346149469}
-  textEntidadDemandanteRespuestaDemanda: {fileID: 612283675406029157}
-  inputNombreAbogadoRespuestaDemanda: {fileID: 2248943473924428304}
-  inputListaHechosRespuestaDemanda: {fileID: 2984388699032737355}
-  inputResumenIntentoConciliacionRespuestaDemanda: {fileID: 3213240259347756451}
-  inputListaArticulosUsadosRespuestaDemanda: {fileID: 7767962006585358435}
+  _scrollSpeed: 5
+  _verticalLayout: {fileID: 0}
+  _lastElementLayout: {fileID: 0}
+  _textProcuratorName: {fileID: 0}
+  _textClientName: {fileID: 0}
+  _textDemandedEntity: {fileID: 0}
+  _inputLawyerName: {fileID: 0}
+  _inputDigo: {fileID: 0}
+  _inputListHechos: {fileID: 0}
+  _inputConciliacion: {fileID: 0}
+  _inputListArticulos: {fileID: 0}
+  _inputPeticion: {fileID: 0}
 --- !u!1 &9133837687828463982
 GameObject:
   m_ObjectHideFlags: 0
@@ -23524,11 +23460,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3838750178931281249, guid: 1a42d13b3a376da48b0032cba42e1bae, type: 3}
   m_PrefabInstance: {fileID: 345447080066848594}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &4156489626305700742 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4424108239656367316, guid: 1a42d13b3a376da48b0032cba42e1bae, type: 3}
-  m_PrefabInstance: {fileID: 345447080066848594}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1177642013563967052
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23671,11 +23602,6 @@ PrefabInstance:
 --- !u!224 &2671243566732598061 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3838750178931281249, guid: 1a42d13b3a376da48b0032cba42e1bae, type: 3}
-  m_PrefabInstance: {fileID: 1177642013563967052}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &3256740440800944792 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4424108239656367316, guid: 1a42d13b3a376da48b0032cba42e1bae, type: 3}
   m_PrefabInstance: {fileID: 1177642013563967052}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1758165554505038313
@@ -24254,11 +24180,6 @@ PrefabInstance:
       addedObject: {fileID: 8850343791615496317}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a42d13b3a376da48b0032cba42e1bae, type: 3}
---- !u!1 &1327045425015285343 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4424108239656367316, guid: 1a42d13b3a376da48b0032cba42e1bae, type: 3}
-  m_PrefabInstance: {fileID: 3390942004468732555}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1894591831164182506 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3838750178931281249, guid: 1a42d13b3a376da48b0032cba42e1bae, type: 3}
@@ -24399,11 +24320,6 @@ PrefabInstance:
       addedObject: {fileID: 4734283845271642224}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a42d13b3a376da48b0032cba42e1bae, type: 3}
---- !u!1 &407236463330837340 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4424108239656367316, guid: 1a42d13b3a376da48b0032cba42e1bae, type: 3}
-  m_PrefabInstance: {fileID: 4090214483647231880}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &974649524299102953 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3838750178931281249, guid: 1a42d13b3a376da48b0032cba42e1bae, type: 3}
@@ -24547,11 +24463,6 @@ PrefabInstance:
 --- !u!224 &8111224001121884743 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3838750178931281249, guid: 1a42d13b3a376da48b0032cba42e1bae, type: 3}
-  m_PrefabInstance: {fileID: 5031965215581050662}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8696651760171492338 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4424108239656367316, guid: 1a42d13b3a376da48b0032cba42e1bae, type: 3}
   m_PrefabInstance: {fileID: 5031965215581050662}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5598638399378627859
@@ -25104,11 +25015,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3838750178931281249, guid: 1a42d13b3a376da48b0032cba42e1bae, type: 3}
   m_PrefabInstance: {fileID: 7396413459406149669}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6611497401256176881 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4424108239656367316, guid: 1a42d13b3a376da48b0032cba42e1bae, type: 3}
-  m_PrefabInstance: {fileID: 7396413459406149669}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8418980674388451001
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25247,10 +25153,5 @@ PrefabInstance:
 --- !u!224 &4725332243296801752 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3838750178931281249, guid: 1a42d13b3a376da48b0032cba42e1bae, type: 3}
-  m_PrefabInstance: {fileID: 8418980674388451001}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5310778946241292909 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4424108239656367316, guid: 1a42d13b3a376da48b0032cba42e1bae, type: 3}
   m_PrefabInstance: {fileID: 8418980674388451001}
   m_PrefabAsset: {fileID: 0}
