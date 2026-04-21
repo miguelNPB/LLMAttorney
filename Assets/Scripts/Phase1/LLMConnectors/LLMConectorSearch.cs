@@ -19,11 +19,11 @@ public class LLMConectorSearch : LLMConector
         public bool respuestaCoherente;
     }
 
-    protected override bool SendContextMessage(int indexConfig = 0)
+    protected override bool sendContextPrompt(int indexConfig = 0)
     {
         _uiSearch.StartPendingMessage();
 
-        bool messageSent = base.SendContextMessage(indexConfig);
+        bool messageSent = base.sendContextPrompt(indexConfig);
 
         if (!messageSent)
         {
@@ -33,11 +33,11 @@ public class LLMConectorSearch : LLMConector
         return messageSent;
     }
 
-    protected override bool SendSecuritySteps(string prompt)
+    protected override bool sendSecuritySteps(string prompt)
     {
         _uiSearch.StartPendingMessage();
 
-        bool securityStepSent = base.SendSecuritySteps(prompt);
+        bool securityStepSent = base.sendSecuritySteps(prompt);
 
         if (!securityStepSent)
         {
@@ -51,18 +51,18 @@ public class LLMConectorSearch : LLMConector
     {
         _contextSchema = new JsonSchema();
         _contextSchema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
-        _contextSchema.properties.Add("respuesta_valida", new PropertyInfo(JsonDataType.Boolean));
-        _contextSchema.properties.Add("respuesta_coherente", new PropertyInfo(JsonDataType.Boolean));
+        _contextSchema.properties.Add("respuestaValida", new PropertyInfo(JsonDataType.Boolean));
+        _contextSchema.properties.Add("respuestaCoherente", new PropertyInfo(JsonDataType.Boolean));
 
         _stepsSchema = new JsonSchema();
         _stepsSchema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
-        _stepsSchema.properties.Add("respuesta_valida", new PropertyInfo(JsonDataType.Boolean));
-        _stepsSchema.properties.Add("respuesta_coherente", new PropertyInfo(JsonDataType.Boolean));
+        _stepsSchema.properties.Add("respuestaValida", new PropertyInfo(JsonDataType.Boolean));
+        _stepsSchema.properties.Add("respuestaCoherente", new PropertyInfo(JsonDataType.Boolean));
 
         _schemasCreated = true;
     }
 
-    public override void recieveChatMessage(bool success, string answer)
+    protected override void recieveResponse(bool success, string answer)
     {
         Debug.Log("Respuesta cruda: " + answer);
 
@@ -91,7 +91,7 @@ public class LLMConectorSearch : LLMConector
             if (_stepCounter < _config[_indexConfig].getStepsChecks().Length &&
                 (!jsonResponse.respuestaValida || !jsonResponse.respuestaCoherente))
             {
-                SendSecuritySteps(jsonResponse.answer);
+                sendSecuritySteps(jsonResponse.answer);
             }
             else
             {
@@ -112,7 +112,7 @@ public class LLMConectorSearch : LLMConector
 
     public void CallSendContext(int indexConfig = 0)
     {
-        SendContextMessage(indexConfig);
+        sendContextPrompt(indexConfig);
     }
 
     private void Awake()

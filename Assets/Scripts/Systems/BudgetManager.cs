@@ -4,15 +4,6 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// public enum PromptType
-// {
-//     Pregunta,
-//     Dialogo,
-//     Perito,
-//     Informe,
-//     Testigo,
-//     DocAlt
-// }
 
 [Serializable]
 public class ExpenseTypeToggle
@@ -52,11 +43,11 @@ public class BudgetManager : MonoBehaviour
     [Tooltip("Activa qué tipos de documento deben registrarse como gastos.")]
     public List<ExpenseTypeToggle> trackedTypes = new List<ExpenseTypeToggle>
     {
-        new ExpenseTypeToggle { type = PromptType.Pregunta, enabled = false },
-        new ExpenseTypeToggle { type = PromptType.Dialogo,  enabled = false },
+        new ExpenseTypeToggle { type = PromptType.Question, enabled = false },
+        new ExpenseTypeToggle { type = PromptType.Conversation,  enabled = false },
         new ExpenseTypeToggle { type = PromptType.Perito,   enabled = true  },
-        new ExpenseTypeToggle { type = PromptType.Informe,  enabled = true  },
-        new ExpenseTypeToggle { type = PromptType.Testigo,  enabled = true  },
+        new ExpenseTypeToggle { type = PromptType.Report,  enabled = true  },
+        new ExpenseTypeToggle { type = PromptType.Witness,  enabled = true  },
         new ExpenseTypeToggle { type = PromptType.DocAlt,   enabled = true  },
     };
 

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public enum PromptType { Pregunta, Dialogo, Perito, Informe, Testigo, DocAlt }
+public enum PromptType { Question, Conversation, Perito, Report, Witness, DocAlt }
 
 public class DocumentManager : MonoBehaviour
 {

@@ -16,11 +16,11 @@ public class LLMConnectorDocuments : LLMConector
     }
 
     [SerializeField]
-    private MessagesUIComponent _msgUIComponent;
+    private ChatPage _msgUIComponent;
 
     private bool firstTime = true;
 
-    public override void RecieveChatMessage(bool success, string answer)
+    protected override void recieveResponse(bool success, string answer)
     {
         #if DEBUG
         Debug.Log(answer);
@@ -35,7 +35,7 @@ public class LLMConnectorDocuments : LLMConector
 
             if (_stepCounter < _config[_indexConfig].getStepsChecks().Length)
             {
-                SendSecuritySteps(answer);
+                sendSecuritySteps(answer);
             }
             else
             {
@@ -48,13 +48,13 @@ public class LLMConnectorDocuments : LLMConector
                 {
                     _historical.Add("Respuesta :" + answer);
                     GameSystem.Instance.myDocumentManager.CreateDocument(jsonResponse.NombreDocumento, jsonResponse.TipoDocumento, jsonResponse.ContenidoDocumento, jsonResponse.DocumentoValido, jsonResponse.CosteDocumento);
-                    _msgUIComponent.computerSystem.ToggleNotification(Page.ChatCliente, true);
+                    _msgUIComponent.computerSystem.ToggleNotification(Page.ClientChat, true);
                     _msgUIComponent.EndPendingMessage("Tu cliente te ha mandado " + jsonResponse.NombreDocumento + ".txt");
                 }
                 else
                 {
                     _historical.Add("Respuesta: texto final sin coherencia");
-                    _msgUIComponent.computerSystem.ToggleNotification(Page.ChatCliente, true);
+                    _msgUIComponent.computerSystem.ToggleNotification(Page.ClientChat, true);
                     _msgUIComponent.EndPendingMessage("Perdona pero no he podido conseguir el documento, ¿Puedes ser un poco mas especifico?");
                     
                 }
@@ -70,13 +70,13 @@ public class LLMConnectorDocuments : LLMConector
 
     public void CallSendContext(int indexConfig = 0)
     {
-        SendContextMessage(indexConfig);
+        sendContextPrompt(indexConfig);
     }
 
     /**
      * Metodo encargado de enviar un mensaje al LLM con todas las especificaciones obtenidas de ConfigLLMInfo
      */
-    protected override bool SendContextMessage(int indexConfig = 0)
+    protected override bool sendContextPrompt(int indexConfig = 0)
     {
         //_msgUIComponent.StartPendingMessage(false);
         if(firstTime)
@@ -84,7 +84,7 @@ public class LLMConnectorDocuments : LLMConector
             _historical.Add(GameSystem.Instance.CaseData.caseDescription);
             firstTime = false;
         }
-        bool messageSent = base.SendContextMessage(indexConfig);
+        bool messageSent = base.sendContextPrompt(indexConfig);
 
         if (!messageSent)
         {
@@ -94,11 +94,11 @@ public class LLMConnectorDocuments : LLMConector
         return messageSent;
     }
 
-    protected override bool SendSecuritySteps(string prompt)
+    protected override bool sendSecuritySteps(string prompt)
     {
         //_msgUIComponent.StartPendingMessage(false);
 
-        bool securityStepSent = base.SendSecuritySteps(prompt);
+        bool securityStepSent = base.sendSecuritySteps(prompt);
 
         if (!securityStepSent)
         {

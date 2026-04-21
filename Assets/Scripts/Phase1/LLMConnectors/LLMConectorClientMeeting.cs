@@ -25,7 +25,7 @@ public class LLMConectorClientMeeting : LLMConector
     private bool _abogadoContratado = false;
 
    
-    public override void recieveChatMessage(bool success, string answer)
+    protected override void recieveResponse(bool success, string answer)
     {
         if (success)
         {
@@ -50,7 +50,7 @@ public class LLMConectorClientMeeting : LLMConector
             }
             else if (!jsonResponse.respuestaCoherente)
             {
-                _uiMeeting.EndPendingMessage("Perdona pero ¿Podriamos centrarnos en mi caso?");
+                _uiMeeting.EndPendingMessage("Perdona pero ï¿½Podriamos centrarnos en mi caso?");
             }
             else
             {
@@ -61,7 +61,7 @@ public class LLMConectorClientMeeting : LLMConector
             if (_stepCounter < _config[_indexConfig].getStepsChecks().Length && _useSecuritySteps &&
                 (!jsonResponse.respuestaValida || !jsonResponse.respuestaCoherente))
             {
-                SendSecuritySteps(jsonResponse.answer);
+                sendSecuritySteps(jsonResponse.answer);
             }
             else
             {
@@ -83,16 +83,16 @@ public class LLMConectorClientMeeting : LLMConector
 
     public void CallSendContext(int indexConfig = 0)
     {
-        SendContextMessage(indexConfig);
+        sendContextPrompt(indexConfig);
     }
 
-    protected override bool SendContextMessage(int indexConfig = 0)
+    protected override bool sendContextPrompt(int indexConfig = 0)
     {
         _uiMeeting.StartPendingMessage();
 
         _buttonContinue.SetActive(false);
 
-        bool messageSent = base.SendContextMessage(indexConfig);
+        bool messageSent = base.sendContextPrompt(indexConfig);
 
         if (!messageSent)
         {
@@ -102,11 +102,11 @@ public class LLMConectorClientMeeting : LLMConector
         return messageSent;
     }
 
-    protected override bool SendSecuritySteps(string prompt)
+    protected override bool sendSecuritySteps(string prompt)
     {
         _uiMeeting.StartPendingMessage();
 
-        bool securityStepSent = base.SendSecuritySteps(prompt);
+        bool securityStepSent = base.sendSecuritySteps(prompt);
 
         if (!securityStepSent)
         {

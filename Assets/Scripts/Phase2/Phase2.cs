@@ -3,26 +3,26 @@ using UnityEngine.UI;
 
 public class Phase2 : MonoBehaviour
 {
-    [SerializeField] private Button audienciaPreviaButton;
-    [SerializeField] private Button redactarButton;
+    [SerializeField] private Button _priorHearingButton;
+    [SerializeField] private Button _redactLawsuitButton;
 
     /// <summary>
     /// Se llama una vez se ha mandado la demanda al procurador y la devuelve completa y lista sin quejas
     /// Además se tiene que haber intentado la conciliacion
     /// </summary>
     /// <param name="on"></param>
-    public void EnableAudienciaPrevia(bool on)
+    public void EnablePriorHearing(bool on)
     {
-        audienciaPreviaButton.interactable = on;
+        _priorHearingButton.interactable = on;
     }
 
     /// <summary>
     /// Se llama una vez se ha intentado un acuerdo
     /// </summary>
     /// <param name="on"></param>
-    public void EnableRedactar(bool on)
+    public void EnableRedactLawsuit(bool on)
     {
-        redactarButton.interactable = on;
+        _redactLawsuitButton.interactable = on;
     }
 
 
@@ -35,7 +35,7 @@ public class Phase2 : MonoBehaviour
 
     public void FailedConciliation()
     {
-        EnableRedactar(true);
+        EnableRedactLawsuit(true);
         GameSystem.Instance.CaseData.attemptedConciliation = true;
     }
 }

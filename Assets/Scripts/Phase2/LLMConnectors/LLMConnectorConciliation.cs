@@ -21,7 +21,7 @@ public class LLMConnectorConciliation : LLMConector
 
 
 
-    [SerializeField] private ConciliacionPage conciliacionPage;
+    [SerializeField] private ConciliationPage conciliacionPage;
 
     private string answer = "";
     private bool agree = false;
@@ -84,7 +84,7 @@ public class LLMConnectorConciliation : LLMConector
     }
 
 
-    public override void RecieveChatMessage(bool success, string answer)
+    protected override void recieveResponse(bool success, string answer)
     {
         if (success)
         {
@@ -129,7 +129,7 @@ public class LLMConnectorConciliation : LLMConector
                 }
                     
 
-                SendSecuritySteps(nextPrompt);
+                sendSecuritySteps(nextPrompt);
             }
             else
             {
@@ -153,7 +153,7 @@ public class LLMConnectorConciliation : LLMConector
 
     public IEnumerator SendClientPrompt()
     {
-        SendContextMessage(0);
+        sendContextPrompt(0);
         currentPromptType = CurrentPromptType.Cliente;
         _promptSent = true;
 
@@ -171,7 +171,7 @@ public class LLMConnectorConciliation : LLMConector
 
     public IEnumerator SendRivalPromptNormal()
     {
-        SendContextMessage(1);
+        sendContextPrompt(1);
         currentPromptType = CurrentPromptType.RivalNormal;
         _promptSent = true;
 
@@ -190,7 +190,7 @@ public class LLMConnectorConciliation : LLMConector
     {
         currentPromptType = CurrentPromptType.RivalRechazar;
         agree = false;
-        RecieveChatMessage(true, "empty");
+        recieveResponse(true, "empty");
 
         _promptSent = true;
 

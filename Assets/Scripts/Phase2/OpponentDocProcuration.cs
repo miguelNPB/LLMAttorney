@@ -23,8 +23,8 @@ public class OpponentDocConfig
     public List<PromptType> allowedDocTypes = new()
     {
         PromptType.Perito,
-        PromptType.Informe,
-        PromptType.Testigo,
+        PromptType.Report,
+        PromptType.Witness,
     };
 }
 
