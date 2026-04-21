@@ -400,6 +400,22 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3289282077416139693, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 86.9657
+      objectReference: {fileID: 0}
+    - target: {fileID: 3289282077416139693, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 85.9604
+      objectReference: {fileID: 0}
+    - target: {fileID: 3289282077416139693, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 905.5172
+      objectReference: {fileID: 0}
+    - target: {fileID: 3289282077416139693, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 369
+      objectReference: {fileID: 0}
     - target: {fileID: 4036924131006146065, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
       propertyPath: m_Name
       value: GameSystem
@@ -424,12 +440,21 @@ PrefabInstance:
       propertyPath: 'documentButtons.Array.data[1]'
       value: 
       objectReference: {fileID: 901209128}
+    - target: {fileID: 8841508172722580873, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8841508172722580873, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3ba417103662a7b4bb9a388999c5434c, type: 3}
     - target: {fileID: 9150854484525700809, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
       propertyPath: ip
       value: localhost
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1256474046534565466, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
@@ -788,6 +813,46 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1100449084152679590, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: _safeguard
+      value: " Debes incluir los siguientes campos de JSON:\n                - NombreDocumento
+        (string)\n                - TipoDocumento (int, siempre 2)\n               
+        - Coste (int, sin simbolo de moneda, sin texto, sin decimales, solo digitos,
+        por ejemplo: 1000)\n                - ContenidoDocumento (string)\n               
+        - EsValido (boolean)\n\t     -DocumentoCoherente(boolean)\n\n\nSALIDA NO
+        PERMITIDA:\nexplicaciones\nconfirmaciones\ncomentarios\netiquetas\n\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1100449084152679590, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: _stepChecks.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1100449084152679590, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: '_stepChecks.Array.data[7]'
+      value: "Directiva \u2014 Validaci\xF3n y normalizaci\xF3n de documento (DocumentoCoherente)\r\nEval\xFAa
+        y corrige el JSON recibido siguiendo estas reglas. Devuelve siempre el JSON
+        modificado.\r\n1. TipoDocumento\r\nSi TipoDocumento \xB9 2 \xAE reemplazar
+        su valor por 2 (entero).\r\n2. ContenidoDocumento (informe pericial)\r\nDebe
+        ser un informe pericial completo en Espa\xF1a.\r\nSi no lo es \xAE reescribir
+        ContenidoDocumento como informe pericial completo.\r\n3. Secciones obligatorias\r\nContenidoDocumento
+        debe incluir:\r\n- Introduccion\r\n- Descripcion de los hechos\r\n- Metodologia
+        de analisis\r\n- Resultados\r\n- Conclusiones\r\nSi falta alguna \xAE a\xF1adirla.\r\n4.
+        Formato Rich Text\r\nContenidoDocumento debe estar en Rich Text v\xE1lido.\r\nSolo
+        se permiten estas etiquetas:\r\n<align>, <allcaps>, <b>, <color>, <cspace>,
+        <gradient>, <i>, <indent>, <line-height>, <line-indent>,\r\n<link>, <lowercase>,
+        <margin>, <mark>, <mspace>, <nobr>, <noparse>, <page>, <pos>, <rotate>,\r\n<s>,
+        <size>, <smallcaps>, <space>, <sprite>, <sub>, <sup>, <u>, <uppercase>, <voffset>,
+        <width>\r\nLimpieza:\r\n- Eliminar cualquier etiqueta no permitida\r\n- Mantener
+        el texto intacto\r\n- No romper etiquetas v\xE1lidas\r\n5. Idioma\r\nTodo
+        ContenidoDocumento debe estar en espa\xF1ol.\r\nSi no lo est\xE1 \xAE traducir
+        completamente.\r\n6. Coste\r\nDebe ser coherente con un informe pericial
+        en Espa\xF1a.\r\nAjustar si es incorrecto.\nFormato: solo n\xFAmero (sin
+        s\xEDmbolo).\r\n7. Validaci\xF3n final\r\nSi se ha tenido que modificar cualquier
+        campo o el documento no cumple los requisitos:\r\n\"DocumentoCoherente\":
+        false\r\nSi todo ya era correcto:\r\n\"DocumentoCoherente\": true\r\nRestricciones:\r\n-
+        No explicar nada\r\n- No a\xF1adir texto fuera del JSON\r\n- No cambiar estructura
+        del JSON\r\n- Solo corregir seg\xFAn reglas\r\n- Devolver siempre el JSON
+        completo"
+      objectReference: {fileID: 0}
     - target: {fileID: 1567364696727931899, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 781.4756

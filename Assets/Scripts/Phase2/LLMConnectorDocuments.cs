@@ -12,6 +12,7 @@ public class LLMConnectorDocuments : LLMConector
         public string ContenidoDocumento;
         public bool DocumentoValido;
         public int CosteDocumento;
+        public bool DocumentoCoherente;
     }
 
     [SerializeField]
@@ -37,13 +38,25 @@ public class LLMConnectorDocuments : LLMConector
             else
             {
                 Debug.Log("Respuesta final");
-                _historical.Add("Respuesta :" + answer);
+        
                 _stepCounter = 0;
                 _promptSent = false;
 
-                GameSystem.Instance.myDocumentManager.CreateDocument(jsonResponse.NombreDocumento, jsonResponse.TipoDocumento, jsonResponse.ContenidoDocumento, jsonResponse.DocumentoValido, jsonResponse.CosteDocumento);
-                _msgUIComponent.computerSystem.ToggleNotification(Page.ChatCliente, true);
-                _msgUIComponent.EndPendingMessage("Tu cliente te ha mandado " + jsonResponse.NombreDocumento + ".txt");
+                if (jsonResponse.DocumentoCoherente)
+                {
+                    _historical.Add("Respuesta :" + answer);
+                    GameSystem.Instance.myDocumentManager.CreateDocument(jsonResponse.NombreDocumento, jsonResponse.TipoDocumento, jsonResponse.ContenidoDocumento, jsonResponse.DocumentoValido, jsonResponse.CosteDocumento);
+                    _msgUIComponent.computerSystem.ToggleNotification(Page.ChatCliente, true);
+                    _msgUIComponent.EndPendingMessage("Tu cliente te ha mandado " + jsonResponse.NombreDocumento + ".txt");
+                }
+                else
+                {
+                    _historical.Add("Respuesta: texto final sin coherencia");
+                    _msgUIComponent.computerSystem.ToggleNotification(Page.ChatCliente, true);
+                    _msgUIComponent.EndPendingMessage("Perdona pero no he podido conseguir el documento, ¿Puedes ser un poco mas especifico?");
+                    
+                }
+                
             }
         }
         else
@@ -101,6 +114,7 @@ public class LLMConnectorDocuments : LLMConector
         _contextSchema.properties.Add("ContenidoDocumento", new PropertyInfo(JsonDataType.String));
         _contextSchema.properties.Add("DocumentoValido", new PropertyInfo(JsonDataType.Boolean));
         _contextSchema.properties.Add("CosteDocumento", new PropertyInfo(JsonDataType.Integer));
+        _contextSchema.properties.Add("DocumentoCoherente", new PropertyInfo(JsonDataType.Boolean));
 
         _stepsSchema = new JsonSchema();
         _stepsSchema.properties.Add("NombreDocumento", new PropertyInfo(JsonDataType.String));
@@ -108,6 +122,7 @@ public class LLMConnectorDocuments : LLMConector
         _stepsSchema.properties.Add("ContenidoDocumento", new PropertyInfo(JsonDataType.String));
         _stepsSchema.properties.Add("DocumentoValido", new PropertyInfo(JsonDataType.Boolean));
         _stepsSchema.properties.Add("CosteDocumento", new PropertyInfo(JsonDataType.Integer));
+        _stepsSchema.properties.Add("DocumentoCoherente", new PropertyInfo(JsonDataType.Boolean));
 
 
         _schemasCreated = true;
