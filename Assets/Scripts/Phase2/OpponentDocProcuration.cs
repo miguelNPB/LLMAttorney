@@ -144,7 +144,7 @@ public class OpponentDocProcuration : MonoBehaviour
 
     private IEnumerator Init()
     {
-        yield return WaitWhile(!GameSystem.Instance.CaseData.isDemanda);
+        yield return new WaitWhile(() => !GameSystem.Instance.CaseData.isDemanda);
         yield return StartCoroutine(SendChatMessage());
         yield return StartCoroutine(TimedGenerationLoop());
     }

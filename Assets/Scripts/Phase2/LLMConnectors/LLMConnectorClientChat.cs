@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class LLMConnectorClientChat : LLMConector
 {
-    protected override void recieveResponse(bool success, string answer)
+    protected override void receiveResponse(bool success, string answer)
     {
         throw new System.NotImplementedException();
     }

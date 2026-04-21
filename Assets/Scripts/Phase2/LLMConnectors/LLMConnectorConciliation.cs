@@ -84,7 +84,7 @@ public class LLMConnectorConciliation : LLMConector
     }
 
 
-    protected override void recieveResponse(bool success, string answer)
+    protected override void receiveResponse(bool success, string answer)
     {
         if (success)
         {
@@ -190,7 +190,7 @@ public class LLMConnectorConciliation : LLMConector
     {
         currentPromptType = CurrentPromptType.RivalRechazar;
         agree = false;
-        recieveResponse(true, "empty");
+        receiveResponse(true, "empty");
 
         _promptSent = true;
 

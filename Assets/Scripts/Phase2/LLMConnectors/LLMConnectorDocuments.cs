@@ -20,7 +20,7 @@ public class LLMConnectorDocuments : LLMConector
 
     private bool firstTime = true;
 
-    protected override void recieveResponse(bool success, string answer)
+    protected override void receiveResponse(bool success, string answer)
     {
         #if DEBUG
         Debug.Log(answer);

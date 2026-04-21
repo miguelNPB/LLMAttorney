@@ -25,7 +25,7 @@ public class LLMConectorClientMeeting : LLMConector
     private bool _abogadoContratado = false;
 
    
-    protected override void recieveResponse(bool success, string answer)
+    protected override void receiveResponse(bool success, string answer)
     {
         if (success)
         {
