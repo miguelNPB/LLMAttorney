@@ -964,6 +964,132 @@ PrefabInstance:
       propertyPath: m_Name
       value: LLMDocsConfigs
       objectReference: {fileID: 0}
+    - target: {fileID: 4360963193325396214, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: _stepChecks.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4360963193325396214, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: '_stepChecks.Array.data[3]'
+      value: "Comprueba que el campo Coste sea acorde a lo que costaria obtener el
+        informe generado en espa\xF1a, si no es asi, ajustalo solo poniendo el numero,
+        sin simbolo de moneda, lo que costaria obtenerlo con los gastos de gestion.\n\nEl
+        precio deberia rondar entre 70 y 500, ambos incliusive."
+      objectReference: {fileID: 0}
+    - target: {fileID: 4360963193325396214, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: '_stepChecks.Array.data[4]'
+      value: "Comprueba que el campo ContenidoDocumento esta entero en espa\xF1ol,
+        si no es asi, traducelo todo al espa\xF1ol"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4360963193325396214, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: '_stepChecks.Array.data[5]'
+      value: "DIRECTIVA \u2014 VALIDACI\xD3N DE DOCUMENTO (DocumentoCoherente)\n\nEval\xFAa
+        el JSON recibido sin modificar ning\xFAn campo ni su contenido. Solo debes
+        revisar y determinar si cumple todas las condiciones. Devuelve siempre el
+        JSON original sin cambios y a\xF1ade el campo \"DocumentoCoherente\".\n\nTipoDocumento\nComprueba
+        que el campo \"TipoDocumento\" existe y es exactamente el valor entero 3.\n\nContenidoDocumento
+        \u2014 informe\nComprueba que el campo \"ContenidoDocumento\" contiene un
+        informe completo en Espa\xF1a.\n    - T\xEDtulo\n    - Introducci\xF3n\n   
+        - Desarrollo organizado en secciones\n    - An\xE1lisis de la situaci\xF3n
+        actual\n    - Datos relevantes\n    - Conclusiones\n    - Recomendaciones\n\nIdioma\nComprueba
+        que todo el contenido de \"ContenidoDocumento\" est\xE1 completamente en
+        espa\xF1ol.\n\nCoste\nComprueba que el campo \"Coste\":\nes un n\xFAmero\nes
+        coherente con un informe en Espa\xF1a\nno contiene s\xEDmbolos de moneda\n\nValidaci\xF3n
+        final\n\nSi TODAS las condiciones anteriores se cumplen:\n\"DocumentoCoherente\":
+        true\n\nSi ALGUNA condici\xF3n no se cumple:\n\"DocumentoCoherente\": false\n\nRESTRICCIONES\n\nNo
+        modificar ning\xFAn campo del JSON\nNo corregir contenido\nNo a\xF1adir texto
+        adicional\nNo explicar nada\nNo reformular\nSolo a\xF1adir el campo \"DocumentoCoherente\"
+        al resultado\nDevolver siempre el JSON completo original junto con el resultado
+        de validaci\xF3n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4360963193325396214, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: '_stepChecks.Array.data[6]'
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738533614726852998, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: _stepChecks.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738533614726852998, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: '_stepChecks.Array.data[3]'
+      value: Comprueba que el campo CosteDocumento sea el gasto de obtener la factura,
+        que solo deberian de ser gastos de gestion, deberia rondar entre los 0 y
+        10. Si no es asi, cambialo para que este entre esos dos valores, ambos inclusive.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738533614726852998, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: '_stepChecks.Array.data[4]'
+      value: "Comprueba que el campo ContenidoDocumento esta entero en espa\xF1ol,
+        si no es asi, traducelo todo al espa\xF1ol"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738533614726852998, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: '_stepChecks.Array.data[5]'
+      value: "DIRECTIVA \u2014 VALIDACI\xD3N DE DOCUMENTO (DocumentoCoherente)\n\nEval\xFAa
+        el JSON recibido sin modificar ning\xFAn campo ni su contenido. Solo debes
+        revisar y determinar si cumple todas las condiciones. Devuelve siempre el
+        JSON original sin cambios y a\xF1ade el campo \"DocumentoCoherente\".\n\nTipoDocumento\nComprueba
+        que el campo \"TipoDocumento\" existe y es exactamente el valor entero 5.\n\nContenidoDocumento
+        \u2014 informe\nComprueba que el campo \"ContenidoDocumento\" contiene un
+        informe completo en Espa\xF1a.\n- Nombre del negocio\n- Direcci\xF3n\n- Fecha
+        y hora\n- Productos/servicios\n- Subtotal\n- Impuestos (si aplica)\n- Total\n-
+        M\xE9todo de pago\n\n\nIdioma\nComprueba que todo el contenido de \"ContenidoDocumento\"
+        est\xE1 completamente en espa\xF1ol.\n\nCoste\nComprueba que el campo \"Coste\":\nes
+        un n\xFAmero\nes coherente con la obtencion de un recibo en Espa\xF1a, que
+        deberia ser entre 0 y 10\nno contiene s\xEDmbolos de moneda\n\nValidaci\xF3n
+        final\n\nSi TODAS las condiciones anteriores se cumplen:\n\"DocumentoCoherente\":
+        true\n\nSi ALGUNA condici\xF3n no se cumple:\n\"DocumentoCoherente\": false\n\nRESTRICCIONES\n\nNo
+        modificar ning\xFAn campo del JSON\nNo corregir contenido\nNo a\xF1adir texto
+        adicional\nNo explicar nada\nNo reformular\nSolo a\xF1adir el campo \"DocumentoCoherente\"
+        al resultado\nDevolver siempre el JSON completo original junto con el resultado
+        de validaci\xF3n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738533614726852998, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: '_stepChecks.Array.data[6]'
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807911649745812658, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: _stepChecks.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807911649745812658, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: '_stepChecks.Array.data[3]'
+      value: "Comprueba que el campo Coste sea acorde a lo que costaria obtener la
+        declaracion del testigo por gastos de gestion, generada en espa\xF1a, si
+        no es asi, ajustalo solo poniendo el numero, sin simbolo de moneda, lo que
+        costaria obtenerlo con los gastos de gestion.\n\nSi esta firmado sin mas,
+        el coste deberia de ser 0.\nSi esta formalizada la firma por un abogado o
+        notario, deberia de ser el coste entre 30 y 120."
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807911649745812658, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: '_stepChecks.Array.data[4]'
+      value: "Comprueba que el campo ContenidoDocumento esta entero en espa\xF1ol,
+        si no es asi, traducelo todo al espa\xF1ol"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807911649745812658, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: '_stepChecks.Array.data[5]'
+      value: "DIRECTIVA \u2014 VALIDACI\xD3N DE DOCUMENTO (DocumentoCoherente)\n\nEval\xFAa
+        el JSON recibido sin modificar ning\xFAn campo ni su contenido. Solo debes
+        revisar y determinar si cumple todas las condiciones. Devuelve siempre el
+        JSON original sin cambios y a\xF1ade el campo \"DocumentoCoherente\".\n\nTipoDocumento\nComprueba
+        que el campo \"TipoDocumento\" existe y es exactamente el valor entero 4.\n\nContenidoDocumento
+        \u2014 Declaracion de un testigo\nComprueba que el campo \"ContenidoDocumento\"
+        contiene una declaracion de un testigo completa en Espa\xF1a.\nSecciones
+        obligatorias\n\nComprueba que \"ContenidoDocumento\" incluye todas las siguientes
+        secciones:\n Datos del testigo \n Declaracion \n Descripci\xF3n cronol\xF3gica
+        de los hechos\n Detalles sensoriales \n Nivel de seguridad o dudas en lo
+        declarado\n Cierre formal\n\nIdioma\nComprueba que todo el contenido de \"ContenidoDocumento\"
+        est\xE1 completamente en espa\xF1ol.\n\nCoste\nComprueba que el campo \"Coste\":\nes
+        un n\xFAmero\nes coherente con el coste de obtener una declaracion de un
+        testigo en Espa\xF1a\nno contiene s\xEDmbolos de moneda\n\nValidaci\xF3n
+        final\n\nSi TODAS las condiciones anteriores se cumplen:\n\"DocumentoCoherente\":
+        true\n\nSi ALGUNA condici\xF3n no se cumple:\n\"DocumentoCoherente\": false\n\nRESTRICCIONES\n\nNo
+        modificar ning\xFAn campo del JSON\nNo corregir contenido\nNo a\xF1adir texto
+        adicional\nNo explicar nada\nNo reformular\nSolo a\xF1adir el campo \"DocumentoCoherente\"
+        al resultado\nDevolver siempre el JSON completo original junto con el resultado
+        de validaci\xF3n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807911649745812658, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: '_stepChecks.Array.data[6]'
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
