@@ -24,7 +24,57 @@ public class LLMConectorClientMeeting : LLMConector
 
     private bool _abogadoContratado = false;
 
-   
+    protected override bool SendContextMessage(int indexConfig = 0)
+    {
+        _uiMeeting.StartPendingMessage();
+
+        _buttonContinue.SetActive(false);
+
+        bool messageSent = base.SendContextMessage(indexConfig);
+
+        if (!messageSent)
+        {
+            _uiMeeting.EndPendingMessage("Puedes volver a repetirmelo por favor?");
+        }
+
+        return messageSent;
+    }
+
+    protected override bool SendSecuritySteps(string prompt)
+    {
+        _uiMeeting.StartPendingMessage();
+
+        bool securityStepSent = base.SendSecuritySteps(prompt);
+
+        if (!securityStepSent)
+        {
+            _uiMeeting.EndPendingMessage("Puedes volver a repetirmelo por favor?");
+        }
+
+        return securityStepSent;
+    }
+
+    protected override void createJsonSchemas()
+    {
+        _contextSchema = new JsonSchema();
+        _contextSchema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
+        _contextSchema.properties.Add("respuesta_valida", new PropertyInfo(JsonDataType.Boolean));
+        _contextSchema.properties.Add("respuesta_coherente", new PropertyInfo(JsonDataType.Boolean));
+        _contextSchema.properties.Add("contratar_abogado", new PropertyInfo(JsonDataType.Boolean));
+
+        _stepsSchema = new JsonSchema();
+        _stepsSchema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
+        _stepsSchema.properties.Add("respuesta_valida", new PropertyInfo(JsonDataType.Boolean));
+        _stepsSchema.properties.Add("respuesta_coherente", new PropertyInfo(JsonDataType.Boolean));
+
+        _schemasCreated = true;
+    }
+
+    private void Awake()
+    {
+        createJsonSchemas();
+    }
+
     public override void recieveChatMessage(bool success, string answer)
     {
         if (success)
@@ -85,56 +135,4 @@ public class LLMConectorClientMeeting : LLMConector
     {
         SendContextMessage(indexConfig);
     }
-
-    protected override bool SendContextMessage(int indexConfig = 0)
-    {
-        _uiMeeting.StartPendingMessage();
-
-        _buttonContinue.SetActive(false);
-
-        bool messageSent = base.SendContextMessage(indexConfig);
-
-        if (!messageSent)
-        {
-            _uiMeeting.EndPendingMessage("Puedes volver a repetirmelo por favor?");
-        }
-
-        return messageSent;
-    }
-
-    protected override bool SendSecuritySteps(string prompt)
-    {
-        _uiMeeting.StartPendingMessage();
-
-        bool securityStepSent = base.SendSecuritySteps(prompt);
-
-        if (!securityStepSent)
-        {
-            _uiMeeting.EndPendingMessage("Puedes volver a repetirmelo por favor?");
-        }
-
-        return securityStepSent;
-    }
-
-    protected override void createJsonSchemas()
-    {
-        _contextSchema = new JsonSchema();
-        _contextSchema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
-        _contextSchema.properties.Add("respuesta_valida", new PropertyInfo(JsonDataType.Boolean));
-        _contextSchema.properties.Add("respuesta_coherente", new PropertyInfo(JsonDataType.Boolean));
-        _contextSchema.properties.Add("contratar_abogado", new PropertyInfo(JsonDataType.Boolean));
-
-        _stepsSchema = new JsonSchema();
-        _stepsSchema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
-        _stepsSchema.properties.Add("respuesta_valida", new PropertyInfo(JsonDataType.Boolean));
-        _stepsSchema.properties.Add("respuesta_coherente", new PropertyInfo(JsonDataType.Boolean));
-
-        _schemasCreated = true;
-    }
-
-    private void Awake()
-    {
-        createJsonSchemas();
-    }
-
 }
