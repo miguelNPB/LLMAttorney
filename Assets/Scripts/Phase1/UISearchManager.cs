@@ -15,6 +15,30 @@ public class UISearchManager : MonoBehaviour
     private string pendingMessage = "";
     private bool waitingPendingMessage = false;
 
+    private IEnumerator CoroutinePendingMessage()
+    {
+        waitingPendingMessage = true;
+
+        float timer = 0;
+
+        while (waitingPendingMessage)
+        {
+            timer += Time.deltaTime;
+
+            resultText.text = "";
+            for (int i = 0; i < (timer % 3); i++)
+                resultText.text += ".";
+
+            yield return null;
+        }
+
+        resultText.text = pendingMessage;
+
+        // actualizar caja de texto y lineas totales
+        //resultText.ForceMeshUpdate();
+
+    }
+
     /// <summary>
     /// Instancia un mensaje y le cambia el color segun si es player o no
     /// </summary>
@@ -43,30 +67,7 @@ public class UISearchManager : MonoBehaviour
 
         StartCoroutine(CoroutinePendingMessage());
     }
-    private IEnumerator CoroutinePendingMessage()
-    {
-        waitingPendingMessage = true;
-
-        float timer = 0;
-
-        while (waitingPendingMessage)
-        {
-            timer += Time.deltaTime;
-
-            resultText.text = "";
-            for (int i = 0; i < (timer % 3); i++)
-                resultText.text += ".";
-
-            yield return null;
-        }
-
-        resultText.text = pendingMessage;
-
-        // actualizar caja de texto y lineas totales
-        //resultText.ForceMeshUpdate();
-
-    }
-
+    
     /// <summary>
     /// Llamar esto para detener la animacion de puntos suspensivos y rellenar el mensaje con el contenido del texto
     /// </summary>
