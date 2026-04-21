@@ -51,13 +51,13 @@ public class LLMConectorSearch : LLMConector
     {
         _contextSchema = new JsonSchema();
         _contextSchema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
-        _contextSchema.properties.Add("respuesta_valida", new PropertyInfo(JsonDataType.Boolean));
-        _contextSchema.properties.Add("respuesta_coherente", new PropertyInfo(JsonDataType.Boolean));
+        _contextSchema.properties.Add("respuestaValida", new PropertyInfo(JsonDataType.Boolean));
+        _contextSchema.properties.Add("respuestaCoherente", new PropertyInfo(JsonDataType.Boolean));
 
         _stepsSchema = new JsonSchema();
         _stepsSchema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
-        _stepsSchema.properties.Add("respuesta_valida", new PropertyInfo(JsonDataType.Boolean));
-        _stepsSchema.properties.Add("respuesta_coherente", new PropertyInfo(JsonDataType.Boolean));
+        _stepsSchema.properties.Add("respuestaValida", new PropertyInfo(JsonDataType.Boolean));
+        _stepsSchema.properties.Add("respuestaCoherente", new PropertyInfo(JsonDataType.Boolean));
 
         _schemasCreated = true;
     }
