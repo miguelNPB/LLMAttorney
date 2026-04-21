@@ -72,7 +72,7 @@ public class BudgetManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
         CurrentBudget = startingBudget;
         TotalExpenses = 0f;
