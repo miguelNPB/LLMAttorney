@@ -19,7 +19,8 @@ public class GameSystem : MonoBehaviour
             return instance;
         }
     }
-    private CaseData _caseData = null; public CaseData CaseData { get { return _caseData; } }
+    private CaseData _caseData = null; 
+    public CaseData CaseData { get { return _caseData; } }
 
     [SerializeField]
     public DocumentManager myDocumentManager;

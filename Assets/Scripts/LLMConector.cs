@@ -43,7 +43,7 @@ public abstract class LLMConector : MonoBehaviour
     /// </summary>
     /// <param name="success">muestra si ha podido obtenerse una respuesta del LLM</param>
     /// <param name="answer">texto plano que ha sacado el LLM como output</param>
-    protected abstract void recieveResponse(bool success, string answer);
+    protected abstract void receiveResponse(bool success, string answer);
 
     /// <summary>
     /// Metodo que crea los esquemas y propiedades que debe devolver las llamadas al LLM
@@ -138,7 +138,7 @@ public abstract class LLMConector : MonoBehaviour
 
         float timer = 0;
 
-        while (!LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, recieveResponse, prompt, configLLM, schema,
+        while (!LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, receiveResponse, prompt, configLLM, schema,
             _config[_indexConfig].getTemperature(), false))
         {
             timer += Time.deltaTime;
@@ -153,7 +153,7 @@ public abstract class LLMConector : MonoBehaviour
 
         float timer = 0;
 
-        while (!LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, recieveResponse, prompt, configLLM, schema,
+        while (!LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, receiveResponse, prompt, configLLM, schema,
             _config[_indexConfig].getTemperature(), _config[_indexConfig].getRagUse(), (int)_config[_indexConfig].getRagFileType()))
         {
             timer += Time.deltaTime;

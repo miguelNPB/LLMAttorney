@@ -62,7 +62,7 @@ public class LLMConectorSearch : LLMConector
         _schemasCreated = true;
     }
 
-    protected override void recieveResponse(bool success, string answer)
+    protected override void receiveResponse(bool success, string answer)
     {
         Debug.Log("Respuesta cruda: " + answer);
 

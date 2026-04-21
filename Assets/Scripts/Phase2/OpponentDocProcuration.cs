@@ -47,10 +47,10 @@ public class OpponentDocProcuration : MonoBehaviour
     {
         StartCoroutine(Init());
 
-        if (!GameSystem.Instance.CaseData.isDemanda)
-        {
-            GenerateStartingDocs();
-        }
+        //if (!GameSystem.Instance.CaseData.isDemanda)
+        //{
+        //    GenerateStartingDocs();
+        //}
     }
 
     public void OnDocumentGenerated(Document playerDoc)
@@ -66,23 +66,23 @@ public class OpponentDocProcuration : MonoBehaviour
     
     //Preguntar genéricamente por una lista de múltiples temas de documentos periciales pertinenetes al caso
     //Si la llm es demandante enviar 3-5 temas a generar de golpe a través del flujo normal
-    private void GenerateStartingDocs()
-    {
-        int i = UnityEngine.Random.Range(3, config.maxStartingDocs + 1);
-        while (config.docThemes.Count > 0 && i > 0)
-        {
-            int j = UnityEngine.Random.Range(0, config.docThemes.Count);
-            string theme = config.docThemes[j];
+    //private void GenerateStartingDocs()
+    //{
+    //    int i = UnityEngine.Random.Range(3, config.maxStartingDocs + 1);
+    //    while (config.docThemes.Count > 0 && i > 0)
+    //    {
+    //        int j = UnityEngine.Random.Range(0, config.docThemes.Count);
+    //        string theme = config.docThemes[j];
 
-            string prompt =
-                $"Genera un documento pericial de parte contraria relacionado con: {theme}. " +
-                $"Debilita la posición del abogado defensor.";
-            SetInputAndSend(prompt);
+    //        string prompt =
+    //            $"Genera un documento pericial de parte contraria relacionado con: {theme}. " +
+    //            $"Debilita la posición del abogado defensor.";
+    //        SetInputAndSend(prompt);
 
-            config.docThemes.RemoveAt(j);
-            i--;
-        }
-    }
+    //        config.docThemes.RemoveAt(j);
+    //        i--;
+    //    }
+    //}
 
     private IEnumerator SendChatMessage()
     {
@@ -127,7 +127,9 @@ public class OpponentDocProcuration : MonoBehaviour
 
     private string BuildTimedPrompt()
     {
+        int aux = UnityEngine.Random.Range(0, config.docThemes.Count);
         string themes = config.docThemes[UnityEngine.Random.Range(0, config.docThemes.Count)];
+        config.docThemes.RemoveAt(aux);
 
         //StartCoroutine(TimedGenerationLoop());
         //TODO ajustar el prompt
@@ -142,7 +144,13 @@ public class OpponentDocProcuration : MonoBehaviour
 
     private IEnumerator Init()
     {
+        yield return new WaitWhile(() => !GameSystem.Instance.CaseData.isDemanda);
         yield return StartCoroutine(SendChatMessage());
         yield return StartCoroutine(TimedGenerationLoop());
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
     }
 }
