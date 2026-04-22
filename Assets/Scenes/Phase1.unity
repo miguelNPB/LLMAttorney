@@ -1280,6 +1280,17 @@ Transform:
   - {fileID: 1884361498}
   m_Father: {fileID: 2026908088}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1227747735 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8057441202603224496, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+  m_PrefabInstance: {fileID: 6430441125739056708}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &1246488846
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1367,6 +1378,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1256474046534565466, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
+    - {fileID: 214798650414380032, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
@@ -1432,16 +1444,16 @@ MonoBehaviour:
     bastante importantes en mi casa, principalmente humedades en el techo del sal\xF3n
     y en una de las habitaciones. Con el tiempo han ido empeorando, apareciendo moho,
     desprendi\xE9ndose la pintura e incluso afectando al suelo de parquet, que se
-    ha levantado en algunas zonas.\n\nDespu\xE9s de varias comprobaciones, todo apunta
+    ha levantado en algunas zonas. Despu\xE9s de varias comprobaciones, todo apunta
     a que el origen del problema est\xE1 en la vivienda de arriba, propiedad de mi
     vecina. Seg\xFAn me indic\xF3 un t\xE9cnico que contrat\xE9, parece que hay una
     fuga en una tuber\xEDa de su ba\xF1o, y el agua est\xE1 filtr\xE1ndose hacia
     mi vivienda. Yo intent\xE9 solucionarlo de forma amistosa, habl\xE9 con ella
     en varias ocasiones y le envi\xE9 un burofax solicitando que revisara la instalaci\xF3n
     y se hiciera cargo de la reparaci\xF3n, pero no obtuve una soluci\xF3n. B\xE1sicamente
-    niega que el problema sea suyo y no ha tomado medidas efectivas.\n\nLo que me
-    gustar\xEDa saber es si con esto es viable interponer una demanda por responsabilidad
-    civil, qu\xE9 opciones tengo de ganar el caso."
+    niega que el problema sea suyo y no ha tomado medidas efectivas. Lo que me gustar\xEDa
+    saber es si con esto es viable interponer una demanda por responsabilidad civil,
+    qu\xE9 opciones tengo de ganar el caso."
 --- !u!114 &1280167836 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 429528152396629215, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
@@ -2860,8 +2872,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 912615290}
     m_Modifications:
     - target: {fileID: 429528152396629215, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: _textContainer
+      value: 
+      objectReference: {fileID: 1227747735}
+    - target: {fileID: 429528152396629215, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
       propertyPath: maxCharactersInContainer
       value: 560
+      objectReference: {fileID: 0}
+    - target: {fileID: 429528152396629215, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: _maxCharactersInContainer
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 560960862846232664, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
       propertyPath: _buttonContinue
@@ -3303,6 +3323,10 @@ PrefabInstance:
     - target: {fileID: 7894614424648647786, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8057441202603224496, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_text
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8057441202603224496, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
       propertyPath: m_fontAsset

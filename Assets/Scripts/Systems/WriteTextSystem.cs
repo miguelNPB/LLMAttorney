@@ -19,7 +19,12 @@ public class WriteTextSystem : MonoBehaviour
     public bool IsTyping() => _isTyping;
     public void WriteText(string text)
     {
-        if (_isTyping) StopCoroutine(_typingCoroutine);
+
+        if (_isTyping)
+        {
+            StopCoroutine(_typingCoroutine);
+        }
+
         _typingCoroutine = StartCoroutine(TypeConversation(text));
     }
 
@@ -81,7 +86,8 @@ public class WriteTextSystem : MonoBehaviour
     }
 
     public IEnumerator TypeText(string text)
-    {
+    {   
+
         _textContainer.text = text;
         _textContainer.maxVisibleCharacters = 0;
         _textContainer.ForceMeshUpdate();
