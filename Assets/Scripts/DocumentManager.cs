@@ -1,7 +1,9 @@
+using Mono.Cecil.Cil;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static Unity.Burst.Intrinsics.X86;
 
 public enum PromptType { Question, Conversation, Perito, Report, Witness, DocAlt }
 
@@ -285,6 +287,14 @@ public class DocumentManager : MonoBehaviour
 
         if (BudgetManager.Instance != null)
             BudgetManager.Instance.AddExpense($"0 {cost}", docType, docName);
+    }
+
+    public void AddDocumentAUX(string docName, PromptType docType, string content, bool valid, int cost, bool isOpponentDoc = false)
+    {
+
+        Document doc = new Document();
+        doc.SetDoc(docName, docType, content, valid, cost, isOpponentDoc);
+        documents.Add(doc);
     }
 
     void SetWindowTitle(string title)

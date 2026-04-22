@@ -68,7 +68,7 @@ public class LLMConnectorClientChat : LLMConector
 
     private void Start()
     {
-        _config[0].context = "Te llamas " + GameSystem.Instance.CaseData.clientName+  ". " + _config[0].context + "\nResumen del caso: " + GameSystem.Instance.CaseData.caseDescription;
+        _config[0].context = "Te llamas " + GameSystem.Instance.CaseData.clientName +  ". " + _config[0].context + "\nResumen del caso: " + GameSystem.Instance.CaseData.caseDescription;
     }
 
     private void Awake()

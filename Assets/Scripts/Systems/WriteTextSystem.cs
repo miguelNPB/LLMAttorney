@@ -1,18 +1,22 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using System;
 
 public class WriteTextSystem : MonoBehaviour
 {
     [Header("Configuracion")]
-    [SerializeField] private TextMeshProUGUI textContainer;
-    [SerializeField] private int maxCharactersInContainer;
-    [SerializeField] private float typingSpeed = 0.05f;
+    [SerializeField] private TextMeshProUGUI _textContainer;
+    [SerializeField] private int _maxCharactersInContainer;
+    [SerializeField] private float _typingSpeed = 0.05f;
 
     private Coroutine _typingCoroutine;
     private bool _isTyping = false;
     private bool _waitingInputToContinue = false;
 
+    public Action onFinishTyping;
+
+    public bool IsTyping() => _isTyping;
     public void WriteText(string text)
     {
         if (_isTyping) StopCoroutine(_typingCoroutine);
@@ -23,7 +27,7 @@ public class WriteTextSystem : MonoBehaviour
     {
         if (_isTyping && !_waitingInputToContinue)
         {
-            textContainer.maxVisibleCharacters = textContainer.text.Length;
+            _textContainer.maxVisibleCharacters = _textContainer.text.Length;
         }
 
         _waitingInputToContinue = false;
@@ -39,7 +43,7 @@ public class WriteTextSystem : MonoBehaviour
             _waitingInputToContinue = false;
 
             int remainingCharacters = text.Length - textCount;
-            int currentChunkSize = Mathf.Min(maxCharactersInContainer, remainingCharacters);
+            int currentChunkSize = Mathf.Min(_maxCharactersInContainer, remainingCharacters);
 
             string potentialText = text.Substring(textCount, currentChunkSize);
 
@@ -48,7 +52,7 @@ public class WriteTextSystem : MonoBehaviour
             {
                 currentChunkSize = lineBreakIndex + 1;
             }
-            else if (remainingCharacters > maxCharactersInContainer)
+            else if (remainingCharacters > _maxCharactersInContainer)
             {
                 int lastSpaceIndex = potentialText.LastIndexOf(' ');
                 if (lastSpaceIndex > 0)
@@ -66,6 +70,8 @@ public class WriteTextSystem : MonoBehaviour
             if (textCount < text.Length)
             {
                 _waitingInputToContinue = true;
+                onFinishTyping?.Invoke();
+
                 while (_waitingInputToContinue)
                     yield return null;
             }
@@ -76,9 +82,9 @@ public class WriteTextSystem : MonoBehaviour
 
     public IEnumerator TypeText(string text)
     {
-        textContainer.text = text;
-        textContainer.maxVisibleCharacters = 0;
-        textContainer.ForceMeshUpdate();
+        _textContainer.text = text;
+        _textContainer.maxVisibleCharacters = 0;
+        _textContainer.ForceMeshUpdate();
 
         int totalVisibleCharacters = text.Length;
         int counter = 0;
@@ -86,14 +92,17 @@ public class WriteTextSystem : MonoBehaviour
         while (counter <= totalVisibleCharacters)
         {
             // Si el usuario hizo SkipTyping, maxVisibleCharacters ya será igual al length
-            if (textContainer.maxVisibleCharacters >= totalVisibleCharacters)
+            if (_textContainer.maxVisibleCharacters >= totalVisibleCharacters)
                 yield break;
 
-            textContainer.maxVisibleCharacters = counter;
+            _textContainer.maxVisibleCharacters = counter;
             counter++;
-            yield return new WaitForSeconds(typingSpeed);
+            yield return new WaitForSeconds(_typingSpeed);
         }
     }
 
-    public bool IsTyping() => _isTyping;
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
 }
