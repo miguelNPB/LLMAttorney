@@ -70,7 +70,7 @@ public class Document : MonoBehaviour
     public PromptType GetDocType() { return this.docType; }
     public string GetContent() { return this.content; }
     public bool IsValid() {  return this.valid; }
-    public bool GetSentToProcurador() {  return sentToProcurador; }
+    public bool IsSentToProcurador() {  return sentToProcurador; }
 
     public bool IsOpponentDoc() { return oppDoc; }
 

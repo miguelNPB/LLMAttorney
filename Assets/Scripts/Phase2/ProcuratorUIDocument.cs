@@ -76,8 +76,8 @@ public class ProcuratorUIDocument : MonoBehaviour
         _documentInfo = document;
         _docNameText.text = _documentInfo.GetDocName();
 
-        _button.interactable = !_documentInfo.GetSentToProcurador();
-        _tickSent.SetActive(_documentInfo.GetSentToProcurador());
+        _button.interactable = !_documentInfo.IsSentToProcurador();
+        _tickSent.SetActive(_documentInfo.IsSentToProcurador());
         _selected.SetActive(false);
     }
 }
