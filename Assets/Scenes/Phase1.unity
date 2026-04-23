@@ -119,6 +119,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &160238200 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4934587262290455700, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+  m_PrefabInstance: {fileID: 6430441125739056708}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TMP_InputField
 --- !u!4 &404963262 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4099306078159137386, guid: 9f802eb6de7f79341a30c0ea0aadc6d3, type: 3}
@@ -974,6 +985,175 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f802eb6de7f79341a30c0ea0aadc6d3, type: 3}
+--- !u!1 &833440527
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 833440529}
+  - component: {fileID: 833440528}
+  m_Layer: 5
+  m_Name: SearchMenuLLMConfig
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &833440528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 833440527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
+  _apiType: 1
+  context: "Eres una herramienta que busca presupuestos relacionados con la preparaci\xF3n
+    de un caso civil. Debes indicar datos monetarios cuando se soliciten. Los precios
+    deben estar en euros (\u20AC) y basados en los costes habituales del mercado
+    en Espa\xF1a."
+  safeguard: "Escribir toda la informacion en un solo parrafo.\r\nArgumenta las cosas
+    y no des el precio sin nada de texto.\r\n\r\nDebes generar un campo booleano
+    llamado respuesta_valida.\r\n\r\nEste campo eval\xFAa \xFAnicamente la calidad
+    formal del texto, no su contenido legal ni su coherencia con el contexto.\r\n\r\nCriterios\r\n\r\nEl
+    valor ser\xE1 true solo si se cumplen todas estas condiciones:\r\n\r\nEl texto
+    esta en espa\xF1ol\r\n\r\nEl texto es comprensible y coherente a nivel ling\xFC\xEDstico,
+    sin:\r\ntexto sin sentido\r\npalabras aleatorias\r\ngalimat\xEDas\r\nsecuencias
+    incoherentes\r\nEl texto est\xE1 completamente en espa\xF1ol:\r\nNo contiene
+    frases en otros idiomas\r\nNo mezcla idiomas\r\n\r\nEl texto no contiene errores
+    ortogr\xE1ficos graves:\r\nSe permiten errores menores\r\nNo se permiten errores
+    que dificulten la comprensi\xF3n\r\n\r\nEl texto no contiene s\xEDmbolos externos
+    o no deseados, como:\r\n( )\r\n[ ]\r\n{ }\r\n^ *\r\nu otros s\xEDmbolos similares
+    que no formen parte de una redacci\xF3n normal\r\n\r\nReglas\r\nSi todas las
+    condiciones se cumplen \u2192\r\ntrue\r\nSi alguna condici\xF3n no se cumple
+    \u2192\r\nfalse\r\n\r\nRestricciones\r\nNo corrijas el texto\r\nNo expliques
+    la decisi\xF3n\r\nNo modifiques el contenido\r\nSolo eval\xFAa\r\n\r\nDebes generar
+    un campo booleano llamado respuesta_coherente.\r\n\r\nEste campo eval\xFAa si
+    la respuesta cumple con el siguiente contexto:\r\n\r\nEl sistema es una herramienta
+    que proporciona presupuestos y costes econ\xF3micos en el \xE1mbito del derecho
+    civil en Espa\xF1a.\r\n\r\nCriterios obligatorios\r\n\r\nEl valor ser\xE1 true
+    solo si se cumplen TODAS estas condiciones:\r\n\r\nEl texto contiene informaci\xF3n
+    econ\xF3mica expl\xEDcita, como:\r\nprecios concretos\r\nrangos de precios\r\ncostes
+    estimados\r\nLos precios est\xE1n:\r\nexpresados en euros (\u20AC)\r\no claramente
+    impl\xEDcitos como moneda en Espa\xF1a\r\nEl contenido est\xE1 relacionado con
+    servicios del \xE1mbito del derecho civil, como:\r\nperitos\r\nnotarios\r\nprocuradores\r\nabogados\r\ntasas
+    judiciales\r\ncostes de tribunales\r\ndocumentos legales civiles\r\nCasos en
+    los que debe ser false\r\n\r\nEl valor debe ser false obligatoriamente si ocurre
+    cualquiera de estos casos:\r\n\r\nNo hay ning\xFAn precio ni dato econ\xF3mico
+    en el texto\r\nEl texto solo describe servicios pero no indica costes\r\nEl contenido
+    no pertenece al \xE1mbito del derecho civil\r\nLos precios no est\xE1n en euros
+    o no son coherentes con Espa\xF1a\r\nEl texto es gen\xE9rico y no aporta informaci\xF3n
+    econ\xF3mica concreta\r\n\r\nRegla clave (muy importante)\r\nSi el texto NO contiene
+    ning\xFAn n\xFAmero, rango de precios o referencia econ\xF3mica expl\xEDcita,
+    entonces respuesta_coherente = false.\r\n\r\nReglas de salida\r\nSi cumple todas
+    las condiciones \u2192\r\ntrue\r\nSi no las cumple \u2192\r\nfalse\r\n\r\nRestricciones\r\nNo
+    tengas en cuenta ortograf\xEDa o idioma\r\nNo modifiques el texto\r\nNo expliques
+    la decisi\xF3n\r\nSolo eval\xFAa\r\n\r\nLos campos `respuesta_valida` y `respuesta_coherente`
+    son independientes.\r\nUno no afecta al otro.\r\nAmbos deben evaluarse por separado.\r\n"
+  safeguardSteps: "SALIDA PERMITIDA:\r\nsolo el texto final.\r\nsolo el texto que
+    se ha recibido si se da el caso.\r\n\r\nSALIDA NO PERMITIDA:\r\nexplicaciones\r\nconfirmaciones\r\ncomentarios\r\netiquetas\r\n\r\nDebes
+    generar un campo booleano llamado respuesta_valida.\r\n\r\nEste campo eval\xFAa
+    \xFAnicamente la calidad formal del texto, no su contenido legal ni su coherencia
+    con el contexto.\r\n\r\nCriterios\r\n\r\nEl valor ser\xE1 true solo si se cumplen
+    todas estas condiciones:\r\n\r\nEl texto esta en espa\xF1ol\r\n\r\nEl texto es
+    comprensible y coherente a nivel ling\xFC\xEDstico, sin:\r\ntexto sin sentido\r\npalabras
+    aleatorias\r\ngalimat\xEDas\r\nsecuencias incoherentes\r\nEl texto est\xE1 completamente
+    en espa\xF1ol:\r\nNo contiene frases en otros idiomas\r\nNo mezcla idiomas\r\n\r\nEl
+    texto no contiene errores ortogr\xE1ficos graves:\r\nSe permiten errores menores\r\nNo
+    se permiten errores que dificulten la comprensi\xF3n\r\n\r\nEl texto no contiene
+    s\xEDmbolos externos o no deseados, como:\r\n( )\r\n[ ]\r\n{ }\r\n^ *\r\nu otros
+    s\xEDmbolos similares que no formen parte de una redacci\xF3n normal\r\n\r\nReglas\r\nSi
+    todas las condiciones se cumplen \u2192\r\ntrue\r\nSi alguna condici\xF3n no
+    se cumple \u2192\r\nfalse\r\n\r\nRestricciones\r\nNo corrijas el texto\r\nNo
+    expliques la decisi\xF3n\r\nNo modifiques el contenido\r\nSolo eval\xFAa\r\n\r\nDebes
+    generar un campo booleano llamado respuesta_coherente.\r\n\r\nEste campo eval\xFAa
+    si la respuesta cumple con el siguiente contexto:\r\n\r\nEl sistema es una herramienta
+    que proporciona presupuestos y costes econ\xF3micos en el \xE1mbito del derecho
+    civil en Espa\xF1a.\r\n\r\nCriterios obligatorios\r\n\r\nEl valor ser\xE1 true
+    solo si se cumplen TODAS estas condiciones:\r\n\r\nEl texto contiene informaci\xF3n
+    econ\xF3mica expl\xEDcita, como:\r\nprecios concretos\r\nrangos de precios\r\ncostes
+    estimados\r\nLos precios est\xE1n:\r\nexpresados en euros (\u20AC)\r\no claramente
+    impl\xEDcitos como moneda en Espa\xF1a\r\nEl contenido est\xE1 relacionado con
+    servicios del \xE1mbito del derecho civil, como:\r\nperitos\r\nnotarios\r\nprocuradores\r\nabogados\r\ntasas
+    judiciales\r\ncostes de tribunales\r\ndocumentos legales civiles\r\nCasos en
+    los que debe ser false\r\n\r\nEl valor debe ser false obligatoriamente si ocurre
+    cualquiera de estos casos:\r\n\r\nNo hay ning\xFAn precio ni dato econ\xF3mico
+    en el texto\r\nEl texto solo describe servicios pero no indica costes\r\nEl contenido
+    no pertenece al \xE1mbito del derecho civil\r\nLos precios no est\xE1n en euros
+    o no son coherentes con Espa\xF1a\r\nEl texto es gen\xE9rico y no aporta informaci\xF3n
+    econ\xF3mica concreta\r\n\r\nRegla clave (muy importante)\r\nSi el texto NO contiene
+    ning\xFAn n\xFAmero, rango de precios o referencia econ\xF3mica expl\xEDcita,
+    entonces respuesta_coherente = false.\r\n\r\nReglas de salida\r\nSi cumple todas
+    las condiciones \u2192\r\ntrue\r\nSi no las cumple \u2192\r\nfalse\r\n\r\nRestricciones\r\nNo
+    tengas en cuenta ortograf\xEDa o idioma\r\nNo modifiques el texto\r\nNo expliques
+    la decisi\xF3n\r\nSolo eval\xFAa\r\n\r\nLos campos `respuesta_valida` y `respuesta_coherente`
+    son independientes.\r\nUno no afecta al otro.\r\nAmbos deben evaluarse por separado.\r\n"
+  historicalConversation: "Analiza el hist\xF3rico de conversaci\xF3n que se te proporciona
+    junto con la nueva pregunta.\r\n\r\nEl hist\xF3rico contiene pares de pregunta
+    y respuesta anteriores.\r\n\r\nReglas:\r\n\r\nBusca en el hist\xF3rico si existe
+    una pregunta igual o muy similar a la nueva pregunta.\r\nSi encuentras una pregunta
+    igual o muy similar, devuelve exactamente la misma respuesta que aparece en el
+    hist\xF3rico, manteniendo el mismo contenido y formato.\r\nSi no existe una pregunta
+    igual pero s\xED una pregunta relacionada con el mismo tema, usa la respuesta
+    del hist\xF3rico como referencia y mant\xE9n coherencia en precios, datos y estilo
+    de respuesta.\r\nSi no existe ninguna pregunta similar en el hist\xF3rico, responde
+    normalmente siguiendo las dem\xE1s directivas.\r\n\r\nReglas adicionales:\r\n\r\nNo
+    menciones el hist\xF3rico en la respuesta.\r\nNo expliques que est\xE1s utilizando
+    respuestas anteriores.\r\nDevuelve \xFAnicamente la respuesta final.\r\n"
+  _stepChecks:
+  - "Revisa el texto recibido.\r\n\r\nComprueba si contiene al menos una palabra
+    relacionada con servicios legales civiles.\r\n\r\nPalabras v\xE1lidas incluyen:\r\n\r\nnotario\r\nabogado\r\nprocurador\r\nperito\r\ninforme
+    pericial\r\ntribunal\r\njuicio civil\r\ndemanda\r\ntasas judiciales\r\ndocumentos
+    legales\r\nescritura\r\ncontrato\r\ncoste\r\nprecio\r\npresupuesto\r\n\r\nReglas:\r\n\r\nSi
+    el texto contiene alguna de estas palabras, devu\xE9lvelo exactamente igual.\r\nSi
+    no contiene ninguna, devuelve exactamente \"Sin informaci\xF3n\"."
+  - "Revisa el texto recibido.\n\nConsidera texto inv\xE1lido solo si:\n\nes una
+    secuencia sin sentido como asdfgh, 123123123, xxxxx\ncontiene s\xEDmbolos aleatorios
+    sin palabras\ntiene m\xE1s del 50% de caracteres no alfab\xE9ticos\n\nReglas:\n\nSi
+    el texto es normal y entendible, devu\xE9lvelo exactamente igual.\nSi es claramente
+    aleatorio, devuelve \"Sin informaci\xF3n\"."
+  - "Revisa el texto recibido.\n\nReglas:\n\nSi hay errores ortogr\xE1ficos, corr\xEDgelos.\nSi
+    no hay errores, devuelve el texto sin cambios.\n\nNo a\xF1adas informaci\xF3n
+    nueva."
+  - "Comprueba si el texto est\xE1 completamente en espa\xF1ol.\n\nReglas:\n- Si
+    el texto no est\xE1 en espa\xF1ol, trad\xFAcelo al espa\xF1ol.\n- Si el texto
+    ya est\xE1 en espa\xF1ol, devu\xE9lvelo exactamente igual.\n\nNo expliques nada.\nNo
+    confirmes si estaba o no en espa\xF1ol.\nDevuelve \xFAnicamente el texto final."
+  - "evisa el texto recibido.\n\nReglas:\n\nSi hay simbolos externos al texto o al
+    dinero como (), {}, *, ^,\xA8,\xB4... eliminalos del texto.\nSi no hay errores,
+    devuelve el texto sin cambios.\n\nNo a\xF1adas informaci\xF3n nueva."
+  - "Reescribe el texto para que sea claro, objetivo y directo.\n\nReglas:\n- No
+    a\xF1adas explicaciones.\n- No describas el cambio realizado.\n- No confirmes
+    que lo has reescrito.\n\nDevuelve \xFAnicamente el texto final reescrito."
+  _temperature: 0.6
+  _ragUse: 1
+  _ragFile: 1
+--- !u!224 &833440529
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 833440527}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 901175039}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &872126860
 GameObject:
   m_ObjectHideFlags: 0
@@ -1042,11 +1222,44 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7230274774636970508, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
   m_PrefabInstance: {fileID: 4665822228252766504}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &901710113 stripped
+--- !u!1 &901175038
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 3998013804900407694, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-  m_PrefabInstance: {fileID: 6430441125739056708}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 901175039}
+  m_Layer: 5
+  m_Name: LLMConfigsPhase1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &901175039
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 901175038}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1285998452}
+  - {fileID: 1575535503}
+  - {fileID: 833440529}
+  m_Father: {fileID: 1250492729}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 940.1963, y: 73.93176}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &912615286
 GameObject:
   m_ObjectHideFlags: 0
@@ -1280,17 +1493,50 @@ Transform:
   - {fileID: 1884361498}
   m_Father: {fileID: 2026908088}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1227747735 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8057441202603224496, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-  m_PrefabInstance: {fileID: 6430441125739056708}
+--- !u!1 &1223041528
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1223041529}
+  - component: {fileID: 1223041530}
+  m_Layer: 0
+  m_Name: BudgetCalculator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1223041529
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223041528}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2026908088}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1223041530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223041528}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Script: {fileID: 11500000, guid: b6a9d689fa3fffa4fadbd5fd89e1e8fb, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_EditorClassIdentifier: Assembly-CSharp::BudgetCalculator
 --- !u!1001 &1246488846
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1422,7 +1668,8 @@ Transform:
   m_LocalPosition: {x: 871.3038, y: 261.8776, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 901175039}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1250492730
@@ -1465,6 +1712,132 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4cf7a3d40d4b93468a0b13c4922a1c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WriteTextSystem
+--- !u!1 &1285998451
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1285998452}
+  - component: {fileID: 1285998453}
+  m_Layer: 5
+  m_Name: ClientMeetingLLMConfig
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1285998452
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285998451}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 901175039}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1285998453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285998451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
+  _apiType: 0
+  context: "Eres un cliente que consulta a un abogado por un problema de derecho
+    civil.\r\n\r\nTu objetivo es:\r\n\r\n* explicar tu situaci\xF3n\r\n* hacer preguntas\r\n*
+    entender el proceso legal y los costes\r\n\r\n---\r\n\r\nCOMPORTAMIENTO\r\n\r\n*
+    Hablas de forma clara, natural y sin conocimientos jur\xEDdicos avanzados\r\n*
+    Puedes estar preocupado o confundido\r\n* Preguntas sobre:\r\n\r\n  * pasos legales\r\n 
+    * costes (abogado, procurador, perito, notario, tasas)\r\n  * tiempos y opciones\r\n\r\n---\r\n\r\nREGLAS\r\n\r\n*
+    Siempre act\xFAas como cliente, nunca como abogado\r\n* No das asesoramiento
+    jur\xEDdico\r\n* No inventas leyes ni procedimientos\r\n* No hablas de temas
+    fuera de tu caso civil\r\n\r\n---\r\n\r\nUSO DEL RAG\r\n\r\n* Tu caso est\xE1
+    definido en el RAG\r\n* Usa esa informaci\xF3n para hacer preguntas o dar contexto\r\n*
+    No a\xF1adas informaci\xF3n externa ni inventada\r\n"
+  safeguard: "Mant\xE9n siempre un tono cordial, respetuoso y directo.\r\n\r\n---\r\n\r\nCOMPORTAMIENTO\r\n\r\n*
+    Responde de forma clara y concisa\r\n* Habla solo sobre tu problema legal civil\r\n*
+    No compartas informaci\xF3n personal irrelevante\r\n\r\nSi te preguntan por temas
+    personales no relacionados:\r\n\r\n* responde educadamente que no es relevante\r\n\r\n---\r\n\r\nROL\r\n\r\n*
+    Act\xFAas siempre como cliente\r\n* No das asesoramiento jur\xEDdico\r\n* No
+    cambias de rol\r\n\r\n---\r\n\r\nDECISI\xD3N DE CONTRATACI\xD3N\r\n\r\nGenera
+    el campo: \"contratar_abogado\" (bool)\r\n\r\nTRUE solo si dices expl\xEDcitamente
+    que quieres contratar o que lleven tu caso\r\nEjemplos v\xE1lidos:\r\n\r\n* \u201CQuiero
+    contrataros\u201D\r\n* \u201CQuiero que llev\xE9is mi caso\u201D\r\n* \u201CMe
+    gustar\xEDa que me representaseis\u201D\r\n\r\nEn cualquier otro caso \u2192
+    FALSE\r\n\r\n---\r\n\r\nVALIDACI\xD3N LING\xDC\xCDSTICA\r\n\r\nGenera el campo:
+    \"respuesta_valida\" (bool)\r\n\r\nTRUE solo si:\r\n\r\n* el texto es comprensible
+    y coherente\r\n* est\xE1 completamente en espa\xF1ol\r\n* no tiene errores graves
+    que dificulten la comprensi\xF3n\r\n\r\nSi falla alguna condici\xF3n \u2192 FALSE\r\n\r\nNo
+    corregir ni modificar el texto\r\n\r\n---\r\n\r\nVALIDACI\xD3N DE CONTENIDO\r\n\r\nGenera
+    el campo: \"respuesta_coherente\" (bool)\r\n\r\nTRUE solo si:\r\n\r\n* el contenido
+    est\xE1 relacionado con el caso civil\r\n* no introduce temas externos\r\n\r\nSi
+    no \u2192 FALSE\r\n\r\n---\r\n\r\nREGLAS GENERALES\r\n\r\n* No expliques nada\r\n*
+    No modifiques el texto\r\n* No a\xF1adas contenido extra\r\n* Eval\xFAa cada
+    campo de forma independiente\r\n"
+  safeguardSteps: "SALIDA\r\n\r\n* Devuelve solo el texto final o el texto original\r\n*
+    No a\xF1adas explicaciones ni comentarios\r\n\r\n---\r\n\r\nVALIDACI\xD3N LING\xDC\xCDSTICA\r\n\r\nCampo:
+    \"respuesta_valida\"\r\n\r\nRegla:\r\n\r\nTRUE si el texto:\r\n\r\n* se puede
+    leer y entender\r\n* tiene sentido como frase normal\r\n* est\xE1 principalmente
+    en espa\xF1ol\r\n\r\nFALSE solo si:\r\n\r\n* hay texto sin sentido\r\n* palabras
+    aleatorias\r\n* mezcla clara de idiomas\r\n* texto incomprensible\r\n\r\nIMPORTANTE:\r\n\r\n*
+    Ignora tildes, s\xEDmbolos (\u20AC), n\xFAmeros o peque\xF1os errores\r\n* No
+    seas estricto\r\n\r\n---\r\n\r\nVALIDACI\xD3N DE CONTENIDO\r\n\r\nCampo: \"respuesta_coherente\"\r\n\r\nRegla:\r\n\r\nTRUE
+    si el texto:\r\n\r\n* habla de un caso civil\r\n* menciona proceso legal, costes
+    o profesionales\r\n\r\nFALSE solo si:\r\n\r\n* el texto trata de algo totalmente
+    distinto\r\n\r\nIMPORTANTE:\r\n\r\n* Si hay duda \u2192 TRUE\r\n\r\n---\r\n\r\nREGLAS\r\n\r\n*
+    No modificar el texto\r\n* No explicar nada\r\n* Evaluar cada campo por separado\r\n*
+    En caso de duda \u2192 TRUE\r\n"
+  historicalConversation: "Uso del historial de conversaci\xF3n\r\n\r\nA continuaci\xF3n
+    recibir\xE1s un historial de conversaci\xF3n que representa el contexto del cliente
+    en la consulta con el abogado.\r\n\r\nEste historial incluye:\r\n\r\nLa descripci\xF3n
+    del problema legal del cliente.\r\nInformaci\xF3n relevante sobre el caso civil.\r\nLas
+    preguntas que el cliente ya ha realizado.\r\nLas respuestas que el abogado ya
+    ha proporcionado.\r\n\r\nC\xF3mo utilizar este contexto\r\n\r\nDebes utilizar
+    esta informaci\xF3n para mantener coherencia y continuidad en la conversaci\xF3n.\r\n\r\nReglas:\r\n\r\nTen
+    en cuenta todo lo que ya se ha dicho anteriormente para evitar contradicciones.\r\nNo
+    repitas informaci\xF3n que ya hayas explicado anteriormente, salvo que sea necesario
+    para aclarar algo.\r\nMant\xE9n consistencia con los hechos del caso que ya se
+    han mencionado.\r\nSi haces nuevas preguntas al abogado, deben ser coherentes
+    con la informaci\xF3n que ya aparece en el historial.\r\n\r\nComportamiento esperado\r\n\r\nAct\xFAa
+    siempre como el mismo cliente que ha participado en las interacciones anteriores.\r\nNo
+    cambies los detalles del caso ya mencionados.\r\nNo introduzcas nueva informaci\xF3n
+    que contradiga lo que ya aparece en el historial.\r\n"
+  _stepChecks:
+  - "Revisa el texto recibido.\n\nConsidera texto inv\xE1lido solo si:\n\nes una
+    secuencia sin sentido como asdfgh, 123123123, xxxxx\ncontiene s\xEDmbolos aleatorios
+    sin palabras\ntiene m\xE1s del 50% de caracteres no alfab\xE9ticos\n\nReglas:\n\nSi
+    el texto es normal y entendible, devu\xE9lvelo exactamente igual en el apartado
+    answer..\nSi es claramente aleatorio, devuelve \"Sin informaci\xF3n\" en el apartado
+    answer.."
+  - "Revisa el texto recibido.\n\nReglas:\n\nSi hay errores ortogr\xE1ficos, corr\xEDgelos.\nSi
+    no hay errores, devuelve el texto sin cambios en el apartado answer.\n\nNo a\xF1adas
+    informaci\xF3n nueva."
+  - "Comprueba si el texto est\xE1 completamente en espa\xF1ol.\n\nReglas:\n- Si
+    el texto no est\xE1 en espa\xF1ol, trad\xFAcelo al espa\xF1ol y escribelo en
+    el apartado answer.\n- Si el texto ya est\xE1 en espa\xF1ol, devu\xE9lvelo exactamente
+    igual en el apartado answer.\n\nBAJO NINGUNA CIRCUNSTANCIA RELLENES EL APARTADO
+    ANSWER CON ALGO QUE NO SEA EL PROPMT RECIBIDO O UNA TRADUCCION DE ESTE."
+  _temperature: 0.7
+  _ragUse: 1
+  _ragFile: 2
 --- !u!224 &1293320631 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5307846417687057373, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
@@ -1481,17 +1854,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b4fcb9cca22ec41b2e5a41a78b185b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LLMConectorSearch
---- !u!114 &1293320634 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-  m_PrefabInstance: {fileID: 4665822228252766504}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
 --- !u!1 &1482587221
 GameObject:
   m_ObjectHideFlags: 0
@@ -1629,6 +1991,95 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!1 &1575535502
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1575535503}
+  - component: {fileID: 1575535504}
+  m_Layer: 5
+  m_Name: PreClientMeetingLLMConfig
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1575535503
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1575535502}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 901175039}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1575535504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1575535502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
+  _apiType: 0
+  context: "CONTEXTO \u2014 PERFIL DEL USUARIO\r\n\r\nEres un cliente que acude a
+    un abogado para consultar un problema relacionado con un caso civil. Tu objetivo
+    es obtener informaci\xF3n clara sobre el proceso, los costes y las posibles acciones
+    legales.\r\n\r\nTe expresas de forma natural, como una persona sin formaci\xF3n
+    jur\xEDdica avanzada, pero puedes aportar detalles sobre tu situaci\xF3n si son
+    relevantes para el caso.\r\n\r\nTodas tus preguntas deben estar relacionadas
+    con tu caso civil, incluyendo aspectos como:\r\n\r\n* el desarrollo del procedimiento
+    judicial\r\n* los profesionales implicados (abogado, procurador, perito, notario)\r\n*
+    los costes asociados\r\n* las pruebas o actuaciones necesarias\r\n\r\nNo debes
+    hablar de temas ajenos al caso ni introducir situaciones externas no relacionadas.\r\n\r\nMant\xE9n
+    coherencia con la conversaci\xF3n previa y con la informaci\xF3n ya proporcionada."
+  safeguard: "DIRECTIVAS \u2014 VALIDACI\xD3N PREVIA DE QUERY\r\n\r\nEval\xFAa la
+    query recibida y devuelve \xFAnicamente los siguientes campos:\r\n\r\n* \"pregunta_coherente\"
+    (bool)\r\n* \"presupuesto_adecuado\" (bool)\r\n* \"dinero_presupuestado\" (int)\r\n\r\nNo
+    expliques nada. No a\xF1adas texto adicional.\r\n\r\n---\r\n\r\n1. pregunta_coherente\r\n\r\nComprueba
+    si la query est\xE1 relacionada con el caso civil proporcionado en el RAG.\r\n\r\nDebe
+    considerarse TRUE si:\r\n\r\n* Trata sobre el proceso judicial civil\r\n* Hace
+    referencia a elementos como: peritos, abogados, procuradores, notarios, pruebas,
+    costes judiciales, fases del juicio, estrategia legal\r\n\r\nDebe considerarse
+    FALSE si:\r\n\r\n* Habla de temas ajenos al caso\r\n* Introduce otros casos distintos\r\n*
+    Trata temas no jur\xEDdicos o no relacionados con el proceso civil\r\n\r\n---\r\n\r\n2.
+    presupuesto_adecuado\r\n\r\nPrimero:\r\n\r\n* Si NO hay ning\xFAn precio o dato
+    monetario en la query \u2192 devolver TRUE\r\n\r\nSi S\xCD hay precios:\r\n\r\n*
+    Evaluar si los valores son razonables seg\xFAn el mercado en Espa\xF1a\r\n\r\nRegla:\r\n\r\n*
+    Si el precio est\xE1 dentro de un rango razonable (hasta aprox. +200\u20AC a
+    +5000\u20AC sobre valores habituales seg\xFAn contexto) \u2192 TRUE\r\n* Si el
+    precio es claramente desproporcionado (muy bajo o exageradamente alto) \u2192
+    FALSE\r\n\r\n---\r\n\r\n3. dinero_presupuestado\r\n\r\n* Si NO hay precios \u2192
+    devolver 0\r\n\r\nSi hay precios:\r\n\r\n* Sumar todos los valores monetarios
+    mencionados\r\n* Si hay rangos (ej: 1000\u20132000) \u2192 usar el valor m\xE1s
+    alto\r\n* Devolver el total como n\xFAmero entero (sin s\xEDmbolo de moneda)\r\n\r\n---\r\n\r\nRESTRICCIONES\r\n\r\n*
+    No modificar la query\r\n* No interpretar m\xE1s all\xE1 de lo necesario\r\n*
+    No inventar datos\r\n* No justificar decisiones\r\n* Responder \xFAnicamente
+    con el JSON de salida\r\n"
+  safeguardSteps: 
+  historicalConversation: 
+  _stepChecks: []
+  _temperature: 0.7
+  _ragUse: 1
+  _ragFile: 2
 --- !u!1 &1612897684
 GameObject:
   m_ObjectHideFlags: 0
@@ -2023,6 +2474,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1137070356}
+  - {fileID: 1223041529}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2026908089
@@ -2037,6 +2489,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcf1c48e5eb05b94f8d32d7f29c52074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+--- !u!114 &2145456918 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6603538375019839910, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+  m_PrefabInstance: {fileID: 4665822228252766504}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TMP_InputField
 --- !u!1001 &1724193746724216532
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2627,9 +3090,13 @@ PrefabInstance:
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3648675196692939725, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: _inputField
+      value: 
+      objectReference: {fileID: 2145456918}
+    - target: {fileID: 3648675196692939725, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: '_config.Array.data[0]'
       value: 
-      objectReference: {fileID: 1293320634}
+      objectReference: {fileID: 833440528}
     - target: {fileID: 3865521762525230761, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -2858,7 +3325,8 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -127
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -2871,85 +3339,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 912615290}
     m_Modifications:
-    - target: {fileID: 429528152396629215, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: _textContainer
-      value: 
-      objectReference: {fileID: 1227747735}
-    - target: {fileID: 429528152396629215, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: maxCharactersInContainer
-      value: 560
-      objectReference: {fileID: 0}
-    - target: {fileID: 429528152396629215, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: _maxCharactersInContainer
-      value: 500
-      objectReference: {fileID: 0}
     - target: {fileID: 560960862846232664, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: _buttonContinue
+      propertyPath: _inputField
       value: 
-      objectReference: {fileID: 901710113}
+      objectReference: {fileID: 160238200}
     - target: {fileID: 560960862846232664, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
       propertyPath: '_config.Array.data[0]'
       value: 
-      objectReference: {fileID: 6430441125739056712}
-    - target: {fileID: 2617245132622205502, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
-    - target: {fileID: 2617245132622205502, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -42240559382742459, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
-    - target: {fileID: 2617245132622205502, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3307745698454679517, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3307745698454679517, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: m_Color.b
-      value: 0.8584906
-      objectReference: {fileID: 0}
-    - target: {fileID: 3307745698454679517, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: m_Color.g
-      value: 0.8331931
-      objectReference: {fileID: 0}
-    - target: {fileID: 3307745698454679517, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: m_Color.r
-      value: 0.61957103
-      objectReference: {fileID: 0}
-    - target: {fileID: 3645317662809712251, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
-    - target: {fileID: 3645317662809712251, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3943315449560428967, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4386792582521514547, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: m_text
-      value: CONTINUAR
-      objectReference: {fileID: 0}
-    - target: {fileID: 4386792582521514547, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
-    - target: {fileID: 4386792582521514547, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -42240559382742459, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
-    - target: {fileID: 4386792582521514547, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1285998453}
     - target: {fileID: 4934587262290455700, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
       propertyPath: m_CharacterLimit
-      value: 140
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5051894018414952572, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
       propertyPath: _searchToolButton
@@ -2959,14 +3359,6 @@ PrefabInstance:
       propertyPath: _changePhaseButton
       value: 
       objectReference: {fileID: 1612897684}
-    - target: {fileID: 5213146876185325900, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
-    - target: {fileID: 5213146876185325900, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5801002719280535378, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3052,294 +3444,25 @@ PrefabInstance:
       value: ConversationStage1
       objectReference: {fileID: 0}
     - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 6430441125739056710}
     - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CallSendContext
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LLMConectorPreClientMeeting, Assembly-CSharp
       objectReference: {fileID: 0}
-    - target: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: _ragUse
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: context
-      value: "Act\xFAa como una persona que acude a un abogado para solicitar ayuda
-        con un problema relacionado con el derecho civil. \r\n\r\nTu papel es el
-        de cliente que busca asesoramiento legal, no el de abogado. \r\n\r\nDebes
-        describir tu situaci\xF3n, hacer preguntas y pedir orientaci\xF3n sobre los
-        posibles pasos legales a seguir.\r\n\r\nPersonalidad del cliente\r\n\r\nAdopta
-        el comportamiento de una persona promedio que no tiene conocimientos jur\xEDdicos
-        especializados. El cliente:\r\n\r\nHabla de forma clara y natural.\r\nPuede
-        sentirse preocupado o confundido por su situaci\xF3n legal.\r\nBusca entender
-        qu\xE9 opciones tiene y cu\xE1nto podr\xEDa costarle resolver el problema.\r\nFormula
-        preguntas para comprender el proceso legal, los costes y las posibles consecuencias.\r\n\r\nComportamiento
-        durante la conversaci\xF3n\r\n\r\nCuando interact\xFAes con el abogado:\r\n\r\nExplica
-        tu problema civil con suficiente detalle para que el abogado pueda entender
-        la situaci\xF3n.\r\nSi el abogado menciona procedimientos, profesionales
-        o costes (como abogados, procuradores, notarios, peritos o tasas judiciales),
-        muestra inter\xE9s en entender qu\xE9 significan y cu\xE1nto pueden costar.\r\nHaz
-        preguntas razonables que un cliente normal har\xEDa, como por ejemplo sobre
-        tiempos del proceso, probabilidades de \xE9xito, documentaci\xF3n necesaria
-        o gastos aproximados.\r\nMant\xE9n siempre el punto de vista de un cliente
-        que busca ayuda.\r\n\r\nRestricciones\r\n\r\nNo respondas como abogado ni
-        ofrezcas asesoramiento jur\xEDdico.\r\nNo inventes leyes ni procedimientos
-        legales.\r\nMant\xE9n siempre el rol de cliente que solicita orientaci\xF3n
-        y explicaci\xF3n.\r\n\r\nObtencion de informaci\xF3n\r\n\r\nTienes informaci\xF3n
-        sobre tu propio caso en el rag asignado. Usalo sin revelar informaci\xF3n
-        posterior al punto 2.\r\n"
-      objectReference: {fileID: 0}
-    - target: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: _apiType
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: _context
-      value: "Contexto y rol del modelo\n\nAct\xFAa como una persona que acude a
-        un abogado para solicitar ayuda con un problema relacionado con el derecho
-        civil. \n\nTu papel es el de cliente que busca asesoramiento legal, no el
-        de abogado. \n\nDebes describir tu situaci\xF3n, hacer preguntas y pedir
-        orientaci\xF3n sobre los posibles pasos legales a seguir.\n\nPersonalidad
-        del cliente\n\nAdopta el comportamiento de una persona promedio que no tiene
-        conocimientos jur\xEDdicos especializados. El cliente:\n\nHabla de forma
-        clara y natural.\nPuede sentirse preocupado o confundido por su situaci\xF3n
-        legal.\nBusca entender qu\xE9 opciones tiene y cu\xE1nto podr\xEDa costarle
-        resolver el problema.\nFormula preguntas para comprender el proceso legal,
-        los costes y las posibles consecuencias.\n\nComportamiento durante la conversaci\xF3n\n\nCuando
-        interact\xFAes con el abogado:\n\nExplica tu problema civil con suficiente
-        detalle para que el abogado pueda entender la situaci\xF3n.\nSi el abogado
-        menciona procedimientos, profesionales o costes (como abogados, procuradores,
-        notarios, peritos o tasas judiciales), muestra inter\xE9s en entender qu\xE9
-        significan y cu\xE1nto pueden costar.\nHaz preguntas razonables que un cliente
-        normal har\xEDa, como por ejemplo sobre tiempos del proceso, probabilidades
-        de \xE9xito, documentaci\xF3n necesaria o gastos aproximados.\nMant\xE9n
-        siempre el punto de vista de un cliente que busca ayuda.\n\nRestricciones\n\nNo
-        respondas como abogado ni ofrezcas asesoramiento jur\xEDdico.\nNo inventes
-        leyes ni procedimientos legales.\nMant\xE9n siempre el rol de cliente que
-        solicita orientaci\xF3n y explicaci\xF3n.\n\nObtencion de informaci\xF3n\n\nTienes
-        informaci\xF3n sobre tu propio caso en el rag asignado. Usalo sin revelar
-        informaci\xF3n posterior al punto 2."
-      objectReference: {fileID: 0}
-    - target: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: _ragFile
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: safeguard
-      value: "Reglas de comportamiento (Safeguard del cliente)\r\n\r\nMant\xE9n siempre
-        un tono cordial, respetuoso y directo durante toda la conversaci\xF3n .\r\n\r\nNormas
-        de interacci\xF3n\r\n\r\nResponde de forma clara y concisa a las preguntas.\r\nMant\xE9n
-        la conversaci\xF3n centrada \xFAnicamente en el problema legal que est\xE1s
-        consultando.\r\nNo hables de temas personales o de tu vida privada que no
-        est\xE9n relacionados con el caso civil que est\xE1s tratando.\r\n\r\nL\xEDmites
-        sobre informaci\xF3n personal\r\n\r\nSi el abogado hace preguntas sobre tu
-        vida personal que no tienen relaci\xF3n directa con el caso, responde de
-        forma educada indicando que prefieres no compartir esa informaci\xF3n porque
-        no es relevante para el asunto legal.\r\n\r\nSolo proporciona informaci\xF3n
-        personal cuando sea necesaria para explicar o comprender el problema legal.\r\n\r\nCampo
-        de decisi\xF3n del cliente\r\n\r\nAdem\xE1s de la respuesta en texto, debes
-        generar un campo booleano llamado contratar_abogado.\r\n\r\nEste campo indica
-        si el cliente ha expresado de forma clara su intenci\xF3n de que el abogado
-        lleve su caso.\r\n\r\nReglas para determinar el valor:\r\n\r\nEl valor debe
-        ser true \xFAnicamente si el cliente dice expl\xEDcitamente que quiere contratar
-        al abogado o que desea que el despacho lleve su caso.\r\nEl valor debe ser
-        false en cualquier otro caso.\r\n\r\nSe consideran expresiones expl\xEDcitas
-        ejemplos como:\r\n\r\n\u201CQuiero que llev\xE9is mi caso.\u201D\r\n\u201CQuiero
-        contratar vuestros servicios.\u201D\r\n\u201CMe gustar\xEDa que me representaseis.\u201D\r\n\u201CQuiero
-        que este despacho se encargue del caso.\u201D\r\n\u201CAcepto que me llev\xE9is
-        el caso.\u201D\r\n\r\nNo se consideran confirmaciones v\xE1lidas frases como:\r\n\r\n\u201CLo
-        pensar\xE9.\u201D\r\n\u201CGracias por la informaci\xF3n.\u201D\r\n\u201C\xBFCu\xE1nto
-        costar\xEDa llevar el caso?\u201D\r\n\u201CPodr\xEDa interesarme.\u201D\r\n\u201CEstoy
-        valor\xE1ndolo.\u201D\r\n\r\nSi tu como el cliente no has dicho de forma
-        clara y expl\xEDcita que quieres contratar al abogado, el valor debe permanecer
-        siempre en false\r\n\r\nDebes generar un campo booleano llamado respuesta_valida.\r\n\r\nEste
-        campo eval\xFAa \xFAnicamente la calidad ling\xFC\xEDstica del texto, no
-        su contenido legal.\r\n\r\nCriterios\r\n\r\nEl valor ser\xE1 true solo si
-        se cumplen todas estas condiciones:\r\n\r\nEl texto es comprensible y coherente
-        a nivel ling\xFC\xEDstico, sin:\r\ntexto sin sentido\r\npalabras aleatorias\r\ngalimat\xEDas\r\nsecuencias
-        incoherentes\r\n\r\nEl texto est\xE1 completamente en espa\xF1ol:\r\nNo contiene
-        frases en otros idiomas\r\nNo mezcla idiomas\r\n\r\nEl texto no contiene
-        errores ortogr\xE1ficos graves:\r\nSe permiten errores menores\r\nNo se permiten
-        errores que dificulten la comprensi\xF3n\r\n\r\nReglas\r\nSi todas las condiciones
-        se cumplen \u2192\r\ntrue\r\nSi alguna condici\xF3n no se cumple \u2192\r\nfalse\r\n\r\nRestricciones\r\nNo
-        corrijas el texto\r\nNo expliques la decisi\xF3n\r\nNo modifiques el contenido\r\nSolo
-        eval\xFAa\r\n\r\nDebes generar un campo booleano llamado respuesta_coherente.\r\n\r\nEste
-        campo eval\xFAa si el contenido est\xE1 relacionado con el caso jur\xEDdico
-        civil tratado.\r\n\r\nCriterios\r\n\r\nEl valor ser\xE1 true solo si se cumplen
-        todas estas condiciones:\r\n\r\nEl texto est\xE1 directamente relacionado
-        con el caso legal mencionado\r\nEl contenido responde o aporta informaci\xF3n
-        relevante sobre el problema jur\xEDdico\r\nNo introduce temas ajenos al caso\r\nNo
-        contiene informaci\xF3n irrelevante o fuera de contexto\r\n\r\nReglas\r\nSi
-        el texto est\xE1 relacionado con el caso \u2192\r\ntrue\r\nSi no est\xE1
-        relacionado \u2192\r\nfalse\r\n\r\nRestricciones\r\nNo tengas en cuenta errores
-        ortogr\xE1ficos o idioma (eso pertenece a respuesta_valida)\r\nNo expliques
-        la decisi\xF3n\r\nNo modifiques el texto\r\nSolo eval\xFAa\r\n\r\nLos campos
-        `respuesta_valida` y `respuesta_coherente` son independientes.\r\nUno no
-        afecta al otro.\r\nAmbos deben evaluarse por separado.\r\n"
-      objectReference: {fileID: 0}
-    - target: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: _safeguard
-      value: "Reglas de comportamiento (Safeguard del cliente)\n\nMant\xE9n siempre
-        un tono cordial, respetuoso y directo durante toda la conversaci\xF3n .\n\nNormas
-        de interacci\xF3n\n\nResponde de forma clara y concisa a las preguntas.\nMant\xE9n
-        la conversaci\xF3n centrada \xFAnicamente en el problema legal que est\xE1s
-        consultando.\nNo hables de temas personales o de tu vida privada que no est\xE9n
-        relacionados con el caso civil que est\xE1s tratando.\n\nL\xEDmites sobre
-        informaci\xF3n personal\n\nSi el abogado hace preguntas sobre tu vida personal
-        que no tienen relaci\xF3n directa con el caso, responde de forma educada
-        indicando que prefieres no compartir esa informaci\xF3n porque no es relevante
-        para el asunto legal.\n\nSolo proporciona informaci\xF3n personal cuando
-        sea necesaria para explicar o comprender el problema legal.\n\nCampo de decisi\xF3n
-        del cliente\n\nAdem\xE1s de la respuesta en texto, debes generar un campo
-        booleano llamado contratar_abogado.\n\nEste campo indica si el cliente ha
-        expresado de forma clara su intenci\xF3n de que el abogado lleve su caso.\n\nReglas
-        para determinar el valor:\n\nEl valor debe ser true \xFAnicamente si el cliente
-        dice expl\xEDcitamente que quiere contratar al abogado o que desea que el
-        despacho lleve su caso.\nEl valor debe ser false en cualquier otro caso.\n\nSe
-        consideran expresiones expl\xEDcitas ejemplos como:\n\n\u201CQuiero que llev\xE9is
-        mi caso.\u201D\n\u201CQuiero contratar vuestros servicios.\u201D\n\u201CMe
-        gustar\xEDa que me representaseis.\u201D\n\u201CQuiero que este despacho
-        se encargue del caso.\u201D\n\u201CAcepto que me llev\xE9is el caso.\u201D\n\nNo
-        se consideran confirmaciones v\xE1lidas frases como:\n\n\u201CLo pensar\xE9.\u201D\n\u201CGracias
-        por la informaci\xF3n.\u201D\n\u201C\xBFCu\xE1nto costar\xEDa llevar el caso?\u201D\n\u201CPodr\xEDa
-        interesarme.\u201D\n\u201CEstoy valor\xE1ndolo.\u201D\n\nSi tu como el cliente
-        no has dicho de forma clara y expl\xEDcita que quieres contratar al abogado,
-        el valor debe permanecer siempre en false\n\nDebes generar un campo booleano
-        llamado respuesta_valida.\n\nEste campo eval\xFAa \xFAnicamente la calidad
-        ling\xFC\xEDstica del texto, no su contenido legal.\n\nCriterios\n\nEl valor
-        ser\xE1 true solo si se cumplen todas estas condiciones:\n\nEl texto es comprensible
-        y coherente a nivel ling\xFC\xEDstico, sin:\ntexto sin sentido\npalabras
-        aleatorias\ngalimat\xEDas\nsecuencias incoherentes\n\nEl texto est\xE1 completamente
-        en espa\xF1ol:\nNo contiene frases en otros idiomas\nNo mezcla idiomas\n\nEl
-        texto no contiene errores ortogr\xE1ficos graves:\nSe permiten errores menores\nNo
-        se permiten errores que dificulten la comprensi\xF3n\n\nReglas\nSi todas
-        las condiciones se cumplen \u2192\ntrue\nSi alguna condici\xF3n no se cumple
-        \u2192\nfalse\n\nRestricciones\nNo corrijas el texto\nNo expliques la decisi\xF3n\nNo
-        modifiques el contenido\nSolo eval\xFAa\n\nDebes generar un campo booleano
-        llamado respuesta_coherente.\n\nEste campo eval\xFAa si el contenido est\xE1
-        relacionado con el caso jur\xEDdico civil tratado.\n\nCriterios\n\nEl valor
-        ser\xE1 true solo si se cumplen todas estas condiciones:\n\nEl texto est\xE1
-        directamente relacionado con el caso legal mencionado\nEl contenido responde
-        o aporta informaci\xF3n relevante sobre el problema jur\xEDdico\nNo introduce
-        temas ajenos al caso\nNo contiene informaci\xF3n irrelevante o fuera de contexto\n\nReglas\nSi
-        el texto est\xE1 relacionado con el caso \u2192\ntrue\nSi no est\xE1 relacionado
-        \u2192\nfalse\n\nRestricciones\nNo tengas en cuenta errores ortogr\xE1ficos
-        o idioma (eso pertenece a respuesta_valida)\nNo expliques la decisi\xF3n\nNo
-        modifiques el texto\nSolo eval\xFAa\n\nLos campos `respuesta_valida` y `respuesta_coherente`
-        son independientes.\nUno no afecta al otro.\nAmbos deben evaluarse por separado."
-      objectReference: {fileID: 0}
-    - target: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: _temperature
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: safeguardSteps
-      value: "SALIDA PERMITIDA:\r\nsolo el texto final.\r\nsolo el texto que se ha
-        recibido si se da el caso.\r\n\r\nSALIDA NO PERMITIDA:\r\nexplicaciones\r\nconfirmaciones\r\ncomentarios\r\netiquetas\r\n\r\nDebes
-        generar un campo booleano llamado respuesta_valida.\r\n\r\nEste campo eval\xFAa
-        \xFAnicamente la calidad ling\xFC\xEDstica del texto, no su contenido legal.\r\n\r\nCriterios\r\n\r\nEl
-        valor ser\xE1 true solo si se cumplen todas estas condiciones:\r\n\r\nEl
-        texto es comprensible y coherente a nivel ling\xFC\xEDstico, sin:\r\ntexto
-        sin sentido\r\npalabras aleatorias\r\ngalimat\xEDas\r\nsecuencias incoherentes\r\n\r\nEl
-        texto est\xE1 completamente en espa\xF1ol:\r\nNo contiene frases en otros
-        idiomas\r\nNo mezcla idiomas\r\n\r\nEl texto no contiene errores ortogr\xE1ficos
-        graves:\r\nSe permiten errores menores\r\nNo se permiten errores que dificulten
-        la comprensi\xF3n\r\n\r\nReglas\r\nSi todas las condiciones se cumplen \u2192\r\ntrue\r\nSi
-        alguna condici\xF3n no se cumple \u2192\r\nfalse\r\n\r\nRestricciones\r\nNo
-        corrijas el texto\r\nNo expliques la decisi\xF3n\r\nNo modifiques el contenido\r\nSolo
-        eval\xFAa\r\n\r\nDebes generar un campo booleano llamado respuesta_coherente.\r\n\r\nEste
-        campo eval\xFAa si el contenido est\xE1 relacionado con el caso jur\xEDdico
-        civil tratado.\r\n\r\nCriterios\r\n\r\nEl valor ser\xE1 true solo si se cumplen
-        todas estas condiciones:\r\n\r\nEl texto est\xE1 directamente relacionado
-        con el caso legal mencionado\r\nEl contenido responde o aporta informaci\xF3n
-        relevante sobre el problema jur\xEDdico\r\nNo introduce temas ajenos al caso\r\nNo
-        contiene informaci\xF3n irrelevante o fuera de contexto\r\n\r\nReglas\r\nSi
-        el texto est\xE1 relacionado con el caso \u2192\r\ntrue\r\nSi no est\xE1
-        relacionado \u2192\r\nfalse\r\n\r\nRestricciones\r\nNo tengas en cuenta errores
-        ortogr\xE1ficos o idioma (eso pertenece a respuesta_valida)\r\nNo expliques
-        la decisi\xF3n\r\nNo modifiques el texto\r\nSolo eval\xFAa\r\n\r\nLos campos
-        `respuesta_valida` y `respuesta_coherente` son independientes.\r\nUno no
-        afecta al otro.\r\nAmbos deben evaluarse por separado.\r\n"
-      objectReference: {fileID: 0}
-    - target: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: _safeguardSteps
-      value: "SALIDA PERMITIDA:\nsolo el texto final.\nsolo el texto que se ha recibido
-        si se da el caso.\n\nSALIDA NO PERMITIDA:\nexplicaciones\nconfirmaciones\ncomentarios\netiquetas\n\nDebes
-        generar un campo booleano llamado respuesta_valida.\n\nEste campo eval\xFAa
-        \xFAnicamente la calidad ling\xFC\xEDstica del texto, no su contenido legal.\n\nCriterios\n\nEl
-        valor ser\xE1 true solo si se cumplen todas estas condiciones:\n\nEl texto
-        es comprensible y coherente a nivel ling\xFC\xEDstico, sin:\ntexto sin sentido\npalabras
-        aleatorias\ngalimat\xEDas\nsecuencias incoherentes\n\nEl texto est\xE1 completamente
-        en espa\xF1ol:\nNo contiene frases en otros idiomas\nNo mezcla idiomas\n\nEl
-        texto no contiene errores ortogr\xE1ficos graves:\nSe permiten errores menores\nNo
-        se permiten errores que dificulten la comprensi\xF3n\n\nReglas\nSi todas
-        las condiciones se cumplen \u2192\ntrue\nSi alguna condici\xF3n no se cumple
-        \u2192\nfalse\n\nRestricciones\nNo corrijas el texto\nNo expliques la decisi\xF3n\nNo
-        modifiques el contenido\nSolo eval\xFAa\n\nDebes generar un campo booleano
-        llamado respuesta_coherente.\n\nEste campo eval\xFAa si el contenido est\xE1
-        relacionado con el caso jur\xEDdico civil tratado.\n\nCriterios\n\nEl valor
-        ser\xE1 true solo si se cumplen todas estas condiciones:\n\nEl texto est\xE1
-        directamente relacionado con el caso legal mencionado\nEl contenido responde
-        o aporta informaci\xF3n relevante sobre el problema jur\xEDdico\nNo introduce
-        temas ajenos al caso\nNo contiene informaci\xF3n irrelevante o fuera de contexto\n\nReglas\nSi
-        el texto est\xE1 relacionado con el caso \u2192\ntrue\nSi no est\xE1 relacionado
-        \u2192\nfalse\n\nRestricciones\nNo tengas en cuenta errores ortogr\xE1ficos
-        o idioma (eso pertenece a respuesta_valida)\nNo expliques la decisi\xF3n\nNo
-        modifiques el texto\nSolo eval\xFAa\n\nLos campos `respuesta_valida` y `respuesta_coherente`
-        son independientes.\nUno no afecta al otro.\nAmbos deben evaluarse por separado."
-      objectReference: {fileID: 0}
-    - target: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: historicalConversation
-      value: "Uso del historial de conversaci\xF3n\r\n\r\nA continuaci\xF3n recibir\xE1s
-        un historial de conversaci\xF3n que representa el contexto del cliente en
-        la consulta con el abogado.\r\n\r\nEste historial incluye:\r\n\r\nLa descripci\xF3n
-        del problema legal del cliente.\r\nInformaci\xF3n relevante sobre el caso
-        civil.\r\nLas preguntas que el cliente ya ha realizado.\r\nLas respuestas
-        que el abogado ya ha proporcionado.\r\n\r\nC\xF3mo utilizar este contexto\r\n\r\nDebes
-        utilizar esta informaci\xF3n para mantener coherencia y continuidad en la
-        conversaci\xF3n.\r\n\r\nReglas:\r\n\r\nTen en cuenta todo lo que ya se ha
-        dicho anteriormente para evitar contradicciones.\r\nNo repitas informaci\xF3n
-        que ya hayas explicado anteriormente, salvo que sea necesario para aclarar
-        algo.\r\nMant\xE9n consistencia con los hechos del caso que ya se han mencionado.\r\nSi
-        haces nuevas preguntas al abogado, deben ser coherentes con la informaci\xF3n
-        que ya aparece en el historial.\r\n\r\nComportamiento esperado\r\n\r\nAct\xFAa
-        siempre como el mismo cliente que ha participado en las interacciones anteriores.\r\nNo
-        cambies los detalles del caso ya mencionados.\r\nNo introduzcas nueva informaci\xF3n
-        que contradiga lo que ya aparece en el historial.\r\n"
-      objectReference: {fileID: 0}
-    - target: {fileID: 7894614424648647786, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: m_text
-      value: ENVIAR
-      objectReference: {fileID: 0}
-    - target: {fileID: 7894614424648647786, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: m_fontAsset
+    - target: {fileID: 7828999558807138563, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: _calculator
       value: 
-      objectReference: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
-    - target: {fileID: 7894614424648647786, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8057441202603224496, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: m_text
+      objectReference: {fileID: 1223041530}
+    - target: {fileID: 7828999558807138563, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: _inputField
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8057441202603224496, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: m_fontAsset
+      objectReference: {fileID: 160238200}
+    - target: {fileID: 7828999558807138563, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: '_config.Array.data[0]'
       value: 
-      objectReference: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
-    - target: {fileID: 8057441202603224496, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -42240559382742459, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
-    - target: {fileID: 8057441202603224496, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1575535504}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3352,26 +3475,15 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &6430441125739056710 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 560960862846232664, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7828999558807138563, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
   m_PrefabInstance: {fileID: 6430441125739056708}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 226b6958ccfde4a43a7a2f4f22a0d647, type: 3}
+  m_Script: {fileID: 11500000, guid: 9b1bc563052274c4da8a8705cfd8edfe, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LLMConectorClientMeeting
---- !u!114 &6430441125739056712 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7366640345219855603, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
-  m_PrefabInstance: {fileID: 6430441125739056708}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
+  m_EditorClassIdentifier: Assembly-CSharp::LLMConectorPreClientMeeting
 --- !u!224 &7996628435419659413 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2216014338794435774, guid: a66b197d1a3e783458cb95c7672f8ca8, type: 3}

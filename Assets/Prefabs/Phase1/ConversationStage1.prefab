@@ -123,8 +123,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 560960862846232664}
         m_TargetAssemblyTypeName: LLMConectorClientMeeting, Assembly-CSharp
-        m_MethodName: SendChatMessage
-        m_Mode: 1
+        m_MethodName: CallSendContext
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -222,11 +222,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'SEND
-
-'
+  m_text: ENVIAR
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -292,7 +290,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1974522254994397046
@@ -362,7 +360,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -428,7 +426,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &2531804013780736232
@@ -498,8 +496,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
+  m_sharedMaterial: {fileID: -42240559382742459, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -635,7 +633,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Habla con tu cliente
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -701,7 +699,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &2047010945824938295
@@ -782,7 +780,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.8923898, b: 1, a: 0.15294118}
+  m_Color: {r: 0.61957103, g: 0.8331931, b: 0.8584906, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1046,12 +1044,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'CONTINUE
-
-'
+  m_text: CONTINUAR
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
+  m_sharedMaterial: {fileID: -42240559382742459, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1254,7 +1250,7 @@ MonoBehaviour:
   m_CharacterValidation: 0
   m_RegexValue: 
   m_GlobalPointSize: 25
-  m_CharacterLimit: 0
+  m_CharacterLimit: 140
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
@@ -1307,8 +1303,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5801002719280535378}
   - component: {fileID: 429528152396629215}
-  - component: {fileID: 7366640345219855603}
   - component: {fileID: 560960862846232664}
+  - component: {fileID: 7828999558807138563}
   - component: {fileID: 5051894018414952572}
   m_Layer: 5
   m_Name: ConversationStage1
@@ -1350,119 +1346,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4cf7a3d40d4b93468a0b13c4922a1c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WriteTextSystem
-  textContainer: {fileID: 8057441202603224496}
-  maxCharactersInContainer: 500
-  typingSpeed: 0.02
---- !u!114 &7366640345219855603
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6486600762471374973}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
-  _apiType: 1
-  _context: "Contexto y rol del modelo\n\nAct\xFAa como una persona que acude a un
-    abogado para solicitar ayuda con un problema relacionado con el derecho civil.
-    Tu papel es el de cliente que busca asesoramiento legal, no el de abogado. Debes
-    describir tu situaci\xF3n, hacer preguntas y pedir orientaci\xF3n sobre los posibles
-    pasos legales a seguir.\n\nPersonalidad del cliente\n\nAdopta el comportamiento
-    de una persona promedio que no tiene conocimientos jur\xEDdicos especializados.
-    El cliente:\n\nHabla de forma clara y natural.\nPuede sentirse preocupado o confundido
-    por su situaci\xF3n legal.\nBusca entender qu\xE9 opciones tiene y cu\xE1nto
-    podr\xEDa costarle resolver el problema.\nFormula preguntas para comprender el
-    proceso legal, los costes y las posibles consecuencias.\n\nComportamiento durante
-    la conversaci\xF3n\n\nCuando interact\xFAes con el abogado:\n\nExplica tu problema
-    civil con suficiente detalle para que el abogado pueda entender la situaci\xF3n.\nSi
-    el abogado menciona procedimientos, profesionales o costes (como abogados, procuradores,
-    notarios, peritos o tasas judiciales), muestra inter\xE9s en entender qu\xE9
-    significan y cu\xE1nto pueden costar.\nHaz preguntas razonables que un cliente
-    normal har\xEDa, como por ejemplo sobre tiempos del proceso, probabilidades de
-    \xE9xito, documentaci\xF3n necesaria o gastos aproximados.\nMant\xE9n siempre
-    el punto de vista de un cliente que busca ayuda.\n\nRestricciones\n\nNo respondas
-    como abogado ni ofrezcas asesoramiento jur\xEDdico.\nNo inventes leyes ni procedimientos
-    legales.\nMant\xE9n siempre el rol de cliente que solicita orientaci\xF3n y explicaci\xF3n."
-  _safeguard: "Reglas de comportamiento (Safeguard del cliente)\n\nMant\xE9n siempre
-    un tono cordial, respetuoso y directo durante toda la conversaci\xF3n con el
-    abogado.\n\nNormas de interacci\xF3n\n\nResponde de forma clara y concisa a las
-    preguntas del abogado.\nMant\xE9n la conversaci\xF3n centrada \xFAnicamente en
-    el problema legal que est\xE1s consultando.\nNo hables de temas personales o
-    de tu vida privada que no est\xE9n relacionados con el caso civil que est\xE1s
-    tratando.\n\nL\xEDmites sobre informaci\xF3n personal\n\nSi el abogado hace preguntas
-    sobre tu vida personal que no tienen relaci\xF3n directa con el caso, responde
-    de forma educada indicando que prefieres no compartir esa informaci\xF3n porque
-    no es relevante para el asunto legal.\nSolo proporciona informaci\xF3n personal
-    cuando sea necesaria para explicar o comprender el problema legal.\n\nCampo de
-    decisi\xF3n del cliente\n\nAdem\xE1s de la respuesta en texto, debes generar
-    un campo booleano llamado contratar_abogado.\n\nEste campo indica si el cliente
-    ha expresado de forma clara su intenci\xF3n de que el abogado lleve su caso.\n\nReglas
-    para determinar el valor:\n\nEl valor debe ser true \xFAnicamente si el cliente
-    dice expl\xEDcitamente que quiere contratar al abogado o que desea que el despacho
-    lleve su caso.\nEl valor debe ser false en cualquier otro caso.\n\nSe consideran
-    expresiones expl\xEDcitas ejemplos como:\n\n\u201CQuiero que llev\xE9is mi caso.\u201D\n\u201CQuiero
-    contratar vuestros servicios.\u201D\n\u201CMe gustar\xEDa que me representaseis.\u201D\n\u201CQuiero
-    que este despacho se encargue del caso.\u201D\n\u201CAcepto que me llev\xE9is
-    el caso.\u201D\n\nNo se consideran confirmaciones v\xE1lidas frases como:\n\n\u201CLo
-    pensar\xE9.\u201D\n\u201CGracias por la informaci\xF3n.\u201D\n\u201C\xBFCu\xE1nto
-    costar\xEDa llevar el caso?\u201D\n\u201CPodr\xEDa interesarme.\u201D\n\u201CEstoy
-    valor\xE1ndolo.\u201D\n\nSi el cliente no ha dicho de forma clara y expl\xEDcita
-    que quiere contratar al abogado, el valor debe permanecer siempre en false"
-  _safeguardSteps: 'SALIDA PERMITIDA:
-
-    solo el texto final.
-
-    solo el texto
-    que se ha recibido si se da el caso.
-
-
-    SALIDA NO PERMITIDA:
-
-    explicaciones
-
-    confirmaciones
-
-    comentarios
-
-    etiquetas
-
-'
-  _historicalConversation: "Uso del historial de conversaci\xF3n\n\nA continuaci\xF3n
-    recibir\xE1s un historial de conversaci\xF3n que representa el contexto del cliente
-    en la consulta con el abogado.\n\nEste historial incluye:\n\nLa descripci\xF3n
-    del problema legal del cliente.\nInformaci\xF3n relevante sobre el caso civil.\nLas
-    preguntas que el cliente ya ha realizado.\nLas respuestas que el abogado ya ha
-    proporcionado.\n\nC\xF3mo utilizar este contexto\n\nDebes utilizar esta informaci\xF3n
-    para mantener coherencia y continuidad en la conversaci\xF3n.\n\nReglas:\n\nTen
-    en cuenta todo lo que ya se ha dicho anteriormente para evitar contradicciones.\nNo
-    repitas informaci\xF3n que ya hayas explicado anteriormente, salvo que sea necesario
-    para aclarar algo.\nMant\xE9n consistencia con los hechos del caso que ya se
-    han mencionado.\nSi haces nuevas preguntas al abogado, deben ser coherentes con
-    la informaci\xF3n que ya aparece en el historial.\n\nComportamiento esperado\n\nAct\xFAa
-    siempre como el mismo cliente que ha participado en las interacciones anteriores.\nNo
-    cambies los detalles del caso ya mencionados.\nNo introduzcas nueva informaci\xF3n
-    que contradiga lo que ya aparece en el historial."
-  _stepChecks:
-  - "Revisa el texto recibido.\n\nConsidera texto inv\xE1lido solo si:\n\nes una
-    secuencia sin sentido como asdfgh, 123123123, xxxxx\ncontiene s\xEDmbolos aleatorios
-    sin palabras\ntiene m\xE1s del 50% de caracteres no alfab\xE9ticos\n\nReglas:\n\nSi
-    el texto es normal y entendible, devu\xE9lvelo exactamente igual en el apartado
-    answer..\nSi es claramente aleatorio, devuelve \"Sin informaci\xF3n\" en el apartado
-    answer.."
-  - "Revisa el texto recibido.\n\nReglas:\n\nSi hay errores ortogr\xE1ficos, corr\xEDgelos.\nSi
-    no hay errores, devuelve el texto sin cambios en el apartado answer.\n\nNo a\xF1adas
-    informaci\xF3n nueva."
-  - "Comprueba si el texto est\xE1 completamente en espa\xF1ol.\n\nReglas:\n- Si
-    el texto no est\xE1 en espa\xF1ol, trad\xFAcelo al espa\xF1ol y escribelo en
-    el apartado answer.\n- Si el texto ya est\xE1 en espa\xF1ol, devu\xE9lvelo exactamente
-    igual en el apartado answer.\n\nBAJO NINGUNA CIRCUNSTANCIA RELLENES EL APARTADO
-    ANSWER CON ALGO QUE NO SEA EL PROPMT RECIBIDO O UNA TRADUCCION DE ESTE."
-  _temperature: 0.8
-  _ragUse: 0
-  _ragFile: 0
+  _textContainer: {fileID: 8057441202603224496}
+  _maxCharactersInContainer: 500
+  _typingSpeed: 0.05
 --- !u!114 &560960862846232664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1475,9 +1361,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 226b6958ccfde4a43a7a2f4f22a0d647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LLMConectorClientMeeting
-  _config: {fileID: 7366640345219855603}
-  _uiMeeting: {fileID: 5051894018414952572}
+  _config:
+  - {fileID: 0}
   inputField: {fileID: 4934587262290455700}
+  _useSecuritySteps: 1
+  _useHistoricalInContext: 1
+  _useHistoricalInSteps: 0
+  _uiMeeting: {fileID: 5051894018414952572}
+  _buttonContinue: {fileID: 3998013804900407694}
+--- !u!114 &7828999558807138563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6486600762471374973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b1bc563052274c4da8a8705cfd8edfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LLMConectorPreClientMeeting
+  _config:
+  - {fileID: 0}
+  inputField: {fileID: 4934587262290455700}
+  _useSecuritySteps: 0
+  _useHistoricalInContext: 1
+  _useHistoricalInSteps: 0
+  _uiMeeting: {fileID: 5051894018414952572}
+  _buttonContinue: {fileID: 3998013804900407694}
+  _clientMeetingConector: {fileID: 560960862846232664}
 --- !u!114 &5051894018414952572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1654,8 +1566,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Cliente:'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
+  m_sharedMaterial: {fileID: -42240559382742459, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

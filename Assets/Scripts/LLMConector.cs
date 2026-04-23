@@ -11,7 +11,7 @@ public abstract class LLMConector : MonoBehaviour
     protected ConfigLLMInfo[] _config;
 
     [Header("Search Messages")]
-    public TMP_InputField inputField;
+    public TMP_InputField _inputField;
 
     [Header("Parametros de personalizacion")]
 
@@ -69,7 +69,7 @@ public abstract class LLMConector : MonoBehaviour
 
             _indexConfig = indexConfig;
 
-            string prompt = inputField.text;
+            string prompt = _inputField.text;
 
             string configLLM = _config[_indexConfig].getContext()
                 + _config[_indexConfig].getSafeguard();
@@ -93,7 +93,57 @@ public abstract class LLMConector : MonoBehaviour
 
             StartCoroutine(coroutineSendPrompt(prompt, configLLM, _contextSchema));
 
-            inputField.text = "";
+            _inputField.text = "";
+
+            return true;
+        }
+
+        return false;
+
+    }
+
+    /// <summary>
+    /// Metodo encargado de enviar un mensaje al LLM con todas las especificaciones obtenidas de ConfigLLMInfo
+    /// </summary>
+    /// <param name="indexConfig">Archivo de configuracion a utilizar</param>
+    /// <returns></returns>
+    protected virtual bool sendContextPrompt(string text, int indexConfig = 0)
+    {
+
+        if (!_promptSent && _schemasCreated)
+        {
+
+            if (_config.Length <= 0)
+            {
+                Debug.LogError("Ningun Config LLM asignado");
+                return false;
+            }
+
+            _indexConfig = indexConfig;
+
+            string prompt = text;
+
+            string configLLM = _config[_indexConfig].getContext()
+                + _config[_indexConfig].getSafeguard();
+
+            if (_useHistoricalInContext)
+            {
+                configLLM = configLLM + "\n " + _config[_indexConfig].getHistoricalConversation() + "\n Historico: \n";
+
+                foreach (String s in _historical)
+                {
+                    configLLM = configLLM + s + "\n";
+                }
+            }
+
+            Debug.Log("PROMPT: " + prompt);
+            Debug.Log("CONTEXT: " + configLLM);
+
+            _historical.Add("Pregunta: " + prompt);
+
+            _promptSent = true;
+
+            StartCoroutine(coroutineSendPrompt(prompt, configLLM, _contextSchema));
 
             return true;
         }
@@ -126,7 +176,7 @@ public abstract class LLMConector : MonoBehaviour
 
         StartCoroutine(coroutineSendPromptSteps(prompt, configLLM, _stepsSchema));
 
-        inputField.text = "";
+        _inputField.text = "";
 
         _stepCounter++;
 

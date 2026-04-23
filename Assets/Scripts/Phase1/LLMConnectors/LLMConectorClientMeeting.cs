@@ -17,9 +17,9 @@ public class LLMConectorClientMeeting : LLMConector
     private class MeetingResponse
     {
         public string answer;
-        public bool respuestaValida;
-        public bool respuestaCoherente;
-        public bool contratarAbogado;
+        public bool respuesta_valida;
+        public bool respuesta_coherente;
+        public bool contratar_abogado;
     }
 
     private bool _abogadoContratado = false;
@@ -36,21 +36,21 @@ public class LLMConectorClientMeeting : LLMConector
 
             if (_stepCounter == 0)
             {
-                Debug.Log("Respuesta contratar abogado: " + jsonResponse.contratarAbogado);
-                _abogadoContratado = jsonResponse.contratarAbogado;
+                Debug.Log("Respuesta contratar abogado: " + jsonResponse.contratar_abogado);
+                _abogadoContratado = jsonResponse.contratar_abogado;
             }
 
-            Debug.Log("Respuesta valida: " + jsonResponse.respuestaValida);
+            Debug.Log("Respuesta valida: " + jsonResponse.respuesta_valida);
 
-            Debug.Log("Respuesta coherente: " + jsonResponse.respuestaCoherente);
+            Debug.Log("Respuesta coherente: " + jsonResponse.respuesta_coherente);
 
-            if (jsonResponse.respuestaValida && jsonResponse.respuestaCoherente)
+            if (jsonResponse.respuesta_valida && jsonResponse.respuesta_coherente)
             {
                 _uiMeeting.EndPendingMessage(jsonResponse.answer);
             }
-            else if (!jsonResponse.respuestaCoherente)
+            else if (!jsonResponse.respuesta_coherente)
             {
-                _uiMeeting.EndPendingMessage("Perdona pero �Podriamos centrarnos en mi caso?");
+                _uiMeeting.EndPendingMessage("Perdona pero ¿Podriamos centrarnos en mi caso?");
             }
             else
             {
@@ -59,7 +59,7 @@ public class LLMConectorClientMeeting : LLMConector
                        
 
             if (_stepCounter < _config[_indexConfig].getStepsChecks().Length && _useSecuritySteps &&
-                (!jsonResponse.respuestaValida || !jsonResponse.respuestaCoherente))
+                (!jsonResponse.respuesta_valida || !jsonResponse.respuesta_coherente))
             {
                 sendSecuritySteps(jsonResponse.answer);
             }
@@ -86,6 +86,11 @@ public class LLMConectorClientMeeting : LLMConector
         sendContextPrompt(indexConfig);
     }
 
+    public void CallSendContext(string text, int indexConfig = 0)
+    {
+        sendContextPrompt(text, indexConfig);
+    }
+
     protected override bool sendContextPrompt(int indexConfig = 0)
     {
         _uiMeeting.StartPendingMessage();
@@ -93,6 +98,22 @@ public class LLMConectorClientMeeting : LLMConector
         _buttonContinue.SetActive(false);
 
         bool messageSent = base.sendContextPrompt(indexConfig);
+
+        if (!messageSent)
+        {
+            _uiMeeting.EndPendingMessage("Puedes volver a repetirmelo por favor?");
+        }
+
+        return messageSent;
+    }
+
+    protected override bool sendContextPrompt(string text, int indexConfig = 0)
+    {
+        _uiMeeting.StartPendingMessage();
+
+        _buttonContinue.SetActive(false);
+
+        bool messageSent = base.sendContextPrompt(text, indexConfig);
 
         if (!messageSent)
         {

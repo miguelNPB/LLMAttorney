@@ -97,7 +97,7 @@ public class LLMConnectorConciliation : LLMConector
                 {
                     agree = JsonUtility.FromJson<LLMConciliationResponseContext>(answer).agree;
 
-                    nextPrompt = inputField.text;
+                    nextPrompt = _inputField.text;
                 }
                 else
                 {
