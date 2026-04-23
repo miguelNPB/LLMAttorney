@@ -1327,10 +1327,10 @@ PrefabInstance:
       value: 'No acortes el texto ni modifiques las variables del JSON que no se
         indican en el prompt.
 
-        
 
-        Devuelve siempre al final el JSON
-        que se te proporciona solo modificando el campo que se te indique.
+
+        Devuelve siempre al final el JSON que se
+        te proporciona solo modificando el campo que se te indique.
 
 '
       objectReference: {fileID: 0}
@@ -1476,6 +1476,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1013648096}
     - target: {fileID: 2630248356911528553, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: _inputField
+      value: 
+      objectReference: {fileID: 1013648096}
+    - target: {fileID: 2630248356911528553, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
       propertyPath: _msgUIComponent
       value: 
       objectReference: {fileID: 23079234}
@@ -1505,10 +1509,10 @@ PrefabInstance:
       value: 'No acortes el texto ni modifiques las variables del JSON que no se
         indican en el prompt.
 
-        
 
-        Devuelve siempre al final el JSON
-        que se te proporciona solo modificando el campo que se te indique.
+
+        Devuelve siempre al final el JSON que se
+        te proporciona solo modificando el campo que se te indique.
 
 '
       objectReference: {fileID: 0}
@@ -1589,10 +1593,10 @@ PrefabInstance:
       value: 'No acortes el texto ni modifiques las variables del JSON que no se
         indican en el prompt.
 
-        
 
-        Devuelve siempre al final el JSON
-        que se te proporciona solo modificando el campo que se te indique.
+
+        Devuelve siempre al final el JSON que se
+        te proporciona solo modificando el campo que se te indique.
 
 '
       objectReference: {fileID: 0}
@@ -1669,10 +1673,10 @@ PrefabInstance:
       value: 'No acortes el texto ni modifiques las variables del JSON que no se
         indican en el prompt.
 
-        
 
-        Devuelve siempre al final el JSON
-        que se te proporciona solo modificando el campo que se te indique.
+
+        Devuelve siempre al final el JSON que se
+        te proporciona solo modificando el campo que se te indique.
 
 '
       objectReference: {fileID: 0}
@@ -2407,6 +2411,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1918448717639435494, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: _inputField
+      value: 
+      objectReference: {fileID: 1013648096}
     - target: {fileID: 2055700843063094252, guid: 852933553285a6740a5814b19dd8a800, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
