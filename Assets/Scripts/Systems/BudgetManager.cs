@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -86,6 +87,28 @@ public class BudgetManager : MonoBehaviour
         return CurrentBudget;
     }
 
+    public float SetBudgetFromLLM(string dialogText, float calculatedMoney)
+    {
+        float sum = FindSumNumbers(dialogText);
+
+        if(sum >= calculatedMoney)
+        {
+            startingBudget += calculatedMoney;
+            CurrentBudget += calculatedMoney;
+            TotalExpenses = 0f;
+            _expenses.Clear();
+
+            Debug.Log($"[BudgetManager] Presupuesto establecido en {CurrentBudget:F2}");
+            OnBudgetChanged?.Invoke();
+        }
+        else
+        {
+            return -1;
+        }
+
+        return CurrentBudget;
+    }
+
     public float AddExpense(string documentText, DocumentType type, string docTitle = null)
     {
         float cost = FindNthNumber(documentText, 2);
@@ -132,6 +155,20 @@ public class BudgetManager : MonoBehaviour
             { greatest = val; found = true; }
 
         return found ? greatest : -1f;
+    }
+
+    private static float FindSumNumbers(string text)
+    {
+        MatchCollection matches = Regex.Matches(text, @"\d+(?:[.,]\d+)?");
+        float totalSum = 0;
+
+        foreach (Match m in matches)
+            if (TryParseNumber(m.Value, out float val))
+            { 
+                totalSum += val; 
+            }
+
+        return totalSum;
     }
 
     private static float FindNthNumber(string text, int n)
