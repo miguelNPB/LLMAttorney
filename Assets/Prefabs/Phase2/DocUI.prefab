@@ -1055,7 +1055,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 552c4a43ce7251042b9d1620c3356784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NavBarDrag
-  navBar: {fileID: 5520041952749125862}
   dragOffset: {x: 0, y: 0}
   defaultTabSize: {x: 0, y: 0}
   targetWindow: {fileID: 3655806729164269206}

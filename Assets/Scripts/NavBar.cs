@@ -3,14 +3,16 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+/// <summary>
+/// Clase para el drag de ventanas flotantes
+/// </summary>
 public class NavBarDrag : MonoBehaviour
 {
-    [SerializeField] GameObject navBar;
-    [SerializeField] Vector2 dragOffset;
-    [SerializeField] Vector2 defaultTabSize;
-    [SerializeField] RectTransform targetWindow;
+    [SerializeField] private Vector2 dragOffset;
+    [SerializeField] private Vector2 defaultTabSize;
+    [SerializeField] private RectTransform targetWindow;
 
-    [SerializeField] TMP_Text winTitle;
+    [SerializeField] private TMP_Text winTitle;
 
     [Header("Snapping")]
     [SerializeField] float snapDistance = 80f;
@@ -49,9 +51,7 @@ public class NavBarDrag : MonoBehaviour
 
     void SetupNavBarDrag()
     {
-        if (navBar == null) return;
-
-        EventTrigger trigger = navBar.GetComponent<EventTrigger>() ?? navBar.AddComponent<EventTrigger>();
+        EventTrigger trigger = gameObject.GetComponent<EventTrigger>() ?? gameObject.AddComponent<EventTrigger>();
 
         EventTrigger.Entry onDown = new EventTrigger.Entry { eventID = EventTriggerType.PointerDown };
         onDown.callback.AddListener((e) => OnNavBarDown((PointerEventData)e));
