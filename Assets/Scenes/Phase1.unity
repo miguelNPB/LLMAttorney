@@ -2067,10 +2067,12 @@ MonoBehaviour:
     Si el precio est\xE1 dentro de un rango razonable (hasta aprox. +200\u20AC a
     +5000\u20AC sobre valores habituales seg\xFAn contexto) \u2192 TRUE\r\n* Si el
     precio es claramente desproporcionado (muy bajo o exageradamente alto) \u2192
-    FALSE\r\n\r\n---\r\n\r\n3. dinero_presupuestado\r\n\r\n* Si NO hay precios \u2192
-    devolver 0\r\n\r\nSi hay precios:\r\n\r\n* Sumar todos los valores monetarios
-    mencionados\r\n* Si hay rangos (ej: 1000\u20132000) \u2192 usar el valor m\xE1s
-    alto\r\n* Devolver el total como n\xFAmero entero (sin s\xEDmbolo de moneda)\r\n\r\n---\r\n\r\nRESTRICCIONES\r\n\r\n*
+    FALSE\r\n\r\n---\r\n\r\n3. dinero_presupuestado\r\n\r\nRegla estricta:\r\n\r\n*
+    SOLO usar precios que aparezcan expl\xEDcitamente en la query del usuario\r\n*
+    IGNORAR cualquier n\xFAmero del contexto, RAG o ejemplos previos\r\n\r\nSi la
+    query NO contiene precios:\r\n\u2192 devolver 0\r\n\r\nIMPORTANTE:\r\n\r\n* No
+    inferir precios\r\n* No reutilizar valores conocidos\r\n* No usar datos del contexto\r\n*
+    Solo extraer n\xFAmeros presentes en la query\r\n\r\n---\r\n\r\nRESTRICCIONES\r\n\r\n*
     No modificar la query\r\n* No interpretar m\xE1s all\xE1 de lo necesario\r\n*
     No inventar datos\r\n* No justificar decisiones\r\n* Responder \xFAnicamente
     con el JSON de salida\r\n"

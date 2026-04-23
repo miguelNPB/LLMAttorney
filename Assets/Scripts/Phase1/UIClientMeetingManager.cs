@@ -45,12 +45,12 @@ public class UIClientMeetingManager : MonoBehaviour
         resultText.text = _pendingMessage;
 
         // actualizar caja de texto y lineas totales
-        //resultText.ForceMeshUpdate();
+        resultText.ForceMeshUpdate();
 
     }
 
     /// <summary>
-    /// Instancia un mensaje y le cambia el color segun si es player o no
+    /// Instancia un mensaje
     /// </summary>
     /// <param name="text"></param>
     /// <param name="fromPlayer"></param>
@@ -64,7 +64,7 @@ public class UIClientMeetingManager : MonoBehaviour
 
     public void ShowMessage(bool changePhase)
     {
-        _writeTextSystem.WriteText(resultText.text);
+        _writeTextSystem.WriteText(_pendingMessage);
 
         if (changePhase)
         {
