@@ -9,13 +9,17 @@ public class JudgePatienceSystem : MonoBehaviour
     [SerializeField][Range(0f,1f)] private float _minPunishDecrement;
     [Tooltip("Maximo decremento al valor de paciencia al castigar")]
     [SerializeField][Range(0f, 1f)] private float _maxPunishDecrement;
+    [Tooltip("Valor minimo que puede alcanzar la paciencia al ")]
+    [SerializeField][Range(0f, 1f)] private float _minPatienceValue;
     [Tooltip("Duración de la animación del slider")]
     [SerializeField] private float _animationDuration = 0.5f;
     [Header("References")]
+    [SerializeField] private Animator _animator;
     [SerializeField] private GameObject _holder;
     [SerializeField] private Slider _slider;
 
-    private float _patience = 1f;
+    [SerializeField] private float _patience_0_1 = 1f; // valor de la paciencia del 0 al 1
+    [SerializeField] private float _patienceValue = 1f; // valor real para el calculo del porcentaje que va de _minPatienceValue a 1
     private Coroutine _coroutine;
 
     /// <summary>
@@ -27,7 +31,12 @@ public class JudgePatienceSystem : MonoBehaviour
     {
         float random = Random.Range(0f, 1f);
 
-        return random < _patience;
+        return random < _patienceValue;
+    }
+
+    public void PlayRejectAnimation()
+    {
+        _animator.SetTrigger("Reject");
     }
 
     /// <summary>
@@ -47,12 +56,13 @@ public class JudgePatienceSystem : MonoBehaviour
     {
         float decrement = Random.Range(_minPunishDecrement, _maxPunishDecrement);
 
-        float oldPatinece = _patience;
-        _patience = Mathf.Clamp01(_patience - decrement);
+        float oldPatinece = _patience_0_1;
+        _patience_0_1 = Mathf.Clamp01(_patience_0_1 - decrement);
+        _patienceValue = Mathf.Lerp(_minPatienceValue, 1, _patience_0_1);
 
         if (_coroutine != null)
             StopCoroutine(_coroutine);
-        _coroutine = StartCoroutine(updateVisual(oldPatinece, _patience));
+        _coroutine = StartCoroutine(updateVisual(oldPatinece, _patience_0_1));
     }
 
 
