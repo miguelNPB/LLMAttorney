@@ -48,22 +48,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4d2fcc20c71404d86ab6d6311118c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  documentButtons:
-  - {fileID: 0}
-  - {fileID: 0}
-  documentTab: {fileID: 0}
-  documentContainer: {fileID: 0}
-  documentPrefab: {fileID: 6451211221277070338, guid: c1d02dde94920f540a16dc5cc0fc5fcd, type: 3}
-  startingPos: {x: -2000, y: -2000}
-  openPos: {x: 100, y: 0}
-  moveSpeed: 5
-  navBar: {fileID: 0}
-  dragOffset: {x: 0, y: 0}
-  winTitle: {fileID: 0}
-  snapDistance: 0
-  snapLerpSpeed: 0
-  defaultTabSize: {x: 0, y: 0}
-  documents: []
 --- !u!1 &1383118892301494302
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,7 +353,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d7eab78a10f9de48abc885088c3257a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameSystem
-  myDocumentManager: {fileID: 6998000207546729099}
 --- !u!1 &5620953649153386031
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,7 +398,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneSystem
   MainMenu: {fileID: 102900000, guid: 0f0a74f7f3fe57b4faa21f340c587fbf, type: 3}
+  Phase1: {fileID: 102900000, guid: e3dd9a66627d21a4280b6adb5bbeb11c, type: 3}
   Phase2: {fileID: 102900000, guid: d8769629790209c44a6a14667aacad86, type: 3}
+  Phase3: {fileID: 102900000, guid: 00f37dcd072024a479da7e6616b57367, type: 3}
+  Phase4: {fileID: 102900000, guid: d3b683f2b32f0cf48bb9f93639a67d3e, type: 3}
 --- !u!1 &6367949567814757709
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,19 +448,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BudgetManager
   startingBudget: 1000
   bankruptcySceneName: GameOver
-  trackedTypes:
-  - type: 0
-    enabled: 0
-  - type: 1
-    enabled: 0
-  - type: 2
-    enabled: 1
-  - type: 3
-    enabled: 1
-  - type: 4
-    enabled: 1
-  - type: 5
-    enabled: 1
 --- !u!1001 &2211448006884904936
 PrefabInstance:
   m_ObjectHideFlags: 0

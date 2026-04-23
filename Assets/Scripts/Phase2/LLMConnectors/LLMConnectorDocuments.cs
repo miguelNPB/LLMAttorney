@@ -61,7 +61,7 @@ public class LLMConnectorDocuments : LLMConector
                             docType = DocumentType.Witness;
                             break;
                         case ClientPromptType.DocAlt:
-                            docType = DocumentType.DocAlt;
+                            docType = DocumentType.ReceiptFacture;
                             break;
                         default:
                             docType = DocumentType.Report;

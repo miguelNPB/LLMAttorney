@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum DocumentType { Perito, Report, Witness, DocAlt }
+public enum DocumentType { Perito, Report, Witness, ReceiptFacture }
 
 /// <summary>
 /// Clase para gestionar la creacion y lectura de documentos. Una vez creado un documento no se puede eliminar.
@@ -82,8 +82,6 @@ public class DocumentManager : MonoBehaviour
 
     private void Awake()
     {
-        CreateDocument("test", DocumentType.Perito, "asdf test", true, 0, true, false);
-        CreateDocument("testPl1", DocumentType.Perito, "asdf test", true, 0, false, false);
-        CreateDocument("testPl2", DocumentType.Perito, "asdf test", true, 0, false, true);
+
     }
 }
