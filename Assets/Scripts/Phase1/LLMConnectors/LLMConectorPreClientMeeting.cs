@@ -13,7 +13,7 @@ public class LLMConectorPreClientMeeting : LLMConector
     private LLMConectorClientMeeting _clientMeetingConector;
 
     [SerializeField]
-    private BudgetCalculator _calculator;
+    private BudgetManager _budgetManager;
 
     private string _text;
 
@@ -41,7 +41,7 @@ public class LLMConectorPreClientMeeting : LLMConector
                 if (jsonResponse.presupuesto_adecuado)
                 {
 
-                    _calculator.addBudget(jsonResponse.dinero_presupuestado);
+                    _budgetManager.SetBudgetFromLLM(_text, jsonResponse.dinero_presupuestado);
                     _clientMeetingConector.CallSendContext(_text);
 
                 }
