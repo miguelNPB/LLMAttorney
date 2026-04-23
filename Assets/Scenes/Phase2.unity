@@ -2409,22 +2409,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &633692593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2426229563916475064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43623e40c2162aa478648e459713e0cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ProcuratorUIDocument
-  _button: {fileID: 0}
-  _docNameText: {fileID: 0}
-  _tickSent: {fileID: 0}
-  _selected: {fileID: 0}
 --- !u!1001 &640407201
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3395,6 +3379,142 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 886563051}
   m_CullTransparentMesh: 1
+--- !u!1 &908975696
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 908975697}
+  - component: {fileID: 908975699}
+  - component: {fileID: 908975698}
+  m_Layer: 5
+  m_Name: Text (TMP)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &908975697
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908975696}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1138189328}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &908975698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908975696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Firmar demanda y mandar al procurador
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
+  m_sharedMaterial: {fileID: -42240559382742459, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4281479730
+  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 24
+  m_fontSizeBase: 24
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &908975699
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908975696}
+  m_CullTransparentMesh: 1
 --- !u!4 &912166572 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4099306078159137386, guid: 9f802eb6de7f79341a30c0ea0aadc6d3, type: 3}
@@ -3780,6 +3900,140 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2589321558982100162, guid: c1d02dde94920f540a16dc5cc0fc5fcd, type: 3}
   m_PrefabInstance: {fileID: 1131934836}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1138189327
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1138189328}
+  - component: {fileID: 1138189331}
+  - component: {fileID: 1138189330}
+  - component: {fileID: 1138189329}
+  m_Layer: 5
+  m_Name: SendDemand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1138189328
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138189327}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 908975697}
+  - {fileID: 1951703686}
+  m_Father: {fileID: 6571786179847569928}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 868.30664, y: -2337.4102}
+  m_SizeDelta: {x: 500, y: 70}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1138189329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138189327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1138189330}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4207879926657347922}
+        m_TargetAssemblyTypeName: RedactLawsuitPage, Assembly-CSharp
+        m_MethodName: SignDemandAndSendToProcurador
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1138189330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138189327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1138189331
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138189327}
+  m_CullTransparentMesh: 1
 --- !u!1 &1186516265
 GameObject:
   m_ObjectHideFlags: 0
@@ -5106,8 +5360,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5c4d20338de1cd49a5d47a6050fe366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Phase2
-  _priorHearingButton: {fileID: 0}
-  _redactLawsuitButton: {fileID: 0}
+  _priorHearingButton: {fileID: 5779304940569309506}
+  _redactLawsuitButton: {fileID: 4947382720315650140}
 --- !u!1 &1554621850
 GameObject:
   m_ObjectHideFlags: 0
@@ -6599,6 +6853,142 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f802eb6de7f79341a30c0ea0aadc6d3, type: 3}
+--- !u!1 &1951703685
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1951703686}
+  - component: {fileID: 1951703688}
+  - component: {fileID: 1951703687}
+  m_Layer: 5
+  m_Name: WarningText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1951703686
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1951703685}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1138189328}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -391, y: -2}
+  m_SizeDelta: {x: 200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1951703687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1951703685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: "\xA1Tienes que rellenar toda la demanda antes de firmarla y mandarla!"
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
+  m_sharedMaterial: {fileID: -42240559382742459, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4278201087
+  m_fontColor: {r: 1, g: 0.16666667, b: 0, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 20
+  m_fontSizeBase: 20
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: -162.41779, y: 0, z: -13.790161, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1951703688
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1951703685}
+  m_CullTransparentMesh: 1
 --- !u!1 &1962510995
 GameObject:
   m_ObjectHideFlags: 0
@@ -7754,7 +8144,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &170377137474773308
@@ -11926,7 +12316,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6922521419184245527}
   - component: {fileID: 8220094570629320639}
-  - component: {fileID: 633692593}
   m_Layer: 5
   m_Name: ProcuratorChatPage
   m_TagString: Untagged
@@ -11981,7 +12370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88df4d05f62ed75418de63b2fdc539ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClientMessages
-  computerSystem: {fileID: 2877935314983381774}
+  _computerSystem: {fileID: 2877935314983381774}
   _conversationMessageUIPrefab: {fileID: 4834547625763915104, guid: b82ab97cc6cdb3d4d95dc0ecc42755b6, type: 3}
   _layoutGroup: {fileID: 2982012206442282255}
   _sendButton: {fileID: 8174858085091398588}
@@ -12098,7 +12487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72f81f8c5ff80a84cb939045e1c5a537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GastosPage
-  computerSystem: {fileID: 2877935314983381774}
+  _computerSystem: {fileID: 2877935314983381774}
 --- !u!224 &2533633872531432086
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12803,7 +13192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02870b2e9ad14df4a9bde673b4e01183, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudienciaPreviaPage
-  computerSystem: {fileID: 2877935314983381774}
+  _computerSystem: {fileID: 0}
 --- !u!114 &2877935314983381774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13119,7 +13508,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 763.3892, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!224 &2944787297508419706
@@ -13309,7 +13698,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &2995069647681275641
@@ -13694,7 +14083,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &3262635535487315455
@@ -14656,7 +15045,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 922.808, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &3642845918825117681
@@ -14917,7 +15306,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &3693132941131804361
@@ -15610,7 +15999,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 918.56244, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &3951280737408659361
@@ -16167,8 +16556,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fe9044a300324f4395e65e4660c908a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RedactionPage
-  computerSystem: {fileID: 2877935314983381774}
-  _scrollSpeed: 5
+  _computerSystem: {fileID: 2877935314983381774}
+  _scrollSpeed: 25
   _verticalLayout: {fileID: 1775156322636456509}
   _lastElementLayout: {fileID: 7648233577407621582}
   _textProcuratorName: {fileID: 3628956006726544800}
@@ -16180,6 +16569,28 @@ MonoBehaviour:
   _inputConciliacion: {fileID: 655805318454251356}
   _inputListArticulos: {fileID: 8978132567888397158}
   _inputPeticion: {fileID: 8164070561967911283}
+  _sendDemandButton: {fileID: 1138189329}
+  _warningSendDemandText: {fileID: 1951703685}
+  _phase2Manager: {fileID: 1550168515}
+  _textsInOrder:
+  - {fileID: 8469844270594498079}
+  - {fileID: 8010156652172170140}
+  - {fileID: 6466448354018206972}
+  - {fileID: 5267375445828379322}
+  - {fileID: 6471494946914501891}
+  - {fileID: 6940017630377761911}
+  - {fileID: 4088795862151619290}
+  - {fileID: 5999493777731704246}
+  - {fileID: 2589350009113073209}
+  - {fileID: 5053649218151209529}
+  - {fileID: 162361444582886905}
+  - {fileID: 7764620318542143281}
+  - {fileID: 3246315076119686477}
+  - {fileID: 30012655954591233}
+  - {fileID: 3484790638655814313}
+  - {fileID: 6706212385025203706}
+  - {fileID: 4907298304840602058}
+  _procuratorChatPage: {fileID: 8220094570629320639}
 --- !u!224 &4240018641304541419
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17230,7 +17641,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!224 &4713006662890363126
@@ -17629,7 +18040,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &4911585132297935020
@@ -18498,8 +18909,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1550168515}
-        m_TargetAssemblyTypeName: Phase2, Assembly-CSharp
-        m_MethodName: EnableRedactar
+        m_TargetAssemblyTypeName: Phase2Manager, Assembly-CSharp
+        m_MethodName: EnableRedactLawsuit
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -18690,7 +19101,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: 'Que por medio del presente escrito y siguiendo instrucciones expresas
-    de mi mandante, interpongo la siguiente demanda a __________________________________________:'
+    de mi mandante, interpongo la siguiente demanda a ________________________________________:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
   m_sharedMaterial: {fileID: -42240559382742459, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
@@ -18946,14 +19357,6 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3922813374477543031}
-  m_CullTransparentMesh: 1
---- !u!222 &5330331822140739359
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7917810695889942606}
   m_CullTransparentMesh: 1
 --- !u!222 &5336420589342425665
 CanvasRenderer:
@@ -19252,7 +19655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 016c5813a103c0f43bf609d29ec640a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AbandonarCasoPage
-  computerSystem: {fileID: 2877935314983381774}
+  _computerSystem: {fileID: 2877935314983381774}
   _holder: {fileID: 1528171063}
 --- !u!224 &5487976213245081125
 RectTransform:
@@ -20239,7 +20642,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &6021452622502558707
@@ -21373,7 +21776,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &6471996941055154818
@@ -21865,6 +22268,7 @@ RectTransform:
   - {fileID: 2858978551940844597}
   - {fileID: 2636020271965890633}
   - {fileID: 7648233577407621582}
+  - {fileID: 1138189328}
   m_Father: {fileID: 4887371774382665019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -22689,7 +23093,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1d026c1d9aadf34d915efdffad894bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConciliationPage
-  computerSystem: {fileID: 2877935314983381774}
+  _computerSystem: {fileID: 2877935314983381774}
   _phase2Manager: {fileID: 1550168515}
   _llmConnector: {fileID: 9136087112923725672}
   _clientCharacterAnimator: {fileID: 7925293991184527635}
@@ -23825,7 +24229,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &7385835572414431789
@@ -24807,7 +25211,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &7597891574618771712
@@ -25641,7 +26045,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1371524283552499952}
-  - component: {fileID: 5330331822140739359}
   - component: {fileID: 7917810695889942607}
   m_Layer: 5
   m_Name: DocumentsPage
@@ -25662,7 +26065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db89afb44df72564dbd4edd0fa8918a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DocumentsPage
-  computerSystem: {fileID: 2877935314983381774}
+  _computerSystem: {fileID: 2877935314983381774}
   _pageHolder: {fileID: 1142177668535368565}
   _playerDocumentsContainer: {fileID: 1772390137}
   _rivalDocumentsContainer: {fileID: 1376105505}
@@ -26583,7 +26986,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d8002a31b20a05498d2e6e2f626fc9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProcuratorChatPage
-  computerSystem: {fileID: 2877935314983381774}
+  _computerSystem: {fileID: 2877935314983381774}
   _conversationMessageUIPrefab: {fileID: 4834547625763915104, guid: b82ab97cc6cdb3d4d95dc0ecc42755b6, type: 3}
   _layoutGroup: {fileID: 5880390029461814308}
   _sendButton: {fileID: 6485053507012052105}
@@ -27352,8 +27755,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1550168515}
-        m_TargetAssemblyTypeName: Phase2, Assembly-CSharp
-        m_MethodName: EnableAudienciaPrevia
+        m_TargetAssemblyTypeName: Phase2Manager, Assembly-CSharp
+        m_MethodName: EnablePriorHearing
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -28939,7 +29342,7 @@ MonoBehaviour:
   _config:
   - {fileID: 1326617166}
   - {fileID: 1857381580}
-  _inputField: {fileID: 0}
+  _inputField: {fileID: 8809478106279820615}
   _useSecuritySteps: 1
   _useHistoricalInContext: 1
   _useHistoricalInSteps: 1

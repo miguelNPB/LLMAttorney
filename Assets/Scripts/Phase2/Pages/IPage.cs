@@ -5,7 +5,7 @@ using UnityEngine;
 /// </summary>
 public abstract class IPage : MonoBehaviour
 {
-    public ComputerSystem computerSystem;
+    public ComputerSystem _computerSystem;
     abstract public void Open();
     abstract public void Close();
 }

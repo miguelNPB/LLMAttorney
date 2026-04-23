@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Phase2 : MonoBehaviour
+public class Phase2Manager : MonoBehaviour
 {
     [SerializeField] private Button _priorHearingButton;
     [SerializeField] private Button _redactLawsuitButton;

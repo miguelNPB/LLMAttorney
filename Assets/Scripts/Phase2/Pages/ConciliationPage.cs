@@ -8,7 +8,7 @@ using UnityEngine.UI;
 /// </summary>
 public class ConciliationPage : IPage
 {
-    [SerializeField] private Phase2 _phase2Manager;
+    [SerializeField] private Phase2Manager _phase2Manager;
     [SerializeField] private LLMConnectorConciliation _llmConnector;
     [SerializeField] private Animator _clientCharacterAnimator;
     [SerializeField] private Animator _rivalCharacterAnimator;
@@ -91,7 +91,7 @@ public class ConciliationPage : IPage
         clienteAnswerText.text = _clientAnswer;
 
         if (!_open)
-            computerSystem.ToggleNotification(Page.Conciliation, true);
+            _computerSystem.ToggleNotification(Page.Conciliation, true);
 
 
         if (_clientAgrees)
@@ -130,21 +130,21 @@ public class ConciliationPage : IPage
         rivalAnswerText.text = _rivalAnswer;
 
         if (!_open)
-            computerSystem.ToggleNotification(Page.Conciliation, true);
+            _computerSystem.ToggleNotification(Page.Conciliation, true);
 
 
         if (_rivalAgrees)
         {
             _rivalCharacterAnimator.SetTrigger("Success");
             popupAfterSuccessfulConciliation.SetActive(true);
-            computerSystem.ToggleExitButton(false);
+            _computerSystem.ToggleExitButton(false);
         }
         else
         {
             _rivalCharacterAnimator.SetTrigger("Rejection");
             popupAfterFailedConciliation.SetActive(true);
             _phase2Manager.FailedConciliation();
-            computerSystem.ToggleNotification(Page.Redaction, true);
+            _computerSystem.ToggleNotification(Page.Redaction, true);
         }
     }
 
@@ -173,7 +173,7 @@ public class ConciliationPage : IPage
     {
         _open = true;
 
-        computerSystem.ToggleNotification(Page.Conciliation, false);
+        _computerSystem.ToggleNotification(Page.Conciliation, false);
 
         for (int i = 0; i < gameObject.transform.childCount; i++)
             gameObject.transform.GetChild(i).gameObject.SetActive(true);

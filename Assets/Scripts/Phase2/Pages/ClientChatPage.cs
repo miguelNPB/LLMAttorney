@@ -113,7 +113,7 @@ public class ClientChatPage : ChatPage
 
     public override void Open()
     {
-        computerSystem.ToggleNotification(Page.ClientChat, false);
+        _computerSystem.ToggleNotification(Page.ClientChat, false);
 
         for (int i = 0; i < gameObject.transform.childCount; i++)
             gameObject.transform.GetChild(i).gameObject.SetActive(true);

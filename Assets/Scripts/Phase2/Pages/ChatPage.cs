@@ -62,6 +62,15 @@ public abstract class ChatPage : IPage
         rectTr.sizeDelta = new Vector2(1500, height);
     }
 
+
+    /// <summary>
+    /// No llamar a este metodo de normal, llamar solo si queremos poner mensajes manuales instantanemante
+    /// </summary>
+    public void ManuallyAddMessage(string text, bool fromPlayer)
+    {
+        addMessage(text, fromPlayer);
+    }
+
     /// <summary>
     /// Llamar a esto para a�adir un mensaje que tenga una animacion de puntos suspensivos hasta que se llame a EndPendingMessage
     /// </summary>
@@ -139,12 +148,12 @@ public abstract class ChatPage : IPage
 
     private void OnEnable()
     {
-        //InputSystem.Instance.onScrollPerformed += Scroll;
+        InputSystem.Instance.onScrollPerformed += Scroll;
     }
 
     private void OnDisable()
     {
         StopAllCoroutines();
-        //InputSystem.Instance.onScrollPerformed -= Scroll;
+        InputSystem.Instance.onScrollPerformed -= Scroll;
     }
 }

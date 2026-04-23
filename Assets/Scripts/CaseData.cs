@@ -27,7 +27,7 @@ public class CaseData
     private string _procuratorName;
     private string _demandedEntityName; // demandado o demandador en caso de ser respuesta
     private string _caseDescription; // Descripcion del caso para pasar a llm contraria
-    
+    private string _lawsuitText; // texto de la demanda
     // getters
     public bool isDemandaSent => _isDemandaSent;
     public bool attemptedConciliation => _attemptedConciliation;
@@ -36,6 +36,7 @@ public class CaseData
     public string procuratorName => _procuratorName;
     public string demandedEntityName => _demandedEntityName;
     public string caseDescription => _caseDescription;
+    public string lawsuitText => _lawsuitText;
 
     // variables publicas que cambian en el curso del caso
     public List<ConversationMessage> clientMessages = new List<ConversationMessage>();
@@ -72,5 +73,15 @@ public class CaseData
     public void SentDemandaToProcurador()
     {
         _isDemandaSent = true;
+    }
+
+
+    /// <summary>
+    /// Establece el texto de la demanda
+    /// </summary>
+    /// <param name="text"></param>
+    public void SetLawsuitText(string text)
+    {
+        _lawsuitText = text;
     }
 }
