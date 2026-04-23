@@ -95,7 +95,7 @@ public class LLMConnectorOpponentDocuments : LLMConector
             true
         );
 
-        _procuradorPage.ReceiveOpponentDocMessage(response.answer);
+        _procuradorPage.ReceiveOpponentDocMessage("Has recibido un documento de la parte del damandado.");
     }
 
     protected override bool sendContextPrompt(int indexConfig = 0)
@@ -116,13 +116,13 @@ public class LLMConnectorOpponentDocuments : LLMConector
 
             string prompt = oppPrompt;
 
-            string configLLM = _config[_indexConfig].getContext()
-                + _config[_indexConfig].getSafeguard();
+            string configLLM = _config[_indexConfig].context
+                + _config[_indexConfig].safeguard;
 
             // Grab all documents from the document manager to add to the context
             string documentsContext = "Documentos actuales enviados por el jugador:\n" + GameSystem.Instance.myDocumentManager.getSentDocsInfo() + "\n";
 
-            configLLM = configLLM + "\n " + _config[_indexConfig].getHistoricalConversation() + "\n Historico: \n";
+            configLLM = configLLM + "\n " + _config[_indexConfig].historicalConversation + "\n Historico: \n";
 
             // if (_useHistoricalInContext)
             // {
@@ -187,7 +187,7 @@ public class LLMConnectorOpponentDocuments : LLMConector
         Debug.Log("PROMPT de security checks: " + prompt);
 
         string configLLM = "Teniendo el siguiente texto: \n" + prompt + "\n Y teniedo la siguiente directiva de seguridad" +
-            _config[_indexConfig].getSafeguardSteps() +
+            _config[_indexConfig].safeguardSteps +
             "\n Quiero que hagas lo siguiente: " + _config[_indexConfig].getStepsChecks()[_stepCounter];
 
         if (_useHistoricalInSteps)

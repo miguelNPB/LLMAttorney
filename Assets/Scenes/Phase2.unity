@@ -751,6 +751,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 5230731981517884603, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
+      propertyPath: _caseDescription
+      value: "En fecha enero de 2021, el demandante comienza a detectar da\xF1os
+        materiales en su vivienda consistentes en humedades en techo y paredes, desprendimiento
+        de pintura, aparici\xF3n de moho y deterioro progresivo del suelo de parquet.\n\r\nTras
+        diversas comprobaciones, se identifica como posible origen de los da\xF1os
+        una fuga de agua procedente del cuarto de ba\xF1o de la vivienda superior,
+        propiedad de la demandada.\n\r\nEl demandante realiza varios intentos de
+        contacto con la demandada a fin de solucionar el problema, sin que se adopten
+        medidas eficaces para la reparaci\xF3n del origen de la filtraci\xF3n."
+      objectReference: {fileID: 0}
     - target: {fileID: 6998000207546729099, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
       propertyPath: navBar
       value: 
@@ -778,7 +789,7 @@ PrefabInstance:
     - target: {fileID: 8841508172722580873, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 3ba417103662a7b4bb9a388999c5434c, type: 3}
+      objectReference: {fileID: 21300000, guid: 18b66bbaefeb5fb44ba462ee731963c1, type: 3}
     - target: {fileID: 9150854484525700809, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
       propertyPath: ip
       value: localhost
@@ -2648,6 +2659,14 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1672697016457844634, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 125
+      objectReference: {fileID: 0}
+    - target: {fileID: 1672697016457844634, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 74
+      objectReference: {fileID: 0}
     - target: {fileID: 1825095113906817689, guid: 852933553285a6740a5814b19dd8a800, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -2811,6 +2830,14 @@ PrefabInstance:
     - target: {fileID: 2716033566554295034, guid: 852933553285a6740a5814b19dd8a800, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3001207610810359613, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 226
+      objectReference: {fileID: 0}
+    - target: {fileID: 3001207610810359613, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 74
       objectReference: {fileID: 0}
     - target: {fileID: 3001717616816341921, guid: 852933553285a6740a5814b19dd8a800, type: 3}
       propertyPath: m_AnchorMax.y

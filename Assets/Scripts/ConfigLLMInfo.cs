@@ -47,27 +47,6 @@ public class ConfigLLMInfo : MonoBehaviour
         return _apiType;
     }
 
-    public string getContext()
-    {
-        return context;
-    }
-
-    public string getSafeguard()
-    {
-        return safeguard;
-    }
-
-    public string getSafeguardSteps()
-    {
-        return safeguardSteps;
-    }
-
-    public string getHistoricalConversation()
-    {
-        return historicalConversation;
-
-    }
-
     public string[] getStepsChecks()
     {
         return _stepChecks;

@@ -36,9 +36,6 @@ public class ProcuratorChatPage : ChatPage {
         {
             GameObject documentInstanced = Instantiate(procuradorDocUIPrefab, docsUIContainer.transform);
 
-            Debug.Log(documentInstanced);
-            Debug.Log(documents[i]);
-
             documentInstanced.GetComponent<ProcuratorUIDocument>().Init(this, documents[i]);
         }
     }

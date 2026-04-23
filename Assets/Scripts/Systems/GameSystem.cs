@@ -25,6 +25,9 @@ public class GameSystem : MonoBehaviour
     [SerializeField]
     public DocumentManager myDocumentManager;
 
+    [SerializeField, TextArea(3, 10)]
+    private string _caseDescription;
+
 
     /// <summary>
     /// Crea caseData con datos ejemplo para placeholder antes de usar la LLM
@@ -34,21 +37,16 @@ public class GameSystem : MonoBehaviour
         _caseData = new CaseData();
 
         _caseData.isDemanda = true;
-        _caseData.clientName = "Carlos Leon";
-        _caseData.procuratorName = "Procuratus Maximus";
-        _caseData.demandedEntityName = "Guillermo Jimenez";
-        _caseData.clientMessages.Add(new ConversationMessage("Hola abogado!", false));
-        _caseData.clientMessages.Add(new ConversationMessage("Me llamo Carlos Leon, y me comunico contigo para que me ayudes con una disputa que he tenido con mi vecino, Guillermo Jimenez", false));
-        _caseData.clientMessages.Add(new ConversationMessage("Claro! Cuentame!", true));
-        _caseData.clientMessages.Add(new ConversationMessage("Sabes que esto es una prueba de un sistema de texto de conversacion estilo whatsap?", false));
-        _caseData.clientMessages.Add(new ConversationMessage("Bklajdsñkjfñlsajdfñkljasñkdfjlkasjdfñkaskfjasdfjsdkfjalkdsfklfkljdkfñaldskasdfñsdñkfasdjfkfklñkñdfksfjdfkñsdkflkdflkdfkñakjlkñsfljadkflañksjflkjdfkñ aklajsdkfljasdkñfjaklsdjfñklajsdñkfljañkljdflk aksdjfklñ?", true));
-        _caseData.clientMessages.Add(new ConversationMessage("Estas bien?", false));
+        _caseData.clientName = "Pedro Muñoz";
+        _caseData.procuratorName = "Alberto Velazquez";
+        _caseData.demandedEntityName = "Ana Pérez";
+        _caseData.clientMessages.Add(new ConversationMessage("Hola, cuando sepas que documentos debo conseguir por favor dimelo", false));
 
         _caseData.procuratorMessages.Add(new ConversationMessage("Buenas! Mi nombre es " + _caseData.procuratorName + ", seré tu procurador para este caso. Cualquier documento que consideres pertinente adjuntar al proceso, mándamelo y lo registraré.", false));
 
         _caseData.conciliationRivalInstantRejectProbability = 1;
 
-        _caseData.caseDescription = "El cliente Carlos Leon quiere demandar a el rival Guillermo porque le ha asesinado a su perro.";
+        _caseData.caseDescription = _caseDescription;
     }
 
     private void Init()

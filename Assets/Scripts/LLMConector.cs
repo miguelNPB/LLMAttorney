@@ -71,12 +71,12 @@ public abstract class LLMConector : MonoBehaviour
 
             string prompt = _inputField.text;
 
-            string configLLM = _config[_indexConfig].getContext()
-                + _config[_indexConfig].getSafeguard();
+            string configLLM = _config[_indexConfig].context
+                + _config[_indexConfig].safeguard;
 
             if (_useHistoricalInContext)
             {
-                configLLM = configLLM + "\n " + _config[_indexConfig].getHistoricalConversation() + "\n Historico: \n";
+                configLLM = configLLM + "\n " + _config[_indexConfig].historicalConversation + "\n Historico: \n";
 
                 foreach (String s in _historical)
                 {
@@ -123,12 +123,12 @@ public abstract class LLMConector : MonoBehaviour
 
             string prompt = text;
 
-            string configLLM = _config[_indexConfig].getContext()
-                + _config[_indexConfig].getSafeguard();
+            string configLLM = _config[_indexConfig].context
+                + _config[_indexConfig].safeguard;
 
             if (_useHistoricalInContext)
             {
-                configLLM = configLLM + "\n " + _config[_indexConfig].getHistoricalConversation() + "\n Historico: \n";
+                configLLM = configLLM + "\n " + _config[_indexConfig].historicalConversation + "\n Historico: \n";
 
                 foreach (String s in _historical)
                 {
@@ -163,7 +163,7 @@ public abstract class LLMConector : MonoBehaviour
         Debug.Log("PROMPT de security checks: " + prompt);
 
         string configLLM = "Teniendo el siguiente texto: \n" + prompt + "\n Y teniedo la siguiente directiva de seguridad" +
-            _config[_indexConfig].getSafeguardSteps() +
+            _config[_indexConfig].safeguardSteps+
             "\n Quiero que hagas lo siguiente: " + _config[_indexConfig].getStepsChecks()[_stepCounter];
 
         if (_useHistoricalInSteps)
