@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,6 +35,9 @@ public class ProcuratorChatPage : ChatPage {
         for (int i = 0; i < documents.Count; i++)
         {
             GameObject documentInstanced = Instantiate(procuradorDocUIPrefab, docsUIContainer.transform);
+
+            Debug.Log(documentInstanced);
+            Debug.Log(documents[i]);
 
             documentInstanced.GetComponent<ProcuratorUIDocument>().Init(this, documents[i]);
         }

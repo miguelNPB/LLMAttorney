@@ -270,14 +270,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5804448027057478526}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 726ca8bc96558564088de99ed748dbfa, type: 3}
+  m_Script: {fileID: 11500000, guid: 43623e40c2162aa478648e459713e0cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProcuradorDocUI
-  button: {fileID: 578511607139781379}
-  docName: {fileID: 6062645265866615095}
-  tickSent: {fileID: 5845876949911045372}
-  selected: {fileID: 4051650952836611881}
-  documentInfo: {fileID: 0}
+  _button: {fileID: 578511607139781379}
+  _docNameText: {fileID: 6062645265866615095}
+  _tickSent: {fileID: 5845876949911045372}
+  _selected: {fileID: 4051650952836611881}
 --- !u!114 &506785310286952993
 MonoBehaviour:
   m_ObjectHideFlags: 0
