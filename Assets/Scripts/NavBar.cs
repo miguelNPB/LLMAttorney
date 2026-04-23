@@ -11,6 +11,7 @@ public class NavBarDrag : MonoBehaviour
     [SerializeField] private Vector2 dragOffset;
     [SerializeField] private Vector2 defaultTabSize;
     [SerializeField] private RectTransform targetWindow;
+    [SerializeField] private RectTransform dragLimits;
 
     [SerializeField] private TMP_Text winTitle;
 
@@ -42,6 +43,10 @@ public class NavBarDrag : MonoBehaviour
         if (winTitle != null)
             //Search in children for a TMP_Text component to set the title
             GetComponentInChildren<TMP_Text>().text = winTitle.text;
+        
+        if (dragLimits == null)
+            Debug.LogWarning("Drag limits not set. Searching for game object with tag 'NavLimits'...");
+            dragLimits = GameObject.FindGameObjectWithTag("NavLimits")?.GetComponent<RectTransform>();
     }
 
     void OnApplicationFocus(bool hasFocus)
@@ -84,6 +89,29 @@ public class NavBarDrag : MonoBehaviour
         pointerDragOffset = draggedWindow.anchoredPosition - localPoint + dragOffset;
     }
 
+    Vector2 ClampToBounds(Vector2 targetPos, RectTransform window)
+    {
+        // Temporarily move window to targetPos, sample navbar corners, then decide
+        Vector2 previousPos = window.anchoredPosition;
+        window.anchoredPosition = targetPos;
+        Canvas.ForceUpdateCanvases();
+
+        Vector3[] navCorners = new Vector3[4];
+        GetComponent<RectTransform>().GetWorldCorners(navCorners);
+
+        Vector3[] limitCorners = new Vector3[4];
+        dragLimits.GetWorldCorners(limitCorners);
+
+        Vector2 nudge = Vector2.zero;
+        if (navCorners[0].x < limitCorners[0].x) nudge.x = limitCorners[0].x - navCorners[0].x;
+        if (navCorners[2].x > limitCorners[2].x) nudge.x = limitCorners[2].x - navCorners[2].x;
+        if (navCorners[0].y < limitCorners[0].y) nudge.y = limitCorners[0].y - navCorners[0].y;
+        if (navCorners[2].y > limitCorners[2].y) nudge.y = limitCorners[2].y - navCorners[2].y;
+
+        window.anchoredPosition = previousPos; // restore, OnNavBarDrag will set final
+        return targetPos + (Vector2)canvasRect.InverseTransformVector(nudge);
+    }
+
     void OnNavBarDrag(PointerEventData eventData)
     {
         if (draggedWindow == null) return;
@@ -91,7 +119,12 @@ public class NavBarDrag : MonoBehaviour
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             canvasRect, eventData.position, GetCamera(), out Vector2 localPoint);
 
-        draggedWindow.anchoredPosition = localPoint + pointerDragOffset;
+        Vector2 targetPos = localPoint + pointerDragOffset;
+
+        if (dragLimits != null)
+            targetPos = ClampToBounds(targetPos, draggedWindow);
+
+        draggedWindow.anchoredPosition = targetPos;
     }
 
     void OnNavBarUp(PointerEventData eventData)
@@ -100,7 +133,7 @@ public class NavBarDrag : MonoBehaviour
 
         if (TryGetEdgeSnap(draggedWindow.anchoredPosition, out Vector2 snap))
         {
-            snapTarget = snap;
+            snapTarget = dragLimits != null ? ClampToBounds(snap, draggedWindow) : snap;
             isSnapping = true;
         }
         else

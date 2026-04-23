@@ -1,5 +1,6 @@
 using Mono.Cecil.Cil;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -19,6 +20,11 @@ public class DocumentsPage : IPage
     private List<UIDocument> _playerDocumentsInstanciated = new List<UIDocument>();
     private List<UIDocument> _rivalDocumentsInstanciated = new List<UIDocument>();
 
+
+    //Padre de los documentos abiertos
+    [SerializeField] 
+    private Transform _detachedDocParent;
+
     void Awake()
     {
         _documentManager = GameSystem.Instance.CaseData.documentManager;
@@ -31,9 +37,10 @@ public class DocumentsPage : IPage
     private void addUIDocument(Document doc)
     {
         GameObject parent = doc.IsRivalDoc() ? _rivalDocumentsContainer : _playerDocumentsContainer;
+        GameObject instance = Instantiate(_playerDocumentPrefab, parent.transform);
+        UIDocument uiDoc = instance.GetComponent<UIDocument>();
+        uiDoc.SetDocValues(doc.GetDocName(), doc.GetContent(), doc.IsSentToProcurador());
 
-        GameObject instanciatedUIDoc = Instantiate(_playerDocumentPrefab, parent.transform);
-        instanciatedUIDoc.GetComponent<UIDocument>().SetDocValues(doc.GetDocName(), doc.GetContent(), doc.IsSentToProcurador());
     }
 
     /// <summary>
@@ -83,10 +90,23 @@ public class DocumentsPage : IPage
         setupUIDocuments();
 
         _pageHolder.SetActive(true);
+
+        // foreach (UIDocument doc in _detachedDocParent.GetComponentsInChildren<UIDocument>(includeInactive: true))
+        //     doc.documentIcon.SetActive(true);
     }
 
     public override void Close()
     {
         _pageHolder.SetActive(false);
+        // Esconder iconos de los documentos abiertos en el detached parent para evitar que sigan visibles al cerrar la pagina
+
+        // foreach (UIDocument doc in _detachedDocParent.GetComponentsInChildren<UIDocument>(includeInactive: true))
+        //     doc.documentIcon.SetActive(true);
+    }
+    
+    void Start()
+    {
+        if (_detachedDocParent == null)
+            _detachedDocParent = GameObject.FindWithTag("DetachedDocParent")?.transform;
     }
 }
