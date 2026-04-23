@@ -69,6 +69,7 @@ public abstract class ChatPage : IPage
     public void ManuallyAddMessage(string text, bool fromPlayer)
     {
         addMessage(text, fromPlayer);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_layoutGroup.GetComponent<RectTransform>());
     }
 
     /// <summary>
