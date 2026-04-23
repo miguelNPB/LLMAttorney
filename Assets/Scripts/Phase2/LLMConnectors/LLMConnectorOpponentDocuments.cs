@@ -86,12 +86,13 @@ public class LLMConnectorOpponentDocuments : LLMConector
             return;
         }
 
-        GameSystem.Instance.myDocumentManager.CreateDocument(
+        GameSystem.Instance.CaseData.documentManager.CreateDocument(
            response.NombreDocumento,
-           (PromptType)response.TipoDocumento,
+           (DocumentType)response.TipoDocumento,
            response.ContenidoDocumento,
            false,
            0,
+            true,
             true
         );
 
@@ -119,8 +120,22 @@ public class LLMConnectorOpponentDocuments : LLMConector
             string configLLM = _config[_indexConfig].context
                 + _config[_indexConfig].safeguard;
 
+            // sumar al contexto los documentos enviados del player
+            DocumentManager docManager = GameSystem.Instance.CaseData.documentManager;
+            List<uint> playerDocuments = docManager.GetPlayerDocs();
+            string playerSentDocsInfo = "";
+            for (int i = 0; i < playerDocuments.Count; i++)
+            {
+                Document doc = docManager.GetDocument(playerDocuments[i]);
+
+                if (doc.IsSentToProcurador())
+                {
+                    playerSentDocsInfo += "\n" + doc.GetType() + ", " + doc.GetDocName() + ":\n" + doc.GetContent();
+                }
+            }
+
             // Grab all documents from the document manager to add to the context
-            string documentsContext = "Documentos actuales enviados por el jugador:\n" + GameSystem.Instance.myDocumentManager.getSentDocsInfo() + "\n";
+            string documentsContext = "Documentos actuales enviados por el jugador:\n" + playerSentDocsInfo + "\n";
 
             configLLM = configLLM + "\n " + _config[_indexConfig].historicalConversation + "\n Historico: \n";
 

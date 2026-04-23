@@ -20,22 +20,57 @@ public struct ConversationMessage
 /// </summary>
 public class CaseData
 {
-    public bool isDemanda = false; // true = demanda realizada, false = No se ha hecho la demanda
-    public bool attemptedConciliation = false;
-    public float conciliationRivalInstantRejectProbability; // valor del 0.f al 1.f que indica la probabilidad de que el rival rechace cualquier intento de conciliacion (0 = nunca, 1 = siempre)
-    // datos interacciones cliente
+    private bool _isDemandaSent = false; // true = demanda realizada, false = No se ha hecho la demanda
+    private bool _attemptedConciliation = false;
+    private float _conciliationRivalInstantRejectProbability; // valor del 0.f al 1.f que indica la probabilidad de que el rival rechace cualquier intento de conciliacion (0 = nunca, 1 = siempre)
+    private string _clientName;
+    private string _procuratorName;
+    private string _demandedEntityName; // demandado o demandador en caso de ser respuesta
+    private string _caseDescription; // Descripcion del caso para pasar a llm contraria
+    
+    // getters
+    public bool isDemandaSent => _isDemandaSent;
+    public bool attemptedConciliation => _attemptedConciliation;
+    public float conciliationRivalInstantRejectProbability => _conciliationRivalInstantRejectProbability;
+    public string clientName => _clientName;
+    public string procuratorName => _procuratorName;
+    public string demandedEntityName => _demandedEntityName;
+    public string caseDescription => _caseDescription;
+
+    // variables publicas que cambian en el curso del caso
     public List<ConversationMessage> clientMessages = new List<ConversationMessage>();
     public List<ConversationMessage> procuratorMessages = new List<ConversationMessage>();
-    public string clientName = "";
-    public string procuratorName = "";
-    public string demandedEntityName = ""; // demandado o demandador en caso de ser respuesta
+    public DocumentManager documentManager = new DocumentManager();
 
-    public string caseDescription = ""; // Descripcion del caso para pasar a llm contraria
 
-    // resto
-
-    public void SetDemanda() 
+    public CaseData(
+        float conciliationRivalInstantRejectProbability,
+        string clientName,
+        string procuratorName,
+        string demandedEntityName,
+        string caseDescription)
     {
-        isDemanda = true;
+        _conciliationRivalInstantRejectProbability = conciliationRivalInstantRejectProbability;
+        _clientName = clientName;
+        _procuratorName = procuratorName;
+        _demandedEntityName = demandedEntityName;
+        _caseDescription = caseDescription;
+    }
+
+
+    /// <summary>
+    /// Se llama una vez se ha intentado una conciliacion
+    /// </summary>
+    public void AttemptConciliacion()
+    {
+        _attemptedConciliation = true;
+    }
+
+    /// <summary>
+    /// Llamado al pulsar el boton de mandar demanda a procurador.
+    /// </summary>
+    public void SentDemandaToProcurador()
+    {
+        _isDemandaSent = true;
     }
 }

@@ -54,8 +54,6 @@ public class ComputerSystem : MonoBehaviour
         TogglePage(page, true);
         currentPage = page;
 
-        Debug.Log("Pagina a la que se va: " +  page);
-
         _exitButton.SetActive(page != Page.MainMenu);
     }
 

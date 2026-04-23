@@ -18,14 +18,6 @@ public class OpponentDocConfig
 
     [Tooltip("Case themes the opponent can use to build counter-documents")]
     public List<string> docThemes = new();
-
-    [Tooltip("Prompt types the opponent is allowed to generate")]
-    public List<PromptType> allowedDocTypes = new()
-    {
-        PromptType.Perito,
-        PromptType.Report,
-        PromptType.Witness,
-    };
 }
 
 
@@ -144,7 +136,7 @@ public class OpponentDocProcuration : MonoBehaviour
 
     private IEnumerator Init()
     {
-        yield return new WaitWhile(() => !GameSystem.Instance.CaseData.isDemanda);
+        yield return new WaitWhile(() => !GameSystem.Instance.CaseData.isDemandaSent);
         yield return StartCoroutine(SendChatMessage());
         yield return StartCoroutine(TimedGenerationLoop());
     }

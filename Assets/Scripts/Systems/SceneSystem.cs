@@ -19,7 +19,6 @@ public class SceneSystem : MonoBehaviour
     public void LoadPhase2()
     {
         SceneManager.LoadScene(Phase2.name);
-        GameSystem.Instance.myDocumentManager.gameObject.SetActive(true);
     }
 
     private void Awake()

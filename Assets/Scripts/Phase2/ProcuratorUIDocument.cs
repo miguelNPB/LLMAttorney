@@ -15,7 +15,7 @@ public class ProcuratorUIDocument : MonoBehaviour
     [SerializeField] private GameObject _tickSent;
     [SerializeField] private GameObject _selected;
 
-    [HideInInspector] private Document _documentInfo; public Document documentInfo { get { return _documentInfo; } }
+    private Document _documentInfo; public Document documentInfo { get { return _documentInfo; } }
 
     private DocumentManager _docManager;
     public void Unselect()
@@ -32,7 +32,7 @@ public class ProcuratorUIDocument : MonoBehaviour
 
     public void Awake()
     {
-        _docManager = GameSystem.Instance.myDocumentManager;
+        _docManager = GameSystem.Instance.CaseData.documentManager;
     }
 
     /// <summary>
@@ -43,20 +43,7 @@ public class ProcuratorUIDocument : MonoBehaviour
         _tickSent.SetActive(true);
         _button.interactable = false;
 
-        int i = 0;
-        bool found = false;
-        while (!found && i < _docManager.documents.Count)
-        {
-
-            if (_documentInfo.GetDocName() == _docManager.documents[i].GetDocName())
-            {
-                found = true;
-                _docManager.documents[i].OnSentToProcurador();
-                _docManager.AddSentDocInfo(_documentInfo.GetDocName(), _documentInfo.GetContent());
-            }
-
-            i++;
-        }
+        _docManager.RegisterSentDocumentToProcurador(_documentInfo.GetId());
     }
     public void OnDocumentPressed()
     {

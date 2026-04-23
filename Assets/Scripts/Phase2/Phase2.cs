@@ -28,7 +28,7 @@ public class Phase2 : MonoBehaviour
 
     public void SuccesfulConciliation()
     {
-        GameSystem.Instance.CaseData.attemptedConciliation = true;
+        GameSystem.Instance.CaseData.AttemptConciliacion();
 
         // volver al menu / escena de victoria
     }
@@ -36,6 +36,6 @@ public class Phase2 : MonoBehaviour
     public void FailedConciliation()
     {
         EnableRedactLawsuit(true);
-        GameSystem.Instance.CaseData.attemptedConciliation = true;
+        GameSystem.Instance.CaseData.AttemptConciliacion();
     }
 }

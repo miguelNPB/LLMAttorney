@@ -172,7 +172,7 @@ public class Phase3Manager : MonoBehaviour
                     _judgePatienceSystem.PlayRejectAnimation();
 
                 // rechazar
-                if (!notRejectionDueToLowPatience || _rivalDocuments[i].IsValid())
+                if (!notRejectionDueToLowPatience || _rivalDocuments[i].IsDocumentRelevant())
                 {
                     _judgeAnimator.SetTrigger("Reject");
                     _judgePatienceSystem.DecrementPatience();
@@ -289,16 +289,26 @@ public class Phase3Manager : MonoBehaviour
     /// </summary>
     private void initDocumentsLists()
     {
+        DocumentManager documentManager = GameSystem.Instance.CaseData.documentManager;
+
         _clientDocuments = new List<Document>();
         _rivalDocuments = new List<Document>();
 
         // meter solo los documentos que hayan sido mandados al procurador
-        foreach (Document doc in GameSystem.Instance.myDocumentManager.documents)
+        List<uint> clientDocumentsIds = documentManager.GetPlayerDocs();
+        for (int i = 0; i < clientDocumentsIds.Count; i++)
         {
-            if (doc.IsOpponentDoc())
-                _rivalDocuments.Add(doc);
-            else if (!doc.IsOpponentDoc() && doc.IsSentToProcurador())
+            Document doc = documentManager.GetDocument(clientDocumentsIds[i]);
+
+            if (doc.IsSentToProcurador()) {
                 _clientDocuments.Add(doc);
+            }
+        }
+
+        List<uint> rivalDocumentsIds = documentManager.GetRivalDocs();
+        for (int i = 0; i < rivalDocumentsIds.Count; i++)
+        {
+            _rivalDocuments.Add(documentManager.GetDocument(rivalDocumentsIds[i]));
         }
     }
 
@@ -310,12 +320,13 @@ public class Phase3Manager : MonoBehaviour
         GameSystem.Instance.myDocumentManager.AddDocumentAUX("test2", PromptType.Perito, "testcontent", false, 50, true);
         GameSystem.Instance.myDocumentManager.AddDocumentAUX("test3", PromptType.Report, "testcontent", true, 50, true);
         */
+        /*
         GameSystem.Instance.myDocumentManager.AddDocumentAUX("Conversación Carlos y Guillermo", PromptType.Report, "Carlos tuvo una  conversacion con Guillermo donde le dejó su DNI temporalmente.", true, 50, false);
         GameSystem.Instance.myDocumentManager.AddDocumentAUX("Perito de daños", PromptType.Perito, "Un perito experto en daños confirmó que el perro no murió por los daños causados por Guillermo, si no que estaba desnutrido y negligenciado, de forma que iba a morir le pegase Guillermo o no.", false, 50, false);
         GameSystem.Instance.myDocumentManager.AddDocumentAUX("Testimonio de Guillermo", PromptType.Witness, "Guillermo vio un coche amarillo donde entraron 9 personas el domingo pasado.", true, 50, false);
         GameSystem.Instance.myDocumentManager.AddDocumentAUX("Nota de asesinato a Carlos de GUillermo", PromptType.Report, "Guillermo le dio una nota a Carlos que ponia que queria que asesinara a su perro para cobrar un seguro.", true, 50, false);
         GameSystem.Instance.myDocumentManager.AddDocumentAUX("Reporte de tiempo del dia 27/3/23", PromptType.Report, "El dia 27 de marzo de 2023 hacia sol.", true, 50, false);
-        //
+        */
 
         _writtingHandler.ToggleSpeakingBubble(false);
         _judgePatienceSystem.TogglePatienceVisual(false);

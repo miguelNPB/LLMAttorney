@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Experimental.AI;
 using UnityEngine.UI;
 
 /// <summary>
@@ -10,28 +11,36 @@ using UnityEngine.UI;
 /// </summary>
 public class ProcuratorChatPage : ChatPage {
 
-    public GameObject docsUIContainer;
-    public GameObject procuradorDocUIPrefab;
-    private bool isOpen = false;
+    [SerializeField] private GameObject docsUIContainer;
+    [SerializeField] private GameObject procuradorDocUIPrefab;
 
-    private ProcuratorUIDocument selectedDoc = null;
-
+    private bool _isOpen = false;
+    private ProcuratorUIDocument _selectedDoc = null;
+    private DocumentManager _docManager;
     public void SelectDocument(ProcuratorUIDocument doc)
     {
-        if (selectedDoc != null && selectedDoc != doc)
-            selectedDoc.Unselect();
+        if (_selectedDoc != null && _selectedDoc != doc)
+            _selectedDoc.Unselect();
 
-        selectedDoc = doc;
+        _selectedDoc = doc;
 
-        _sendButton.interactable = selectedDoc != null;
+        _sendButton.interactable = _selectedDoc != null;
     }
     private void setupUIDocuments()
     {
         for (int i = 0; i < docsUIContainer.transform.childCount; i++)
             Destroy(docsUIContainer.transform.GetChild(i).gameObject);
 
+        // coger documentos cliente
+        List<Document> documents = new List<Document>();
+        foreach (uint docId in _docManager.GetPlayerDocs())
+        {
+            Document doc = _docManager.GetDocument(docId);
+            if (!doc.IsRivalDoc())
+                documents.Add(doc);
+        }
 
-        List<Document> documents = GameSystem.Instance.myDocumentManager.documents;
+        // instanciar prefabs ui
         for (int i = 0; i < documents.Count; i++)
         {
             GameObject documentInstanced = Instantiate(procuradorDocUIPrefab, docsUIContainer.transform);
@@ -44,7 +53,7 @@ public class ProcuratorChatPage : ChatPage {
     {
         EndPendingMessage(answer);
 
-        if (!isOpen)
+        if (!_isOpen)
             computerSystem.ToggleNotification(Page.ProcuratorChat, true);
     }
   
@@ -79,7 +88,7 @@ public class ProcuratorChatPage : ChatPage {
     /// </summary>
     public void OnPressButton()
     {
-        if (!selectedDoc)
+        if (!_selectedDoc)
             return;
 
         JsonSchema schema = new JsonSchema();
@@ -88,14 +97,14 @@ public class ProcuratorChatPage : ChatPage {
 
 
         // mandar doc
-        StartCoroutine(processDocument(selectedDoc.documentInfo.GetDocName()));
-        selectedDoc.SentToProcurador();
+        StartCoroutine(processDocument(_selectedDoc.documentInfo.GetDocName()));
+        _selectedDoc.SentToProcurador();
 
-        string message = "Hola! Te adjunto el siguiente documento para que lo incluyas en el proceso: " + selectedDoc.documentInfo.GetDocName();
+        string message = "Hola! Te adjunto el siguiente documento para que lo incluyas en el proceso: " + _selectedDoc.documentInfo.GetDocName();
         addMessage(message, true);
         StartPendingMessage(false);
 
-        selectedDoc.Unselect();
+        _selectedDoc.Unselect();
         SelectDocument(null);
     }
 
@@ -112,7 +121,7 @@ public class ProcuratorChatPage : ChatPage {
 
         ScrollToLastMessage();
 
-        isOpen = true;
+        _isOpen = true;
     }
 
     public override void Close()
@@ -120,35 +129,18 @@ public class ProcuratorChatPage : ChatPage {
         for (int i = 0; i < gameObject.transform.childCount; i++)
             gameObject.transform.GetChild(i).gameObject.SetActive(false);
 
-        isOpen = false;
+        _isOpen = false;
     }
 
     public void Start()
     {
+        _docManager = GameSystem.Instance.CaseData.documentManager;
         Open();
 
         placeMessages(GameSystem.Instance.CaseData.procuratorMessages);
         ScrollToLastMessage();
 
         Close();
-
-
-
-        /*
-        Document doc = new Document();
-        Document doc1 = new Document();
-        Document doc2 = new Document();
-
-        doc.SetDoc("test", PromptType.Informe, "hola", true, 20);
-        doc1.SetDoc("test2", PromptType.Informe, "hola", true, 20);
-        doc2.SetDoc("test3", PromptType.Informe, "hola", true, 20);
-
-        GameSystem.Instance.myDocumentManager.documents.Add(doc);
-        GameSystem.Instance.myDocumentManager.documents.Add(doc1);
-        GameSystem.Instance.myDocumentManager.documents.Add(doc2);
-        ^*/
-
-        GameSystem.Instance.myDocumentManager.CreateDocument("test", PromptType.Question, "añskdjf", true, 49);
     }
 
 
@@ -156,7 +148,7 @@ public class ProcuratorChatPage : ChatPage {
     {
         StartPendingMessage(false);
 
-        if (!isOpen)
+        if (!_isOpen)
             computerSystem.ToggleNotification(Page.ProcuratorChat, true);
     }
 
@@ -165,7 +157,7 @@ public class ProcuratorChatPage : ChatPage {
     {
         EndPendingMessage(summary);
 
-        if (!isOpen)
+        if (!_isOpen)
             computerSystem.ToggleNotification(Page.ProcuratorChat, true);
     }
 

@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class LLMConnectorDocuments : LLMConector
 {
-    
     private class DocumentResponse
     {
         public string NombreDocumento;
-        public PromptType TipoDocumento;
+        public ClientPromptType TipoDocumento;
         public string ContenidoDocumento;
         public bool DocumentoValido;
         public int CosteDocumento;
@@ -47,7 +46,29 @@ public class LLMConnectorDocuments : LLMConector
                 if (jsonResponse.DocumentoCoherente)
                 {
                     _historical.Add("Respuesta :" + answer);
-                    GameSystem.Instance.myDocumentManager.CreateDocument(jsonResponse.NombreDocumento, jsonResponse.TipoDocumento, jsonResponse.ContenidoDocumento, jsonResponse.DocumentoValido, jsonResponse.CosteDocumento);
+
+                    DocumentType docType;
+
+                    switch (jsonResponse.TipoDocumento)
+                    {
+                        case ClientPromptType.Perito:
+                            docType = DocumentType.Perito;
+                            break;
+                        case ClientPromptType.Report:
+                            docType = DocumentType.Report;
+                            break;
+                        case ClientPromptType.Witness:
+                            docType = DocumentType.Witness;
+                            break;
+                        case ClientPromptType.DocAlt:
+                            docType = DocumentType.DocAlt;
+                            break;
+                        default:
+                            docType = DocumentType.Report;
+                            break;
+                    }
+
+                    GameSystem.Instance.CaseData.documentManager.CreateDocument(jsonResponse.NombreDocumento, docType, jsonResponse.ContenidoDocumento, jsonResponse.DocumentoValido, jsonResponse.CosteDocumento);
                     _msgUIComponent.computerSystem.ToggleNotification(Page.ClientChat, true);
                     _msgUIComponent.EndPendingMessage("Tu cliente te ha mandado " + jsonResponse.NombreDocumento + ".txt");
                 }

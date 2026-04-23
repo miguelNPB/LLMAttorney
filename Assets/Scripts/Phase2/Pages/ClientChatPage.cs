@@ -4,6 +4,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+public enum ClientPromptType { Question, Conversation, Perito, Report, Witness, DocAlt }
+
 /// <summary>
 /// Pagina para gestionar el sistema de mensajes con el cliente
 /// </summary>
@@ -15,7 +18,7 @@ public class ClientChatPage : ChatPage
     [Serializable]
     private class ClientPromptTypeRequest
     {
-        public PromptType documentQueryType;
+        public ClientPromptType documentQueryType;
     }
 
 
@@ -24,7 +27,7 @@ public class ClientChatPage : ChatPage
     [SerializeField] private LLMConnectorDocuments _llmConnectorDocs;
     [SerializeField] private LLMConnectorClientChat _llmConnectorClientChat;
 
-    private PromptType _lastTypeDocRequest;
+    private ClientPromptType _lastTypePromptRequest;
     private bool _isOpen = false;
 
 
@@ -40,7 +43,7 @@ public class ClientChatPage : ChatPage
 
         Debug.Log("Devolucion: " +  typeRequest.documentQueryType);
 
-        _lastTypeDocRequest = typeRequest.documentQueryType;
+        _lastTypePromptRequest = typeRequest.documentQueryType;
     }
     
     /// <summary>
@@ -73,15 +76,15 @@ public class ClientChatPage : ChatPage
 
         yield return LLMAttorney_API.Instance.SendPromptAsync(API_TYPE.LLAMA, getPromptTypeFromPrompt, prompt, configLLM, schema);
 
-        Debug.Log("Ya se el tipo de documento que es: " + _lastTypeDocRequest);
+        Debug.Log("Ya se el tipo de documento que es: " + _lastTypePromptRequest);
 
-        switch (_lastTypeDocRequest) {
-            case PromptType.Question    : _llmConnectorClientChat.CallSendContext(); break;
-            case PromptType.Conversation     : _llmConnectorClientChat.CallSendContext(); break;
-            case PromptType.Perito      : sendGenerateDocumentPrompt(); break;
-            case PromptType.Report     : sendGenerateDocumentPrompt(); break;
-            case PromptType.Witness     : sendGenerateDocumentPrompt(); break;
-            case PromptType.DocAlt      : sendGenerateDocumentPrompt(); break;
+        switch (_lastTypePromptRequest) {
+            case ClientPromptType.Question    : _llmConnectorClientChat.CallSendContext(); break;
+            case ClientPromptType.Conversation     : _llmConnectorClientChat.CallSendContext(); break;
+            case ClientPromptType.Perito      : sendGenerateDocumentPrompt(); break;
+            case ClientPromptType.Report     : sendGenerateDocumentPrompt(); break;
+            case ClientPromptType.Witness     : sendGenerateDocumentPrompt(); break;
+            case ClientPromptType.DocAlt      : sendGenerateDocumentPrompt(); break;
         }
     }
 
@@ -103,7 +106,7 @@ public class ClientChatPage : ChatPage
     /// </summary>
     private void sendGenerateDocumentPrompt()
     {
-        _llmConnectorDocs.CallSendContext((int)_lastTypeDocRequest - 2);
+        _llmConnectorDocs.CallSendContext((int)_lastTypePromptRequest - 2);
         _inputField.text = "";
     }
 

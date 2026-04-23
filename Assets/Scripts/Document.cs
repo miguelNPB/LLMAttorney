@@ -3,130 +3,89 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-
-public class Document : MonoBehaviour
+/// <summary>
+/// Clase para almacnear datos de un Documento
+/// </summary>
+public class Document
 {
-    //Campos del Documento (Icono, nombre, contenido, valido para presentar)
-    [SerializeField]
-    Sprite imageChange;
+    private uint _id;
+    private DocumentType _docType;
+    private string _docName;
+    private string _docContent;
+    private bool _docIsRelevant; 
+    private int _cost = 0;
+    private bool _docIsRival = false;
+    private bool _sentToProcurador = false;
 
-    [SerializeField]
-    TMP_Text fileNameObject = null;
+    /// <summary>
+    /// Devuelve el id unico del documento
+    /// </summary>
+    /// <returns></returns>
+    public uint GetId() { return _id; }
 
-    [SerializeField]
-    GameObject fileContentObject = null;
-    
-    [SerializeField]
-    [InspectorName("Document button")]
-    GameObject documentButton;
+    /// <summary>
+    /// Devuelve el tipo del documento
+    /// </summary>
+    /// <returns></returns>
+    public DocumentType GetDocType() { return _docType; }
 
-    [SerializeField]
-    [InspectorName("Exit button")]
-    GameObject exitButton;
+    /// <summary>
+    /// Devuelve el nombre de un documento
+    /// </summary>
+    /// <returns></returns>
+    public string GetDocName() { return _docName; }
 
-    [SerializeField]
-    GameObject sentToProcuradorVisualFeedback = null;
+    /// <summary>
+    /// Devuelve el contenido del documento
+    /// </summary>
+    /// <returns></returns>
+    public string GetContent() { return _docContent; }
 
-    private PromptType docType;
-    private string fileName;
-    private string content;
-    private bool valid = false;
-    private int cost =0;
+    /// <summary>
+    /// Devuelve el coste de conseguir ese documento
+    /// </summary>
+    /// <returns></returns>
+    public int GetCost() { return _cost; }
 
-    private bool sentToProcurador = false;
+    /// <summary>
+    /// Devuelve si el documento tiene relacion al caso o no. Si no lo es, al recurrirlo durante la fase 3, se deberá considerar invalidado
+    /// </summary>
+    /// <returns></returns>
+    public bool IsDocumentRelevant() {  return _docIsRelevant; }
 
-    private bool changed = false;
+    /// <summary>
+    /// Devuelve si el documento se ha mandado al procurador para adjunarlo al caso o no
+    /// </summary>
+    /// <returns></returns>
+    public bool IsSentToProcurador() {  return _sentToProcurador; }
 
-    private bool oppDoc = false;
-    void Start()
-    {
-        fileContentObject.gameObject.SetActive(false);
-        exitButton.GetComponent<Button>().onClick.AddListener(OnClickDocument);
-        documentButton.GetComponent<Button>().onClick.AddListener(OnClickDocument);
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void OnClickDocument()
-    {
-        if (!changed)
-        {
-            changed = true;
-            documentButton.GetComponent<Image>().sprite = imageChange;
-        }
-
-        fileContentObject.gameObject.SetActive(!fileContentObject.gameObject.activeSelf);
-    }
-
-    #region GET&SET
-
-    public string GetDocName() { return this.fileName; }
-    public PromptType GetDocType() { return this.docType; }
-    public string GetContent() { return this.content; }
-    public bool IsValid() {  return this.valid; }
-    public bool IsSentToProcurador() {  return sentToProcurador; }
-
-    public bool IsOpponentDoc() { return oppDoc; }
+    /// <summary>
+    /// Devuelve si el documento es de la parte rival
+    /// </summary>
+    /// <returns></returns>
+    public bool IsRivalDoc() { return _docIsRival; }
 
 
 
     /// <summary>
-    /// Llamar al mandar al procurador el documento
+    /// Llamar al mandar al procurador el documento. Este metodo solo debe llamarse desde el DocumentManager, 
     /// </summary>
-    public void OnSentToProcurador()
+    public void SendDocumentToProcurator()
     {
-        sentToProcurador = true;
-        //sentToProcuradorVisualFeedback.SetActive(true);
-    }
-
-    /// <summary>
-    /// Metodo para cambiar el nombre del documento
-    /// </summary>
-    /// <param name="name">Nombre nuevo del documento</param>
-    public void SetDocName(string name)
-    {
-        this.fileName = name;
-
-        if (fileNameObject != null)
-            fileNameObject.text = fileName;
-        
-    }
-    /// <summary>
-    /// Metodo para cambiar el contenido del documento
-    /// </summary>
-    /// <param name="content">Contenido nuevo del dodumento</param>
-    public void SetDocContent(string content)
-    {
-        this.content = content;
-        if (fileContentObject != null)
-            fileContentObject.GetComponentInChildren<TMP_Text>().text = this.content;
-    }
-
-    /// <summary>
-    /// Sirve para inicializar todos los valores del documento
-    /// </summary>
-    /// <param name="docName">Nombre nuevo del documento</param>
-    /// <param name="docType">Tipo de documento</param>
-    /// <param name="content">Contenido nuevo para el documento</param>
-    /// <param name="valid">Es valido el documento</param>
-    public void SetDoc(string docName, PromptType docType, string content, bool valid, int cost, bool isOpponentDoc = false)
-    {
-        SetDocName(docName);
-        SetDocContent(content);
-        this.valid = valid;
-        this.docType = docType;
-        this.cost = cost;
-        this.oppDoc = isOpponentDoc;
+        _sentToProcurador = true;
     }
 
 
-
-
-    #endregion
+    public Document(uint id, DocumentType docType, string docName, string docContent, bool docIsRelevant,
+        int cost = 0, bool docIsOpponent = false, bool sentToProcurador = false)
+    {
+        _id = id;
+        _docType = docType;
+        _docName = docName;
+        _docContent = docContent;
+        _docIsRelevant = docIsRelevant;
+        _cost = cost;
+        _docIsRival = docIsOpponent;
+        _sentToProcurador = sentToProcurador;
+    }
 }

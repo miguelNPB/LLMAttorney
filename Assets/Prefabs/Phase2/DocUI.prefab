@@ -13,12 +13,12 @@ GameObject:
   - component: {fileID: 2211711206355039177}
   - component: {fileID: 8451233186382364794}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: ContentHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3655806729164269206
 RectTransform:
   m_ObjectHideFlags: 0
@@ -84,7 +84,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &8451233186382364794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -368,7 +368,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8790709438450593604}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4024526449627349877}
+        m_TargetAssemblyTypeName: UIDocument, Assembly-CSharp
+        m_MethodName: OnOpenDocument
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4145566776157852456
 GameObject:
   m_ObjectHideFlags: 0
@@ -488,7 +500,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1404316595565573073}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4024526449627349877}
+        m_TargetAssemblyTypeName: UIDocument, Assembly-CSharp
+        m_MethodName: OnExitDocument
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4424781473831538297
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,8 +545,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 7854030210039458529}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.8158998}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -600,7 +624,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 3545.46}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &8327259250442338930
 CanvasRenderer:
@@ -1047,9 +1071,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2589321558982100162}
-  - component: {fileID: 6337787386164809012}
+  - component: {fileID: 4024526449627349877}
   m_Layer: 5
-  m_Name: Doc
+  m_Name: DocUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1076,7 +1100,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 372}
   m_SizeDelta: {x: 130, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &6337787386164809012
+--- !u!114 &4024526449627349877
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1085,15 +1109,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 6451211221277070338}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 815488546acaa4845b52dfa46dc69a0c, type: 3}
+  m_Script: {fileID: 11500000, guid: 2165514ddb9cd574b8ea4f7a0eba7151, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Document
-  imageChange: {fileID: 21300000, guid: 34b29ce743f3b554d9ce3a9766d35d20, type: 3}
-  fileNameObject: {fileID: 8667484910023112426}
-  fileContentObject: {fileID: 2695793535185782998}
-  documentButton: {fileID: 3245946573701922753}
-  exitButton: {fileID: 4145566776157852456}
-  sentToProcuradorVisualFeedback: {fileID: 7332675303443600082}
+  m_EditorClassIdentifier: Assembly-CSharp::UIDocument
+  _closedDocumentSprite: {fileID: 21300000, guid: 41f70e9cd8ab8b44eb433f05e7fcaf5f, type: 3}
+  _openDocumentSprite: {fileID: 21300000, guid: 34b29ce743f3b554d9ce3a9766d35d20, type: 3}
+  _openDocumentButton: {fileID: 3245946573701922753}
+  _closeDocumentButton: {fileID: 4145566776157852456}
+  _textDocName: {fileID: 8667484910023112426}
+  _textContent: {fileID: 445442392441988069}
+  _documentContentHolder: {fileID: 1055230650544876103}
+  _sentToProcuradorVisualFeedback: {fileID: 7332675303443600082}
+  _documentImageReference: {fileID: 8790709438450593604}
 --- !u!1 &7015521062542071920
 GameObject:
   m_ObjectHideFlags: 0

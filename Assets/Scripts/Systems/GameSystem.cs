@@ -22,9 +22,6 @@ public class GameSystem : MonoBehaviour
     private CaseData _caseData = null; 
     public CaseData CaseData { get { return _caseData; } }
 
-    [SerializeField]
-    public DocumentManager myDocumentManager;
-
     [SerializeField, TextArea(3, 10)]
     private string _caseDescription;
 
@@ -34,19 +31,16 @@ public class GameSystem : MonoBehaviour
     /// </summary>
     private void CreateExampleCaseData()
     {
-        _caseData = new CaseData();
+        float chanceOfInstantRejectionConciliacion = Random.Range(0f,0.5f);
+        string clientName = "Pedro Muñoz";
+        string procuratorName = "Alberto Velazquez";
+        string demandedEntityName = "Ana Pérez";
+        string caseDescription = _caseDescription;
 
-        _caseData.isDemanda = true;
-        _caseData.clientName = "Pedro Muñoz";
-        _caseData.procuratorName = "Alberto Velazquez";
-        _caseData.demandedEntityName = "Ana Pérez";
-        _caseData.clientMessages.Add(new ConversationMessage("Hola, cuando sepas que documentos debo conseguir por favor dimelo", false));
+        _caseData = new CaseData(chanceOfInstantRejectionConciliacion, clientName, procuratorName, demandedEntityName, caseDescription);
 
+        _caseData.clientMessages.Add(new ConversationMessage("Hola, si tienes alguna duda sobre algo que pueda contarte o cuando sepas que documentos debo conseguir por favor dímelo.", false));
         _caseData.procuratorMessages.Add(new ConversationMessage("Buenas! Mi nombre es " + _caseData.procuratorName + ", seré tu procurador para este caso. Cualquier documento que consideres pertinente adjuntar al proceso, mándamelo y lo registraré.", false));
-
-        _caseData.conciliationRivalInstantRejectProbability = 1;
-
-        _caseData.caseDescription = _caseDescription;
     }
 
     private void Init()

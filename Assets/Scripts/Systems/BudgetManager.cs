@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 [Serializable]
 public class ExpenseTypeToggle
 {
-    public PromptType type;
+    public DocumentType type;
     public bool enabled;
 }
 
@@ -38,19 +38,6 @@ public class BudgetManager : MonoBehaviour
     [Header("Escena al entrar en quiebra")]
     [Tooltip("Nombre de la escena que se cargará cuando el presupuesto baje de 0. Debe estar en Build Settings.")]
     public string bankruptcySceneName = "GameOver";
-
-    [Header("Tipos de gasto monitorizados")]
-    [Tooltip("Activa qué tipos de documento deben registrarse como gastos.")]
-    public List<ExpenseTypeToggle> trackedTypes = new List<ExpenseTypeToggle>
-    {
-        new ExpenseTypeToggle { type = PromptType.Question, enabled = false },
-        new ExpenseTypeToggle { type = PromptType.Conversation,  enabled = false },
-        new ExpenseTypeToggle { type = PromptType.Perito,   enabled = true  },
-        new ExpenseTypeToggle { type = PromptType.Report,  enabled = true  },
-        new ExpenseTypeToggle { type = PromptType.Witness,  enabled = true  },
-        new ExpenseTypeToggle { type = PromptType.DocAlt,   enabled = true  },
-    };
-
 
     public float              CurrentBudget { get; private set; }
     public float              TotalExpenses { get; private set; }
@@ -99,14 +86,8 @@ public class BudgetManager : MonoBehaviour
         return CurrentBudget;
     }
 
-    public float AddExpense(string documentText, PromptType type, string docTitle = null)
+    public float AddExpense(string documentText, DocumentType type, string docTitle = null)
     {
-        if (!IsTypeTracked(type))
-        {
-            Debug.Log($"[BudgetManager] AddExpense: '{type}' no está marcado para seguimiento; se omite.");
-            return -1f;
-        }
-
         float cost = FindNthNumber(documentText, 2);
 
         if (cost < 0f)
@@ -138,14 +119,6 @@ public class BudgetManager : MonoBehaviour
 
         Debug.Log($"[BudgetManager] Presupuesto restablecido a {CurrentBudget:F2}");
         OnBudgetChanged?.Invoke();
-    }
-
-
-    private bool IsTypeTracked(PromptType type)
-    {
-        foreach (ExpenseTypeToggle toggle in trackedTypes)
-            if (toggle.type == type) return toggle.enabled;
-        return false;
     }
 
     private static float FindGreatestNumber(string text)
