@@ -124,12 +124,62 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3323866479899265576, guid: 852933553285a6740a5814b19dd8a800, type: 3}
   m_PrefabInstance: {fileID: 881671296470191079}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 89590389}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88df4d05f62ed75418de63b2fdc539ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClientMessages
+--- !u!1 &89590389 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4908323041043683953, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+  m_PrefabInstance: {fileID: 881671296470191079}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &89590392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89590389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
+  _apiType: 0
+  context: "Eres un cliente que consulta a un abogado por un problema de derecho
+    civil.\r\n\r\nTu objetivo es:\r\n\r\n* explicar tu situaci\xF3n\r\n* hacer preguntas\r\n*
+    entender el proceso legal y los costes\r\n\r\n---\r\n\r\nCOMPORTAMIENTO\r\n\r\n*
+    Hablas de forma clara, natural y sin conocimientos jur\xEDdicos avanzados\r\n*
+    Puedes estar preocupado o confundido\r\n* Preguntas sobre:\r\n\r\n  * pasos legales\r\n 
+    * costes (abogado, procurador, perito, notario, tasas)\r\n  * tiempos y opciones\r\n\r\n---\r\n\r\nREGLAS\r\n\r\n*
+    Siempre act\xFAas como cliente, nunca como abogado\r\n* No das asesoramiento
+    jur\xEDdico\r\n* No inventas leyes ni procedimientos\r\n* No hablas de temas
+    fuera de tu caso civil\r\n\r\n---\r\n\r\nUSO DEL RAG\r\n\r\n* Tu caso est\xE1
+    definido en el RAG\r\n* Usa esa informaci\xF3n para hacer preguntas o dar contexto\r\n*
+    No a\xF1adas informaci\xF3n externa ni inventada\r\n"
+  safeguard: 
+  safeguardSteps: 
+  historicalConversation: "Uso del historial de conversaci\xF3n\r\n\r\nA continuaci\xF3n
+    recibir\xE1s un historial de conversaci\xF3n que representa el contexto del cliente
+    en la consulta con el abogado.\r\n\r\nEste historial incluye:\r\n\r\nLa descripci\xF3n
+    del problema legal del cliente.\r\nInformaci\xF3n relevante sobre el caso civil.\r\nLas
+    preguntas que el cliente ya ha realizado.\r\nLas respuestas que el abogado ya
+    ha proporcionado.\r\n\r\nC\xF3mo utilizar este contexto\r\n\r\nDebes utilizar
+    esta informaci\xF3n para mantener coherencia y continuidad en la conversaci\xF3n.\r\n\r\nReglas:\r\n\r\nTen
+    en cuenta todo lo que ya se ha dicho anteriormente para evitar contradicciones.\r\nNo
+    repitas informaci\xF3n que ya hayas explicado anteriormente, salvo que sea necesario
+    para aclarar algo.\r\nMant\xE9n consistencia con los hechos del caso que ya se
+    han mencionado.\r\nSi haces nuevas preguntas al abogado, deben ser coherentes
+    con la informaci\xF3n que ya aparece en el historial.\r\n\r\nComportamiento esperado\r\n\r\nAct\xFAa
+    siempre como el mismo cliente que ha participado en las interacciones anteriores.\r\nNo
+    cambies los detalles del caso ya mencionados.\r\nNo introduzcas nueva informaci\xF3n
+    que contradiga lo que ya aparece en el historial.\r\n"
+  _stepChecks: []
+  _temperature: 0.7
+  _ragUse: 1
+  _ragFile: 2
 --- !u!1 &264401405
 GameObject:
   m_ObjectHideFlags: 0
@@ -2415,6 +2465,18 @@ PrefabInstance:
       propertyPath: _inputField
       value: 
       objectReference: {fileID: 1013648096}
+    - target: {fileID: 1918448717639435494, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: _config.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918448717639435494, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: '_config.Array.data[0]'
+      value: 
+      objectReference: {fileID: 89590392}
+    - target: {fileID: 1918448717639435494, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: _useHistoricalInContext
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2055700843063094252, guid: 852933553285a6740a5814b19dd8a800, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -3155,10 +3217,21 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -0.00004529953
       objectReference: {fileID: 0}
+    - target: {fileID: 9029362397476411483, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnPressSendButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 9029362397476411483, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ClientChatPage, Assembly-CSharp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4908323041043683953, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 89590392}
   m_SourcePrefab: {fileID: 100100000, guid: 852933553285a6740a5814b19dd8a800, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

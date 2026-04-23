@@ -37,6 +37,9 @@ public class ClientChatPage : ChatPage
     private void getPromptTypeFromPrompt(bool success, string answer)
     {
         ClientPromptTypeRequest typeRequest = JsonUtility.FromJson<ClientPromptTypeRequest>(answer);
+
+        Debug.Log("Devolucion: " +  typeRequest.documentQueryType);
+
         _lastTypeDocRequest = typeRequest.documentQueryType;
     }
     
@@ -48,22 +51,25 @@ public class ClientChatPage : ChatPage
     public IEnumerator sendGetPromptTypePrompt(string prompt)
     {
         JsonSchema schema = new JsonSchema();
-        schema.properties.Add("QueryType", new PropertyInfo(JsonDataType.Integer));
+        schema.properties.Add("documentQueryType", new PropertyInfo(JsonDataType.Integer));
 
-        string configLLM = @"Clasifica el siguiente texto en una �nica categor�a y responde solo con un n�mero:
+        string configLLM = @"Clasifica el siguiente texto en una única categoría llamada documentQueryType y responde solo con un número:
 
                 0 = Pregunta (texto cuyo objetivo principal es solicitar informaci�n)
-                1 = Di�logo (intercambio conversacional entre dos o m�s interlocutores)
-                2 = Informe pericial (documento t�cnico elaborado por un experto con conclusiones profesionales)
-                3 = Informe (documento descriptivo o informativo sin car�cter pericial)
+                1 = Diálogo (intercambio conversacional entre dos o más interlocutores)
+                2 = Informe pericial (documento técnico elaborado por un experto con conclusiones profesionales)
+                3 = Informe (documento descriptivo o informativo sin carácter pericial)
                 4 = Declaraci�n de testigo (relato de hechos en primera persona o atribuido a un testigo)
                 5 = Peticion de recibo (Factura, ticket)
 
                 Reglas:
-                Responde solo con un JSON v�lido
-                No a�adas texto fuera del JSON
-                No a�adas explicaci�n
-                Elige la categor�a predominante";
+                Responde solo con un JSON válido
+                No añadas texto fuera del JSON
+                No añadas explicación
+                Elige la categoría predominante
+
+
+                Devuelve dicho valor en la variable documentQueryType";
 
         yield return LLMAttorney_API.Instance.SendPromptAsync(API_TYPE.LLAMA, getPromptTypeFromPrompt, prompt, configLLM, schema);
 

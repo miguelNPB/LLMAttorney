@@ -139,12 +139,12 @@ public abstract class ChatPage : IPage
 
     private void OnEnable()
     {
-        InputSystem.Instance.onScrollPerformed += Scroll;
+        //InputSystem.Instance.onScrollPerformed += Scroll;
     }
 
     private void OnDisable()
     {
         StopAllCoroutines();
-        InputSystem.Instance.onScrollPerformed -= Scroll;
+        //InputSystem.Instance.onScrollPerformed -= Scroll;
     }
 }
