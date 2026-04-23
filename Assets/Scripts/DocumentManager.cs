@@ -78,4 +78,12 @@ public class DocumentManager : MonoBehaviour
 
         return doc.GetId();
     }
+
+
+    private void Awake()
+    {
+        CreateDocument("test", DocumentType.Perito, "asdf test", true, 0, true, false);
+        CreateDocument("testPl1", DocumentType.Perito, "asdf test", true, 0, false, false);
+        CreateDocument("testPl2", DocumentType.Perito, "asdf test", true, 0, false, true);
+    }
 }
