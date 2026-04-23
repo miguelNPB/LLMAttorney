@@ -11,7 +11,9 @@ public abstract class LLMConector : MonoBehaviour
     protected ConfigLLMInfo[] _config;
 
     [Header("Search Messages")]
-    public TMP_InputField _inputField;
+    [SerializeField] private TMP_InputField _inputField; 
+    public string inputFieldText { get { return _inputField.text; } }
+    
 
     [Header("Parametros de personalizacion")]
 

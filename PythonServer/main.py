@@ -167,7 +167,7 @@ class Query(BaseModel):
     mode: str
     prompt: str #El texto de la pregunta o instrucción que se le da al modelo
     LLMConfig: str #La configuración o instrucciones para el modelo, que pueden incluir contexto adicional
-    temperature: float # 0 = Creativo 1 = Estricto
+    temperature: float # 0 = Estricto 1 = Creativo 
     max_length: int # Longitud maxima del output
     # Nuevo campo: Recibe el esquema JSON deseado
     # Si es None, funciona en modo texto normal

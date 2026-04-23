@@ -1039,12 +1039,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
   _apiType: 0
-  context: 
+  context: "Rol: Eres un magistrado experto en derecho procesal, con un enfoque estricto
+    en los principios de pertinencia y utilidad de la prueba. Tu funci\xF3n es decidir
+    la admisibilidad de un medio probatorio en la fase de audiencia previa.\r\n\r\nTarea:
+    Realizar un juicio de relevancia comparando la secci\xF3n \"Prueba Presentada\"
+    frente al \"Historial del Caso\".\r\n\r\nCriterios de Validaci\xF3n (JSON Schema):\r\n\r\n   
+    valid: true -> La prueba cumple con dos condiciones acumulativas: 1. Pertinencia:
+    Guarda una relaci\xF3n l\xF3gica y directa con los hechos controvertidos del
+    historial. 2. Racionalidad: Es una prueba veros\xEDmil, f\xEDsicamente posible
+    y no constituye una maniobra dilatoria o absurda.\r\n\r\n    valid: false ->
+    Debes marcar falso si concurre cualquiera de estos supuestos: 1. Impertinencia:
+    La prueba no aporta nada a la resoluci\xF3n de los hechos narrados en el historial.
+    2. Absurdo/Inutilidad: La prueba es manifiestamente irracional, contraria a las
+    leyes de la l\xF3gica o de la f\xEDsica, o es una prueba impertinente por ser
+    totalmente ajena al objeto del proceso.\r\n\r\nReglas de An\xE1lisis:\r\n\r\n   
+    Examen de Conexi\xF3n: \xBFSi se practica esta prueba, el resultado ayudar\xEDa
+    a esclarecer alg\xFAn punto del historial? Si la respuesta es no, es impertinente.\r\n\r\n   
+    Filtro de Absurdo: \xBFLa prueba propone algo imposible, rid\xEDculo o que contradice
+    hechos notorios? Si es as\xED, es inadmisible.\r\n\r\n    Veredicto: Devuelve
+    exclusivamente el JSON con el campo \"valid\" basado en este razonamiento t\xE9cnico-jur\xEDdico.\n\nA
+    continuaci\xF3n la descripci\xF3n del caso jur\xEDdico: @\n\nA continuaci\xF3n
+    el contenido de la Prueba Presentada: $"
   safeguard: 
   safeguardSteps: 
   historicalConversation: 
   _stepChecks: []
-  _temperature: 0.95
+  _temperature: 0
   _ragUse: 0
   _ragFile: 0
 --- !u!1 &536455995
@@ -1266,6 +1286,7 @@ GameObject:
   - component: {fileID: 784846282}
   - component: {fileID: 784846284}
   - component: {fileID: 784846285}
+  - component: {fileID: 784846286}
   m_Layer: 0
   m_Name: Phase3Manager
   m_TagString: Untagged
@@ -1285,7 +1306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2b661d70b0e72d4fbb10068e239568b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Phase3Manager
-  _rivalObjectionChance: 0.3
+  _rivalObjectionChance: 0.5
   _minTimeBetweenTexts: 1
   _maxTimeBetweenTexts: 3
   _minTimeBetweenDocuments: 5
@@ -1310,8 +1331,8 @@ MonoBehaviour:
     no haber testigos, no se celebrar\xE1 un juicio."
   _judgeStartPresentRivalDocumentsSpeech: "Para esta parte ir\xE9 enumerando las
     distintas pruebas de cada parte. Comenzando por la parte demandada. Dictar\xE9
-    si es valida o no, y en caso de que cualquiera de los dos abogados quiera recurrir,
-    interrumpidme para que se reconsidere."
+    si es valida o no, y en caso de que cualquiera de los dos abogados quiera recurrir
+    la prueba, interrumpidme para que se reconsidere."
   _judgeStartPresentPlayerDocumentsSpeech: Ya se han discutido todas las pruebas
     de la parte demandada. Pasamos a las pruebas de la parte demandante.
   _judgePresentDocumentSpeech: "Se presenta el \"@\" de la parte demandada \"$\".
@@ -1320,18 +1341,19 @@ MonoBehaviour:
     la prueba, el veredicto no cambia, la prueba es v\xE1lida. Se desestima el recurso
     de reposici\xF3n, y la prueba se sigue considerando v\xE1lida."
   _judgeAcceptObjectionSpeech: "Vista la prueba y reconsiderando la pertinencia de
-    la prueba, efectivamente, la prueba no era v\xE1lida. Se estima el recurso de  
+    la prueba, efectivamente, la prueba no era v\xE1lida. Se estima el recurso de
     reposici\xF3n, y la prueba se sigue considera invalidada. Muchas gracias por
     hacermelo notar."
   _playerObjectionSpeech: "Perdone se\xF1or\xEDa, pero interponemos recurso de reposici\xF3n
-    frente a la resoluci\xF3n de admisi\xF3n de la prueba."
+    frente a la admisi\xF3n de esta prueba."
   _rivalObjectionSpeech: "Perdone se\xF1or\xEDa, pero interponemos recurso de reposici\xF3n
-    frente a la resoluci\xF3n de admisi\xF3n de la prueba."
+    frente a la admisi\xF3n de esta prueba."
   _writtingHandler: {fileID: 784846284}
   _judgePatienceSystem: {fileID: 784846285}
   _startPhase3Popup: {fileID: 433529033}
   _objectionButton: {fileID: 180628293}
   _judgeAnimator: {fileID: 1840472982}
+  _llmConnectorRivalObjection: {fileID: 784846286}
 --- !u!4 &784846283
 Transform:
   m_ObjectHideFlags: 0
@@ -1387,6 +1409,26 @@ MonoBehaviour:
   _slider: {fileID: 280072330}
   _patience_0_1: 1
   _patienceValue: 1
+--- !u!114 &784846286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784846281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 270ce50f595df154da254089b71e6cb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorRivalObjection
+  _config:
+  - {fileID: 470359871}
+  _inputField: {fileID: 0}
+  _useSecuritySteps: 0
+  _useHistoricalInContext: 0
+  _useHistoricalInSteps: 0
+  _prompt: "Rellena el booleano \"valid\" en funci\xF3n del veredicto si la prueba
+    tiene relaci\xF3n con el caso y no es in\xFAtil."
 --- !u!1 &979786997
 GameObject:
   m_ObjectHideFlags: 0
@@ -1708,6 +1750,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 5230731981517884603, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
+      propertyPath: _caseDescription
+      value: El cliente Carlos Leon quiere demandar a Guillermo Jimenez por asesinar
+        a su perro.
+      objectReference: {fileID: 0}
     - target: {fileID: 6998000207546729099, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
       propertyPath: navBar
       value: 
@@ -1738,7 +1785,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 3ba417103662a7b4bb9a388999c5434c, type: 3}
     - target: {fileID: 9150854484525700809, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
       propertyPath: ip
-      value: localhost
+      value: 192.168.1.172
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

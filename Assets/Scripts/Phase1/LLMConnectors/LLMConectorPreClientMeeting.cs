@@ -79,7 +79,7 @@ public class LLMConectorPreClientMeeting : LLMConector
 
         _buttonContinue.SetActive(false);
 
-        _text = _inputField.text;
+        _text = inputFieldText;
 
         bool messageSent = base.sendContextPrompt(indexConfig);
 

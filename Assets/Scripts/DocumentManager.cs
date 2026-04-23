@@ -7,6 +7,8 @@ using static Unity.Burst.Intrinsics.X86;
 
 public enum PromptType { Question, Conversation, Perito, Report, Witness, DocAlt }
 
+public enum DocumentType { Perito, Report, Witness, DocAlt }
+
 public class DocumentManager : MonoBehaviour
 {
     [SerializeField] Button[] documentButtons;
@@ -295,6 +297,7 @@ public class DocumentManager : MonoBehaviour
         Document doc = new Document();
         doc.SetDoc(docName, docType, content, valid, cost, isOpponentDoc);
         documents.Add(doc);
+        doc.OnSentToProcurador();
     }
 
     void SetWindowTitle(string title)

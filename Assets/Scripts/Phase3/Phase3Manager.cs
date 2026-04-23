@@ -50,11 +50,11 @@ public class Phase3Manager : MonoBehaviour
     private List<Document> _clientDocuments;
     private List<Document> _rivalDocuments;
     // output de documentos al veredicto final
-    private List<Document> _clientOutputDocuments;
-    private List<Document> _rivalOutputDocuments;
+    private List<Document> _clientOutputDocuments = new List<Document>();
+    private List<Document> _rivalOutputDocuments = new List<Document>();
 
     private bool _objection = false;
-    private bool _acceptedRivalObjection = false;
+    private bool _objectedDocumentIsValid = false;
     private bool _recievedPromptAnswer = false;
 
     public void Objection()
@@ -208,8 +208,8 @@ public class Phase3Manager : MonoBehaviour
         {
             // presentar prueba
             string oldSpeech = _judgePresentDocumentSpeech;
-            _judgePresentDocumentSpeech = _judgePresentDocumentSpeech.Replace("$", _rivalDocuments[i].GetDocName());
-            _judgePresentDocumentSpeech = _judgePresentDocumentSpeech.Replace("@", _rivalDocuments[i].GetDocType().ToString());
+            _judgePresentDocumentSpeech = _judgePresentDocumentSpeech.Replace("$", _clientDocuments[i].GetDocName());
+            _judgePresentDocumentSpeech = _judgePresentDocumentSpeech.Replace("@", _clientDocuments[i].GetDocType().ToString());
             yield return _writtingHandler.SpeakJudge(_judgePresentDocumentSpeech);
             
             // rollear recurrimiento del rival
@@ -218,31 +218,34 @@ public class Phase3Manager : MonoBehaviour
             bool objected = false;
             float timer = 0;
             float waitingObjectionTime = Random.Range(_minTimeBetweenDocuments, _maxTimeBetweenDocuments);
-            float rivalTimeWaitingToObject = Random.Range(_minTimeBetweenDocuments, waitingObjectionTime);
+            float rivalTimeWaitingToObject = Random.Range(_minTimeBetweenDocuments, waitingObjectionTime) / 2;
             while (!objected && timer < waitingObjectionTime)
             {
                 if (_rivalObjects && timer >= rivalTimeWaitingToObject)
                 {
                     objected = true;
                     yield return _writtingHandler.SpeakRival(_rivalObjectionSpeech);
+                    _judgeAnimator.SetTrigger("Thinking");
 
                     // prompt si la prueba es valida y si se rechaza por paciencia
                     bool notRejectionDueToLowPatience = _judgePatienceSystem.RollPatience();
-                    yield return promptIsObjectionValid();
+                    yield return promptIsObjectionValid(_clientDocuments[i].GetContent());
 
                     // rechazado
-                    if (_acceptedRivalObjection || !notRejectionDueToLowPatience)
+                    if (!_objectedDocumentIsValid || !notRejectionDueToLowPatience)
                     {
-                        _judgeAnimator.SetTrigger("Reject");
+                        _judgeAnimator.SetTrigger("Accept");
                         yield return _writtingHandler.SpeakJudge(_judgeAcceptObjectionSpeech);
                         yield return new WaitForSeconds(Random.Range(_minTimeBetweenTexts, _maxTimeBetweenTexts));
                     }
                     else // aceptado
                     {
-                        _judgeAnimator.SetTrigger("Accept");
+                        _judgeAnimator.SetTrigger("Reject");
                         yield return _writtingHandler.SpeakJudge(_judgeRejectObjectionSpeech);
                         yield return new WaitForSeconds(Random.Range(_minTimeBetweenTexts, _maxTimeBetweenTexts));
                     }
+
+                    _recievedPromptAnswer = false;
 
                     if (!notRejectionDueToLowPatience)
                         _judgePatienceSystem.PlayRejectAnimation();
@@ -252,7 +255,7 @@ public class Phase3Manager : MonoBehaviour
                 yield return null;
             }
 
-            if (!objected || (objected && !_acceptedRivalObjection))
+            if (!objected || (objected && !_objectedDocumentIsValid))
                 _clientOutputDocuments.Add(_clientDocuments[i]);
         }
     }
@@ -264,18 +267,18 @@ public class Phase3Manager : MonoBehaviour
     private void receivePromptAnswer(bool valid)
     {
         _recievedPromptAnswer = true;
-        _acceptedRivalObjection = valid;
+        _objectedDocumentIsValid = valid;
     }
 
     /// <summary>
     /// Coroutina para promptear si la recursion del rival es valida
     /// </summary>
     /// <returns></returns>
-    private IEnumerator promptIsObjectionValid()
+    private IEnumerator promptIsObjectionValid(string documentContent)
     {
-        _acceptedRivalObjection = false;
+        _objectedDocumentIsValid = false;
 
-        _llmConnectorRivalObjection.SendPrompt(receivePromptAnswer);
+        _llmConnectorRivalObjection.SendPrompt(documentContent, receivePromptAnswer);
 
         while (!_recievedPromptAnswer)
             yield return null;
@@ -302,12 +305,16 @@ public class Phase3Manager : MonoBehaviour
     private void Start()
     {
         // TEST DOCUMENTS
+        /*
         GameSystem.Instance.myDocumentManager.AddDocumentAUX("test1", PromptType.Report, "testcontent", true, 50, true);
         GameSystem.Instance.myDocumentManager.AddDocumentAUX("test2", PromptType.Perito, "testcontent", false, 50, true);
         GameSystem.Instance.myDocumentManager.AddDocumentAUX("test3", PromptType.Report, "testcontent", true, 50, true);
-        GameSystem.Instance.myDocumentManager.AddDocumentAUX("PLAYERtest1", PromptType.Report, "testcontent", true, 50, false);
-        GameSystem.Instance.myDocumentManager.AddDocumentAUX("PLAYERtest2", PromptType.Perito, "testcontent", false, 50, false);
-        GameSystem.Instance.myDocumentManager.AddDocumentAUX("PLAYERtest3", PromptType.Report, "testcontent", true, 50, false);
+        */
+        GameSystem.Instance.myDocumentManager.AddDocumentAUX("Conversación Carlos y Guillermo", PromptType.Report, "Carlos tuvo una  conversacion con Guillermo donde le dejó su DNI temporalmente.", true, 50, false);
+        GameSystem.Instance.myDocumentManager.AddDocumentAUX("Perito de daños", PromptType.Perito, "Un perito experto en daños confirmó que el perro no murió por los daños causados por Guillermo, si no que estaba desnutrido y negligenciado, de forma que iba a morir le pegase Guillermo o no.", false, 50, false);
+        GameSystem.Instance.myDocumentManager.AddDocumentAUX("Testimonio de Guillermo", PromptType.Witness, "Guillermo vio un coche amarillo donde entraron 9 personas el domingo pasado.", true, 50, false);
+        GameSystem.Instance.myDocumentManager.AddDocumentAUX("Nota de asesinato a Carlos de GUillermo", PromptType.Report, "Guillermo le dio una nota a Carlos que ponia que queria que asesinara a su perro para cobrar un seguro.", true, 50, false);
+        GameSystem.Instance.myDocumentManager.AddDocumentAUX("Reporte de tiempo del dia 27/3/23", PromptType.Report, "El dia 27 de marzo de 2023 hacia sol.", true, 50, false);
         //
 
         _writtingHandler.ToggleSpeakingBubble(false);

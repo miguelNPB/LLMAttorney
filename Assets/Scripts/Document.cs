@@ -82,7 +82,7 @@ public class Document : MonoBehaviour
     public void OnSentToProcurador()
     {
         sentToProcurador = true;
-        sentToProcuradorVisualFeedback.SetActive(true);
+        //sentToProcuradorVisualFeedback.SetActive(true);
     }
 
     /// <summary>

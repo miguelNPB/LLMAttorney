@@ -8,13 +8,19 @@ public class LLMConnectorRivalObjection : LLMConector
     {
         public bool valid;
     }
+    [SerializeField, TextArea(3, 10)] private string _prompt;
 
     private Action<bool> _onRecievePrompt;
-
-    public void SendPrompt(Action<bool> onRecievePrompt)
+    private string _baseContext;
+    public void SendPrompt(string documentContent, Action<bool> onRecievePrompt)
     {
         _onRecievePrompt = onRecievePrompt;
-        sendContextPrompt(0);
+
+        _config[0].context = _baseContext.Replace("@", GameSystem.Instance.CaseData.caseDescription);
+        _config[0].context = _config[0].context.Replace("$", documentContent);
+
+        _promptSent = false;
+        sendContextPrompt(_prompt, 0);
     }
 
     protected override void createJsonSchemas()
@@ -30,7 +36,7 @@ public class LLMConnectorRivalObjection : LLMConector
         if (success)
         {
             RivalObjectionResponse response = JsonUtility.FromJson<RivalObjectionResponse>(answer);
-
+            Debug.Log("Valid: " + response.valid);
             _onRecievePrompt?.Invoke(response.valid);
         }
         else
@@ -38,5 +44,12 @@ public class LLMConnectorRivalObjection : LLMConector
             Debug.LogError("Error en la llamada al LLM: " + answer);
             _onRecievePrompt?.Invoke(false);
         }
+    }
+
+    private void Awake()
+    {
+        _baseContext = _config[0].context;
+
+        createJsonSchemas();
     }
 }
