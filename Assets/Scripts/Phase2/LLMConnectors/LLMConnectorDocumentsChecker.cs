@@ -1,28 +1,29 @@
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
-//Para generar documentos a partir de la llm
-
-public class LLMConnectorDocuments : LLMConector
+public class LLMConnectorDocumentsChecker : LLMConector
 {
-    private class DocumentResponse
+
+    private class DocumentCheckerResponse
     {
-        public string NombreDocumento;
-        public string ContenidoDocumento;
+        public bool DocumentoCoherente;
     }
 
     [SerializeField]
     private ChatPage _msgUIComponent;
 
     [SerializeField]
-    private LLMConnectorDocumentsChecker _checker;
+    private LLMConnectorDocumentsBudget _budget;
 
     private bool _firstTime = true;
 
     private ClientPromptType _type;
+    private string _docName;
+    private string _docContent;
 
     protected override void receiveResponse(bool success, string answer)
     {
-        #if DEBUG
+#if DEBUG
         Debug.Log(answer);
 #endif
 
@@ -31,7 +32,7 @@ public class LLMConnectorDocuments : LLMConector
         if (success)
         {
             // deserializamos la respuesta
-            DocumentResponse jsonResponse = JsonUtility.FromJson<DocumentResponse>(answer);
+            DocumentCheckerResponse jsonResponse = JsonUtility.FromJson<DocumentCheckerResponse>(answer);
 
             if (_stepCounter < _config[_indexConfig].getStepsChecks().Length)
             {
@@ -40,17 +41,23 @@ public class LLMConnectorDocuments : LLMConector
             else
             {
                 Debug.Log("Respuesta final");
-        
+
                 _stepCounter = 0;
                 _promptSent = false;
 
-
                 _historical.Add("Respuesta :" + answer);
 
-                
+                if (jsonResponse.DocumentoCoherente)
+                {
+                    _budget.CallSendContext(_type, _docName, _docContent, 0);
+                }
+                else
+                {
+                    _historical.Add("Respuesta: texto final sin coherencia");
+                    _msgUIComponent._computerSystem.ToggleNotification(Page.ClientChat, true);
+                    _msgUIComponent.EndPendingMessage("Perdona pero no he podido conseguir el documento, ¿Puedes ser un poco mas especifico?");
+                }
 
-                _checker.CallSendContext(_type, jsonResponse.NombreDocumento, jsonResponse.ContenidoDocumento, (int)_type);
-                
             }
         }
         else
@@ -60,10 +67,13 @@ public class LLMConnectorDocuments : LLMConector
         }
     }
 
-    public void CallSendContext(ClientPromptType type, int indexConfig = 0)
+    public void CallSendContext(ClientPromptType type, string docName, string docContent, int indexConfig = 0)
     {
+        _docName = docName;
+        _docContent = docContent;
         _type = type;
-        sendContextPrompt(indexConfig);  
+
+        sendContextPrompt(indexConfig);
     }
 
     /**
@@ -72,7 +82,7 @@ public class LLMConnectorDocuments : LLMConector
     protected override bool sendContextPrompt(int indexConfig = 0)
     {
         //_msgUIComponent.StartPendingMessage(false);
-        if(_firstTime)
+        if (_firstTime)
         {
             _historical.Add(GameSystem.Instance.CaseData.caseDescription);
             _firstTime = false;
@@ -104,12 +114,9 @@ public class LLMConnectorDocuments : LLMConector
     protected override void createJsonSchemas()
     {
         _contextSchema = new JsonSchema();
-        _contextSchema.properties.Add("NombreDocumento", new PropertyInfo(JsonDataType.String));
-        _contextSchema.properties.Add("ContenidoDocumento", new PropertyInfo(JsonDataType.String));
+        _contextSchema.properties.Add("DocumentoCoherente", new PropertyInfo(JsonDataType.Boolean));
 
         _stepsSchema = new JsonSchema();
-        _stepsSchema.properties.Add("NombreDocumento", new PropertyInfo(JsonDataType.String));
-        _stepsSchema.properties.Add("ContenidoDocumento", new PropertyInfo(JsonDataType.String));
 
         _schemasCreated = true;
     }

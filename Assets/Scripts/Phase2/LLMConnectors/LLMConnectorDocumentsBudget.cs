@@ -1,37 +1,34 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-//Para generar documentos a partir de la llm
-
-public class LLMConnectorDocuments : LLMConector
+public class LLMConnectorDocumentsBudget : LLMConector
 {
-    private class DocumentResponse
+    private class DocumentBudgetResponse
     {
-        public string NombreDocumento;
-        public string ContenidoDocumento;
+        public int CosteDocumento;
     }
 
     [SerializeField]
     private ChatPage _msgUIComponent;
 
-    [SerializeField]
-    private LLMConnectorDocumentsChecker _checker;
-
     private bool _firstTime = true;
 
     private ClientPromptType _type;
+    private string _docName;
+    private string _docContent;
 
     protected override void receiveResponse(bool success, string answer)
     {
         #if DEBUG
-        Debug.Log(answer);
-#endif
+            Debug.Log(answer);
+        #endif
 
         Debug.Log("Step: " + _stepCounter);
 
         if (success)
         {
             // deserializamos la respuesta
-            DocumentResponse jsonResponse = JsonUtility.FromJson<DocumentResponse>(answer);
+            DocumentBudgetResponse jsonResponse = JsonUtility.FromJson<DocumentBudgetResponse>(answer);
 
             if (_stepCounter < _config[_indexConfig].getStepsChecks().Length)
             {
@@ -40,17 +37,19 @@ public class LLMConnectorDocuments : LLMConector
             else
             {
                 Debug.Log("Respuesta final");
-        
+
                 _stepCounter = 0;
                 _promptSent = false;
 
 
                 _historical.Add("Respuesta :" + answer);
 
-                
+                DocumentType docType = fromClientDocumentToDocumentType(_type);
 
-                _checker.CallSendContext(_type, jsonResponse.NombreDocumento, jsonResponse.ContenidoDocumento, (int)_type);
-                
+                GameSystem.Instance.CaseData.documentManager.CreateDocument(_docName, docType, _docContent, true, jsonResponse.CosteDocumento);
+                _msgUIComponent._computerSystem.ToggleNotification(Page.ClientChat, true);
+                _msgUIComponent.EndPendingMessage("Tu cliente te ha mandado " + _docName + ".txt");
+
             }
         }
         else
@@ -60,10 +59,13 @@ public class LLMConnectorDocuments : LLMConector
         }
     }
 
-    public void CallSendContext(ClientPromptType type, int indexConfig = 0)
+    public void CallSendContext(ClientPromptType type, string docName, string docContent, int indexConfig = 0)
     {
+        _docName = docName;
+        _docContent = docContent;
         _type = type;
-        sendContextPrompt(indexConfig);  
+
+        sendContextPrompt(indexConfig);
     }
 
     /**
@@ -72,7 +74,7 @@ public class LLMConnectorDocuments : LLMConector
     protected override bool sendContextPrompt(int indexConfig = 0)
     {
         //_msgUIComponent.StartPendingMessage(false);
-        if(_firstTime)
+        if (_firstTime)
         {
             _historical.Add(GameSystem.Instance.CaseData.caseDescription);
             _firstTime = false;
@@ -104,19 +106,38 @@ public class LLMConnectorDocuments : LLMConector
     protected override void createJsonSchemas()
     {
         _contextSchema = new JsonSchema();
-        _contextSchema.properties.Add("NombreDocumento", new PropertyInfo(JsonDataType.String));
-        _contextSchema.properties.Add("ContenidoDocumento", new PropertyInfo(JsonDataType.String));
+        _contextSchema.properties.Add("DocumentBudgetResponse", new PropertyInfo(JsonDataType.Integer));
 
         _stepsSchema = new JsonSchema();
-        _stepsSchema.properties.Add("NombreDocumento", new PropertyInfo(JsonDataType.String));
-        _stepsSchema.properties.Add("ContenidoDocumento", new PropertyInfo(JsonDataType.String));
 
         _schemasCreated = true;
+    }
+
+    private DocumentType fromClientDocumentToDocumentType(ClientPromptType type)
+    {
+        switch (type)
+        {
+            case ClientPromptType.Perito:
+
+                return DocumentType.Perito;
+            case ClientPromptType.Report:
+
+                return DocumentType.Report;
+            case ClientPromptType.Witness:
+
+                return DocumentType.Witness;
+            case ClientPromptType.DocAlt:
+
+                return DocumentType.ReceiptFacture;
+
+            default:
+                return DocumentType.Report;
+
+        }
     }
 
     private void Awake()
     {
         createJsonSchemas();
     }
-
 }
