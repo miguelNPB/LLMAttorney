@@ -1304,9 +1304,9 @@ RectTransform:
   m_Children:
   - {fileID: 4234078531976058119}
   - {fileID: 6430441125739056709}
-  - {fileID: 7996628435419659413}
-  - {fileID: 1293320631}
   - {fileID: 1612897685}
+  - {fileID: 1293320631}
+  - {fileID: 7996628435419659413}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1751,17 +1751,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5307846417687057373, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
   m_PrefabInstance: {fileID: 4665822228252766504}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1293320632 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3648675196692939725, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-  m_PrefabInstance: {fileID: 4665822228252766504}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81b4fcb9cca22ec41b2e5a41a78b185b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LLMConectorSearch
 --- !u!1 &1482587221
 GameObject:
   m_ObjectHideFlags: 0
@@ -1990,6 +1979,17 @@ MonoBehaviour:
   _temperature: 0.3
   _ragUse: 1
   _ragFile: 2
+--- !u!114 &1586601504 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5126775781348832107, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+  m_PrefabInstance: {fileID: 4665822228252766504}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 049ed6bb32b268e44a60fef74ee9cfef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UISearchManager
 --- !u!1 &1612897684
 GameObject:
   m_ObjectHideFlags: 0
@@ -2398,17 +2398,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcf1c48e5eb05b94f8d32d7f29c52074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
---- !u!114 &2145456918 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6603538375019839910, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+--- !u!1 &2068038214 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1903123574358110914, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
   m_PrefabInstance: {fileID: 4665822228252766504}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TMP_InputField
 --- !u!1001 &1724193746724216532
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2772,320 +2766,54 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 912615290}
     m_Modifications:
-    - target: {fileID: 502357927359269192, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -27
-      objectReference: {fileID: 0}
     - target: {fileID: 817277161058648533, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_SizeDelta.y
       value: -502.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1229239301423809702, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 273
-      objectReference: {fileID: 0}
-    - target: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: context
-      value: "Eres una herramienta que busca presupuestos relacionados con la preparaci\xF3n
-        de un caso civil. Debes indicar datos monetarios cuando se soliciten. Los
-        precios deben estar en euros (\u20AC) y basados en los costes habituales
-        del mercado en Espa\xF1a."
-      objectReference: {fileID: 0}
-    - target: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: safeguard
-      value: "Escribir toda la informacion en un solo parrafo.\r\nArgumenta las cosas
-        y no des el precio sin nada de texto.\r\n\r\nDebes generar un campo booleano
-        llamado respuesta_valida.\r\n\r\nEste campo eval\xFAa \xFAnicamente la calidad
-        formal del texto, no su contenido legal ni su coherencia con el contexto.\r\n\r\nCriterios\r\n\r\nEl
-        valor ser\xE1 true solo si se cumplen todas estas condiciones:\r\n\r\nEl
-        texto esta en espa\xF1ol\r\n\r\nEl texto es comprensible y coherente a nivel
-        ling\xFC\xEDstico, sin:\r\ntexto sin sentido\r\npalabras aleatorias\r\ngalimat\xEDas\r\nsecuencias
-        incoherentes\r\nEl texto est\xE1 completamente en espa\xF1ol:\r\nNo contiene
-        frases en otros idiomas\r\nNo mezcla idiomas\r\n\r\nEl texto no contiene
-        errores ortogr\xE1ficos graves:\r\nSe permiten errores menores\r\nNo se permiten
-        errores que dificulten la comprensi\xF3n\r\n\r\nEl texto no contiene s\xEDmbolos
-        externos o no deseados, como:\r\n( )\r\n[ ]\r\n{ }\r\n^ *\r\nu otros s\xEDmbolos
-        similares que no formen parte de una redacci\xF3n normal\r\n\r\nReglas\r\nSi
-        todas las condiciones se cumplen \u2192\r\ntrue\r\nSi alguna condici\xF3n
-        no se cumple \u2192\r\nfalse\r\n\r\nRestricciones\r\nNo corrijas el texto\r\nNo
-        expliques la decisi\xF3n\r\nNo modifiques el contenido\r\nSolo eval\xFAa\r\n\r\nDebes
-        generar un campo booleano llamado respuesta_coherente.\r\n\r\nEste campo
-        eval\xFAa si la respuesta cumple con el siguiente contexto:\r\n\r\nEl sistema
-        es una herramienta que proporciona presupuestos y costes econ\xF3micos en
-        el \xE1mbito del derecho civil en Espa\xF1a.\r\n\r\nCriterios obligatorios\r\n\r\nEl
-        valor ser\xE1 true solo si se cumplen TODAS estas condiciones:\r\n\r\nEl
-        texto contiene informaci\xF3n econ\xF3mica expl\xEDcita, como:\r\nprecios
-        concretos\r\nrangos de precios\r\ncostes estimados\r\nLos precios est\xE1n:\r\nexpresados
-        en euros (\u20AC)\r\no claramente impl\xEDcitos como moneda en Espa\xF1a\r\nEl
-        contenido est\xE1 relacionado con servicios del \xE1mbito del derecho civil,
-        como:\r\nperitos\r\nnotarios\r\nprocuradores\r\nabogados\r\ntasas judiciales\r\ncostes
-        de tribunales\r\ndocumentos legales civiles\r\nCasos en los que debe ser
-        false\r\n\r\nEl valor debe ser false obligatoriamente si ocurre cualquiera
-        de estos casos:\r\n\r\nNo hay ning\xFAn precio ni dato econ\xF3mico en el
-        texto\r\nEl texto solo describe servicios pero no indica costes\r\nEl contenido
-        no pertenece al \xE1mbito del derecho civil\r\nLos precios no est\xE1n en
-        euros o no son coherentes con Espa\xF1a\r\nEl texto es gen\xE9rico y no aporta
-        informaci\xF3n econ\xF3mica concreta\r\n\r\nRegla clave (muy importante)\r\nSi
-        el texto NO contiene ning\xFAn n\xFAmero, rango de precios o referencia econ\xF3mica
-        expl\xEDcita, entonces respuesta_coherente = false.\r\n\r\nReglas de salida\r\nSi
-        cumple todas las condiciones \u2192\r\ntrue\r\nSi no las cumple \u2192\r\nfalse\r\n\r\nRestricciones\r\nNo
-        tengas en cuenta ortograf\xEDa o idioma\r\nNo modifiques el texto\r\nNo expliques
-        la decisi\xF3n\r\nSolo eval\xFAa\r\n\r\nLos campos `respuesta_valida` y `respuesta_coherente`
-        son independientes.\r\nUno no afecta al otro.\r\nAmbos deben evaluarse por
-        separado.\r\n"
-      objectReference: {fileID: 0}
-    - target: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: _safeguard
-      value: "Escribir toda la informacion en un solo parrafo.\nArgumenta las cosas
-        y no des el precio sin nada de texto.\n\nDebes generar un campo booleano
-        llamado respuesta_valida.\n\nEste campo eval\xFAa \xFAnicamente la calidad
-        formal del texto, no su contenido legal ni su coherencia con el contexto.\n\nCriterios\n\nEl
-        valor ser\xE1 true solo si se cumplen todas estas condiciones:\n\nEl texto
-        esta en espa\xF1ol\n\nEl texto es comprensible y coherente a nivel ling\xFC\xEDstico,
-        sin:\ntexto sin sentido\npalabras aleatorias\ngalimat\xEDas\nsecuencias incoherentes\nEl
-        texto est\xE1 completamente en espa\xF1ol:\nNo contiene frases en otros idiomas\nNo
-        mezcla idiomas\n\nEl texto no contiene errores ortogr\xE1ficos graves:\nSe
-        permiten errores menores\nNo se permiten errores que dificulten la comprensi\xF3n\n\nEl
-        texto no contiene s\xEDmbolos externos o no deseados, como:\n( )\n[ ]\n{
-        }\n^ *\nu otros s\xEDmbolos similares que no formen parte de una redacci\xF3n
-        normal\n\nReglas\nSi todas las condiciones se cumplen \u2192\ntrue\nSi alguna
-        condici\xF3n no se cumple \u2192\nfalse\n\nRestricciones\nNo corrijas el
-        texto\nNo expliques la decisi\xF3n\nNo modifiques el contenido\nSolo eval\xFAa\n\nDebes
-        generar un campo booleano llamado respuesta_coherente.\n\nEste campo eval\xFAa
-        si la respuesta cumple con el siguiente contexto:\n\nEl sistema es una herramienta
-        que proporciona presupuestos y costes econ\xF3micos en el \xE1mbito del derecho
-        civil en Espa\xF1a.\n\nCriterios obligatorios\n\nEl valor ser\xE1 true solo
-        si se cumplen TODAS estas condiciones:\n\nEl texto contiene informaci\xF3n
-        econ\xF3mica expl\xEDcita, como:\nprecios concretos\nrangos de precios\ncostes
-        estimados\nLos precios est\xE1n:\nexpresados en euros (\u20AC)\no claramente
-        impl\xEDcitos como moneda en Espa\xF1a\nEl contenido est\xE1 relacionado
-        con servicios del \xE1mbito del derecho civil, como:\nperitos\nnotarios\nprocuradores\nabogados\ntasas
-        judiciales\ncostes de tribunales\ndocumentos legales civiles\nCasos en los
-        que debe ser false\n\nEl valor debe ser false obligatoriamente si ocurre
-        cualquiera de estos casos:\n\nNo hay ning\xFAn precio ni dato econ\xF3mico
-        en el texto\nEl texto solo describe servicios pero no indica costes\nEl contenido
-        no pertenece al \xE1mbito del derecho civil\nLos precios no est\xE1n en euros
-        o no son coherentes con Espa\xF1a\nEl texto es gen\xE9rico y no aporta informaci\xF3n
-        econ\xF3mica concreta\n\nRegla clave (muy importante)\nSi el texto NO contiene
-        ning\xFAn n\xFAmero, rango de precios o referencia econ\xF3mica expl\xEDcita,
-        entonces respuesta_coherente = false.\n\nReglas de salida\nSi cumple todas
-        las condiciones \u2192\ntrue\nSi no las cumple \u2192\nfalse\n\nRestricciones\nNo
-        tengas en cuenta ortograf\xEDa o idioma\nNo modifiques el texto\nNo expliques
-        la decisi\xF3n\nSolo eval\xFAa\n\nLos campos `respuesta_valida` y `respuesta_coherente`
-        son independientes.\nUno no afecta al otro.\nAmbos deben evaluarse por separado."
-      objectReference: {fileID: 0}
-    - target: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: safeguardSteps
-      value: "SALIDA PERMITIDA:\r\nsolo el texto final.\r\nsolo el texto que se ha
-        recibido si se da el caso.\r\n\r\nSALIDA NO PERMITIDA:\r\nexplicaciones\r\nconfirmaciones\r\ncomentarios\r\netiquetas\r\n\r\nDebes
-        generar un campo booleano llamado respuesta_valida.\r\n\r\nEste campo eval\xFAa
-        \xFAnicamente la calidad formal del texto, no su contenido legal ni su coherencia
-        con el contexto.\r\n\r\nCriterios\r\n\r\nEl valor ser\xE1 true solo si se
-        cumplen todas estas condiciones:\r\n\r\nEl texto esta en espa\xF1ol\r\n\r\nEl
-        texto es comprensible y coherente a nivel ling\xFC\xEDstico, sin:\r\ntexto
-        sin sentido\r\npalabras aleatorias\r\ngalimat\xEDas\r\nsecuencias incoherentes\r\nEl
-        texto est\xE1 completamente en espa\xF1ol:\r\nNo contiene frases en otros
-        idiomas\r\nNo mezcla idiomas\r\n\r\nEl texto no contiene errores ortogr\xE1ficos
-        graves:\r\nSe permiten errores menores\r\nNo se permiten errores que dificulten
-        la comprensi\xF3n\r\n\r\nEl texto no contiene s\xEDmbolos externos o no deseados,
-        como:\r\n( )\r\n[ ]\r\n{ }\r\n^ *\r\nu otros s\xEDmbolos similares que no
-        formen parte de una redacci\xF3n normal\r\n\r\nReglas\r\nSi todas las condiciones
-        se cumplen \u2192\r\ntrue\r\nSi alguna condici\xF3n no se cumple \u2192\r\nfalse\r\n\r\nRestricciones\r\nNo
-        corrijas el texto\r\nNo expliques la decisi\xF3n\r\nNo modifiques el contenido\r\nSolo
-        eval\xFAa\r\n\r\nDebes generar un campo booleano llamado respuesta_coherente.\r\n\r\nEste
-        campo eval\xFAa si la respuesta cumple con el siguiente contexto:\r\n\r\nEl
-        sistema es una herramienta que proporciona presupuestos y costes econ\xF3micos
-        en el \xE1mbito del derecho civil en Espa\xF1a.\r\n\r\nCriterios obligatorios\r\n\r\nEl
-        valor ser\xE1 true solo si se cumplen TODAS estas condiciones:\r\n\r\nEl
-        texto contiene informaci\xF3n econ\xF3mica expl\xEDcita, como:\r\nprecios
-        concretos\r\nrangos de precios\r\ncostes estimados\r\nLos precios est\xE1n:\r\nexpresados
-        en euros (\u20AC)\r\no claramente impl\xEDcitos como moneda en Espa\xF1a\r\nEl
-        contenido est\xE1 relacionado con servicios del \xE1mbito del derecho civil,
-        como:\r\nperitos\r\nnotarios\r\nprocuradores\r\nabogados\r\ntasas judiciales\r\ncostes
-        de tribunales\r\ndocumentos legales civiles\r\nCasos en los que debe ser
-        false\r\n\r\nEl valor debe ser false obligatoriamente si ocurre cualquiera
-        de estos casos:\r\n\r\nNo hay ning\xFAn precio ni dato econ\xF3mico en el
-        texto\r\nEl texto solo describe servicios pero no indica costes\r\nEl contenido
-        no pertenece al \xE1mbito del derecho civil\r\nLos precios no est\xE1n en
-        euros o no son coherentes con Espa\xF1a\r\nEl texto es gen\xE9rico y no aporta
-        informaci\xF3n econ\xF3mica concreta\r\n\r\nRegla clave (muy importante)\r\nSi
-        el texto NO contiene ning\xFAn n\xFAmero, rango de precios o referencia econ\xF3mica
-        expl\xEDcita, entonces respuesta_coherente = false.\r\n\r\nReglas de salida\r\nSi
-        cumple todas las condiciones \u2192\r\ntrue\r\nSi no las cumple \u2192\r\nfalse\r\n\r\nRestricciones\r\nNo
-        tengas en cuenta ortograf\xEDa o idioma\r\nNo modifiques el texto\r\nNo expliques
-        la decisi\xF3n\r\nSolo eval\xFAa\r\n\r\nLos campos `respuesta_valida` y `respuesta_coherente`
-        son independientes.\r\nUno no afecta al otro.\r\nAmbos deben evaluarse por
-        separado.\r\n"
-      objectReference: {fileID: 0}
-    - target: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: _safeguardSteps
-      value: "SALIDA PERMITIDA:\nsolo el texto final.\nsolo el texto que se ha recibido
-        si se da el caso.\n\nSALIDA NO PERMITIDA:\nexplicaciones\nconfirmaciones\ncomentarios\netiquetas\n\nDebes
-        generar un campo booleano llamado respuesta_valida.\n\nEste campo eval\xFAa
-        \xFAnicamente la calidad formal del texto, no su contenido legal ni su coherencia
-        con el contexto.\n\nCriterios\n\nEl valor ser\xE1 true solo si se cumplen
-        todas estas condiciones:\n\nEl texto esta en espa\xF1ol\n\nEl texto es comprensible
-        y coherente a nivel ling\xFC\xEDstico, sin:\ntexto sin sentido\npalabras
-        aleatorias\ngalimat\xEDas\nsecuencias incoherentes\nEl texto est\xE1 completamente
-        en espa\xF1ol:\nNo contiene frases en otros idiomas\nNo mezcla idiomas\n\nEl
-        texto no contiene errores ortogr\xE1ficos graves:\nSe permiten errores menores\nNo
-        se permiten errores que dificulten la comprensi\xF3n\n\nEl texto no contiene
-        s\xEDmbolos externos o no deseados, como:\n( )\n[ ]\n{ }\n^ *\nu otros s\xEDmbolos
-        similares que no formen parte de una redacci\xF3n normal\n\nReglas\nSi todas
-        las condiciones se cumplen \u2192\ntrue\nSi alguna condici\xF3n no se cumple
-        \u2192\nfalse\n\nRestricciones\nNo corrijas el texto\nNo expliques la decisi\xF3n\nNo
-        modifiques el contenido\nSolo eval\xFAa\n\nDebes generar un campo booleano
-        llamado respuesta_coherente.\n\nEste campo eval\xFAa si la respuesta cumple
-        con el siguiente contexto:\n\nEl sistema es una herramienta que proporciona
-        presupuestos y costes econ\xF3micos en el \xE1mbito del derecho civil en
-        Espa\xF1a.\n\nCriterios obligatorios\n\nEl valor ser\xE1 true solo si se
-        cumplen TODAS estas condiciones:\n\nEl texto contiene informaci\xF3n econ\xF3mica
-        expl\xEDcita, como:\nprecios concretos\nrangos de precios\ncostes estimados\nLos
-        precios est\xE1n:\nexpresados en euros (\u20AC)\no claramente impl\xEDcitos
-        como moneda en Espa\xF1a\nEl contenido est\xE1 relacionado con servicios
-        del \xE1mbito del derecho civil, como:\nperitos\nnotarios\nprocuradores\nabogados\ntasas
-        judiciales\ncostes de tribunales\ndocumentos legales civiles\nCasos en los
-        que debe ser false\n\nEl valor debe ser false obligatoriamente si ocurre
-        cualquiera de estos casos:\n\nNo hay ning\xFAn precio ni dato econ\xF3mico
-        en el texto\nEl texto solo describe servicios pero no indica costes\nEl contenido
-        no pertenece al \xE1mbito del derecho civil\nLos precios no est\xE1n en euros
-        o no son coherentes con Espa\xF1a\nEl texto es gen\xE9rico y no aporta informaci\xF3n
-        econ\xF3mica concreta\n\nRegla clave (muy importante)\nSi el texto NO contiene
-        ning\xFAn n\xFAmero, rango de precios o referencia econ\xF3mica expl\xEDcita,
-        entonces respuesta_coherente = false.\n\nReglas de salida\nSi cumple todas
-        las condiciones \u2192\ntrue\nSi no las cumple \u2192\nfalse\n\nRestricciones\nNo
-        tengas en cuenta ortograf\xEDa o idioma\nNo modifiques el texto\nNo expliques
-        la decisi\xF3n\nSolo eval\xFAa\n\nLos campos `respuesta_valida` y `respuesta_coherente`
-        son independientes.\nUno no afecta al otro.\nAmbos deben evaluarse por separado."
-      objectReference: {fileID: 0}
-    - target: {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: historicalConversation
-      value: "Analiza el hist\xF3rico de conversaci\xF3n que se te proporciona junto
-        con la nueva pregunta.\r\n\r\nEl hist\xF3rico contiene pares de pregunta
-        y respuesta anteriores.\r\n\r\nReglas:\r\n\r\nBusca en el hist\xF3rico si
-        existe una pregunta igual o muy similar a la nueva pregunta.\r\nSi encuentras
-        una pregunta igual o muy similar, devuelve exactamente la misma respuesta
-        que aparece en el hist\xF3rico, manteniendo el mismo contenido y formato.\r\nSi
-        no existe una pregunta igual pero s\xED una pregunta relacionada con el mismo
-        tema, usa la respuesta del hist\xF3rico como referencia y mant\xE9n coherencia
-        en precios, datos y estilo de respuesta.\r\nSi no existe ninguna pregunta
-        similar en el hist\xF3rico, responde normalmente siguiendo las dem\xE1s directivas.\r\n\r\nReglas
-        adicionales:\r\n\r\nNo menciones el hist\xF3rico en la respuesta.\r\nNo expliques
-        que est\xE1s utilizando respuestas anteriores.\r\nDevuelve \xFAnicamente
-        la respuesta final.\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 1903123574358110914, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2800977689686718766, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2800977689686718766, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1293320632}
-    - target: {fileID: 2800977689686718766, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CallSendContext
-      objectReference: {fileID: 0}
-    - target: {fileID: 2908357130433551336, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 2908357130433551336, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 3648675196692939725, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: _inputField
-      value: 
-      objectReference: {fileID: 2145456918}
     - target: {fileID: 3648675196692939725, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: '_config.Array.data[0]'
       value: 
       objectReference: {fileID: 833440528}
     - target: {fileID: 3865521762525230761, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
-    - target: {fileID: 3865521762525230761, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: -7656127118427459215, guid: d6f4193edd4b0e845a8ceffc534b05db, type: 2}
+      objectReference: {fileID: -42240559382742459, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
     - target: {fileID: 3865521762525230761, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_hasFontAssetChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4462526302077625867, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: m_fontSize
-      value: 32
-      objectReference: {fileID: 0}
-    - target: {fileID: 4462526302077625867, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
-    - target: {fileID: 4462526302077625867, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 32
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4462526302077625867, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: -7656127118427459215, guid: d6f4193edd4b0e845a8ceffc534b05db, type: 2}
+      objectReference: {fileID: -42240559382742459, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
     - target: {fileID: 4462526302077625867, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_hasFontAssetChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4815222186140746951, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: m_text
-      value: Buscador Presupuestos Civiles
-      objectReference: {fileID: 0}
-    - target: {fileID: 4815222186140746951, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: m_fontSize
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4815222186140746951, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
-    - target: {fileID: 4815222186140746951, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4815222186140746951, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: -7656127118427459215, guid: d6f4193edd4b0e845a8ceffc534b05db, type: 2}
+      objectReference: {fileID: -42240559382742459, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
     - target: {fileID: 4815222186140746951, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_hasFontAssetChanged
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4837521669699493463, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -30
-      objectReference: {fileID: 0}
-    - target: {fileID: 5006084629657794191, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: c58375a072e1bf8449917085e740d575, type: 3}
-    - target: {fileID: 5122285760247603640, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: m_text
-      value: Esperando consulta...
-      objectReference: {fileID: 0}
-    - target: {fileID: 5122285760247603640, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
     - target: {fileID: 5122285760247603640, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: -7656127118427459215, guid: d6f4193edd4b0e845a8ceffc534b05db, type: 2}
+      objectReference: {fileID: -42240559382742459, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
     - target: {fileID: 5122285760247603640, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_hasFontAssetChanged
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5126775781348832107, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: _searchMenuView
+      value: 
+      objectReference: {fileID: 2068038214}
     - target: {fileID: 5307846417687057373, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3166,77 +2894,49 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5806084181312589960, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 629
-      objectReference: {fileID: 0}
-    - target: {fileID: 6252149368052719307, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6603538375019839910, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: m_CharacterLimit
-      value: 140
-      objectReference: {fileID: 0}
     - target: {fileID: 6929784444275368796, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_Name
       value: SearchMenuStage1
       objectReference: {fileID: 0}
-    - target: {fileID: 6929784444275368796, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7045192445190531431, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
     - target: {fileID: 7045192445190531431, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: -7656127118427459215, guid: d6f4193edd4b0e845a8ceffc534b05db, type: 2}
+      objectReference: {fileID: -42240559382742459, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
     - target: {fileID: 7045192445190531431, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7155077089268858831, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7155077089268858831, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1586601504}
+    - target: {fileID: 7155077089268858831, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7155077089268858831, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PressAccessButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 7155077089268858831, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UISearchManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7230274774636970508, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7539995757891734742, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7539995757891734742, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: d36c4d4ce64a7d14cb255f07bc630807, type: 3}
-    - target: {fileID: 7539995757891734742, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7539995757891734742, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7539995757891734742, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7539995757891734742, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: m_PreserveAspect
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7850650240984474535, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 8776878261549729348, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+    - target: {fileID: 8771873597742118384, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -127
+      value: -35
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1875874305124236559, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: 7227474735976659987, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}

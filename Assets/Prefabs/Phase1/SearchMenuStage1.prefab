@@ -27,7 +27,7 @@ RectTransform:
   m_GameObject: {fileID: 14830277501459881}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 16.991, y: 9.2101, z: 1}
+  m_LocalScale: {x: 20, y: 20, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8771873597742118384}
@@ -58,16 +58,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.621177, b: 0.57924527, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
+  m_Sprite: {fileID: 21300000, guid: d36c4d4ce64a7d14cb255f07bc630807, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -143,8 +143,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Haz una busqueda de precios...
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
+  m_sharedMaterial: {fileID: -7656127118427459215, guid: d6f4193edd4b0e845a8ceffc534b05db, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -209,7 +209,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &3690881103944648130
@@ -318,7 +318,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -59.7}
+  m_AnchoredPosition: {x: 0, y: -30}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9141895190519180592
@@ -351,8 +351,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Buscar
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
+  m_sharedMaterial: {fileID: -7656127118427459215, guid: d6f4193edd4b0e845a8ceffc534b05db, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -376,8 +376,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 32
+  m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -417,7 +417,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1903123574358110914
@@ -659,7 +659,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -104.946655, y: 231}
+  m_AnchoredPosition: {x: -127, y: 231}
   m_SizeDelta: {x: 1328.1067, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4024424917851317934
@@ -758,7 +758,7 @@ MonoBehaviour:
   m_CharacterValidation: 0
   m_RegexValue: 
   m_GlobalPointSize: 25
-  m_CharacterLimit: 0
+  m_CharacterLimit: 140
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
@@ -835,7 +835,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -1}
+  m_AnchoredPosition: {x: 0, y: 15}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &650133546823923935
@@ -907,7 +907,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 355}
+  m_AnchoredPosition: {x: -25, y: 355}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4579083414340426989
@@ -938,10 +938,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Gaagle
+  m_text: Buscador Presupuestos Civiles
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
+  m_sharedMaterial: {fileID: -7656127118427459215, guid: d6f4193edd4b0e845a8ceffc534b05db, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -965,8 +965,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 120
-  m_fontSizeBase: 120
+  m_fontSize: 100
+  m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1006,7 +1006,7 @@ MonoBehaviour:
   m_margin: {x: -860.2302, y: 0, z: -860.2302, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &5773259081707289212
@@ -1184,8 +1184,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
+  m_sharedMaterial: {fileID: -7656127118427459215, guid: d6f4193edd4b0e845a8ceffc534b05db, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1250,7 +1250,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &6548372043681269878
@@ -1289,7 +1289,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -0.00079345703}
-  m_SizeDelta: {x: 0, y: -499.78}
+  m_SizeDelta: {x: 0, y: -502.2}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &3576421791690390405
 MonoBehaviour:
@@ -1333,10 +1333,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: hola holita vecinillo
+  m_text: Esperando consulta...
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
+  m_sharedMaterial: {fileID: -7656127118427459215, guid: d6f4193edd4b0e845a8ceffc534b05db, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1401,7 +1401,7 @@ MonoBehaviour:
   m_margin: {x: 20, y: 10, z: 20, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &6929784444275368796
@@ -1414,7 +1414,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5307846417687057373}
   - component: {fileID: 3648675196692939725}
-  - component: {fileID: 1875874305124236559}
   - component: {fileID: 5126775781348832107}
   m_Layer: 5
   m_Name: SearchMenuStage1
@@ -1435,8 +1434,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1229239301423809702}
   - {fileID: 8771873597742118384}
+  - {fileID: 1229239301423809702}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1456,87 +1455,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b4fcb9cca22ec41b2e5a41a78b185b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LLMConectorSearch
-  _config: {fileID: 1875874305124236559}
+  _config:
+  - {fileID: 0}
+  _inputField: {fileID: 6603538375019839910}
+  _useSecuritySteps: 1
+  _useHistoricalInContext: 1
+  _useHistoricalInSteps: 0
   _uiSearch: {fileID: 5126775781348832107}
-  inputField: {fileID: 6603538375019839910}
---- !u!114 &1875874305124236559
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6929784444275368796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
-  _apiType: 1
-  _context: "Eres una herramienta que busca presupuestos relacionados con la preparaci\xF3n
-    de un caso civil. Debes indicar datos monetarios cuando se soliciten. Los precios
-    deben estar en euros (\u20AC) y basados en los costes habituales del mercado
-    en Espa\xF1a."
-  _safeguard: 'Escribir toda la informacion en un solo parrafo.
-
-    Argumenta las
-    cosas y no des el precio sin nada de texto.'
-  _safeguardSteps: 'SALIDA PERMITIDA:
-
-    solo el texto final.
-
-    solo el texto
-    que se ha recibido si se da el caso.
-
-
-    SALIDA NO PERMITIDA:
-
-    explicaciones
-
-    confirmaciones
-
-    comentarios
-
-    etiquetas'
-  _historicalConversation: "Analiza el hist\xF3rico de conversaci\xF3n que se te
-    proporciona junto con la nueva pregunta.\n\nEl hist\xF3rico contiene pares de
-    pregunta y respuesta anteriores.\n\nReglas:\n\nBusca en el hist\xF3rico si existe
-    una pregunta igual o muy similar a la nueva pregunta.\nSi encuentras una pregunta
-    igual o muy similar, devuelve exactamente la misma respuesta que aparece en el
-    hist\xF3rico, manteniendo el mismo contenido y formato.\nSi no existe una pregunta
-    igual pero s\xED una pregunta relacionada con el mismo tema, usa la respuesta
-    del hist\xF3rico como referencia y mant\xE9n coherencia en precios, datos y estilo
-    de respuesta.\nSi no existe ninguna pregunta similar en el hist\xF3rico, responde
-    normalmente siguiendo las dem\xE1s directivas.\n\nReglas adicionales:\n\nNo menciones
-    el hist\xF3rico en la respuesta.\nNo expliques que est\xE1s utilizando respuestas
-    anteriores.\nDevuelve \xFAnicamente la respuesta final."
-  _stepChecks:
-  - "Revisa el texto recibido.\r\n\r\nComprueba si contiene al menos una palabra
-    relacionada con servicios legales civiles.\r\n\r\nPalabras v\xE1lidas incluyen:\r\n\r\nnotario\r\nabogado\r\nprocurador\r\nperito\r\ninforme
-    pericial\r\ntribunal\r\njuicio civil\r\ndemanda\r\ntasas judiciales\r\ndocumentos
-    legales\r\nescritura\r\ncontrato\r\ncoste\r\nprecio\r\npresupuesto\r\n\r\nReglas:\r\n\r\nSi
-    el texto contiene alguna de estas palabras, devu\xE9lvelo exactamente igual.\r\nSi
-    no contiene ninguna, devuelve exactamente \"Sin informaci\xF3n\"."
-  - "Revisa el texto recibido.\n\nConsidera texto inv\xE1lido solo si:\n\nes una
-    secuencia sin sentido como asdfgh, 123123123, xxxxx\ncontiene s\xEDmbolos aleatorios
-    sin palabras\ntiene m\xE1s del 50% de caracteres no alfab\xE9ticos\n\nReglas:\n\nSi
-    el texto es normal y entendible, devu\xE9lvelo exactamente igual.\nSi es claramente
-    aleatorio, devuelve \"Sin informaci\xF3n\"."
-  - "Revisa el texto recibido.\n\nReglas:\n\nSi hay errores ortogr\xE1ficos, corr\xEDgelos.\nSi
-    no hay errores, devuelve el texto sin cambios.\n\nNo a\xF1adas informaci\xF3n
-    nueva."
-  - "Comprueba si el texto est\xE1 completamente en espa\xF1ol.\n\nReglas:\n- Si
-    el texto no est\xE1 en espa\xF1ol, trad\xFAcelo al espa\xF1ol.\n- Si el texto
-    ya est\xE1 en espa\xF1ol, devu\xE9lvelo exactamente igual.\n\nNo expliques nada.\nNo
-    confirmes si estaba o no en espa\xF1ol.\nDevuelve \xFAnicamente el texto final."
-  - "evisa el texto recibido.\n\nReglas:\n\nSi hay simbolos externos al texto o al
-    dinero como (), {}, *, ^,\xA8,\xB4... eliminalos del texto.\nSi no hay errores,
-    devuelve el texto sin cambios.\n\nNo a\xF1adas informaci\xF3n nueva."
-  - "Reescribe el texto para que sea claro, objetivo y directo.\n\nReglas:\n- No
-    a\xF1adas explicaciones.\n- No describas el cambio realizado.\n- No confirmes
-    que lo has reescrito.\n\nDevuelve \xFAnicamente el texto final reescrito."
-  _temperature: 0.6
-  _ragUse: 1
-  _ragFile: 1
 --- !u!114 &5126775781348832107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1550,6 +1475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UISearchManager
   _searchToolButton: {fileID: 7230274774636970508}
+  _searchMenuView: {fileID: 0}
   resultText: {fileID: 5122285760247603640}
 --- !u!1 &7227474735976659987
 GameObject:
@@ -1739,7 +1665,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 906, y: 342}
+  m_AnchoredPosition: {x: 906, y: 273}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2098571620599405128
@@ -1770,7 +1696,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e0a8fb419c6322846bd80598a2862738, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c58375a072e1bf8449917085e740d575, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2038,7 +1964,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 659, y: 231}
+  m_AnchoredPosition: {x: 629, y: 231}
   m_SizeDelta: {x: 202.1597, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5896415229496769830
@@ -2125,8 +2051,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3648675196692939725}
         m_TargetAssemblyTypeName: LLMConectorSearch, Assembly-CSharp
-        m_MethodName: SendChatMessage
-        m_Mode: 1
+        m_MethodName: CallSendContext
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2170,7 +2096,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -132}
+  m_AnchoredPosition: {x: -27, y: -132}
   m_SizeDelta: {x: 1520, y: 550}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7604136727069299324
