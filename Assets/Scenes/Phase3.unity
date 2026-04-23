@@ -1064,7 +1064,7 @@ MonoBehaviour:
   safeguardSteps: 
   historicalConversation: 
   _stepChecks: []
-  _temperature: 0
+  _temperature: 0.2
   _ragUse: 0
   _ragFile: 0
 --- !u!1 &536455995
@@ -1307,7 +1307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Phase3Manager
   _rivalObjectionChance: 0.5
-  _minTimeBetweenTexts: 1
+  _minTimeBetweenTexts: 2
   _maxTimeBetweenTexts: 3
   _minTimeBetweenDocuments: 5
   _maxTimeBetweenDocuments: 10
@@ -1316,7 +1316,7 @@ MonoBehaviour:
     la audiencia previa al pleito entre "
   - "Como est\xE1 estipulado en la demanda y la contrademanda, se ha intentado una
     conciliaci\xF3n entre ambas partes que no ha funcionado. Por lo que continuamos
-    con las cuestiones procesales.. "
+    con las cuestiones procesales."
   - 'Para empezar, ambas partes han considerado competente a este tribunal, por lo
     que me veo en la potestad de dirigir esta audiencia previa. '
   - "No tenemos defectos de capacidad, ya que ambas partes est\xE1n bien representadas,
@@ -1335,8 +1335,8 @@ MonoBehaviour:
     la prueba, interrumpidme para que se reconsidere."
   _judgeStartPresentPlayerDocumentsSpeech: Ya se han discutido todas las pruebas
     de la parte demandada. Pasamos a las pruebas de la parte demandante.
-  _judgePresentDocumentSpeech: "Se presenta el \"@\" de la parte demandada \"$\".
-    \xBFAlguna objeccion para considerarlo en el caso?"
+  _judgePresentDocumentSpeech: "Se presenta @ de la parte demandada \"$\". \xBFAlguna
+    objeccion para considerarlo en el caso?"
   _judgeRejectObjectionSpeech: "Vista la prueba y reconsiderando la pertinencia de
     la prueba, el veredicto no cambia, la prueba es v\xE1lida. Se desestima el recurso
     de reposici\xF3n, y la prueba se sigue considerando v\xE1lida."
@@ -1785,7 +1785,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 3ba417103662a7b4bb9a388999c5434c, type: 3}
     - target: {fileID: 9150854484525700809, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
       propertyPath: ip
-      value: localhost
+      value: 192.168.1.172
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

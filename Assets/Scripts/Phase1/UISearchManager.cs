@@ -9,6 +9,9 @@ public class UISearchManager : MonoBehaviour
     [SerializeField]
     private GameObject _searchToolButton;
 
+    [SerializeField]
+    private GameObject _searchMenuView;
+
     [SerializeField] private TMP_Text resultText;
     //[SerializeField] private VerticalLayoutGroup layoutGroup;
 
@@ -55,6 +58,12 @@ public class UISearchManager : MonoBehaviour
     public void ShowMessage()
     {
         resultText.ForceMeshUpdate();
+    }
+
+    public void PressAccessButton()
+    {
+        Debug.Log(!_searchMenuView.activeSelf);
+        _searchMenuView.SetActive(!_searchMenuView.activeSelf);
     }
 
     /// <summary>

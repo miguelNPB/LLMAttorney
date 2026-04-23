@@ -22,9 +22,6 @@ public class GameSystem : MonoBehaviour
     private CaseData _caseData = null; 
     public CaseData CaseData { get { return _caseData; } }
 
-    [SerializeField, TextArea(3, 10)]
-    private string _caseDescription;
-
 
     /// <summary>
     /// Crea caseData con datos ejemplo para placeholder antes de usar la LLM
@@ -35,7 +32,11 @@ public class GameSystem : MonoBehaviour
         string clientName = "Pedro Muñoz";
         string procuratorName = "Alberto Velazquez";
         string demandedEntityName = "Ana Pérez";
-        string caseDescription = _caseDescription;
+        string caseDescription = "En fecha enero de 2021, el demandante comienza a detectar daños materiales en su vivienda consistentes " +
+            "en humedades en techo y paredes, desprendimiento de pintura, aparición de moho y deterioro progresivo del suelo de parquet." +
+            "\r\n\r\nTras diversas comprobaciones, se identifica como posible origen de los daños una fuga de agua procedente del cuarto " +
+            "de baño de la vivienda superior, propiedad de la demandada.\r\n\r\nEl demandante realiza varios intentos de contacto con la " +
+            "demandada a fin de solucionar el problema, sin que se adopten medidas eficaces para la reparación del origen de la filtración.";
 
         _caseData = new CaseData(chanceOfInstantRejectionConciliacion, clientName, procuratorName, demandedEntityName, caseDescription);
 

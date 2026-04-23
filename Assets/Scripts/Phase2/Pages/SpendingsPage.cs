@@ -8,7 +8,7 @@ public class SpendingsPage : IPage
     public override void Open()
     {
         // activar los gameobject de la pagina
-        computerSystem.ToggleNotification(Page.Spendings, false);
+        _computerSystem.ToggleNotification(Page.Spendings, false);
 
         for (int i = 0; i < gameObject.transform.childCount; i++)
             gameObject.transform.GetChild(i).gameObject.SetActive(true);

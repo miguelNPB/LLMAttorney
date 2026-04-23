@@ -61,7 +61,7 @@ public class LLMConnectorDocuments : LLMConector
                             docType = DocumentType.Witness;
                             break;
                         case ClientPromptType.DocAlt:
-                            docType = DocumentType.DocAlt;
+                            docType = DocumentType.ReceiptFacture;
                             break;
                         default:
                             docType = DocumentType.Report;
@@ -69,13 +69,13 @@ public class LLMConnectorDocuments : LLMConector
                     }
 
                     GameSystem.Instance.CaseData.documentManager.CreateDocument(jsonResponse.NombreDocumento, docType, jsonResponse.ContenidoDocumento, jsonResponse.DocumentoValido, jsonResponse.CosteDocumento);
-                    _msgUIComponent.computerSystem.ToggleNotification(Page.ClientChat, true);
+                    _msgUIComponent._computerSystem.ToggleNotification(Page.ClientChat, true);
                     _msgUIComponent.EndPendingMessage("Tu cliente te ha mandado " + jsonResponse.NombreDocumento + ".txt");
                 }
                 else
                 {
                     _historical.Add("Respuesta: texto final sin coherencia");
-                    _msgUIComponent.computerSystem.ToggleNotification(Page.ClientChat, true);
+                    _msgUIComponent._computerSystem.ToggleNotification(Page.ClientChat, true);
                     _msgUIComponent.EndPendingMessage("Perdona pero no he podido conseguir el documento, ¿Puedes ser un poco mas especifico?");
                     
                 }

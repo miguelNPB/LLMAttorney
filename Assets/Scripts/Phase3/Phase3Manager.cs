@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using System.Collections;
 using Mono.Cecil.Cil;
+using System.CodeDom;
 
 public class Phase3Manager : MonoBehaviour
 {
@@ -57,6 +58,9 @@ public class Phase3Manager : MonoBehaviour
     private bool _objectedDocumentIsValid = false;
     private bool _recievedPromptAnswer = false;
 
+    /// <summary>
+    /// Llamado al pulsar el boton de recurrir
+    /// </summary>
     public void Objection()
     {
         _objection = true;
@@ -73,7 +77,14 @@ public class Phase3Manager : MonoBehaviour
         StartCoroutine(phase3Coroutine());
     }
 
-
+    /// <summary>
+    /// Llmado al terminar la fase 4
+    /// </summary>
+    private void goToPhase4()
+    {
+        StopAllCoroutines();
+        SceneSystem.Instance.LoadPhase4();
+    }
 
     /// <summary>
     /// Coroutina principal de la phase 3
@@ -82,7 +93,7 @@ public class Phase3Manager : MonoBehaviour
     private IEnumerator phase3Coroutine()
     {
         _writtingHandler.ToggleSpeakingBubble(true);
-        //yield return initialJudgeSpeech();
+        yield return initialJudgeSpeech();
 
         _judgePatienceSystem.TogglePatienceVisual(true);
         yield return presentDocumentsPhase();
@@ -90,7 +101,7 @@ public class Phase3Manager : MonoBehaviour
         _judgePatienceSystem.TogglePatienceVisual(false);
         yield return endingJudgeSpeech();
 
-        // ir a la fase 4
+        goToPhase4();
     }
 
     /// <summary>
@@ -123,8 +134,30 @@ public class Phase3Manager : MonoBehaviour
             yield return _writtingHandler.SpeakJudge(_judgeEndingSpeech[i]);
             yield return new WaitForSeconds(Random.Range(_minTimeBetweenTexts, _maxTimeBetweenTexts));
         }
+        yield return new WaitForSeconds(Random.Range(_minTimeBetweenTexts, _maxTimeBetweenTexts));
     }
 
+    private string getStringFromDocType(DocumentType docType)
+    {
+        string text = "";
+        switch (docType)
+        {
+            case DocumentType.Perito:
+                text = "el perito";
+                break;
+            case DocumentType.Report:
+                text = "el reporte";
+                break;
+            case DocumentType.Witness:
+                text = "el testimonio escrito";
+                break;
+            case DocumentType.ReceiptFacture:
+                text = "la factura";
+                break;
+        }
+
+        return text;
+    }
 
     /// <summary>
     /// Coroutine para la presentacion de pruebas de ambas partes
@@ -143,7 +176,7 @@ public class Phase3Manager : MonoBehaviour
             // presentar prueba
             string oldSpeech = _judgePresentDocumentSpeech;
             _judgePresentDocumentSpeech = _judgePresentDocumentSpeech.Replace("$", _rivalDocuments[i].GetDocName());
-            _judgePresentDocumentSpeech = _judgePresentDocumentSpeech.Replace("@", _rivalDocuments[i].GetDocType().ToString());
+            _judgePresentDocumentSpeech = _judgePresentDocumentSpeech.Replace("@", getStringFromDocType(_rivalDocuments[i].GetDocType()));
             yield return _writtingHandler.SpeakJudge(_judgePresentDocumentSpeech);
 
             // habilitar recurrimiento
@@ -209,7 +242,7 @@ public class Phase3Manager : MonoBehaviour
             // presentar prueba
             string oldSpeech = _judgePresentDocumentSpeech;
             _judgePresentDocumentSpeech = _judgePresentDocumentSpeech.Replace("$", _clientDocuments[i].GetDocName());
-            _judgePresentDocumentSpeech = _judgePresentDocumentSpeech.Replace("@", _clientDocuments[i].GetDocType().ToString());
+            _judgePresentDocumentSpeech = _judgePresentDocumentSpeech.Replace("@", getStringFromDocType(_clientDocuments[i].GetDocType()));
             yield return _writtingHandler.SpeakJudge(_judgePresentDocumentSpeech);
             
             // rollear recurrimiento del rival
@@ -314,19 +347,6 @@ public class Phase3Manager : MonoBehaviour
 
     private void Start()
     {
-        // TEST DOCUMENTS
-        /*
-        GameSystem.Instance.myDocumentManager.AddDocumentAUX("test1", PromptType.Report, "testcontent", true, 50, true);
-        GameSystem.Instance.myDocumentManager.AddDocumentAUX("test2", PromptType.Perito, "testcontent", false, 50, true);
-        GameSystem.Instance.myDocumentManager.AddDocumentAUX("test3", PromptType.Report, "testcontent", true, 50, true);
-        */
-        /*
-        GameSystem.Instance.myDocumentManager.AddDocumentAUX("Conversación Carlos y Guillermo", PromptType.Report, "Carlos tuvo una  conversacion con Guillermo donde le dejó su DNI temporalmente.", true, 50, false);
-        GameSystem.Instance.myDocumentManager.AddDocumentAUX("Perito de daños", PromptType.Perito, "Un perito experto en daños confirmó que el perro no murió por los daños causados por Guillermo, si no que estaba desnutrido y negligenciado, de forma que iba a morir le pegase Guillermo o no.", false, 50, false);
-        GameSystem.Instance.myDocumentManager.AddDocumentAUX("Testimonio de Guillermo", PromptType.Witness, "Guillermo vio un coche amarillo donde entraron 9 personas el domingo pasado.", true, 50, false);
-        GameSystem.Instance.myDocumentManager.AddDocumentAUX("Nota de asesinato a Carlos de GUillermo", PromptType.Report, "Guillermo le dio una nota a Carlos que ponia que queria que asesinara a su perro para cobrar un seguro.", true, 50, false);
-        GameSystem.Instance.myDocumentManager.AddDocumentAUX("Reporte de tiempo del dia 27/3/23", PromptType.Report, "El dia 27 de marzo de 2023 hacia sol.", true, 50, false);
-        */
 
         _writtingHandler.ToggleSpeakingBubble(false);
         _judgePatienceSystem.TogglePatienceVisual(false);
