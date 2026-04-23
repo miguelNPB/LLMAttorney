@@ -975,7 +975,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorOpponentDocuments
   _config:
   - {fileID: 264401406}
-  inputField: {fileID: 0}
+  _inputField: {fileID: 0}
   _useSecuritySteps: 1
   _useHistoricalInContext: 1
   _useHistoricalInSteps: 0
@@ -1296,6 +1296,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1100449084152679590, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: context
+      value: "Eres un perito profesional sobre lo que se ha pedido\r\n\r\nEl informe
+        debe ser formal, t\xE9cnico y detallado\r\n\r\n Incluir exactamente estas
+        secciones como encabezados:\r\n                    - Introduccion\r\n                   
+        - Descripcion de los hechos\r\n                    - Metodologia de analisis\r\n                   
+        - Resultados\r\n                    - Conclusiones\r\n\r\n\r\nNo generes
+        ningun tag de HTML en el texto generado\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1100449084152679590, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: safeguard
+      value: "Debes incluir los siguientes campos de JSON:\r\n                - NombreDocumento
+        (string)\r\n                - TipoDocumento (int, siempre 2)\r\n               
+        - Coste (int, sin simbolo de moneda, sin texto, sin decimales, solo digitos,
+        por ejemplo: 1000)\r\n                - ContenidoDocumento (string)\r\n               
+        - EsValido (boolean)\r\n\t     -DocumentoCoherente(boolean)\r\n\r\n\r\nSALIDA
+        NO PERMITIDA:\r\nexplicaciones\r\nconfirmaciones\r\ncomentarios\r\netiquetas\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1100449084152679590, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
       propertyPath: _safeguard
       value: " Debes incluir los siguientes campos de JSON:\n                - NombreDocumento
         (string)\n                - TipoDocumento (int, siempre 2)\n               
@@ -1305,8 +1323,27 @@ PrefabInstance:
         PERMITIDA:\nexplicaciones\nconfirmaciones\ncomentarios\netiquetas\n\n"
       objectReference: {fileID: 0}
     - target: {fileID: 1100449084152679590, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: safeguardSteps
+      value: 'No acortes el texto ni modifiques las variables del JSON que no se
+        indican en el prompt.
+
+        
+
+        Devuelve siempre al final el JSON
+        que se te proporciona solo modificando el campo que se te indique.
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1100449084152679590, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
       propertyPath: _stepChecks.Array.size
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1100449084152679590, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: historicalConversation
+      value: "Analiza el hist\xF3rico de conversaci\xF3n que se te proporciona junto
+        con la nueva pregunta.\r\n\r\nEl hist\xF3rico contiene pares de pregunta
+        y respuesta anteriores.\r\n\r\nSi el documento es relevante a lo que se esta
+        hablando, pon el campo EsValido a true, si no, a false\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 1100449084152679590, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
       propertyPath: '_stepChecks.Array.data[3]'
@@ -1447,8 +1484,44 @@ PrefabInstance:
       value: LLMDocsConfigs
       objectReference: {fileID: 0}
     - target: {fileID: 4360963193325396214, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: context
+      value: "Redacta un informe general sobre lo que se ha pedido:\r\n\r\nEl tono
+        debe ser claro, profesional y accesible.\r\n\r\nIncluir exactamente estas
+        secciones como encabezados:\r\n    - T\xEDtulo\r\n    - Introducci\xF3n\r\n   
+        - Desarrollo organizado en secciones\r\n    - An\xE1lisis de la situaci\xF3n
+        actual\r\n    - Datos relevantes (puedes inventar ejemplos plausibles si
+        no se proporcionan)\r\n    - Conclusiones\r\n    - Recomendaciones (si aplica)\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4360963193325396214, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: safeguard
+      value: "Debes incluir los siguientes campos:\r\n\r\n            Incluye:\r\n               
+        - NombreDocumento (string)\r\n                - TipoDocumento (int, siempre
+        3)\r\n                - Coste (int, sin s\xEDmbolo de moneda, sin texto,
+        sin decimales, solo d\xEDgitos, por ejemplo: 1000)\r\n                - ContenidoDocumento
+        (string)\r\n                - EsValido (boolean)\r\n\r\n\r\nSALIDA NO PERMITIDA:\r\nexplicaciones\r\nconfirmaciones\r\ncomentarios\r\netiquetas\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4360963193325396214, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: safeguardSteps
+      value: 'No acortes el texto ni modifiques las variables del JSON que no se
+        indican en el prompt.
+
+        
+
+        Devuelve siempre al final el JSON
+        que se te proporciona solo modificando el campo que se te indique.
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4360963193325396214, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
       propertyPath: _stepChecks.Array.size
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4360963193325396214, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: historicalConversation
+      value: "Analiza el hist\xF3rico de conversaci\xF3n que se te proporciona junto
+        con la nueva pregunta.\r\n\r\nEl hist\xF3rico contiene pares de pregunta
+        y respuesta anteriores.\r\n\r\nSi el documento es relevante a lo que se esta
+        hablando, pon el campo EsValido a true, si no, a false\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 4360963193325396214, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
       propertyPath: '_stepChecks.Array.data[3]'
@@ -1488,8 +1561,51 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4738533614726852998, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: context
+      value: "Genera un documento tipo recibo / ticket / factura simplificada con
+        la siguiente informaci\xF3n\r\n\r\nDebes incluir EXACTAMENTE estos encabezados,
+        respetando may\xFAsculas y formato:\r\n- Nombre del negocio: [nombre]\r\n-
+        Direcci\xF3n: [opcional]\r\n- Fecha y hora: [indicar o generar]\r\n- Productos/servicios:\r\n 
+        - [producto 1] \u2013 precio\r\n  - [producto 2] \u2013 precio\r\n- Subtotal\r\n-
+        Impuestos (si aplica)\r\n- Total\r\n- M\xE9todo de pago\r\n\r\n- No a\xF1adas
+        ning\xFAn otro encabezado ni formato (sin HTML, sin etiquetas, sin negritas,
+        sin cursivas).\r\n- Cada secci\xF3n debe ir en una l\xEDnea separada con
+        su contenido debajo.\r\n- El texto entre corchetes en los encabezados NO
+        debe repetirse ni desarrollarse.\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738533614726852998, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: safeguard
+      value: "Debes incluir los siguientes campos:\r\n\r\n            Incluye:\r\n               
+        - NombreDocumento (string)\r\n                - TipoDocumento (int, siempre
+        5)\r\n                - Coste (int, sin s\xEDmbolo de moneda, sin texto,
+        sin decimales, solo d\xEDgitos, por ejemplo: 1000)\r\n                - ContenidoDocumento
+        (string)\r\n                - EsValido (boolean)\r\n\r\nEl campo coste es
+        el coste de proporcionar la factura, no el precio que aparezca en ella, con
+        lo cual lo puedes poner a 0, al menos que tenga algun gasto de gestion.\r\n\r\n\r\nSALIDA
+        NO PERMITIDA:\r\nexplicaciones\r\nconfirmaciones\r\ncomentarios\r\netiquetas\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738533614726852998, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: safeguardSteps
+      value: 'No acortes el texto ni modifiques las variables del JSON que no se
+        indican en el prompt.
+
+        
+
+        Devuelve siempre al final el JSON
+        que se te proporciona solo modificando el campo que se te indique.
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738533614726852998, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
       propertyPath: _stepChecks.Array.size
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738533614726852998, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: historicalConversation
+      value: "Analiza el hist\xF3rico de conversaci\xF3n que se te proporciona junto
+        con la nueva pregunta.\r\n\r\nEl hist\xF3rico contiene pares de pregunta
+        y respuesta anteriores.\r\n\r\nSi el documento es relevante a lo que se esta
+        hablando, pon el campo EsValido a true, si no, a false\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 4738533614726852998, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
       propertyPath: '_stepChecks.Array.data[3]'
@@ -1528,8 +1644,48 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8807911649745812658, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: context
+      value: "Redacta la declaracion del testigo sobre el hecho que se ha pedido:\r\n\r\nEl
+        estilo debe ser natural pero claro, como si fuera una declaraci\xF3n oficial\r\n\r\nIMPORTANTE:\r\n-
+        Debes incluir EXACTAMENTE estos encabezados, respetando may\xFAsculas y formato:\r\n\tDatos
+        del testigo (nombre ficticio, edad, profesi\xF3n)\r\n\tDeclaracion (En primera
+        persona)\r\n\tDescripci\xF3n cronol\xF3gica de los hechos\r\n\tDetalles sensoriales
+        (lo que vio, oy\xF3, etc.)\r\n\tNivel de seguridad o dudas en lo declarado\r\n\tCierre
+        formal (fecha y firma)\r\n\r\n- No a\xF1adas ning\xFAn otro encabezado ni
+        formato (sin HTML, sin etiquetas, sin negritas, sin cursivas).\r\n- Cada
+        secci\xF3n debe ir en una l\xEDnea separada con su contenido debajo.\r\n-
+        El texto entre par\xE9ntesis en los encabezados NO debe repetirse ni desarrollarse.\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807911649745812658, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: safeguard
+      value: "Debes incluir los siguientes campos:\r\n\r\n            Incluye:\r\n               
+        - NombreDocumento (string)\r\n                - TipoDocumento (int, siempre
+        4)\r\n                - Coste (int, sin s\xEDmbolo de moneda, sin texto,
+        sin decimales, solo d\xEDgitos, por ejemplo: 1000)\r\n                - ContenidoDocumento
+        (string)\r\n                - EsValido (boolean)\r\n\r\n\r\nSALIDA NO PERMITIDA:\r\nexplicaciones\r\nconfirmaciones\r\ncomentarios\r\netiquetas\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807911649745812658, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: safeguardSteps
+      value: 'No acortes el texto ni modifiques las variables del JSON que no se
+        indican en el prompt.
+
+        
+
+        Devuelve siempre al final el JSON
+        que se te proporciona solo modificando el campo que se te indique.
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807911649745812658, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
       propertyPath: _stepChecks.Array.size
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807911649745812658, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
+      propertyPath: historicalConversation
+      value: "Analiza el hist\xF3rico de conversaci\xF3n que se te proporciona junto
+        con la nueva pregunta.\r\n\r\nEl hist\xF3rico contiene pares de pregunta
+        y respuesta anteriores.\r\n\r\nSi el documento es relevante a lo que se esta
+        hablando, pon el campo EsValido a true, si no, a false\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 8807911649745812658, guid: 9c5e0c9d7b110fc409ee1816f032678d, type: 3}
       propertyPath: '_stepChecks.Array.data[3]'
@@ -2159,6 +2315,30 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 974649524299102953, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 974649524299102953, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 974649524299102953, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 974649524299102953, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 974649524299102953, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 974649524299102953, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1043851604011681310, guid: 852933553285a6740a5814b19dd8a800, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -2201,6 +2381,30 @@ PrefabInstance:
       objectReference: {fileID: -7656127118427459215, guid: d6f4193edd4b0e845a8ceffc534b05db, type: 2}
     - target: {fileID: 1825095113906817689, guid: 852933553285a6740a5814b19dd8a800, type: 3}
       propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1894591831164182506, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1894591831164182506, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1894591831164182506, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1894591831164182506, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1894591831164182506, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1894591831164182506, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2055700843063094252, guid: 852933553285a6740a5814b19dd8a800, type: 3}
@@ -2267,6 +2471,30 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2671243566732598061, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2671243566732598061, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2671243566732598061, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2671243566732598061, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2671243566732598061, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2671243566732598061, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2716033566554295034, guid: 852933553285a6740a5814b19dd8a800, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -2274,6 +2502,30 @@ PrefabInstance:
     - target: {fileID: 2716033566554295034, guid: 852933553285a6740a5814b19dd8a800, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3001717616816341921, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3001717616816341921, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3001717616816341921, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3001717616816341921, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3001717616816341921, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3001717616816341921, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3323866479899265576, guid: 852933553285a6740a5814b19dd8a800, type: 3}
       propertyPath: _llmConnectorDocs
@@ -2322,6 +2574,30 @@ PrefabInstance:
     - target: {fileID: 3544246400411509681, guid: 852933553285a6740a5814b19dd8a800, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3570999057251703347, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3570999057251703347, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3570999057251703347, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3570999057251703347, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3570999057251703347, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3570999057251703347, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3783588231055010109, guid: 852933553285a6740a5814b19dd8a800, type: 3}
       propertyPath: m_fontAsset
@@ -2402,6 +2678,30 @@ PrefabInstance:
     - target: {fileID: 4550978545585073971, guid: 852933553285a6740a5814b19dd8a800, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4725332243296801752, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4725332243296801752, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4725332243296801752, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4725332243296801752, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4725332243296801752, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4725332243296801752, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4909124483995565995, guid: 852933553285a6740a5814b19dd8a800, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -2499,6 +2799,30 @@ PrefabInstance:
       propertyPath: _phase2Manager
       value: 
       objectReference: {fileID: 1550168515}
+    - target: {fileID: 6044019990002718020, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6044019990002718020, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6044019990002718020, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6044019990002718020, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6044019990002718020, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6044019990002718020, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6112165973210973054, guid: 852933553285a6740a5814b19dd8a800, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -2730,6 +3054,30 @@ PrefabInstance:
     - target: {fileID: 8104667845634764920, guid: 852933553285a6740a5814b19dd8a800, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8111224001121884743, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8111224001121884743, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8111224001121884743, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8111224001121884743, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8111224001121884743, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8111224001121884743, guid: 852933553285a6740a5814b19dd8a800, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8262575260064899258, guid: 852933553285a6740a5814b19dd8a800, type: 3}
       propertyPath: m_fontAsset
