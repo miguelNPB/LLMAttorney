@@ -28,7 +28,8 @@ public class GameSystem : MonoBehaviour
     /// </summary>
     private void CreateExampleCaseData()
     {
-        float chanceOfInstantRejectionConciliacion = Random.Range(0f,0.5f);
+        //float chanceOfInstantRejectionConciliacion = Random.Range(0f,0.5f);
+        float chanceOfInstantRejectionConciliacion = 0;
         string clientName = "Pedro Muñoz";
         string procuratorName = "Alberto Velazquez";
         string demandedEntityName = "Ana Pérez";

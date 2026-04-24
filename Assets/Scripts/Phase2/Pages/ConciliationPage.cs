@@ -123,9 +123,15 @@ public class ConciliationPage : IPage
         float random = Random.Range(0.0f, 1.0f);
 
         if (random > GameSystem.Instance.CaseData.conciliationRivalInstantRejectProbability)
+        {
+            Debug.Log("Prompt normal rival decision");
             yield return StartCoroutine(_llmConnector.SendRivalPromptNormal());
+        }
         else
+        {
+            Debug.Log("Prompt instant rival rejection");
             yield return StartCoroutine(_llmConnector.SendRivalPromptRejectionConfirmed());
+        }
 
         rivalAnswerText.text = _rivalAnswer;
 

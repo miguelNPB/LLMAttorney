@@ -47,7 +47,7 @@ public class LLMConnectorConciliation : LLMConector
         string decision = agree ? "ACEPTAR" : "RECHAZAR";
         string reaction = agree
             ? "Dado que ACEPTAS, muestra pragmatismo, alivio por evitar el juicio, o resignación si crees que es 'un mal menor'."
-            : "Dado que RECHAZAS, muestra que los números no te cuadran, indignación ante una oferta ridícula, o determinación para ir a juicio y pelear por lo tuyo.";
+            : "Dado que RECHAZAS, muestra que los números no te cuadran, indignación ante una oferta ridícula, y debes pedirle a el abogado que reconsidere y te ofrezca otra oferta de conciliacion.";
 
         string nextPrompt = _clientTextBasePrompt.Replace("{decision}", decision);
         nextPrompt = nextPrompt.Replace("{reaction}", reaction);
