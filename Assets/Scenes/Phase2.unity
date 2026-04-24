@@ -346,10 +346,33 @@ MonoBehaviour:
     debajo.\r\n- El texto entre corchetes en los encabezados NO debe repetirse ni
     desarrollarse.\r\n"
   safeguard: "Debes incluir los siguientes campos:\r\n\r\n            Incluye:\r\n               
-    - NombreDocumento (string)\r\n                - ContenidoDocumento (string)\r\n\r\nEl
-    campo coste es el coste de proporcionar la factura, no el precio que aparezca
-    en ella, con lo cual lo puedes poner a 0, al menos que tenga algun gasto de gestion.\r\n\r\nSALIDA
-    NO PERMITIDA:\r\nexplicaciones\r\nconfirmaciones\r\ncomentarios\r\netiquetas\r\n"
+    - NombreDocumento (string)\r\n                - ContenidoDocumento (string)\r\n\nDIRECTIVA
+    \u2014 ESTRUCTURA DE FACTURA / RECIBO (VERSI\xD3N EXTENDIDA)\n\nComprueba que
+    el campo \"ContenidoDocumento\" del JSON contiene una factura o recibo completo.\n\nDebe
+    incluir obligatoriamente estas secciones, en este orden:\n\n1. Nombre del negocio\n2.
+    Direcci\xF3n\n3. Fecha y hora\n4. Productos/servicios\n5. Subtotal\n6. Impuestos\n7.
+    Total\n8. M\xE9todo de pago\n\n---\n\nREGLAS\n\n* Si alguna secci\xF3n no existe
+    \u2192 debes a\xF1adirla\n* Si existe pero est\xE1 vac\xEDa o incompleta \u2192
+    debes completarla\n* No elimines contenido existente\n* Mant\xE9n coherencia
+    entre precios y totales\n* No a\xF1adas explicaciones fuera del documento\n\n---\n\nFORMATO\n\n*
+    Cada secci\xF3n debe ir en una l\xEDnea separada\n* Debajo debe ir su contenido\n*
+    No incluir el texto entre corchetes en los encabezados\n\nEjemplo de encabezado
+    correcto:\nNombre del negocio\n(no: Nombre del negocio: [nombre])\n\n---\n\nCONTENIDO
+    M\xCDNIMO DE CADA SECCI\xD3N\n\n1. Nombre del negocio\n   Debe incluir un nombre
+    plausible\n\nEjemplo:\n\u201CServicios T\xE9cnicos Generales S.L.\u201D\n\n---\n\n2.
+    Direcci\xF3n\n   Puede incluir:\n\n* calle, ciudad\n\nEjemplo:\n\u201CCalle Mayor
+    10, Madrid\u201D\n\n(Si no hay datos, generar uno plausible)\n\n---\n\n3. Fecha
+    y hora\n   Debe incluir:\n\n* fecha y hora\n\nEjemplo:\n\u201C15/03/2026 12:30\u201D\n\n(Si
+    no existe, generarla)\n\n---\n\n4. Productos/servicios\n   Debe incluir:\n\n*
+    lista de conceptos con precio\n\nEjemplo:\n\u201CInforme pericial \u2013 1200\nRevisi\xF3n
+    t\xE9cnica \u2013 300\u201D\n\n---\n\n5. Subtotal\n   Debe ser:\n\n* suma de
+    los productos\n\nEjemplo:\n\u201C1500\u201D\n\n---\n\n6. Impuestos\n   Debe incluir:\n\n*
+    importe o indicar que no aplica\n\nEjemplo:\n\u201C315\u201D\no\n\u201CNo aplica\u201D\n\n---\n\n7.
+    Total\n   Debe ser:\n\n* subtotal + impuestos\n\nEjemplo:\n\u201C1815\u201D\n\n---\n\n8.
+    M\xE9todo de pago\n   Debe incluir:\n\n* forma de pago\n\nEjemplo:\n\u201CTransferencia
+    bancaria\u201D\n\n---\n\nIMPORTANTE\n\n* Los valores num\xE9ricos deben ser coherentes
+    entre s\xED\n* El total debe coincidir con la suma\n* Todo el contenido debe
+    estar en espa\xF1ol\n* No dejar secciones vac\xEDas\n* No repetir contenido innecesario\n\r\n"
   safeguardSteps: 'No acortes el texto ni modifiques las variables del JSON que no
     se indican en el prompt.
 
@@ -368,35 +391,6 @@ MonoBehaviour:
     factura simplificada en espa\xF1a. Si es asi no cambies nada y devuelve exactamente
     lo mismo, si no, modifica ContenidoDocumento para que sea un recibo / ticket
     / factura simplificada en espa\xF1a sobre lo que se pidio."
-  - "DIRECTIVA \u2014 ESTRUCTURA DE FACTURA / RECIBO (VERSI\xD3N EXTENDIDA)\r\n\r\nComprueba
-    que el campo \"ContenidoDocumento\" del JSON contiene una factura o recibo completo.\r\n\r\nDebe
-    incluir obligatoriamente estas secciones, en este orden:\r\n\r\n1. Nombre del
-    negocio\r\n2. Direcci\xF3n\r\n3. Fecha y hora\r\n4. Productos/servicios\r\n5.
-    Subtotal\r\n6. Impuestos\r\n7. Total\r\n8. M\xE9todo de pago\r\n\r\n---\r\n\r\nREGLAS\r\n\r\n*
-    Si alguna secci\xF3n no existe \u2192 debes a\xF1adirla\r\n* Si existe pero est\xE1
-    vac\xEDa o incompleta \u2192 debes completarla\r\n* No elimines contenido existente\r\n*
-    Mant\xE9n coherencia entre precios y totales\r\n* No a\xF1adas explicaciones
-    fuera del documento\r\n\r\n---\r\n\r\nFORMATO\r\n\r\n* Cada secci\xF3n debe ir
-    en una l\xEDnea separada\r\n* Debajo debe ir su contenido\r\n* No incluir el
-    texto entre corchetes en los encabezados\r\n\r\nEjemplo de encabezado correcto:\r\nNombre
-    del negocio\r\n(no: Nombre del negocio: [nombre])\r\n\r\n---\r\n\r\nCONTENIDO
-    M\xCDNIMO DE CADA SECCI\xD3N\r\n\r\n1. Nombre del negocio\r\n   Debe incluir
-    un nombre plausible\r\n\r\nEjemplo:\r\n\u201CServicios T\xE9cnicos Generales
-    S.L.\u201D\r\n\r\n---\r\n\r\n2. Direcci\xF3n\r\n   Puede incluir:\r\n\r\n* calle,
-    ciudad\r\n\r\nEjemplo:\r\n\u201CCalle Mayor 10, Madrid\u201D\r\n\r\n(Si no hay
-    datos, generar uno plausible)\r\n\r\n---\r\n\r\n3. Fecha y hora\r\n   Debe incluir:\r\n\r\n*
-    fecha y hora\r\n\r\nEjemplo:\r\n\u201C15/03/2026 12:30\u201D\r\n\r\n(Si no existe,
-    generarla)\r\n\r\n---\r\n\r\n4. Productos/servicios\r\n   Debe incluir:\r\n\r\n*
-    lista de conceptos con precio\r\n\r\nEjemplo:\r\n\u201CInforme pericial \u2013
-    1200\r\nRevisi\xF3n t\xE9cnica \u2013 300\u201D\r\n\r\n---\r\n\r\n5. Subtotal\r\n  
-    Debe ser:\r\n\r\n* suma de los productos\r\n\r\nEjemplo:\r\n\u201C1500\u201D\r\n\r\n---\r\n\r\n6.
-    Impuestos\r\n   Debe incluir:\r\n\r\n* importe o indicar que no aplica\r\n\r\nEjemplo:\r\n\u201C315\u201D\r\no\r\n\u201CNo
-    aplica\u201D\r\n\r\n---\r\n\r\n7. Total\r\n   Debe ser:\r\n\r\n* subtotal + impuestos\r\n\r\nEjemplo:\r\n\u201C1815\u201D\r\n\r\n---\r\n\r\n8.
-    M\xE9todo de pago\r\n   Debe incluir:\r\n\r\n* forma de pago\r\n\r\nEjemplo:\r\n\u201CTransferencia
-    bancaria\u201D\r\n\r\n---\r\n\r\nIMPORTANTE\r\n\r\n* Los valores num\xE9ricos
-    deben ser coherentes entre s\xED\r\n* El total debe coincidir con la suma\r\n*
-    Todo el contenido debe estar en espa\xF1ol\r\n* No dejar secciones vac\xEDas\r\n*
-    No repetir contenido innecesario\r\n"
   - "Comprueba que el campo ContenidoDocumento esta entero en espa\xF1ol, si no es
     asi, traducelo todo al espa\xF1ol"
   _temperature: 0.6
@@ -2661,8 +2655,45 @@ MonoBehaviour:
     - Datos relevantes (puedes inventar ejemplos plausibles si no se proporcionan)\r\n   
     - Conclusiones\r\n    - Recomendaciones (si aplica)\r\n"
   safeguard: "Debes incluir los siguientes campos:\r\n\r\n            Incluye:\r\n               
-    - NombreDocumento (string)\r\n                - ContenidoDocumento (string)\r\n\r\n\r\n\r\nSALIDA
-    NO PERMITIDA:\r\nexplicaciones\r\nconfirmaciones\r\ncomentarios\r\netiquetas\r\n"
+    - NombreDocumento (string)\r\n                - ContenidoDocumento (string)\r\n\r\nDIRECTIVA
+    \u2014 ESTRUCTURA DE INFORME GENERAL (VERSI\xD3N EXTENDIDA)\n\nComprueba que
+    el campo \"ContenidoDocumento\" del JSON contiene un informe general completo.\n\nDebe
+    incluir obligatoriamente estas secciones, en este orden:\n\n1. T\xEDtulo\n2.
+    Introducci\xF3n\n3. Desarrollo\n4. An\xE1lisis de la situaci\xF3n actual\n5.
+    Datos relevantes\n6. Conclusiones\n7. Recomendaciones\n\n---\n\nREGLAS\n\n* Si
+    alguna secci\xF3n no existe \u2192 debes a\xF1adirla\n* Si existe pero est\xE1
+    vac\xEDa o incompleta \u2192 debes completarla\n* No elimines contenido existente\n*
+    Mant\xE9n coherencia con el resto del documento\n* No a\xF1adas explicaciones
+    fuera del documento\n\n---\n\nFORMATO\n\n* Cada secci\xF3n debe ir en una l\xEDnea
+    separada\n* Debajo debe ir su contenido desarrollado\n* El \u201CDesarrollo\u201D
+    debe estar organizado en subsecciones claras\n\n---\n\nCONTENIDO M\xCDNIMO DE
+    CADA SECCI\xD3N\n\n1. T\xEDtulo\n   Debe ser claro y descriptivo del contenido
+    del informe\n\nEjemplo:\n\u201CInforme sobre la valoraci\xF3n de da\xF1os en
+    bien material en contexto civil\u201D\n\n---\n\n2. Introducci\xF3n\n   Debe incluir:\n\n*
+    prop\xF3sito del informe\n* contexto general\n\nEjemplo:\n\u201CEl presente informe
+    tiene como objetivo analizar la situaci\xF3n descrita en el caso, evaluando los
+    elementos relevantes desde un punto de vista t\xE9cnico y documental.\u201D\n\n---\n\n3.
+    Desarrollo\n   Debe incluir:\n\n* explicaci\xF3n estructurada del tema\n* subdivisi\xF3n
+    en partes si es necesario\n\nEjemplo:\n\u201CEn primer lugar, se analizan los
+    antecedentes del caso. En segundo lugar, se examinan los elementos materiales
+    implicados y su estado.\u201D\n\n---\n\n4. An\xE1lisis de la situaci\xF3n actual\n  
+    Debe incluir:\n\n* evaluaci\xF3n del estado actual\n* interpretaci\xF3n de los
+    hechos\n\nEjemplo:\n\u201CLa situaci\xF3n actual refleja la existencia de da\xF1os
+    que afectan al valor del bien, siendo necesario un an\xE1lisis detallado para
+    su correcta valoraci\xF3n.\u201D\n\n---\n\n5. Datos relevantes\n   Debe incluir:\n\n*
+    informaci\xF3n clave del caso\n* ejemplos plausibles si no hay datos\n\nEjemplo:\n\u201CSe
+    consideran relevantes aspectos como la antig\xFCedad del bien, el tipo de da\xF1o
+    y el coste estimado de reparaci\xF3n, que puede situarse dentro de valores habituales
+    del mercado.\u201D\n\n---\n\n6. Conclusiones\n   Debe incluir:\n\n* resumen de
+    lo analizado\n* resultado final\n\nEjemplo:\n\u201CSe concluye que la situaci\xF3n
+    analizada presenta elementos suficientes para determinar una afectaci\xF3n econ\xF3mica
+    relevante en el contexto del caso.\u201D\n\n---\n\n7. Recomendaciones\n   Debe
+    incluir:\n\n* posibles acciones o pasos a seguir\n\nEjemplo:\n\u201CSe recomienda
+    realizar una valoraci\xF3n pericial adicional y considerar la recopilaci\xF3n
+    de documentaci\xF3n complementaria para reforzar la posici\xF3n legal.\u201D\n\n---\n\nIMPORTANTE\n\n*
+    Todas las secciones deben tener contenido real\n* El texto debe ser coherente
+    y en espa\xF1ol\n* No dejar secciones vac\xEDas\n* No repetir contenido entre
+    secciones\n\r\n"
   safeguardSteps: 'No acortes el texto ni modifiques las variables del JSON que no
     se indican en el prompt.
 
@@ -2681,45 +2712,6 @@ MonoBehaviour:
     espa\xF1a. Si es asi no cambies nada y devuelve exactamente lo mismo, si no,
     modifica ContenidoDocumento para que sea un informe completo en espa\xF1a sobre
     lo que se pidio."
-  - "DIRECTIVA \u2014 ESTRUCTURA DE INFORME GENERAL (VERSI\xD3N EXTENDIDA)\r\n\r\nComprueba
-    que el campo \"ContenidoDocumento\" del JSON contiene un informe general completo.\r\n\r\nDebe
-    incluir obligatoriamente estas secciones, en este orden:\r\n\r\n1. T\xEDtulo\r\n2.
-    Introducci\xF3n\r\n3. Desarrollo\r\n4. An\xE1lisis de la situaci\xF3n actual\r\n5.
-    Datos relevantes\r\n6. Conclusiones\r\n7. Recomendaciones\r\n\r\n---\r\n\r\nREGLAS\r\n\r\n*
-    Si alguna secci\xF3n no existe \u2192 debes a\xF1adirla\r\n* Si existe pero est\xE1
-    vac\xEDa o incompleta \u2192 debes completarla\r\n* No elimines contenido existente\r\n*
-    Mant\xE9n coherencia con el resto del documento\r\n* No a\xF1adas explicaciones
-    fuera del documento\r\n\r\n---\r\n\r\nFORMATO\r\n\r\n* Cada secci\xF3n debe ir
-    en una l\xEDnea separada\r\n* Debajo debe ir su contenido desarrollado\r\n* El
-    \u201CDesarrollo\u201D debe estar organizado en subsecciones claras\r\n\r\n---\r\n\r\nCONTENIDO
-    M\xCDNIMO DE CADA SECCI\xD3N\r\n\r\n1. T\xEDtulo\r\n   Debe ser claro y descriptivo
-    del contenido del informe\r\n\r\nEjemplo:\r\n\u201CInforme sobre la valoraci\xF3n
-    de da\xF1os en bien material en contexto civil\u201D\r\n\r\n---\r\n\r\n2. Introducci\xF3n\r\n  
-    Debe incluir:\r\n\r\n* prop\xF3sito del informe\r\n* contexto general\r\n\r\nEjemplo:\r\n\u201CEl
-    presente informe tiene como objetivo analizar la situaci\xF3n descrita en el
-    caso, evaluando los elementos relevantes desde un punto de vista t\xE9cnico y
-    documental.\u201D\r\n\r\n---\r\n\r\n3. Desarrollo\r\n   Debe incluir:\r\n\r\n*
-    explicaci\xF3n estructurada del tema\r\n* subdivisi\xF3n en partes si es necesario\r\n\r\nEjemplo:\r\n\u201CEn
-    primer lugar, se analizan los antecedentes del caso. En segundo lugar, se examinan
-    los elementos materiales implicados y su estado.\u201D\r\n\r\n---\r\n\r\n4. An\xE1lisis
-    de la situaci\xF3n actual\r\n   Debe incluir:\r\n\r\n* evaluaci\xF3n del estado
-    actual\r\n* interpretaci\xF3n de los hechos\r\n\r\nEjemplo:\r\n\u201CLa situaci\xF3n
-    actual refleja la existencia de da\xF1os que afectan al valor del bien, siendo
-    necesario un an\xE1lisis detallado para su correcta valoraci\xF3n.\u201D\r\n\r\n---\r\n\r\n5.
-    Datos relevantes\r\n   Debe incluir:\r\n\r\n* informaci\xF3n clave del caso\r\n*
-    ejemplos plausibles si no hay datos\r\n\r\nEjemplo:\r\n\u201CSe consideran relevantes
-    aspectos como la antig\xFCedad del bien, el tipo de da\xF1o y el coste estimado
-    de reparaci\xF3n, que puede situarse dentro de valores habituales del mercado.\u201D\r\n\r\n---\r\n\r\n6.
-    Conclusiones\r\n   Debe incluir:\r\n\r\n* resumen de lo analizado\r\n* resultado
-    final\r\n\r\nEjemplo:\r\n\u201CSe concluye que la situaci\xF3n analizada presenta
-    elementos suficientes para determinar una afectaci\xF3n econ\xF3mica relevante
-    en el contexto del caso.\u201D\r\n\r\n---\r\n\r\n7. Recomendaciones\r\n   Debe
-    incluir:\r\n\r\n* posibles acciones o pasos a seguir\r\n\r\nEjemplo:\r\n\u201CSe
-    recomienda realizar una valoraci\xF3n pericial adicional y considerar la recopilaci\xF3n
-    de documentaci\xF3n complementaria para reforzar la posici\xF3n legal.\u201D\r\n\r\n---\r\n\r\nIMPORTANTE\r\n\r\n*
-    Todas las secciones deben tener contenido real\r\n* El texto debe ser coherente
-    y en espa\xF1ol\r\n* No dejar secciones vac\xEDas\r\n* No repetir contenido entre
-    secciones\r\n"
   - "Comprueba que el campo ContenidoDocumento esta entero en espa\xF1ol, si no es
     asi, traducelo todo al espa\xF1ol"
   _temperature: 0.6
@@ -2908,11 +2900,45 @@ MonoBehaviour:
     debe ser formal, t\xE9cnico y detallado\r\n\r\n Incluir exactamente estas secciones
     como encabezados:\r\n                    - Introduccion\r\n                   
     - Descripcion de los hechos\r\n                    - Metodologia de analisis\r\n                   
-    - Resultados\r\n                    - Conclusiones\r\n\r\n\r\nNo generes ningun
-    tag de HTML en el texto generado\r\n"
-  safeguard: "Debes incluir los siguientes campos de JSON:\r\n                - NombreDocumento
-    (string)\r\n                - ContenidoDocumento (string)\r\n\r\n\r\nSALIDA NO
-    PERMITIDA:\r\nexplicaciones\r\nconfirmaciones\r\ncomentarios\r\netiquetas\r\n"
+    - Resultados\r\n                    - Conclusiones\n\nNo saques informaci\xF3n
+    del contexto del caso que el cliente no te haya podido decir, por ejemplo, no
+    meciones el nombre del rival ni la razon del porque estas haciendo el informe.
+    \n\nTu solo da los datos objetivos del estado de lo que se esta revisando.\r\n\r\n\r\nNo
+    generes ningun tag de HTML en el texto generado\r\n"
+  safeguard: "DIRECTIVA \u2014 ESTRUCTURA DE INFORME PERICIAL (VERSI\xD3N EXTENDIDA)\n\nComprueba
+    que el campo \"ContenidoDocumento\" del JSON contiene un informe pericial completo.\n\nDebe
+    incluir obligatoriamente estas secciones, en este orden:\n\n1. Introduccion\n2.
+    Descripcion de los hechos\n3. Metodologia de analisis\n4. Resultados\n5. Conclusiones\n\n---\n\nREGLAS\n\n*
+    Si alguna secci\xF3n no existe \u2192 debes a\xF1adirla\n* Si existe pero est\xE1
+    vac\xEDa o incompleta \u2192 debes completarla\n* No elimines contenido existente\n*
+    Mant\xE9n coherencia con el resto del documento\n* No a\xF1adas explicaciones
+    fuera del documento\n\n---\n\nFORMATO\n\nCada secci\xF3n debe estar claramente
+    identificada con su t\xEDtulo y desarrollada en texto.\n\n---\n\nCONTENIDO M\xCDNIMO
+    DE CADA SECCI\xD3N\n\n1. Introduccion\n   Debe explicar:\n\n* qui\xE9n realiza
+    el informe (perito)\n* el objetivo del informe\n* el contexto general del caso\n\nEjemplo:\n\u201CEste
+    informe pericial es elaborado por un perito especializado con el objetivo de
+    analizar los hechos relacionados con el caso y determinar las circunstancias
+    t\xE9cnicas relevantes para su valoraci\xF3n en el \xE1mbito civil.\u201D\n\n---\n\n2.
+    Descripcion de los hechos\n   Debe incluir:\n\n* relato claro de lo ocurrido\n*
+    contexto del conflicto\n* partes implicadas (sin inventar datos)\n\nEjemplo:\n\u201CSeg\xFAn
+    la documentaci\xF3n aportada, los hechos se refieren a un da\xF1o producido en
+    un bien material, cuya valoraci\xF3n y origen son objeto del presente an\xE1lisis.\u201D\n\n---\n\n3.
+    Metodologia de analisis\n   Debe explicar:\n\n* c\xF3mo se ha analizado el caso\n*
+    qu\xE9 m\xE9todos o criterios se han utilizado\n\nEjemplo:\n\u201CPara la elaboraci\xF3n
+    de este informe se ha realizado un an\xE1lisis documental, revisi\xF3n t\xE9cnica
+    de los elementos afectados y aplicaci\xF3n de criterios periciales basados en
+    la pr\xE1ctica profesional.\u201D\n\n---\n\n4. Resultados\n   Debe incluir:\n\n*
+    hallazgos obtenidos\n* datos relevantes del an\xE1lisis\n\nEjemplo:\n\u201CDel
+    an\xE1lisis realizado se desprende que los da\xF1os evaluados presentan caracter\xEDsticas
+    compatibles con las circunstancias descritas, estim\xE1ndose un impacto econ\xF3mico
+    acorde a los valores de mercado.\u201D\n\n---\n\n5. Conclusiones\n   Debe incluir:\n\n*
+    resumen final\n* valoraci\xF3n t\xE9cnica clara\n\nEjemplo:\n\u201CSe concluye
+    que los hechos analizados son coherentes con la informaci\xF3n aportada y que
+    los da\xF1os pueden ser valorados conforme a criterios t\xE9cnicos aplicables
+    en el \xE1mbito pericial.\u201D\n\n---\n\nIMPORTANTE\n\n* Todas las secciones
+    deben tener contenido real, no t\xEDtulos vac\xEDos\n* El texto debe ser coherente
+    y profesional\n* Todo el contenido debe estar en espa\xF1ol\n* No generar listas
+    sin desarrollar\n* No repetir texto entre secciones\n\r\n"
   safeguardSteps: 'No acortes el texto ni modifiques las variables del JSON que no
     se indican en el prompt.
 
@@ -2927,49 +2953,14 @@ MonoBehaviour:
     y respuesta anteriores.\r\n\r\nSi el documento es relevante a lo que se esta
     hablando, pon el campo EsValido a true, si no, a false\r\n"
   _stepChecks:
+  - Rellena el campo NombreDocumento con un texto corto que describa el contenido.
   - "Comprueba que el campo del JSON ContenidoDocumento sea un informe pericial completo
     en espa\xF1a. Si es asi no cambies nada y devuelve exactamente lo mismo, si no,
     modifica ContenidoDocumento para que sea un informe pericial completo en espa\xF1a"
-  - "DIRECTIVA \u2014 ESTRUCTURA DE INFORME PERICIAL (VERSI\xD3N EXTENDIDA)\r\n\r\nComprueba
-    que el campo \"ContenidoDocumento\" del JSON contiene un informe pericial completo.\r\n\r\nDebe
-    incluir obligatoriamente estas secciones, en este orden:\r\n\r\n1. Introduccion\r\n2.
-    Descripcion de los hechos\r\n3. Metodologia de analisis\r\n4. Resultados\r\n5.
-    Conclusiones\r\n\r\n---\r\n\r\nREGLAS\r\n\r\n* Si alguna secci\xF3n no existe
-    \u2192 debes a\xF1adirla\r\n* Si existe pero est\xE1 vac\xEDa o incompleta \u2192
-    debes completarla\r\n* No elimines contenido existente\r\n* Mant\xE9n coherencia
-    con el resto del documento\r\n* No a\xF1adas explicaciones fuera del documento\r\n\r\n---\r\n\r\nFORMATO\r\n\r\nCada
-    secci\xF3n debe estar claramente identificada con su t\xEDtulo y desarrollada
-    en texto.\r\n\r\n---\r\n\r\nCONTENIDO M\xCDNIMO DE CADA SECCI\xD3N\r\n\r\n1.
-    Introduccion\r\n   Debe explicar:\r\n\r\n* qui\xE9n realiza el informe (perito)\r\n*
-    el objetivo del informe\r\n* el contexto general del caso\r\n\r\nEjemplo:\r\n\u201CEste
-    informe pericial es elaborado por un perito especializado con el objetivo de
-    analizar los hechos relacionados con el caso y determinar las circunstancias
-    t\xE9cnicas relevantes para su valoraci\xF3n en el \xE1mbito civil.\u201D\r\n\r\n---\r\n\r\n2.
-    Descripcion de los hechos\r\n   Debe incluir:\r\n\r\n* relato claro de lo ocurrido\r\n*
-    contexto del conflicto\r\n* partes implicadas (sin inventar datos)\r\n\r\nEjemplo:\r\n\u201CSeg\xFAn
-    la documentaci\xF3n aportada, los hechos se refieren a un da\xF1o producido en
-    un bien material, cuya valoraci\xF3n y origen son objeto del presente an\xE1lisis.\u201D\r\n\r\n---\r\n\r\n3.
-    Metodologia de analisis\r\n   Debe explicar:\r\n\r\n* c\xF3mo se ha analizado
-    el caso\r\n* qu\xE9 m\xE9todos o criterios se han utilizado\r\n\r\nEjemplo:\r\n\u201CPara
-    la elaboraci\xF3n de este informe se ha realizado un an\xE1lisis documental,
-    revisi\xF3n t\xE9cnica de los elementos afectados y aplicaci\xF3n de criterios
-    periciales basados en la pr\xE1ctica profesional.\u201D\r\n\r\n---\r\n\r\n4.
-    Resultados\r\n   Debe incluir:\r\n\r\n* hallazgos obtenidos\r\n* datos relevantes
-    del an\xE1lisis\r\n\r\nEjemplo:\r\n\u201CDel an\xE1lisis realizado se desprende
-    que los da\xF1os evaluados presentan caracter\xEDsticas compatibles con las circunstancias
-    descritas, estim\xE1ndose un impacto econ\xF3mico acorde a los valores de mercado.\u201D\r\n\r\n---\r\n\r\n5.
-    Conclusiones\r\n   Debe incluir:\r\n\r\n* resumen final\r\n* valoraci\xF3n t\xE9cnica
-    clara\r\n\r\nEjemplo:\r\n\u201CSe concluye que los hechos analizados son coherentes
-    con la informaci\xF3n aportada y que los da\xF1os pueden ser valorados conforme
-    a criterios t\xE9cnicos aplicables en el \xE1mbito pericial.\u201D\r\n\r\n---\r\n\r\nIMPORTANTE\r\n\r\n*
-    Todas las secciones deben tener contenido real, no t\xEDtulos vac\xEDos\r\n*
-    El texto debe ser coherente y profesional\r\n* Todo el contenido debe estar en
-    espa\xF1ol\r\n* No generar listas sin desarrollar\r\n* No repetir texto entre
-    secciones\r\n"
   - "Comprueba que el campo ContenidoDocumento esta entero en espa\xF1ol, si no es
     asi, traducelo todo al espa\xF1ol"
-  _temperature: 0.5
-  _ragUse: 1
+  _temperature: 0.6
+  _ragUse: 0
   _ragFile: 2
 --- !u!4 &1186516267
 Transform:
@@ -3771,8 +3762,38 @@ MonoBehaviour:
     ir en una l\xEDnea separada con su contenido debajo.\r\n- El texto entre par\xE9ntesis
     en los encabezados NO debe repetirse ni desarrollarse.\r\n"
   safeguard: "Debes incluir los siguientes campos:\r\n\r\n            Incluye:\r\n               
-    - NombreDocumento (string)\r\n                - ContenidoDocumento (string)\r\n\r\nSALIDA
-    NO PERMITIDA:\r\nexplicaciones\r\nconfirmaciones\r\ncomentarios\r\netiquetas\r\n"
+    - NombreDocumento (string)\r\n                - ContenidoDocumento (string)\r\n\r\nDIRECTIVA
+    \u2014 ESTRUCTURA DE TESTIMONIO (VERSI\xD3N EXTENDIDA)\n\nComprueba que el campo
+    \"ContenidoDocumento\" del JSON contiene un testimonio completo.\n\nDebe incluir
+    obligatoriamente estas secciones, en este orden:\n\n1. Datos del testigo\n2.
+    Declaracion\n3. Descripci\xF3n cronol\xF3gica de los hechos\n4. Detalles sensoriales\n5.
+    Nivel de seguridad o dudas en lo declarado\n6. Cierre formal\n\n---\n\nREGLAS\n\n*
+    Si alguna secci\xF3n no existe \u2192 debes a\xF1adirla\n* Si existe pero est\xE1
+    vac\xEDa o incompleta \u2192 debes completarla\n* No elimines contenido existente\n*
+    Mant\xE9n coherencia con el resto del documento\n* No a\xF1adas explicaciones
+    fuera del documento\n\n---\n\nFORMATO\n\n* Cada secci\xF3n debe ir en una l\xEDnea
+    separada\n* Debajo debe ir su contenido desarrollado\n* No incluir el texto entre
+    par\xE9ntesis en los encabezados\n\nEjemplo de encabezado correcto:\nDatos del
+    testigo\n(no: Datos del testigo (nombre ficticio, edad, profesi\xF3n))\n\n---\n\nCONTENIDO
+    M\xCDNIMO DE CADA SECCI\xD3N\n\n1. Datos del testigo\n   Debe incluir:\n\n* nombre
+    ficticio\n* edad\n* profesi\xF3n\n\nEjemplo:\n\u201CNombre: Juan P\xE9rez. Edad:
+    45 a\xF1os. Profesi\xF3n: electricista.\u201D\n\n---\n\n2. Declaracion\n   Debe
+    estar en primera persona\n\nEjemplo:\n\u201CYo, Juan P\xE9rez, declaro que presenci\xE9
+    los hechos relacionados con el caso en cuesti\xF3n.\u201D\n\n---\n\n3. Descripci\xF3n
+    cronol\xF3gica de los hechos\n   Debe incluir:\n\n* relato ordenado en el tiempo\n*
+    secuencia clara de lo ocurrido\n\nEjemplo:\n\u201CEn primer lugar, observ\xE9
+    que el incidente se produjo en horas de la tarde. Posteriormente, se desarrollaron
+    los acontecimientos que dieron lugar al da\xF1o descrito.\u201D\n\n---\n\n4.
+    Detalles sensoriales\n   Debe incluir:\n\n* lo que vio, oy\xF3 o percibi\xF3\n\nEjemplo:\n\u201CPude
+    observar directamente los da\xF1os materiales y escuch\xE9 un fuerte impacto
+    en el momento en que ocurrieron los hechos.\u201D\n\n---\n\n5. Nivel de seguridad
+    o dudas en lo declarado\n   Debe indicar:\n\n* grado de certeza\n\nEjemplo:\n\u201CEstoy
+    seguro de lo que observ\xE9, aunque algunos detalles menores podr\xEDan no ser
+    completamente precisos.\u201D\n\n---\n\n6. Cierre formal\n   Debe incluir:\n\n*
+    fecha\n* firma\n\nEjemplo:\n\u201CFirmado en fecha actual. Firma: Juan P\xE9rez.\u201D\n\n---\n\nIMPORTANTE\n\n*
+    Todas las secciones deben tener contenido real\n* El texto debe ser coherente
+    y en espa\xF1ol\n* No repetir contenido entre secciones\n* No dejar secciones
+    vac\xEDas\n\r\n"
   safeguardSteps: 'No acortes el texto ni modifiques las variables del JSON que no
     se indican en el prompt.
 
@@ -3791,38 +3812,6 @@ MonoBehaviour:
     testigo en espa\xF1a. Si es asi no cambies nada y devuelve exactamente lo mismo,
     si no, modifica ContenidoDocumento para que sea una declaracion de un testigo
     en espa\xF1a sobre lo que se pidio."
-  - "DIRECTIVA \u2014 ESTRUCTURA DE TESTIMONIO (VERSI\xD3N EXTENDIDA)\r\n\r\nComprueba
-    que el campo \"ContenidoDocumento\" del JSON contiene un testimonio completo.\r\n\r\nDebe
-    incluir obligatoriamente estas secciones, en este orden:\r\n\r\n1. Datos del
-    testigo\r\n2. Declaracion\r\n3. Descripci\xF3n cronol\xF3gica de los hechos\r\n4.
-    Detalles sensoriales\r\n5. Nivel de seguridad o dudas en lo declarado\r\n6. Cierre
-    formal\r\n\r\n---\r\n\r\nREGLAS\r\n\r\n* Si alguna secci\xF3n no existe \u2192
-    debes a\xF1adirla\r\n* Si existe pero est\xE1 vac\xEDa o incompleta \u2192 debes
-    completarla\r\n* No elimines contenido existente\r\n* Mant\xE9n coherencia con
-    el resto del documento\r\n* No a\xF1adas explicaciones fuera del documento\r\n\r\n---\r\n\r\nFORMATO\r\n\r\n*
-    Cada secci\xF3n debe ir en una l\xEDnea separada\r\n* Debajo debe ir su contenido
-    desarrollado\r\n* No incluir el texto entre par\xE9ntesis en los encabezados\r\n\r\nEjemplo
-    de encabezado correcto:\r\nDatos del testigo\r\n(no: Datos del testigo (nombre
-    ficticio, edad, profesi\xF3n))\r\n\r\n---\r\n\r\nCONTENIDO M\xCDNIMO DE CADA
-    SECCI\xD3N\r\n\r\n1. Datos del testigo\r\n   Debe incluir:\r\n\r\n* nombre ficticio\r\n*
-    edad\r\n* profesi\xF3n\r\n\r\nEjemplo:\r\n\u201CNombre: Juan P\xE9rez. Edad:
-    45 a\xF1os. Profesi\xF3n: electricista.\u201D\r\n\r\n---\r\n\r\n2. Declaracion\r\n  
-    Debe estar en primera persona\r\n\r\nEjemplo:\r\n\u201CYo, Juan P\xE9rez, declaro
-    que presenci\xE9 los hechos relacionados con el caso en cuesti\xF3n.\u201D\r\n\r\n---\r\n\r\n3.
-    Descripci\xF3n cronol\xF3gica de los hechos\r\n   Debe incluir:\r\n\r\n* relato
-    ordenado en el tiempo\r\n* secuencia clara de lo ocurrido\r\n\r\nEjemplo:\r\n\u201CEn
-    primer lugar, observ\xE9 que el incidente se produjo en horas de la tarde. Posteriormente,
-    se desarrollaron los acontecimientos que dieron lugar al da\xF1o descrito.\u201D\r\n\r\n---\r\n\r\n4.
-    Detalles sensoriales\r\n   Debe incluir:\r\n\r\n* lo que vio, oy\xF3 o percibi\xF3\r\n\r\nEjemplo:\r\n\u201CPude
-    observar directamente los da\xF1os materiales y escuch\xE9 un fuerte impacto
-    en el momento en que ocurrieron los hechos.\u201D\r\n\r\n---\r\n\r\n5. Nivel
-    de seguridad o dudas en lo declarado\r\n   Debe indicar:\r\n\r\n* grado de certeza\r\n\r\nEjemplo:\r\n\u201CEstoy
-    seguro de lo que observ\xE9, aunque algunos detalles menores podr\xEDan no ser
-    completamente precisos.\u201D\r\n\r\n---\r\n\r\n6. Cierre formal\r\n   Debe incluir:\r\n\r\n*
-    fecha\r\n* firma\r\n\r\nEjemplo:\r\n\u201CFirmado en fecha actual. Firma: Juan
-    P\xE9rez.\u201D\r\n\r\n---\r\n\r\nIMPORTANTE\r\n\r\n* Todas las secciones deben
-    tener contenido real\r\n* El texto debe ser coherente y en espa\xF1ol\r\n* No
-    repetir contenido entre secciones\r\n* No dejar secciones vac\xEDas\r\n"
   - "Comprueba que el campo ContenidoDocumento esta entero en espa\xF1ol, si no es
     asi, traducelo todo al espa\xF1ol"
   _temperature: 0.6
