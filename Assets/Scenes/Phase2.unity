@@ -1958,23 +1958,29 @@ MonoBehaviour:
     cu\xE1nto cuesta obtener estos documentos dentro de un caso civil, utilizando
     valores realistas del mercado en Espa\xF1a.\r\n\r\nTodas las respuestas deben
     centrarse en estos documentos y en su coste dentro del proceso legal.\r\n"
-  safeguard: "SAFEGUARD \u2014 COSTE DEL DOCUMENTO\r\n\r\nDebes generar el campo:
-    \"CosteDocumento\" (int)\r\n\r\nReglas:\r\n\r\n* El valor debe ser un n\xFAmero
-    entero\r\n* Debe representar el coste de obtener el documento en Espa\xF1a\r\n*
-    Debe basarse en los precios disponibles en el RAG\r\n\r\nIMPORTANTE:\r\n\r\n*
-    No inventar precios sin referencia\r\n* No usar valores aleatorios\r\n* No usar
-    precios fuera de contexto\r\n* Ajustar el valor a rangos realistas seg\xFAn el
-    tipo de documento\r\n\r\nEn caso de duda:\r\n\r\n* usar el valor m\xE1s cercano
-    presente en el RAG\r\n"
+  safeguard: "SAFEGUARD \u2014 COSTE DEL DOCUMENTO (VERSI\xD3N ACTUALIZADA)\r\n\r\nDebes
+    generar el campo: \"CosteDocumento\" (int)\r\n\r\n---\r\n\r\nREGLAS\r\n\r\n*
+    El valor debe ser un n\xFAmero entero\r\n* Debe representar el coste de obtener
+    el documento en Espa\xF1a\r\n* Debe basarse en los precios disponibles en el
+    RAG\r\n\r\n---\r\n\r\nCASO ESPECIAL \u2014 DOCUMENTOS YA EXISTENTES\r\n\r\nSi
+    el cliente ya dispone del documento (por ejemplo: burofax, contrato antiguo,
+    informe previo, valoraci\xF3n pasada u otro documento ya obtenido):\r\n\r\n\u2192
+    \"CosteDocumento\" = 0\r\n\r\nIMPORTANTE:\r\n\r\n* No se debe asignar coste si
+    el documento no se genera de nuevo\r\n* Entregar un documento ya existente no
+    implica coste\r\n\r\n---\r\n\r\nRESTRICCIONES\r\n\r\n* No inventar precios sin
+    referencia\r\n* No usar valores aleatorios\r\n* No usar precios fuera de contexto\r\n*
+    Ajustar el valor a rangos realistas seg\xFAn el tipo de documento\r\n\r\n---\r\n\r\nEN
+    CASO DE DUDA\r\n\r\n* usar el valor m\xE1s cercano presente en el RAG\r\n"
   safeguardSteps: 
-  historicalConversation: "HIST\xD3RICO \u2014 CONSISTENCIA DE PRESUPUESTOS\r\n\r\nDispones
-    de un hist\xF3rico de respuestas previas.\r\n\r\nReglas:\r\n\r\n* Usa los presupuestos
-    ya generados como referencia\r\n* Mant\xE9n coherencia entre respuestas similares\r\n*
-    Si se repite el mismo tipo de documento \u2192 usa un coste igual o muy similar\r\n*
-    Si es un documento distinto \u2192 ajusta el coste de forma coherente respecto
-    a los anteriores\r\n\r\nIMPORTANTE:\r\n\r\n* No generar valores inconsistentes
-    con respuestas previas\r\n* Mantener una l\xF3gica de precios estable\r\n* Evitar
-    variaciones bruscas sin motivo\r\n"
+  historicalConversation: "HIST\xD3RICO \u2014 CONSISTENCIA DE PRESUPUESTOS (VERSI\xD3N
+    ACTUALIZADA)\r\n\r\nDispones de un hist\xF3rico de respuestas previas.\r\n\r\n---\r\n\r\nREGLAS\r\n\r\n*
+    Usa los presupuestos ya generados como referencia\r\n\r\n* Mant\xE9n coherencia
+    entre respuestas similares\r\n\r\n* Si se repite el mismo tipo de documento:\r\n\r\n 
+    * y ya se ha generado previamente \u2192 \"CosteDocumento\" = 0\r\n  * en otros
+    casos \u2192 usa un coste igual o muy similar\r\n\r\n* Si es un documento distinto
+    \u2192 ajusta el coste de forma coherente respecto a los anteriores\r\n\r\n---\r\n\r\nIMPORTANTE\r\n\r\n*
+    No generar valores inconsistentes con respuestas previas\r\n* Mantener una l\xF3gica
+    de precios estable\r\n* Evitar variaciones bruscas sin motivo\r\n"
   _stepChecks: []
   _temperature: 0
   _ragUse: 1
@@ -2521,16 +2527,15 @@ MonoBehaviour:
     estas secciones como encabezados:\r\n                    - Introduccion\r\n                   
     - Descripcion de los hechos\r\n                    - Metodologia de analisis\r\n                   
     - Resultados\r\n                    - Conclusiones\r\n"
-  safeguard: "DIRECTIVA \u2014 VALIDACI\xD3N INFORME PERICIAL\r\n\r\nEval\xFAa el
-    documento sin modificarlo.\r\n\r\nDevuelve:\r\n\"DocumentoCoherente\" (bool)\r\n\r\n---\r\n\r\nCRITERIOS\r\n\r\nTRUE
+  safeguard: "\r\nDIRECTIVA \u2014 VALIDACI\xD3N INFORME PERICIAL\r\n\r\nEval\xFAa
+    el documento sin modificarlo.\r\n\r\nDevuelve:\r\n\"DocumentoCoherente\" (bool)\r\n\r\n---\r\n\r\nCRITERIOS\r\n\r\nTRUE
     solo si:\r\n\r\n* Es un informe pericial completo en Espa\xF1a\r\n* Incluye secciones:\r\n\r\n 
     * Introduccion\r\n  * Descripcion de los hechos\r\n  * Metodologia de analisis\r\n 
-    * Resultados\r\n  * Conclusiones\r\n* El texto es coherente y comprensible\r\n*
+    * Resultados\r\n  * Conclusiones\r\n\r\n* El texto es coherente y comprensible\r\n*
     Est\xE1 principalmente en espa\xF1ol\r\n* No contiene contenido incoherente o
     sin sentido\r\n\r\nFALSE si:\r\n\r\n* Faltan secciones clave\r\n* No es un informe
     pericial\r\n* Hay texto incoherente o mezcla clara de idiomas\r\n\r\n---\r\n\r\nREGLAS\r\n\r\n*
-    No corregir\r\n* No modificar\r\n* No explicar\r\n* En caso de duda \u2192 TRUE\r\n\r\nSALIDA
-    NO PERMITIDA:\r\nexplicaciones\r\nconfirmaciones\r\ncomentarios\r\netiquetas\r\n"
+    No corregir\r\n* No modificar\r\n* No explicar\r\n"
   safeguardSteps: 
   historicalConversation: "Analiza el hist\xF3rico de conversaci\xF3n que se te proporciona
     junto con la nueva pregunta.\r\n\r\nEl hist\xF3rico contiene pares de pregunta
@@ -3192,40 +3197,13 @@ MonoBehaviour:
     meciones el nombre del rival ni la razon del porque estas haciendo el informe.
     \n\nTu solo da los datos objetivos del estado de lo que se esta revisando.\r\n\r\n\r\nNo
     generes ningun tag de HTML en el texto generado\r\n"
-  safeguard: "DIRECTIVA \u2014 ESTRUCTURA DE INFORME PERICIAL (VERSI\xD3N EXTENDIDA)\n\nComprueba
-    que el campo \"ContenidoDocumento\" del JSON contiene un informe pericial completo.\n\nDebe
-    incluir obligatoriamente estas secciones, en este orden:\n\n1. Introduccion\n2.
-    Descripcion de los hechos\n3. Metodologia de analisis\n4. Resultados\n5. Conclusiones\n\n---\n\nREGLAS\n\n*
-    Si alguna secci\xF3n no existe \u2192 debes a\xF1adirla\n* Si existe pero est\xE1
-    vac\xEDa o incompleta \u2192 debes completarla\n* No elimines contenido existente\n*
-    Mant\xE9n coherencia con el resto del documento\n* No a\xF1adas explicaciones
-    fuera del documento\n\n---\n\nFORMATO\n\nCada secci\xF3n debe estar claramente
-    identificada con su t\xEDtulo y desarrollada en texto.\n\n---\n\nCONTENIDO M\xCDNIMO
-    DE CADA SECCI\xD3N\n\n1. Introduccion\n   Debe explicar:\n\n* qui\xE9n realiza
-    el informe (perito)\n* el objetivo del informe\n* el contexto general del caso\n\nEjemplo:\n\u201CEste
-    informe pericial es elaborado por un perito especializado con el objetivo de
-    analizar los hechos relacionados con el caso y determinar las circunstancias
-    t\xE9cnicas relevantes para su valoraci\xF3n en el \xE1mbito civil.\u201D\n\n---\n\n2.
-    Descripcion de los hechos\n   Debe incluir:\n\n* relato claro de lo ocurrido\n*
-    contexto del conflicto\n* partes implicadas (sin inventar datos)\n\nEjemplo:\n\u201CSeg\xFAn
-    la documentaci\xF3n aportada, los hechos se refieren a un da\xF1o producido en
-    un bien material, cuya valoraci\xF3n y origen son objeto del presente an\xE1lisis.\u201D\n\n---\n\n3.
-    Metodologia de analisis\n   Debe explicar:\n\n* c\xF3mo se ha analizado el caso\n*
-    qu\xE9 m\xE9todos o criterios se han utilizado\n\nEjemplo:\n\u201CPara la elaboraci\xF3n
-    de este informe se ha realizado un an\xE1lisis documental, revisi\xF3n t\xE9cnica
-    de los elementos afectados y aplicaci\xF3n de criterios periciales basados en
-    la pr\xE1ctica profesional.\u201D\n\n---\n\n4. Resultados\n   Debe incluir:\n\n*
-    hallazgos obtenidos\n* datos relevantes del an\xE1lisis\n\nEjemplo:\n\u201CDel
-    an\xE1lisis realizado se desprende que los da\xF1os evaluados presentan caracter\xEDsticas
-    compatibles con las circunstancias descritas, estim\xE1ndose un impacto econ\xF3mico
-    acorde a los valores de mercado.\u201D\n\n---\n\n5. Conclusiones\n   Debe incluir:\n\n*
-    resumen final\n* valoraci\xF3n t\xE9cnica clara\n\nEjemplo:\n\u201CSe concluye
-    que los hechos analizados son coherentes con la informaci\xF3n aportada y que
-    los da\xF1os pueden ser valorados conforme a criterios t\xE9cnicos aplicables
-    en el \xE1mbito pericial.\u201D\n\n---\n\nIMPORTANTE\n\n* Todas las secciones
-    deben tener contenido real, no t\xEDtulos vac\xEDos\n* El texto debe ser coherente
-    y profesional\n* Todo el contenido debe estar en espa\xF1ol\n* No generar listas
-    sin desarrollar\n* No repetir texto entre secciones\n\r\n"
+  safeguard: " Incluir exactamente estas secciones como encabezados:\r\n                   
+    - Introduccion\r\n                    - Descripcion de los hechos\r\n                   
+    - Metodologia de analisis\r\n                    - Resultados\r\n                   
+    - Conclusiones\r\n\r\n\r\n\r\nNo saques informaci\xF3n del contexto del caso
+    que el cliente no te haya podido decir, por ejemplo, no meciones el nombre del
+    rival ni la razon del porque estas haciendo el informe. \r\n\r\nTu solo da los
+    datos objetivos del estado de lo que se esta revisando.\r\n"
   safeguardSteps: 'No acortes el texto ni modifiques las variables del JSON que no
     se indican en el prompt.
 
@@ -3241,13 +3219,46 @@ MonoBehaviour:
     hablando, pon el campo EsValido a true, si no, a false\r\n"
   _stepChecks:
   - Rellena el campo NombreDocumento con un texto corto que describa el contenido.
-  - "Comprueba que el campo del JSON ContenidoDocumento sea un informe pericial completo
-    en espa\xF1a. Si es asi no cambies nada y devuelve exactamente lo mismo, si no,
-    modifica ContenidoDocumento para que sea un informe pericial completo en espa\xF1a"
+  - "DIRECTIVA \u2014 ESTRUCTURA DE INFORME PERICIAL (VERSI\xD3N EXTENDIDA)\r\n\r\nComprueba
+    que el campo \"ContenidoDocumento\" del JSON contiene un informe pericial completo.\r\n\r\nDebe
+    incluir obligatoriamente estas secciones, en este orden:\r\n\r\n1. Introduccion\r\n2.
+    Descripcion de los hechos\r\n3. Metodologia de analisis\r\n4. Resultados\r\n5.
+    Conclusiones\r\n\r\n---\r\n\r\nREGLAS\r\n\r\n* Si alguna secci\xF3n no existe
+    \u2192 debes a\xF1adirla\r\n* Si existe pero est\xE1 vac\xEDa o incompleta \u2192
+    debes completarla\r\n* No elimines contenido existente\r\n* Mant\xE9n coherencia
+    con el resto del documento\r\n* No a\xF1adas explicaciones fuera del documento\r\n\r\n---\r\n\r\nFORMATO\r\n\r\nCada
+    secci\xF3n debe estar claramente identificada con su t\xEDtulo y desarrollada
+    en texto.\r\n\r\n---\r\n\r\nCONTENIDO M\xCDNIMO DE CADA SECCI\xD3N\r\n\r\n1.
+    Introduccion\r\n   Debe explicar:\r\n\r\n* qui\xE9n realiza el informe (perito)\r\n*
+    el objetivo del informe\r\n* el contexto general del caso\r\n\r\nEjemplo:\r\n\u201CEste
+    informe pericial es elaborado por un perito especializado con el objetivo de
+    analizar los hechos relacionados con el caso y determinar las circunstancias
+    t\xE9cnicas relevantes para su valoraci\xF3n en el \xE1mbito civil.\u201D\r\n\r\n---\r\n\r\n2.
+    Descripcion de los hechos\r\n   Debe incluir:\r\n\r\n* relato claro de lo ocurrido\r\n*
+    contexto del conflicto\r\n* partes implicadas (sin inventar datos)\r\n\r\nEjemplo:\r\n\u201CSeg\xFAn
+    la documentaci\xF3n aportada, los hechos se refieren a un da\xF1o producido en
+    un bien material, cuya valoraci\xF3n y origen son objeto del presente an\xE1lisis.\u201D\r\n\r\n---\r\n\r\n3.
+    Metodologia de analisis\r\n   Debe explicar:\r\n\r\n* c\xF3mo se ha analizado
+    el caso\r\n* qu\xE9 m\xE9todos o criterios se han utilizado\r\n\r\nEjemplo:\r\n\u201CPara
+    la elaboraci\xF3n de este informe se ha realizado un an\xE1lisis documental,
+    revisi\xF3n t\xE9cnica de los elementos afectados y aplicaci\xF3n de criterios
+    periciales basados en la pr\xE1ctica profesional.\u201D\r\n\r\n---\r\n\r\n4.
+    Resultados\r\n   Debe incluir:\r\n\r\n* hallazgos obtenidos\r\n* datos relevantes
+    del an\xE1lisis\r\n\r\nEjemplo:\r\n\u201CDel an\xE1lisis realizado se desprende
+    que los da\xF1os evaluados presentan caracter\xEDsticas compatibles con las circunstancias
+    descritas, estim\xE1ndose un impacto econ\xF3mico acorde a los valores de mercado.\u201D\r\n\r\n---\r\n\r\n5.
+    Conclusiones\r\n   Debe incluir:\r\n\r\n* resumen final\r\n* valoraci\xF3n t\xE9cnica
+    clara\r\n\r\nEjemplo:\r\n\u201CSe concluye que los hechos analizados son coherentes
+    con la informaci\xF3n aportada y que los da\xF1os pueden ser valorados conforme
+    a criterios t\xE9cnicos aplicables en el \xE1mbito pericial.\u201D\r\n\r\n---\r\n\r\nIMPORTANTE\r\n\r\n*
+    Todas las secciones deben tener contenido real, no t\xEDtulos vac\xEDos\r\n*
+    El texto debe ser coherente y profesional\r\n* Todo el contenido debe estar en
+    espa\xF1ol\r\n* No generar listas sin desarrollar\r\n* No repetir texto entre
+    secciones\r\n"
   - "Comprueba que el campo ContenidoDocumento esta entero en espa\xF1ol, si no es
     asi, traducelo todo al espa\xF1ol"
-  _temperature: 0.6
-  _ragUse: 0
+  _temperature: 0.3
+  _ragUse: 1
   _ragFile: 2
 --- !u!4 &1186516267
 Transform:

@@ -106,7 +106,7 @@ public class ClientChatPage : ChatPage
     /// </summary>
     private void sendGenerateDocumentPrompt()
     {
-        //_llmConnectorDocs.CallSendContext((int)_lastTypePromptRequest - 2);
+        _llmConnectorDocs.CallSendContext(_lastTypePromptRequest, (int)_lastTypePromptRequest - 2);
         _inputField.text = "";
     }
 

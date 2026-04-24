@@ -46,7 +46,14 @@ public class LLMConnectorDocumentsBudget : LLMConector
 
                 DocumentType docType = fromClientDocumentToDocumentType(_type);
 
-                GameSystem.Instance.CaseData.documentManager.CreateDocument(_docName, docType, _docContent, true, jsonResponse.CosteDocumento);
+                int coste = 0;
+
+                if(docType != DocumentType.ReceiptFacture || docType != DocumentType.Witness)
+                {
+                    coste = jsonResponse.CosteDocumento;
+                }
+
+                GameSystem.Instance.CaseData.documentManager.CreateDocument(_docName, docType, _docContent, true, coste);
                 _msgUIComponent._computerSystem.ToggleNotification(Page.ClientChat, true);
                 _msgUIComponent.EndPendingMessage("Tu cliente te ha mandado " + _docName + ".txt");
 
