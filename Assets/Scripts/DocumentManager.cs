@@ -38,6 +38,7 @@ public class DocumentManager : MonoBehaviour
     /// <returns></returns>
     public List<uint> GetPlayerDocs()
     {
+
         return _playerDocs;
     }
 

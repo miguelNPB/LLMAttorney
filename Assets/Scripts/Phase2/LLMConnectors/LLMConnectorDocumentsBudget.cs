@@ -48,6 +48,8 @@ public class LLMConnectorDocumentsBudget : LLMConector
 
                 int coste = 0;
 
+                Debug.Log("Coste de Documento presupuestado: " + jsonResponse.CosteDocumento);
+
                 if(docType != DocumentType.ReceiptFacture || docType != DocumentType.Witness)
                 {
                     coste = jsonResponse.CosteDocumento;

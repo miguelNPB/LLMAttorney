@@ -41,6 +41,15 @@ public class DocumentsPage : IPage
         UIDocument uiDoc = instance.GetComponent<UIDocument>();
         uiDoc.SetDocValues(doc.GetDocName(), doc.GetContent(), doc.IsSentToProcurador());
 
+        if (!doc.IsRivalDoc())
+        {
+            _playerDocumentsInstanciated.Add(uiDoc);
+        }
+        else
+        {
+            _rivalDocumentsInstanciated.Add(uiDoc);
+        }
+        
     }
 
     /// <summary>
@@ -62,6 +71,7 @@ public class DocumentsPage : IPage
         List<uint> playerDocuments = _documentManager.GetPlayerDocs();
         for (int i = 0; i < playerDocuments.Count; i++)
         {
+
             if (i < _playerDocumentsInstanciated.Count) {
                 updateUIDocument(_playerDocumentsInstanciated[i], _documentManager.GetDocument(playerDocuments[i]));
             }
