@@ -24679,7 +24679,7 @@ MonoBehaviour:
   _otherPersonColor: {r: 1, g: 0.49095127, b: 0.25, a: 1}
   _playerColor: {r: 0, g: 1, b: 0, a: 1}
   _scrollSpeed: 1
-  docsUIContainer: {fileID: 1309145381679619320}
+  docsUIContainer: {fileID: 5139668145784594201}
   procuradorDocUIPrefab: {fileID: 5804448027057478526, guid: c6a5935b13b1fc040bd5eefe7017e1b0, type: 3}
 --- !u!1 &8257673465762537618
 GameObject:
