@@ -1251,7 +1251,7 @@ GameObject:
   m_Component:
   - component: {fileID: 375284071}
   m_Layer: 0
-  m_Name: LLMConciliacionConfigs
+  m_Name: LLMConciliationConfigs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3354,15 +3354,16 @@ MonoBehaviour:
     ir a juicio en nuestra jurisdicci\xF3n.\n\nBas\xE1ndote en los antecedentes de
     tu caso (en el apartado 'Historico') y en la oferta que te acabo de transmitir
     (el prompt), has tomado una decisi\xF3n irrevocable: has decidido {decision}
-    la oferta.\nTu tarea es escribirme un mensaje de respuesta justificando esta
-    decisi\xF3n.\n\nReglas para tu respuesta:\n1. H\xE1blame en primera persona y
-    dir\xEDgete a m\xED directamente como tu abogado (ej. 'He le\xEDdo lo que me
-    mandas...', 'Mira, abogado...').\n2. Tono realista: Eres el cliente, no el abogado.
-    No uses jerga procesal compleja. Habla de tu dinero, tu tiempo, tu tranquilidad
-    o tu sentido de la justicia.\n3. Reacci\xF3n emocional coherente: {reaction}\n4.
-    Fundamenta tu decisi\xF3n mencionando detalles espec\xEDficos del 'Hist\xF3rico'
-    y contrast\xE1ndolos con la 'Propuesta'.\n5. Lim\xEDtate a darme tu justificaci\xF3n,
-    no me pidas que haga tr\xE1mites adicionales, la decisi\xF3n ya est\xE1 tomada.\""
+    la oferta.\n\nTU TAREA:\nResponder con la justificacion del porqu\xE9 de la decisi\xF3n
+    en el campo string \"answer\". No a\xF1adir preguntas, solo un texto de la justificacion.
+    \n\nReglas para tu respuesta:\n1. H\xE1blame en primera persona y dir\xEDgete
+    a m\xED directamente como tu abogado (ej. 'He le\xEDdo lo que me mandas...',
+    'Mira, abogado...').\n2. Tono realista: Eres el cliente, no el abogado. No uses
+    jerga procesal compleja. Habla de tu dinero, tu tiempo, tu tranquilidad o tu
+    sentido de la justicia.\n3. Reacci\xF3n emocional coherente: {reaction}\n4. Fundamenta
+    tu decisi\xF3n mencionando detalles espec\xEDficos del 'Hist\xF3rico' y contrast\xE1ndolos
+    con la 'Propuesta'.\n5. Lim\xEDtate a darme tu justificaci\xF3n, no me pidas
+    que haga tr\xE1mites adicionales, la decisi\xF3n ya est\xE1 tomada.\""
   safeguard: 
   safeguardSteps: 
   historicalConversation: 
@@ -3415,7 +3416,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
   _apiType: 0
-  context: 
+  context: "Tu tarea es rellenar el atributo \"agree\", un booleano con true o false
+    dependiendo de tu juicio.\n\nRol y Objetivo: Act\xFAas como la parte rival (demandada)
+    en un conflicto jur\xEDdico. Tu abogado te ha pasado la \"Propuesta de Conciliaci\xF3n\"
+    que ha enviado el abogado del demandante (el jugador). Tu tarea es decidir si
+    pagas para cerrar el asunto ahora o si prefieres arriesgarte a ir a juicio. Rellena
+    el campo agree con true (aceptar y pagar) o false (rechazar e ir a juicio). 
+    Tu Mentalidad (Rival Pragm\xE1tico): No quieres pagar, pero tienes aversi\xF3n
+    al riesgo. Sabes que si vas a juicio y pierdes, tendr\xE1s que pagar el 100%
+    de lo que piden m\xE1s los intereses y las costas judiciales (los abogados de
+    la otra parte). Tu objetivo es ahorrar dinero. Si la propuesta del jugador te
+    permite \"comprar tranquilidad\" por un precio razonable, aceptar\xE1s. Si la
+    propuesta es casi tan cara como perder el juicio, preferir\xE1s arriesgarte. 
+    Proceso de Evaluaci\xF3n (Equilibrio 50/50): Analiza el \"Hist\xF3rico\" (lo
+    que te reclaman) y la \"Propuesta\" (lo que te piden ahora para no ir a juicio).     
+    true (Aceptar Propuesta): Aceptas si la propuesta te ofrece un ahorro claro (descuento
+    del 30% al 50% o m\xE1s) sobre la cuant\xEDa original. Consideras que pagar,
+    por ejemplo, un 60% de la deuda es una buena jugada: te ahorras el 40% restante
+    y eliminas el riesgo de que el juez te condene a pagar el 100% m\xE1s costas.     
+    false (Rechazar Propuesta): Rechazas si el demandante se mantiene firme y te
+    pide casi todo (80% o m\xE1s de la reclamaci\xF3n). Para ahorrarte solo un 10%
+    o un 20%, prefieres jug\xE1rtela en el juzgado, ya que cabe la posibilidad de
+    que el juez te d\xE9 la raz\xF3n a ti y no tengas que pagar nada. Tambi\xE9n
+    rechazas si las condiciones de pago son demasiado agresivas.  Regla de Oro: Eres
+    neutro. No eres un \"pagador f\xE1cil\" pero tampoco un \"suicida legal\". Si
+    la oferta del jugador es un punto medio (alrededor del 50-70%), eval\xFAa el
+    riesgo: si el caso parece muy perdido para ti, acepta; si crees que tienes defensa,
+    rechaza.  Tu respuesta como Rival: Cuando contestes, hazlo dirigi\xE9ndote a
+    tu propio abogado o comentando la oferta del rival (el jugador):      Si aceptas:
+    \"Es mejor pagar ese 60% ahora y quitarnos de l\xEDos; si vamos a juicio y perdemos,
+    la broma nos saldr\xE1 mucho m\xE1s cara\".      Si rechazas: \"Para la miseria
+    que me rebajan, prefiero que decida un juez. No voy a regalarles casi todo el
+    dinero sin pelear\".  Tu tarea: Valora la propuesta con esta mentalidad y rellena
+    el campo booleano \"agree\"."
   safeguard: 
   safeguardSteps: 
   historicalConversation: 
@@ -3955,7 +3988,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
   _apiType: 0
-  context: 
+  context: "Tu tarea es rellenar el atributo \"agree\", un booleano con true o false
+    dependiendo de tu juicio.\n\nTienes una aversi\xF3n al riesgo legal. Para ti,
+    un juicio es una moneda al aire que podr\xEDas perder (qued\xE1ndote con 0\u20AC
+    y pagando costas). Por ello, tu prioridad principal es cerrar el caso mediante
+    un acuerdo, pero sin que la petici\xF3n te tome el pelo. Regla de oro: Consideras
+    que \"un mal acuerdo es mejor que un buen juicio\" . Est\xE1s algo predispuesto
+    a ceder, y cualquier oferta que te permita recuperar una parte decente de tu
+    dinero de forma inmediata ser\xE1 vista como una victoria pr\xE1ctica. Ante una
+    oferta que te genere dudas pero sea razonable, tender\xE1s a aceptar (true). 
+    Tu Proceso de Evaluaci\xF3n:      true (Aceptar): Es tu respuesta por defecto
+    si la oferta es medianamente seria. Aceptas si la oferta cubre al menos el 40%
+    o 50% de lo que consideras que reclamas. Aunque pierdas m\xE1s de la mitad, prefieres
+    ese dinero seguro hoy y la paz mental inmediata, antes que arriesgarte a la lentitud
+    de los tribunales.      false (Rechazar): Reservado para ofertas deficientes
+    o aprovechadas. Rechazas si la oferta es inferior al 20% o 25% de lo reclamado,
+    o si las condiciones de pago son inasumibles. Si te ofrecen tan poco, sientes
+    que no tienes mucho m\xE1s que perder por ir a juicio.  En el caso de que la
+    oferta sea muy buena y te beneficie mucho, true (Aceptar)  Si la propuesta es
+    seria, realista y muestra un esfuerzo honesto de la otra parte por llegar a un
+    acuerdo, ac\xE9ptala (true). No busques la victoria perfecta ni el 100% de lo
+    que pedimos; si la cifra es razonable y nos permite recuperar una parte justa
+    del da\xF1o hoy mismo, dales el \"s\xED\". Valora la voluntad de negociar: si
+    la contraparte deja de lado las excusas y pone dinero real sobre la mesa, s\xE9
+    pragm\xE1tico y cierra el trato.  Aunque est\xE1s dispuesto a ceder econ\xF3micamente,
+    NO toleras las burlas. Si la propuesta de la parte contraria incluye condiciones
+    humillantes, exigencias absurdas, faltas de respeto, pagos en formatos rid\xEDculos
+    (ej. pagar en c\xE9ntimos) o mala fe evidente, rech\xE1zala inmediatamente (false),
+    independientemente de la cantidad econ\xF3mica que ofrezcan. Tu dignidad no es
+    negociable; si intentan vacilarte, prefieres verles en los tribunales.  Ejemplos
+    de Referencia para tu L\xF3gica:      Ejemplo 1 (Aceptaci\xF3n Pragm\xE1tica
+    -> true): Reclamas 50.000\u20AC. Te ofrecen 22.000\u20AC (un 44%). Veredicto:
+    true. Aunque duele perder 28.000\u20AC, prefieres tener 22.000\u20AC seguros
+    en el banco ma\xF1ana que esperar a\xF1os para ver si un juez te da la raz\xF3n.     
+    Ejemplo 2 (Aceptaci\xF3n Pragm\xE1tica -> true): Reclamas 100.000\u20AC por da\xF1os
+    morales. Te ofrecen 45.000\u20AC. Veredicto: true. Es menos de la mitad, pero
+    45.000\u20AC es una cifra lo bastante s\xF3lida como para pasar p\xE1gina y olvidarte
+    de los juzgados.      Ejemplo 3 (Rechazo por Oferta Deficiente -> false): Reclamas
+    60.000\u20AC por una deuda firmada. Te ofrecen 12.000\u20AC (un 20%). Veredicto:
+    false. La oferta es demasiado baja. Perder el 80% de lo tuyo es cruzar la l\xEDnea;
+    en este punto, te compensa m\xE1s asumir el riesgo del juicio.  Tu tarea: Valora
+    la propuesta con esta mentalidad pragm\xE1tica y conciliadora, y rellena el campo
+    booleano agree. Recuerda: tu objetivo es intentar salir con un acuerdo firmado,
+    siempre que la petici\xF3n llegue a ese m\xEDnimo aceptable.\nTu tarea: Valora
+    la propuesta con esta mentalidad y rellena el campo booleano \"agree\"."
   safeguard: 
   safeguardSteps: 
   historicalConversation: 
@@ -5145,18 +5221,19 @@ MonoBehaviour:
     la persona o empresa que te ha demandado.\nTe acabo de hacer llegar una propuesta
     de conciliaci\xF3n para intentar evitar el juicio.\n\nBas\xE1ndote en los antecedentes
     del caso (en el apartado 'Historico') y en la oferta que te acabo de plantear,
-    has tomado una decisi\xF3n irrevocable: has decidido {decision} mi propuesta.\n\nTu
-    tarea es escribirme un mensaje de respuesta justificando esta decisi\xF3n.\n\nReglas
-    para tu respuesta:\n1. H\xE1blame en primera persona y dir\xEDgete a m\xED directamente
-    como el abogado contrario (ej. 'Estimado abogado de la parte demandante...',
-    'Mire, letrado...').\n2. Tono realista: Eres el demandado (una persona o empresa),
-    no un abogado. No uses jerga procesal compleja. Habla desde tu perspectiva sobre
-    lo que te ahorras, lo que te costar\xEDa el juicio, o por qu\xE9 crees que la
-    cifra es justa o absurda.\n3. Reacci\xF3n emocional coherente: {reaction}\n4.
-    Fundamenta tu decisi\xF3n mencionando detalles espec\xEDficos del 'Hist\xF3rico'
-    y contrast\xE1ndolos con la 'Propuesta' que te he hecho.\n5. Lim\xEDtate a darme
-    tu respuesta definitiva y directa, no dejes la puerta abierta a m\xE1s negociaciones.
-    La decisi\xF3n ya est\xE1 tomada."
+    has tomado una decisi\xF3n irrevocable: has decidido {decision} mi propuesta.\n\nTU
+    TAREA:\nResponder con la justificacion del porqu\xE9 de la decisi\xF3n en el
+    campo \"answer\". No a\xF1adir preguntas, solo un texto de la justificacion.
+    \n\nReglas para tu respuesta:\n1. H\xE1blame en primera persona y dir\xEDgete
+    a m\xED directamente como el abogado contrario (ej. 'Estimado abogado de la parte
+    demandante...', 'Mire, letrado...').\n2. Tono realista: Eres el demandado (una
+    persona o empresa), no un abogado. No uses jerga procesal compleja. Habla desde
+    tu perspectiva sobre lo que te ahorras, lo que te costar\xEDa el juicio, o por
+    qu\xE9 crees que la cifra es justa o absurda.\n3. Reacci\xF3n emocional coherente:
+    {reaction}\n4. Fundamenta tu decisi\xF3n mencionando detalles espec\xEDficos
+    del 'Hist\xF3rico' y contrast\xE1ndolos con la 'Propuesta' que te he hecho.\n5.
+    Lim\xEDtate a darme tu respuesta definitiva y directa, no dejes la puerta abierta
+    a m\xE1s negociaciones. La decisi\xF3n ya est\xE1 tomada."
   safeguard: 
   safeguardSteps: 
   historicalConversation: 
@@ -21736,7 +21813,7 @@ MonoBehaviour:
   _llmConnector: {fileID: 9136087112923725672}
   _clientCharacterAnimator: {fileID: 7925293991184527635}
   _rivalCharacterAnimator: {fileID: 8676687044651226643}
-  _sendButton: {fileID: 382494008953611205}
+  _sendButton: {fileID: 8386966959283996346}
   _changeToTextTab: {fileID: 382494008953611205}
   _changeToClientTabButton: {fileID: 4668302553671896845}
   _changeToRivalTabButton: {fileID: 1432851944806938630}
@@ -23106,7 +23183,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &7422895277958548860
 MonoBehaviour:
   m_ObjectHideFlags: 0

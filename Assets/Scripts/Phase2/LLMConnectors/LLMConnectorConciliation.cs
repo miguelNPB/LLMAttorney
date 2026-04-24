@@ -8,13 +8,13 @@ public class LLMConnectorConciliation : LLMConector
     private enum CurrentPromptType { Cliente, RivalNormal, RivalRechazar };
 
     [Serializable]
-    private class LLMConciliationResponseContext
+    private class LLMConciliationResponseBool
     {
         public bool agree;
     }
 
     [Serializable]
-    private class LLMConciliationResponseSteps
+    private class LLMConciliationResponseText
     {
         public string answer;
     }
@@ -23,14 +23,15 @@ public class LLMConnectorConciliation : LLMConector
 
     [SerializeField] private ConciliationPage conciliacionPage;
 
-    private string _clientBooleanBasePrompt;
-    private string _rivalBooleanBasePrompt;
+    private JsonSchema _boolSchema;
+    private JsonSchema _stringSchema;
+
     private string _clientTextBasePrompt;
     private string _rivalTextBasePrompt;
 
-    private string answer = "";
-    private bool agree = false;
-    private string prompt = "";
+    private string _answer = "";
+    private bool _agree = false;
+    private bool _agreeBoolRecieved = false;
 
     private CurrentPromptType currentPromptType;
 
@@ -77,109 +78,118 @@ public class LLMConnectorConciliation : LLMConector
     {
         if (success)
         {
-            string nextPrompt = "";
-
-            // deserializamos la respuesta
-            if (currentPromptType != CurrentPromptType.RivalRechazar)
+            switch (currentPromptType)
             {
-                if (_stepCounter == 0)
-                {
-                    agree = JsonUtility.FromJson<LLMConciliationResponseContext>(answer).agree;
-
-                    nextPrompt = inputFieldText;
-                }
-                else
-                {
-                    nextPrompt = JsonUtility.FromJson<LLMConciliationResponseSteps>(answer).answer;
-                }
-            }
-            
-
-            if (_stepCounter < _config[_indexConfig].getStepsChecks().Length)
-            {
-                if (_stepCounter == 0)
-                {
-                    // respuesta del cliente
-                    if (currentPromptType == CurrentPromptType.Cliente)
+                case CurrentPromptType.Cliente:
+                    if (!_agreeBoolRecieved)
                     {
-                        nextPrompt = GetTextPromptClientAnswer(agree);
+                        _agree = JsonUtility.FromJson<LLMConciliationResponseBool>(answer).agree;
+                        _agreeBoolRecieved = true;
                     }
-                    else if (currentPromptType == CurrentPromptType.RivalNormal)
+                    else
                     {
-                        nextPrompt = GetTextPromptRivalAnswer(agree);
-                    } 
-                    else if (currentPromptType == CurrentPromptType.RivalRechazar)
-                    {
-                        Debug.Log("RECHAZARINSTANT");
-                        nextPrompt = GetTextPromptRivalAnswer(false);
+                        _answer = JsonUtility.FromJson<LLMConciliationResponseText>(answer).answer;
                     }
-
-                    nextPrompt += _historical[0];
-                }
-                    
-
-                sendSecuritySteps(nextPrompt);
+                    break;
+                case CurrentPromptType.RivalNormal:
+                    if (!_agreeBoolRecieved)
+                    {
+                        _agree = JsonUtility.FromJson<LLMConciliationResponseBool>(answer).agree;
+                        _agreeBoolRecieved = true;
+                    }
+                    else
+                    {
+                        _answer = JsonUtility.FromJson<LLMConciliationResponseText>(answer).answer;
+                    }
+                    break;
+                case CurrentPromptType.RivalRechazar:
+                    _answer = JsonUtility.FromJson<LLMConciliationResponseText>(answer).answer;
+                    break;
             }
-            else
-            {
-
-                if (currentPromptType == CurrentPromptType.RivalRechazar)
-                    nextPrompt = JsonUtility.FromJson<LLMConciliationResponseSteps>(answer).answer;
-
-                this.answer = nextPrompt;
-
-                _stepCounter = 0;
-                _promptSent = false;
-            }
-        }
-        else
-        {
             _promptSent = false;
-            Debug.LogError("Error en la llamada al LLM: " + answer);
         }
     }
 
-
+    /// <summary>
+    /// Coroutina para generar el bool si el cliente acepta o no, y luego un texto para justificarlo
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator SendClientPrompt()
     {
-        sendContextPrompt(0);
         currentPromptType = CurrentPromptType.Cliente;
-        _promptSent = true;
+        _agreeBoolRecieved = false;
 
+        // sacar el booleano true o false
+        _contextSchema = _boolSchema;
+        sendContextPrompt(inputFieldText, 0);
+        _promptSent = true;
 
         while (_promptSent)
             yield return null;
-        _promptSent = false;
+
+        Debug.Log("Client agree: " + _agree);
+
+        // mandar prompt  de texto
+        _contextSchema = _stringSchema;
+        _config[2].context = GetTextPromptClientAnswer(_agree);
+        sendContextPrompt(inputFieldText,2);
+        _promptSent = true;
+        while (_promptSent)
+            yield return null;
 
 
-        Debug.Log("Client answer: " + answer);
-        conciliacionPage.SetClientAgrees(agree, answer);
+
+        Debug.Log("Client answer: " + _answer);
+        conciliacionPage.SetClientAgrees(_agree, _answer);
 
         yield return null;
     }
 
+    /// <summary>
+    /// Coroutina para generar el bool si el rival acepta o no, y luego un texto para justificarlo
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator SendRivalPromptNormal()
     {
-        sendContextPrompt(1);
         currentPromptType = CurrentPromptType.RivalNormal;
+        _agreeBoolRecieved = false;
+
+        // mandar prompt para sacar el booleano true o false
+        _contextSchema = _boolSchema;
+        sendContextPrompt(inputFieldText, 1);
         _promptSent = true;
 
         while (_promptSent)
             yield return null;
-        _promptSent = false;
+
+        Debug.Log("Rival agree: " + _agree);
+
+        _contextSchema = _stringSchema;
+        _config[3].context = GetTextPromptRivalAnswer(_agree);
+        // mandar prompt  de texto
+        sendContextPrompt(inputFieldText, 3);
+        _promptSent = true;
+
+        while (_promptSent)
+            yield return null;
 
 
-        conciliacionPage.SetRivalAgrees(agree, answer);
-
+        Debug.Log("Rival answer: " + _answer);
+        conciliacionPage.SetRivalAgrees(_agree, _answer);
 
         yield return null;
     }
 
+
+    /// <summary>
+    /// Prompt para generar el texto del rival con una rejection confirmada
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator SendRivalPromptRejectionConfirmed()
     {
         currentPromptType = CurrentPromptType.RivalRechazar;
-        agree = false;
-        receiveResponse(true, "empty");
+        _agree = false;
+        sendContextPrompt(3);
 
         _promptSent = true;
 
@@ -187,19 +197,18 @@ public class LLMConnectorConciliation : LLMConector
             yield return null;
         _promptSent = false;
 
-        conciliacionPage.SetRivalAgrees(agree, answer);
-
+        conciliacionPage.SetRivalAgrees(_agree, _answer);
 
         yield return null;
     }
 
     protected override void createJsonSchemas()
     {
-        _contextSchema = new JsonSchema();
-        _contextSchema.properties.Add("agree", new PropertyInfo(JsonDataType.Boolean));
+        _boolSchema = new JsonSchema();
+        _boolSchema.properties.Add("agree", new PropertyInfo(JsonDataType.Boolean));
 
-        _stepsSchema = new JsonSchema();
-        _stepsSchema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
+        _stringSchema = new JsonSchema();
+        _stringSchema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
 
         _schemasCreated = true;
     }
@@ -208,8 +217,6 @@ public class LLMConnectorConciliation : LLMConector
     {
         _historical.Add(GameSystem.Instance.CaseData.caseDescription);
 
-        _clientBooleanBasePrompt = _config[0].context;
-        _rivalBooleanBasePrompt = _config[1].context;
         _clientTextBasePrompt = _config[2].context;
         _rivalTextBasePrompt = _config[3].context;
     }
