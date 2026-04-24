@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// LLMConnector para promptear un booleano al LLM y dictar si la recursion del rival es valida o no
+/// </summary>
 public class LLMConnectorRivalObjection : LLMConector
 {
     [Serializable]

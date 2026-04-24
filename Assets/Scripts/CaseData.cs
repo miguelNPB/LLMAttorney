@@ -28,6 +28,9 @@ public class CaseData
     private string _demandedEntityName; // demandado o demandador en caso de ser respuesta
     private string _caseDescription; // Descripcion del caso para pasar a llm contraria
     private string _lawsuitText; // texto de la demanda
+    private List<Document> _finalPlayerDocuments; // docuemntos finales para la sentencia del player
+    private List<Document> _finalRivalDocuments; // docuemntos finales para la sentencia del rival
+
     // getters
     public bool isDemandaSent => _isDemandaSent;
     public bool attemptedConciliation => _attemptedConciliation;
@@ -37,11 +40,17 @@ public class CaseData
     public string demandedEntityName => _demandedEntityName;
     public string caseDescription => _caseDescription;
     public string lawsuitText => _lawsuitText;
+    public List<Document> finalPlayerDocuments { get { return _finalPlayerDocuments; } }
+    public List<Document> finalRivalDocuments { get { return _finalRivalDocuments; } }
+
+
 
     // variables publicas que cambian en el curso del caso
     public List<ConversationMessage> clientMessages = new List<ConversationMessage>();
     public List<ConversationMessage> procuratorMessages = new List<ConversationMessage>();
     public DocumentManager documentManager = new DocumentManager();
+
+
 
 
     public CaseData(
@@ -83,5 +92,12 @@ public class CaseData
     public void SetLawsuitText(string text)
     {
         _lawsuitText = text;
+    }
+
+
+    public void SetSentenceDocuments(List<Document> clientValidDocuments, List<Document> rivalValidDocuments)
+    {
+        _finalPlayerDocuments = clientValidDocuments;
+        _finalRivalDocuments = rivalValidDocuments;
     }
 }

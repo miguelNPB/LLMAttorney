@@ -83,6 +83,8 @@ public class Phase3Manager : MonoBehaviour
     private void goToPhase4()
     {
         StopAllCoroutines();
+
+        GameSystem.Instance.CaseData.SetSentenceDocuments(_clientOutputDocuments, _rivalOutputDocuments);
         SceneSystem.Instance.LoadPhase4();
     }
 
