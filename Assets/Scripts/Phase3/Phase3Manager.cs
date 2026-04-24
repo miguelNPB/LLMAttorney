@@ -349,7 +349,6 @@ public class Phase3Manager : MonoBehaviour
 
     private void Start()
     {
-
         _writtingHandler.ToggleSpeakingBubble(false);
         _judgePatienceSystem.TogglePatienceVisual(false);
         _objectionButton.SetActive(false);
