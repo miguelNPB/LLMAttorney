@@ -5,19 +5,18 @@ using UnityEngine;
 /// </summary>
 public class PriorHearingPage : IPage
 {
+    [SerializeField] private GameObject _holder;
     public override void Open()
     {
         // activar los gameobject de la pagina
         _computerSystem.ToggleNotification(Page.ClientChat, false);
 
-        for (int i = 0; i < gameObject.transform.childCount; i++)
-            gameObject.transform.GetChild(i).gameObject.SetActive(true);
+        _holder.SetActive(true);
     }
 
     public override void Close()
     {
         // desactivar los gameobject de la pagina
-        for (int i = 0; i < gameObject.transform.childCount; i++)
-            gameObject.transform.GetChild(i).gameObject.SetActive(false);
+        _holder.SetActive(false);
     }
 }
