@@ -1758,14 +1758,9 @@ MonoBehaviour:
     generar el campo: \"CosteDocumento\" (int)\r\n\r\n---\r\n\r\nREGLAS\r\n\r\n*
     El valor debe ser un n\xFAmero entero\r\n* Debe representar el coste de obtener
     el documento en Espa\xF1a\r\n* Debe basarse en los precios disponibles en el
-    RAG\r\n\r\n---\r\n\r\nCASO ESPECIAL \u2014 DOCUMENTOS YA EXISTENTES\r\n\r\nSi
-    el cliente ya dispone del documento (por ejemplo: burofax, contrato antiguo,
-    informe previo, valoraci\xF3n pasada u otro documento ya obtenido):\r\n\r\n\u2192
-    \"CosteDocumento\" = 0\r\n\r\nIMPORTANTE:\r\n\r\n* No se debe asignar coste si
-    el documento no se genera de nuevo\r\n* Entregar un documento ya existente no
-    implica coste\r\n\r\n---\r\n\r\nRESTRICCIONES\r\n\r\n* No inventar precios sin
-    referencia\r\n* No usar valores aleatorios\r\n* No usar precios fuera de contexto\r\n*
-    Ajustar el valor a rangos realistas seg\xFAn el tipo de documento\r\n\r\n---\r\n\r\nEN
+    RAG\r\n\r\n---\r\n\r\nRESTRICCIONES\r\n\r\n* No inventar precios sin referencia\r\n*
+    No usar valores aleatorios\r\n* No usar precios fuera de contexto\r\n* Ajustar
+    el valor a rangos realistas seg\xFAn el tipo de documento\r\n\r\n---\r\n\r\nEN
     CASO DE DUDA\r\n\r\n* usar el valor m\xE1s cercano presente en el RAG\r\n"
   safeguardSteps: 
   historicalConversation: "HIST\xD3RICO \u2014 CONSISTENCIA DE PRESUPUESTOS (VERSI\xD3N

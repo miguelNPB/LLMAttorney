@@ -115,7 +115,7 @@ public class LLMConnectorDocumentsBudget : LLMConector
     protected override void createJsonSchemas()
     {
         _contextSchema = new JsonSchema();
-        _contextSchema.properties.Add("DocumentBudgetResponse", new PropertyInfo(JsonDataType.Integer));
+        _contextSchema.properties.Add("CosteDocumento", new PropertyInfo(JsonDataType.Integer));
 
         _stepsSchema = new JsonSchema();
 

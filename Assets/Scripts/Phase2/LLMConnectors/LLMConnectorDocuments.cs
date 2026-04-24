@@ -47,9 +47,9 @@ public class LLMConnectorDocuments : LLMConector
 
                 _historical.Add("Respuesta :" + answer);
 
-                
 
-                _checker.CallSendContext(_type, jsonResponse.NombreDocumento, jsonResponse.ContenidoDocumento, (int)_type);
+                Debug.Log((int)_type);
+                _checker.CallSendContext(_type, jsonResponse.NombreDocumento, jsonResponse.ContenidoDocumento, _indexConfig);
                 
             }
         }
