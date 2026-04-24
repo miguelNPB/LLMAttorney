@@ -824,17 +824,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 498515553}
   m_CullTransparentMesh: 1
---- !u!114 &534760041 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 523257664626961035, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
-  m_PrefabInstance: {fileID: 84807326}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a94e8d7a0d1f92341bf039cdd1d13cfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SceneSystem
 --- !u!1 &539977572
 GameObject:
   m_ObjectHideFlags: 0
@@ -2348,9 +2337,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 534760041}
-        m_TargetAssemblyTypeName: SceneSystem, Assembly-CSharp
-        m_MethodName: LoadMainMenu
+      - m_Target: {fileID: 984039539}
+        m_TargetAssemblyTypeName: Phase4Manager, Assembly-CSharp
+        m_MethodName: GoBackToMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -28,9 +28,8 @@ public class Phase2Manager : MonoBehaviour
 
     public void SuccesfulConciliation()
     {
-        GameSystem.Instance.CaseData.AttemptConciliacion();
-
-        // volver al menu / escena de victoria
+        // volver al menu 
+        GameSystem.Instance.ResetCaseData();
         SceneSystem.Instance.LoadMainMenu();
     }
 

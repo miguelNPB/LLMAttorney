@@ -28,8 +28,7 @@ public class GameSystem : MonoBehaviour
     /// </summary>
     private void CreateExampleCaseData()
     {
-        //float chanceOfInstantRejectionConciliacion = Random.Range(0f,0.5f);
-        float chanceOfInstantRejectionConciliacion = 0;
+        float chanceOfInstantRejectionConciliacion = Random.Range(0f,0.5f);
         string clientName = "Pedro Muñoz";
         string procuratorName = "Alberto Velazquez";
         string demandedEntityName = "Ana Pérez";
@@ -43,6 +42,14 @@ public class GameSystem : MonoBehaviour
 
         _caseData.clientMessages.Add(new ConversationMessage("Hola, si tienes alguna duda sobre algo que pueda contarte o cuando sepas que documentos debo conseguir por favor dímelo.", false));
         _caseData.procuratorMessages.Add(new ConversationMessage("Buenas! Mi nombre es " + _caseData.procuratorName + ", seré tu procurador para este caso. Cualquier documento que consideres pertinente adjuntar al proceso, mándamelo y lo registraré.", false));
+    }
+
+    /// <summary>
+    /// Llamarlo al volver al menu prinicpal
+    /// </summary>
+    public void ResetCaseData()
+    {
+        CreateExampleCaseData();
     }
 
     private void Init()

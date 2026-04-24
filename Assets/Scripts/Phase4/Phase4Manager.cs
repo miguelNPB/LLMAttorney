@@ -20,6 +20,11 @@ public class Phase4Manager : MonoBehaviour
     bool _loadingSentence;
     bool _playerWin;
 
+    public void GoBackToMainMenu()
+    {
+        GameSystem.Instance.ResetCaseData();
+        SceneSystem.Instance.LoadMainMenu();
+    }
     private void onRecieveStringAnswer(string sentenceText)
     {
         _loadingSentence = false;

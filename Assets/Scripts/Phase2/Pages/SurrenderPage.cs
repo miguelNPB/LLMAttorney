@@ -11,6 +11,7 @@ public class SurrenderPage : IPage
     /// </summary>
     public void Surrender()
     {
+        GameSystem.Instance.ResetCaseData();
         SceneSystem.Instance.LoadMainMenu();
     }
 
