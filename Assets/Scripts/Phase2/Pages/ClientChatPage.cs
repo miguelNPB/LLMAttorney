@@ -74,7 +74,7 @@ public class ClientChatPage : ChatPage
 
                 Devuelve dicho valor en la variable documentQueryType";
 
-        yield return LLMAttorney_API.Instance.SendPromptAsync(API_TYPE.LLAMA, getPromptTypeFromPrompt, prompt, configLLM, schema);
+        yield return LLMAttorney_API.Instance.SendPromptAsync(API_TYPE.LLAMA, getPromptTypeFromPrompt, prompt, configLLM, schema, 0.2f);
 
         Debug.Log("Ya se el tipo de documento que es: " + _lastTypePromptRequest);
 
@@ -106,7 +106,7 @@ public class ClientChatPage : ChatPage
     /// </summary>
     private void sendGenerateDocumentPrompt()
     {
-        _llmConnectorDocs.CallSendContext((int)_lastTypePromptRequest - 2);
+        _llmConnectorDocs.CallSendContext(_lastTypePromptRequest, (int)_lastTypePromptRequest - 2);
         _inputField.text = "";
     }
 
