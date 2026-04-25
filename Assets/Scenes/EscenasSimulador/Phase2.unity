@@ -3162,14 +3162,6 @@ PrefabInstance:
       propertyPath: 'documentButtons.Array.data[1]'
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 8841508172722580873, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8841508172722580873, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 18b66bbaefeb5fb44ba462ee731963c1, type: 3}
     - target: {fileID: 9150854484525700809, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
       propertyPath: ip
       value: localhost
