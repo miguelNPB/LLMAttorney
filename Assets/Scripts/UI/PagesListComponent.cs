@@ -38,6 +38,8 @@ public class PagesListComponent : MonoBehaviour
     /// <param name="on"></param>
     public void ToggleMenu(bool on)
     {
+        Debug.Log("Cambia ayuda");
+
         _open = on;
 
         pagesMenuContainer.SetActive(on);

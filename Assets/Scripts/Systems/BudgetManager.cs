@@ -126,7 +126,7 @@ public class BudgetManager : MonoBehaviour
         TotalExpenses += cost;
         CurrentBudget -= cost;
 
-        Debug.Log(title);
+        Debug.Log("Titulo de coste " + title);
 
         _expenses.Add(new ExpenseEntry(title, cost));
 

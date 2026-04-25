@@ -55,6 +55,8 @@ public class LLMConnectorDocumentsBudget : LLMConector
                     coste = jsonResponse.CosteDocumento;
                 }
 
+                Debug.Log($"Tipo de documento {docType.ToString()} con un coste total verdadero de {coste}");
+
                 GameSystem.Instance.CaseData.documentManager.CreateDocument(_docName, docType, _docContent, true, coste);
                 _msgUIComponent._computerSystem.ToggleNotification(Page.ClientChat, true);
                 _msgUIComponent.EndPendingMessage("Tu cliente te ha mandado " + _docName + ".txt");
