@@ -24,6 +24,6 @@ public class SurrenderPage : IPage
 
     public override void Close()
     {
-        _holder.SetActive(true);
+        _holder.SetActive(false);
     }
 }
