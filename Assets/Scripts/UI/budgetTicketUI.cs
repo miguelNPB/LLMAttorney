@@ -66,13 +66,15 @@ public class BudgetTicketUI : MonoBehaviour
     private void SpawnRow(string title, float amount)
     {
         if (expenseEntryPrefab == null || expensesListContainer == null) return;
- 
+
+        Debug.Log("SpawnRow " + title);
+
         GameObject row = Instantiate(expenseEntryPrefab, expensesListContainer);
  
         TMP_Text titleLabel  = row.transform.Find("TitleLabel")?.GetComponent<TMP_Text>();
         TMP_Text amountLabel = row.transform.Find("AmountLabel")?.GetComponent<TMP_Text>();
  
-        if (titleLabel  != null) titleLabel.text  = title;
+        if (titleLabel  != null) titleLabel.text  = $"Coste de {title}";
         if (amountLabel != null) amountLabel.text = $"-{amount.ToString(currencyFormat)}";
     }
 

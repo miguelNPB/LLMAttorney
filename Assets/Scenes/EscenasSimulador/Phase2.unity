@@ -10037,7 +10037,7 @@ MonoBehaviour:
   _sendButton: {fileID: 8174858085091398588}
   _otherPersonColor: {r: 0.43867922, g: 0.43867922, b: 1, a: 1}
   _playerColor: {r: 0.495283, g: 1, b: 0.495283, a: 1}
-  _scrollSpeed: 1
+  _scrollSpeed: 7
   _inputField: {fileID: 1486098271155247792}
   _llmConnectorDocs: {fileID: 512123790}
   _llmConnectorClientChat: {fileID: 1631395630908722945}
@@ -19565,9 +19565,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ProcuradorMessagesPage, Assembly-CSharp
-        m_MethodName: OnSendDocument
+      - m_Target: {fileID: 8220094570629320639}
+        m_TargetAssemblyTypeName: ProcuratorChatPage, Assembly-CSharp
+        m_MethodName: OnPressButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
