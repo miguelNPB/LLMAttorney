@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Drawing.Text;
+using Telemetry;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -35,6 +37,7 @@ public class LLMConnectorConciliation : LLMConector
 
     private CurrentPromptType currentPromptType;
 
+    private int _messageID;
 
 
     /// <summary>
@@ -121,25 +124,38 @@ public class LLMConnectorConciliation : LLMConector
 
         // sacar el booleano true o false
         _contextSchema = _boolSchema;
+
+        _messageID = LLMLogManager.Instance.getNumMessageSent();
+        LLMLogManager.Instance.addMessageSent();
+        TelemetryDispatch.SendQueryPost(_messageID);
+
         sendContextPrompt(inputFieldText, 0);
         _promptSent = true;
 
         while (_promptSent)
             yield return null;
 
-        Debug.Log("Client agree: " + _agree);
+        TelemetryDispatch.SendQueryReceived(_messageID);
+
+        LLMLogManager.Instance.LogMessageSent("Client agree: " + _agree, _messageID);
 
         // mandar prompt  de texto
         _contextSchema = _stringSchema;
         _config[2].context = GetTextPromptClientAnswer(_agree);
+
+        _messageID = LLMLogManager.Instance.getNumMessageSent();
+        LLMLogManager.Instance.addMessageSent();
+        TelemetryDispatch.SendQueryPost(_messageID);
+
         sendContextPrompt(inputFieldText,2);
         _promptSent = true;
         while (_promptSent)
             yield return null;
 
+        TelemetryDispatch.SendQueryReceived(_messageID);
 
+        LLMLogManager.Instance.LogMessageSent("Client answer: " + _answer, _messageID);
 
-        Debug.Log("Client answer: " + _answer);
         conciliacionPage.SetClientAgrees(_agree, _answer);
 
         yield return null;
@@ -156,16 +172,28 @@ public class LLMConnectorConciliation : LLMConector
 
         // mandar prompt para sacar el booleano true o false
         _contextSchema = _boolSchema;
+
+        _messageID = LLMLogManager.Instance.getNumMessageSent();
+        LLMLogManager.Instance.addMessageSent();
+        TelemetryDispatch.SendQueryPost(_messageID);
+
         sendContextPrompt(inputFieldText, 1);
         _promptSent = true;
 
         while (_promptSent)
             yield return null;
 
-        Debug.Log("Rival agree: " + _agree);
+        TelemetryDispatch.SendQueryReceived(_messageID);
+
+        LLMLogManager.Instance.LogMessageSent("Rival agree: " + _agree, _messageID);
 
         _contextSchema = _stringSchema;
         _config[3].context = GetTextPromptRivalAnswer(_agree);
+
+        _messageID = LLMLogManager.Instance.getNumMessageSent();
+        LLMLogManager.Instance.addMessageSent();
+        TelemetryDispatch.SendQueryPost(_messageID);
+
         // mandar prompt  de texto
         sendContextPrompt(inputFieldText, 3);
         _promptSent = true;
@@ -173,8 +201,9 @@ public class LLMConnectorConciliation : LLMConector
         while (_promptSent)
             yield return null;
 
+        TelemetryDispatch.SendQueryReceived(_messageID);
 
-        Debug.Log("Rival answer: " + _answer);
+        LLMLogManager.Instance.LogMessageSent("Rival answer: " + _answer, _messageID);
         conciliacionPage.SetRivalAgrees(_agree, _answer);
 
         yield return null;
@@ -189,6 +218,11 @@ public class LLMConnectorConciliation : LLMConector
     {
         currentPromptType = CurrentPromptType.RivalRechazar;
         _agree = false;
+
+        _messageID = LLMLogManager.Instance.getNumMessageSent();
+        LLMLogManager.Instance.addMessageSent();
+        TelemetryDispatch.SendQueryPost(_messageID);
+
         sendContextPrompt(3);
 
         _promptSent = true;
@@ -197,6 +231,9 @@ public class LLMConnectorConciliation : LLMConector
             yield return null;
         _promptSent = false;
 
+        TelemetryDispatch.SendQueryReceived(_messageID);
+        LLMLogManager.Instance.LogMessageSent("Rival answer: " + _answer, _messageID);
+        
         conciliacionPage.SetRivalAgrees(_agree, _answer);
 
         yield return null;
