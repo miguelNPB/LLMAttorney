@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Telemetry;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LLMConnectorOpponentDocuments : LLMConector
 {
@@ -20,6 +22,7 @@ public class LLMConnectorOpponentDocuments : LLMConector
 
     [SerializeField] public string oppPrompt;
 
+    private int _messageID;
 
 
     protected override void createJsonSchemas()
@@ -45,9 +48,6 @@ public class LLMConnectorOpponentDocuments : LLMConector
 
     protected override void receiveResponse(bool success, string answer)
     {
-#if DEBUG
-        Debug.Log("[OpponentDoc] " + answer);
-#endif
 
         if (!success)
         {
@@ -82,9 +82,18 @@ public class LLMConnectorOpponentDocuments : LLMConector
 
         if (response == null || !response.DocumentoValido)
         {
+            TelemetryDispatch.SendNotConsistentAnswer(_messageID);
             _procuradorPage.CancelPendingOpponentMessage();
             return;
         }
+
+        string log =
+                $"[Fase: {SceneManager.GetActiveScene().buildIndex}] [Envio: {_messageID}] Nombre del documento del rival: {response.NombreDocumento}.\n\n" +
+                $"Tipo de documento: {(DocumentType)response.TipoDocumento}\n" +
+                $"Contenido del documento: {response.ContenidoDocumento}\n" +
+                $"Respuesta coherente: true";
+
+        TelemetryDispatch.SendReceivedDocument(response.TipoDocumento, response.DocumentoValido);
 
         GameSystem.Instance.CaseData.documentManager.CreateDocument(
            response.NombreDocumento,
@@ -225,6 +234,11 @@ public class LLMConnectorOpponentDocuments : LLMConector
 
     public void CallSendContext(int indexConfig = 0)
     {
+        _messageID = LLMLogManager.Instance.getNumMessageSent();
+        LLMLogManager.Instance.addMessageSent();
+
+        TelemetryDispatch.SendQueryPost(_messageID);
+
         sendContextPrompt(indexConfig);
     }
 
