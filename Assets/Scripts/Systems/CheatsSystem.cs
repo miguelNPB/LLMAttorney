@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -46,6 +47,11 @@ public class CheatsSystem : MonoBehaviour
         Debug.Log("Loaded scene: " + scene.name);
 
         cheatMenu = GameObject.FindGameObjectWithTag("CheatMenu");
+
+        if (scene.name == "Phase1")
+        {
+            cheatMenu.GetComponentInChildren<TMP_InputField>().onEndEdit.AddListener(Phase1toPhase2);
+        }
         cheatMenu.SetActive(false);
     }
 
