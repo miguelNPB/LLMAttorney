@@ -75,12 +75,6 @@ public class LLMConectorSearch : LLMConector
             // deserializamos la respuesta
             SearchResponse jsonResponse = JsonUtility.FromJson<SearchResponse>(answer);
 
-            if (_stepCounter == 0)
-            {
-                _messageID = LLMLogManager.Instance.getNumMessageSent();
-                LLMLogManager.Instance.addMessageSent();
-            }
-
             if (jsonResponse.respuestaValida && jsonResponse.respuestaCoherente)
             {
                 _uiSearch.EndPendingMessage(jsonResponse.answer);
@@ -131,6 +125,11 @@ public class LLMConectorSearch : LLMConector
 
     public void CallSendContext(int indexConfig = 0)
     {
+        _messageID = LLMLogManager.Instance.getNumMessageSent();
+        LLMLogManager.Instance.addMessageSent();
+
+        TelemetryDispatch.SendQueryPost(_messageID);
+
         sendContextPrompt(indexConfig);
     }
 

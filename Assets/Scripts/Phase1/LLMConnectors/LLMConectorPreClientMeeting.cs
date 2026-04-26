@@ -33,10 +33,7 @@ public class LLMConectorPreClientMeeting : LLMConector
         if (success)
         {
             // deserializamos la respuesta
-            PreMeetingResponse jsonResponse = JsonUtility.FromJson<PreMeetingResponse>(answer);
-
-            _messageID = LLMLogManager.Instance.getNumMessageSent();
-            LLMLogManager.Instance.addMessageSent();
+            PreMeetingResponse jsonResponse = JsonUtility.FromJson<PreMeetingResponse>(answer);         
 
             if (jsonResponse.pregunta_coherente)
             {
@@ -81,6 +78,10 @@ public class LLMConectorPreClientMeeting : LLMConector
 
     public void CallSendContext(int indexConfig = 0)
     {
+        _messageID = LLMLogManager.Instance.getNumMessageSent();
+        LLMLogManager.Instance.addMessageSent();
+        TelemetryDispatch.SendQueryPost(_messageID);
+
         sendContextPrompt(indexConfig);
     }
 

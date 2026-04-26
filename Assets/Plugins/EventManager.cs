@@ -515,7 +515,7 @@ namespace Telemetry
                 PlayerPrefs.SetInt("SESSION_NUMBER", 0);
             }
 
-            string filePath = System.IO.Path.Combine(Application.persistentDataPath, "/telemetry_events_" + numSession + "_" + _userID + ".json");
+            string filePath = System.IO.Path.Combine(Application.persistentDataPath, "telemetry_events_" + numSession + "_" + _userID + ".json");
 
             Debug.Log(filePath);
 
