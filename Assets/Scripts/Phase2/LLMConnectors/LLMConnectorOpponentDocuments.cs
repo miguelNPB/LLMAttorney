@@ -95,6 +95,8 @@ public class LLMConnectorOpponentDocuments : LLMConector
 
         TelemetryDispatch.SendReceivedDocument(response.TipoDocumento, response.DocumentoValido);
 
+        TelemetryDispatch.SendQueryReceived(_messageID);
+
         GameSystem.Instance.CaseData.documentManager.CreateDocument(
            response.NombreDocumento,
            (DocumentType)response.TipoDocumento,
