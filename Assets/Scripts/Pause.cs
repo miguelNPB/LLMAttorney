@@ -51,12 +51,8 @@ public class PauseMenu : MonoBehaviour
     public void GoToMainMenu()
     {
         //Time.timeScale = 1f;
-
-        //Destruir el GameSystem para resetear los datos del caso al volver al menu principal
-        var gs = FindAnyObjectByType<GameSystem>();
-        if (gs != null) Destroy(gs.gameObject);
-        
         SceneSystem.Instance.LoadMainMenu();
+                SetPauseActive(false);
 
         
     }
