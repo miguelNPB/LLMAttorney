@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,40 +6,34 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class SceneSystem : MonoBehaviour
 {
-    [SerializeField] private SceneAsset MainMenu;
-    [SerializeField] private SceneAsset GameOver;
-    [SerializeField] private SceneAsset Phase1;
-    [SerializeField] private SceneAsset Phase2;
-    [SerializeField] private SceneAsset Phase3;
-    [SerializeField] private SceneAsset Phase4;
 
     public void LoadMainMenu()
     {
-        SceneManager.LoadScene(MainMenu.name);
+        SceneManager.LoadScene(0);
     }
 
     public void LoadGameOver()
     {
-        SceneManager.LoadScene(GameOver.name);
+        SceneManager.LoadScene(5);
     }
 
     public void LoadPhase1()
     {
-        SceneManager.LoadScene(Phase1.name);
+        SceneManager.LoadScene(1);
     }
 
     public void LoadPhase2()
     {
-        SceneManager.LoadScene(Phase2.name);
+        SceneManager.LoadScene(2);
     }
 
     public void LoadPhase3()
     {
-        SceneManager.LoadScene(Phase3.name);
+        SceneManager.LoadScene(3);
     }
     public void LoadPhase4()
     {
-        SceneManager.LoadScene(Phase4.name);
+        SceneManager.LoadScene(4);
     }
 
     public void ExitGame()

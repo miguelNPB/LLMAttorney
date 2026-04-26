@@ -1,9 +1,5 @@
-using Mono.Cecil.Cil;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 /// <summary>
 /// Pagina para gestionar el visualizado y registro de los documentos del caso, tanto del player como del rival

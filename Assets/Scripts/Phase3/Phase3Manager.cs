@@ -1,9 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-using TMPro;
 using System.Collections;
-using Mono.Cecil.Cil;
-using System.CodeDom;
 
 public class Phase3Manager : MonoBehaviour
 {

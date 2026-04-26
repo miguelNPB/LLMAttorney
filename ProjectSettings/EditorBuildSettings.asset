@@ -6,9 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Boot.unity
-    guid: 3a68e029779b0b14682d8530df34e492
-  - enabled: 1
     path: Assets/Scenes/EscenasSimulador/MainMenu.unity
     guid: 0f0a74f7f3fe57b4faa21f340c587fbf
   - enabled: 1
@@ -23,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EscenasSimulador/Phase4.unity
     guid: d3b683f2b32f0cf48bb9f93639a67d3e
+  - enabled: 1
+    path: Assets/Scenes/EscenasSimulador/GameOver.unity
+    guid: aea12cad2add2fb4291cfaa61d88eb3e
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: f5696f60918fad24abc30c759bd1ab20, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
