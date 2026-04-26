@@ -237,7 +237,7 @@ async def sendGeminiQuery(prompt, LLMConfig, temperature, max_length, json_schem
 # Crea la query y la ejecuta para Ollama
 async def sendLlamaQuery(prompt, LLMConfig, temperature, max_length, json_schema=None):
     lm = models.OpenAI(
-        model="llama3",  # Modelo Ollama
+        model="qwen2.5:7b",  # Modelo Ollama
         base_url= OLLAMA_ENDPOINT_AMD_VULKAN if OLLAMA_USE_VULKAN else OLLAMA_ENDPOINT_NVIDIA, 
         api_key="ollama"
     )

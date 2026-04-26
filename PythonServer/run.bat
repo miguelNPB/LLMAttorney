@@ -34,7 +34,7 @@ if %ERRORLEVEL% NEQ 0 (
 
 echo Descargando el modelo (esto puede tardar la primera vez)...
 :: Cambia "llama3" por el modelo que quieras usar
-docker exec ollama-server ollama pull phi3:mini
+docker exec ollama-server ollama pull qwen2.5:7b
 :: Descargando el modelo de embeddings
 docker exec ollama-server ollama pull nomic-embed-text
 
