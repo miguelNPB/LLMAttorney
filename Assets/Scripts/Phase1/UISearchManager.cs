@@ -88,4 +88,8 @@ public class UISearchManager : MonoBehaviour
         waitingPendingMessage = false;
     }
 
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
 }

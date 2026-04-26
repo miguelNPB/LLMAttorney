@@ -113,4 +113,9 @@ public class UIClientMeetingManager : MonoBehaviour
 
         
     }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
 }
