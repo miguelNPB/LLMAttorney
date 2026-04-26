@@ -48,7 +48,7 @@ public class CaseData
     // variables publicas que cambian en el curso del caso
     public List<ConversationMessage> clientMessages = new List<ConversationMessage>();
     public List<ConversationMessage> procuratorMessages = new List<ConversationMessage>();
-    public DocumentManager documentManager = new DocumentManager();
+    public DocumentManager documentManager;
 
 
 
