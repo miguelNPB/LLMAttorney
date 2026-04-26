@@ -53,13 +53,16 @@ public class RedactLawsuitPage : IPage
             _inputConciliacion.interactable = false;
             _inputListArticulos.interactable = false;
             _inputPeticion.interactable = false;
+            _sendDemandButton.gameObject.SetActive(false);
 
-            _procuratorChatPage.ManuallyAddMessage("Buenas, te adjunto la demanda escrita.", true);
-            _procuratorChatPage.ManuallyAddMessage("Perfecto, se lo paso al tribunal y a la otra parte. Con esto ya estaría todo, cuando me digas, llamo al tribunal para agendar la audiencia previa.", false);
+            _procuratorChatPage.ManuallyAddMessage("Buenas, te adjunto la demanda escrita.", true, 50);
+            _procuratorChatPage.ManuallyAddMessage("Perfecto, se lo paso al tribunal y a la otra parte. Con esto ya estaría todo, cuando me digas, llamo al tribunal para agendar la audiencia previa.", false, 100);
 
             _computerSystem.ToggleNotification(Page.PriorHearing, true);
             _computerSystem.ToggleNotification(Page.ProcuratorChat, true);
             _computerSystem.GoToMainMenu();
+
+            GameSystem.Instance.CaseData.SentDemandaToProcurador();
         }
     }
 

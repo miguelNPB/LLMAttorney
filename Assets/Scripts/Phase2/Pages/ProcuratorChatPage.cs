@@ -6,14 +6,17 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Experimental.AI;
 using UnityEngine.UI;
+using UnityEngine.WSA;
 
 /// <summary>
 /// Pagina para gestionar el sistema de mensajes con el procurador
 /// </summary>
 public class ProcuratorChatPage : ChatPage {
 
-    [SerializeField] private GameObject docsUIContainer;
-    [SerializeField] private GameObject procuradorDocUIPrefab;
+    [SerializeField] private GameObject _holder;
+    [SerializeField] private GameObject _sendLawsuitFirstText;
+    [SerializeField] private GameObject _docsUIContainer;
+    [SerializeField] private GameObject _procuradorDocUIPrefab;
 
     private bool _isOpen = false;
     private ProcuratorUIDocument _selectedDoc = null;
@@ -29,8 +32,8 @@ public class ProcuratorChatPage : ChatPage {
     }
     private void setupUIDocuments()
     {
-        for (int i = 0; i < docsUIContainer.transform.childCount; i++)
-            Destroy(docsUIContainer.transform.GetChild(i).gameObject);
+        for (int i = 0; i < _docsUIContainer.transform.childCount; i++)
+            Destroy(_docsUIContainer.transform.GetChild(i).gameObject);
 
         // coger documentos cliente
         List<Document> documents = new List<Document>();
@@ -47,12 +50,22 @@ public class ProcuratorChatPage : ChatPage {
         // instanciar prefabs ui
         for (int i = 0; i < documents.Count; i++)
         {
-            GameObject documentInstanced = Instantiate(procuradorDocUIPrefab, docsUIContainer.transform);
+            GameObject documentInstanced = Instantiate(_procuradorDocUIPrefab, _docsUIContainer.transform);
 
             documentInstanced.GetComponent<ProcuratorUIDocument>().Init(this, documents[i]);
 
             Debug.Log("Documento " + i + " instanciado en la posicion " + documentInstanced.transform.position);
         }
+    }
+
+    /// <summary>
+    /// Comprueba si la demanda ha sdio mandada y activa o desactiva unos gameobject en funcion de eso
+    /// </summary>
+    private void checkIfLawsuitSent()
+    {
+        _sendButton.interactable = GameSystem.Instance.CaseData.isDemandaSent;
+        _docsUIContainer.SetActive(GameSystem.Instance.CaseData.isDemandaSent);
+        _sendLawsuitFirstText.SetActive(!GameSystem.Instance.CaseData.isDemandaSent);
     }
 
     private void recieveChatMessage(string answer)
@@ -120,9 +133,10 @@ public class ProcuratorChatPage : ChatPage {
     {
         _computerSystem.ToggleNotification(Page.ProcuratorChat, false);
 
-        for (int i = 0; i < gameObject.transform.childCount; i++)
-            gameObject.transform.GetChild(i).gameObject.SetActive(true);
-        
+        _holder.SetActive(true);
+
+        checkIfLawsuitSent();
+
         setupUIDocuments();
 
         SelectDocument(null);
@@ -134,8 +148,7 @@ public class ProcuratorChatPage : ChatPage {
 
     public override void Close()
     {
-        for (int i = 0; i < gameObject.transform.childCount; i++)
-            gameObject.transform.GetChild(i).gameObject.SetActive(false);
+        _holder.SetActive(false);
 
         _isOpen = false;
     }

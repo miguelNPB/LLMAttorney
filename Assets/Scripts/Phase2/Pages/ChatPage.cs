@@ -42,7 +42,7 @@ public abstract class ChatPage : IPage
     /// </summary>
     /// <param name="text"></param>
     /// <param name="fromPlayer"></param>
-    protected void addMessage(string text, bool fromPlayer)
+    protected void addMessage(string text, bool fromPlayer, int forceHeight = 0)
     {
         _lastMessageAdded = Instantiate(_conversationMessageUIPrefab, _layoutGroup.transform);
 
@@ -54,7 +54,7 @@ public abstract class ChatPage : IPage
 
         tmpText.ForceMeshUpdate();
         int numLineas = tmpText.textInfo.lineCount;
-        int height = 25 + (numLineas * 50);
+        int height = forceHeight + 25 + (numLineas * 50);
 
         _totalHeight += height;
 
@@ -66,9 +66,9 @@ public abstract class ChatPage : IPage
     /// <summary>
     /// No llamar a este metodo de normal, llamar solo si queremos poner mensajes manuales instantanemante
     /// </summary>
-    public void ManuallyAddMessage(string text, bool fromPlayer)
+    public void ManuallyAddMessage(string text, bool fromPlayer, int forceHeight = 0)
     {
-        addMessage(text, fromPlayer);
+        addMessage(text, fromPlayer, forceHeight);
         LayoutRebuilder.ForceRebuildLayoutImmediate(_layoutGroup.GetComponent<RectTransform>());
     }
 
