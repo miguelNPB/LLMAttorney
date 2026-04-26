@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Telemetry;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Experimental.AI;
@@ -102,6 +103,8 @@ public class ProcuratorChatPage : ChatPage {
 
 
         // mandar doc
+        TelemetryDispatch.SendPostDocument((int)_selectedDoc.documentInfo.GetDocType());
+
         StartCoroutine(processDocument(_selectedDoc.documentInfo.GetDocName()));
         _selectedDoc.SentToProcurador();
 

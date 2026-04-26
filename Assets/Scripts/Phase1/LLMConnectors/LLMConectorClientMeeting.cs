@@ -26,7 +26,7 @@ public class LLMConectorClientMeeting : LLMConector
 
     private bool _abogadoContratado = false;
 
-    private int _messageID = -1;
+    private int _messageID;
 
    
     protected override void receiveResponse(bool success, string answer)
@@ -39,8 +39,6 @@ public class LLMConectorClientMeeting : LLMConector
             if (_stepCounter == 0)
             {
                 _abogadoContratado = jsonResponse.contratar_abogado;
-                _messageID = LLMLogManager.Instance.getNumMessageSent();
-                LLMLogManager.Instance.addMessageSent();
             }
 
             if (jsonResponse.respuesta_valida && jsonResponse.respuesta_coherente)
@@ -98,8 +96,9 @@ public class LLMConectorClientMeeting : LLMConector
         sendContextPrompt(indexConfig);
     }
 
-    public void CallSendContext(string text, int indexConfig = 0)
+    public void CallSendContext(string text, int messageID, int indexConfig = 0)
     {
+        _messageID = messageID;
         sendContextPrompt(text, indexConfig);
     }
 

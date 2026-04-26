@@ -1,3 +1,4 @@
+using Telemetry;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -49,6 +50,8 @@ public class LLMConnectorDocumentsBudget : LLMConector
                 $"Respuesta coherente: true";
 
                 LLMLogManager.Instance.LogMessageSent(log, _messageID);
+
+                TelemetryDispatch.SendAskedDocument(jsonResponse.CosteDocumento, (int)docType);
 
                 _stepCounter = 0;
                 _promptSent = false;
