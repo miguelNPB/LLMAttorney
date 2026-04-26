@@ -85,9 +85,6 @@ public abstract class LLMConector : MonoBehaviour
                     configLLM = configLLM + s + "\n";
                 }
             }
-            
-            Debug.Log("PROMPT: " + prompt);
-            Debug.Log("CONTEXT: " + configLLM);
 
             _historical.Add("Pregunta: " + prompt);
 
@@ -138,9 +135,6 @@ public abstract class LLMConector : MonoBehaviour
                 }
             }
 
-            Debug.Log("PROMPT: " + prompt);
-            Debug.Log("CONTEXT: " + configLLM);
-
             _historical.Add("Pregunta: " + prompt);
 
             _promptSent = true;
@@ -161,8 +155,6 @@ public abstract class LLMConector : MonoBehaviour
     /// <returns></returns>
     protected virtual bool sendSecuritySteps(string prompt)
     {
-        
-        Debug.Log("PROMPT de security checks: " + prompt);
 
         string configLLM = "Teniendo el siguiente texto: \n" + prompt + "\n Y teniedo la siguiente directiva de seguridad" +
             _config[_indexConfig].safeguardSteps+

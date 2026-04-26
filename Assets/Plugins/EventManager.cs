@@ -66,6 +66,8 @@ namespace Telemetry
         public void SendNotConsistentAnswerEvent(int messageID, int phaseID)
         {
 
+            Debug.Log("Envio de evento de fakta de coherencia");
+
             //Establecimiento del numero de atributos
             const int attributeCount = 4;
 
@@ -115,7 +117,9 @@ namespace Telemetry
             TelemetryUtils.WriteAttributeInt32(attributesBase, 3, (int)AtributesNameId.phaseID, phaseID);
 
             //Escritura de directivas externas a atributos
-            TelemetryUtils.WriteEventHeader(eventPtr, 0, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()); 
+            TelemetryUtils.WriteEventHeader(eventPtr, 0, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
+
+            Debug.Log("Se envio del todo");
 
             //TODO Envio del evento
             SubmitEvent(eventPtr);
@@ -511,7 +515,9 @@ namespace Telemetry
                 PlayerPrefs.SetInt("SESSION_NUMBER", 0);
             }
 
-            string filePath = System.IO.Path.Combine(Application.persistentDataPath, "telemetry_events_" + numSession + "_" + _userID + ".json");
+            string filePath = System.IO.Path.Combine(Application.persistentDataPath, "/telemetry_events_" + numSession + "_" + _userID + ".json");
+
+            Debug.Log(filePath);
 
             try
             {
@@ -520,7 +526,7 @@ namespace Telemetry
                             PersistenceFile,
                             QueueCircularArray,
                             filePath
-                        );
+                );
 
                 if (_trackerHandle == IntPtr.Zero)
                 {
