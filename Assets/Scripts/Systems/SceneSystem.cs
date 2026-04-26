@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class SceneSystem : MonoBehaviour
 {
     [SerializeField] private SceneAsset MainMenu;
+    [SerializeField] private SceneAsset GameOver;
     [SerializeField] private SceneAsset Phase1;
     [SerializeField] private SceneAsset Phase2;
     [SerializeField] private SceneAsset Phase3;
@@ -16,6 +17,11 @@ public class SceneSystem : MonoBehaviour
     public void LoadMainMenu()
     {
         SceneManager.LoadScene(MainMenu.name);
+    }
+
+    public void LoadGameOver()
+    {
+        SceneManager.LoadScene(GameOver.name);
     }
 
     public void LoadPhase1()
@@ -35,6 +41,11 @@ public class SceneSystem : MonoBehaviour
     public void LoadPhase4()
     {
         SceneManager.LoadScene(Phase4.name);
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 
     private void Awake()
