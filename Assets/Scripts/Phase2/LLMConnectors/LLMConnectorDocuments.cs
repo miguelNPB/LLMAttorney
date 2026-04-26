@@ -20,18 +20,20 @@ public class LLMConnectorDocuments : LLMConector
 
     private ClientPromptType _type;
 
+    private int _messageID = -1;
+
     protected override void receiveResponse(bool success, string answer)
     {
-        #if DEBUG
-        Debug.Log(answer);
-#endif
-
-        Debug.Log("Step: " + _stepCounter);
 
         if (success)
         {
-            // deserializamos la respuesta
             DocumentResponse jsonResponse = JsonUtility.FromJson<DocumentResponse>(answer);
+
+            if (_stepCounter == 0)
+            {
+                _messageID = LLMLogManager.Instance.getNumMessageSent();
+                LLMLogManager.Instance.addMessageSent();
+            }
 
             if (_stepCounter < _config[_indexConfig].getStepsChecks().Length)
             {
@@ -39,17 +41,12 @@ public class LLMConnectorDocuments : LLMConector
             }
             else
             {
-                Debug.Log("Respuesta final");
-        
                 _stepCounter = 0;
                 _promptSent = false;
 
-
                 _historical.Add("Respuesta :" + answer);
 
-
-                Debug.Log((int)_type);
-                _checker.CallSendContext(_type, jsonResponse.NombreDocumento, jsonResponse.ContenidoDocumento, _indexConfig);
+                _checker.CallSendContext(_type, jsonResponse.NombreDocumento, jsonResponse.ContenidoDocumento, _messageID, _indexConfig);
                 
             }
         }

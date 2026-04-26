@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class LLMConnectorDocumentsBudget : LLMConector
 {
@@ -16,6 +17,7 @@ public class LLMConnectorDocumentsBudget : LLMConector
     private ClientPromptType _type;
     private string _docName;
     private string _docContent;
+    private int _messageID;
 
     protected override void receiveResponse(bool success, string answer)
     {
@@ -36,26 +38,29 @@ public class LLMConnectorDocumentsBudget : LLMConector
             }
             else
             {
-                Debug.Log("Respuesta final");
+
+                DocumentType docType = fromClientDocumentToDocumentType(_type);
+
+                string log =
+                $"[Fase: {SceneManager.GetActiveScene().buildIndex}] [Envio: {_messageID}] Nombre del documento: {_docName}.\n\n" +
+                $"Tipo de documento: {docType.ToString()}\n" +
+                $"Contenido del documento: {_docContent}\n" +
+                $"Coste del documento: {jsonResponse.CosteDocumento}\n" +
+                $"Respuesta coherente: true";
+
+                LLMLogManager.Instance.LogMessageSent(log, _messageID);
 
                 _stepCounter = 0;
                 _promptSent = false;
 
-
-                _historical.Add("Respuesta :" + answer);
-
-                DocumentType docType = fromClientDocumentToDocumentType(_type);
+                _historical.Add("Respuesta :" + answer);      
 
                 int coste = 0;
-
-                Debug.Log("Coste de Documento presupuestado: " + jsonResponse.CosteDocumento);
 
                 if(docType != DocumentType.ReceiptFacture || docType != DocumentType.Witness)
                 {
                     coste = jsonResponse.CosteDocumento;
                 }
-
-                Debug.Log($"Tipo de documento {docType.ToString()} con un coste total verdadero de {coste}");
 
                 GameSystem.Instance.CaseData.documentManager.CreateDocument(_docName, docType, _docContent, true, coste);
                 _msgUIComponent._computerSystem.ToggleNotification(Page.ClientChat, true);
@@ -70,11 +75,12 @@ public class LLMConnectorDocumentsBudget : LLMConector
         }
     }
 
-    public void CallSendContext(ClientPromptType type, string docName, string docContent, int indexConfig = 0)
+    public void CallSendContext(ClientPromptType type, string docName, string docContent, int messageID, int indexConfig = 0)
     {
         _docName = docName;
         _docContent = docContent;
         _type = type;
+        _messageID = messageID;
 
         sendContextPrompt(indexConfig);
     }

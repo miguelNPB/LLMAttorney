@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Telemetry;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LLMConectorClientMeeting : LLMConector
@@ -24,6 +26,8 @@ public class LLMConectorClientMeeting : LLMConector
 
     private bool _abogadoContratado = false;
 
+    private int _messageID = -1;
+
    
     protected override void receiveResponse(bool success, string answer)
     {
@@ -32,17 +36,12 @@ public class LLMConectorClientMeeting : LLMConector
             // deserializamos la respuesta
             MeetingResponse jsonResponse = JsonUtility.FromJson<MeetingResponse>(answer);
 
-            Debug.Log("Respuesta cruda: " + jsonResponse.answer);
-
             if (_stepCounter == 0)
             {
-                Debug.Log("Respuesta contratar abogado: " + jsonResponse.contratar_abogado);
                 _abogadoContratado = jsonResponse.contratar_abogado;
+                _messageID = LLMLogManager.Instance.getNumMessageSent();
+                LLMLogManager.Instance.addMessageSent();
             }
-
-            Debug.Log("Respuesta valida: " + jsonResponse.respuesta_valida);
-
-            Debug.Log("Respuesta coherente: " + jsonResponse.respuesta_coherente);
 
             if (jsonResponse.respuesta_valida && jsonResponse.respuesta_coherente)
             {
@@ -65,12 +64,25 @@ public class LLMConectorClientMeeting : LLMConector
             }
             else
             {
-                Debug.Log("Respuesta final");
+
+                string log =
+                $"[Fase: {SceneManager.GetActiveScene().buildIndex}] [Envio: {_messageID}] Respuesta del cliente a pregunta: {jsonResponse.answer}.\n\n" +
+                $"Contratar abogado: {jsonResponse.contratar_abogado}\n" +
+                $"Respuesta valida: {jsonResponse.respuesta_valida}\n" +
+                $"Respuesta coherente: {jsonResponse.respuesta_coherente}";
+
+                LLMLogManager.Instance.LogMessageSent(log, _messageID);
+
+                if(!jsonResponse.respuesta_valida || !jsonResponse.respuesta_coherente)
+                {
+                    TelemetryDispatch.SendNotConsistentAnswer(_messageID);
+                }
+
                 _historical.Add("Respuesta :" + jsonResponse.answer);
                 _stepCounter = 0;
                 _uiMeeting.ShowMessage(_abogadoContratado);
                 _buttonContinue.SetActive(true);
-                _promptSent = false;
+                _promptSent = false;    
             }
         }
         else

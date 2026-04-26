@@ -5,9 +5,9 @@ using UnityEngine;
 public class LLMLogManager : MonoBehaviour
 {
 
-    private LLMLogManager _instance = null;
+    private static LLMLogManager _instance = null;
 
-    public LLMLogManager Instance
+    public static LLMLogManager Instance
     {
         get { return _instance; }
     }
@@ -15,23 +15,12 @@ public class LLMLogManager : MonoBehaviour
     private string _path; 
 
     private int _messageSent = 0;
-    private int _messageReceived = 0;
 
-
-    public void LogMessageSent(string message)
+    public void LogMessageSent(string message, int id)
     {
-        string log = $"{System.DateTime.Now} [{_messageSent}] {message}";
+        string log = $"{System.DateTime.Now} [{id}] {message}";
 
         Debug.Log(log);
-        _messageSent++;
-    }
-
-    public void LogMessageReceived(string message)
-    {
-        string log = $"{System.DateTime.Now} [{_messageReceived}] {message}";
-
-        Debug.Log(log);
-        _messageReceived++;
     }
 
     public int getNumMessageSent()
@@ -39,9 +28,9 @@ public class LLMLogManager : MonoBehaviour
         return _messageSent;
     }
 
-    public int getNumMessageReceived()
+    public void addMessageSent()
     {
-        return _messageReceived;
+        _messageSent++;
     }
 
     private void HandleLog(string logString, string stackTrace, LogType type)

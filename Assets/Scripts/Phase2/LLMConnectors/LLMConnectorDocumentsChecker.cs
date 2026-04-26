@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using Telemetry;
+using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class LLMConnectorDocumentsChecker : LLMConector
 {
@@ -20,14 +22,10 @@ public class LLMConnectorDocumentsChecker : LLMConector
     private ClientPromptType _type;
     private string _docName;
     private string _docContent;
+    private int _messageID;
 
     protected override void receiveResponse(bool success, string answer)
     {
-#if DEBUG
-        Debug.Log(answer);
-#endif
-
-        Debug.Log("Step: " + _stepCounter);
 
         if (success)
         {
@@ -40,8 +38,6 @@ public class LLMConnectorDocumentsChecker : LLMConector
             }
             else
             {
-                Debug.Log("Respuesta final");
-
                 _stepCounter = 0;
                 _promptSent = false;
 
@@ -49,13 +45,14 @@ public class LLMConnectorDocumentsChecker : LLMConector
 
                 if (jsonResponse.DocumentoCoherente)
                 {
-                    _budget.CallSendContext(_type, _docName, _docContent, 0);
+                    _budget.CallSendContext(_type, _docName, _docContent, _messageID, 0);
                 }
                 else
                 {
                     _historical.Add("Respuesta: texto final sin coherencia");
                     _msgUIComponent._computerSystem.ToggleNotification(Page.ClientChat, true);
                     _msgUIComponent.EndPendingMessage("Perdona pero no he podido conseguir el documento, ¿Puedes ser un poco mas especifico?");
+                    TelemetryDispatch.SendNotConsistentAnswer(_messageID);
                 }
 
             }
@@ -67,11 +64,12 @@ public class LLMConnectorDocumentsChecker : LLMConector
         }
     }
 
-    public void CallSendContext(ClientPromptType type, string docName, string docContent, int indexConfig = 0)
+    public void CallSendContext(ClientPromptType type, string docName, string docContent, int messageID, int indexConfig = 0)
     {
         _docName = docName;
         _docContent = docContent;
         _type = type;
+        _messageID = messageID;
 
         sendContextPrompt(indexConfig);
     }

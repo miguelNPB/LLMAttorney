@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Telemetry;
 using TMPro;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LLMConectorSearch : LLMConector
 {
@@ -18,6 +20,8 @@ public class LLMConectorSearch : LLMConector
         public bool respuestaValida;
         public bool respuestaCoherente;
     }
+
+    private int _messageID = -1;
 
     protected override bool sendContextPrompt(int indexConfig = 0)
     {
@@ -71,9 +75,11 @@ public class LLMConectorSearch : LLMConector
             // deserializamos la respuesta
             SearchResponse jsonResponse = JsonUtility.FromJson<SearchResponse>(answer);
 
-            Debug.Log("Respuesta valida: " + jsonResponse.respuestaValida);
-
-            Debug.Log("Respuesta coherente: " + jsonResponse.respuestaCoherente);
+            if (_stepCounter == 0)
+            {
+                _messageID = LLMLogManager.Instance.getNumMessageSent();
+                LLMLogManager.Instance.addMessageSent();
+            }
 
             if (jsonResponse.respuestaValida && jsonResponse.respuestaCoherente)
             {
@@ -95,11 +101,24 @@ public class LLMConectorSearch : LLMConector
             }
             else
             {
-                Debug.Log("Respuesta final");
+
+                string log =
+                $"[Fase: {SceneManager.GetActiveScene().buildIndex}] [Envio: {_messageID}] Contestacion buscador: {jsonResponse.answer}.\n\n" +
+                $"Respuesta valida: {jsonResponse.respuestaValida}\n" +
+                $"Respuesta coherente: {jsonResponse.respuestaCoherente}";
+
+                LLMLogManager.Instance.LogMessageSent(log, _messageID);
+
+                if (!jsonResponse.respuestaValida || !jsonResponse.respuestaCoherente)
+                {
+                    TelemetryDispatch.SendNotConsistentAnswer(_messageID);
+                }
+
                 _historical.Add("Respuesta :" + jsonResponse.answer);
                 _stepCounter = 0;
-                _uiSearch.ShowMessage();
                 _promptSent = false;
+                _uiSearch.ShowMessage();
+                
             }
         }
         else
