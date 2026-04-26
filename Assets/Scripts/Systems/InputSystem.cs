@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Sistema para recibir eventos de input
@@ -9,6 +10,7 @@ public class InputSystem : MonoBehaviour
 {
     public Action onSkipTextPerformed;
     public Action<float> onScrollPerformed;
+    public Action cheatMenuPerformed;
 
     private bool _initialized = false;
 
@@ -32,6 +34,14 @@ public class InputSystem : MonoBehaviour
             onScrollPerformed?.Invoke(context.ReadValue<float>());
     }
 
+    public void CheatMenu(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            CheatsSystem.Instance.cheatMenu.gameObject.SetActive(!CheatsSystem.Instance.cheatMenu.activeSelf);
+            cheatMenuPerformed?.Invoke();
+        }
+    }
 
     private void Init()
     {

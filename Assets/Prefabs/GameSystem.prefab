@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9e9dddf1ee7ff24baae1e21d012bf76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CheatsSystem
+  cheatMenu: {fileID: 0}
 --- !u!1 &1383118892301494302
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,6 +237,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d469e202-4848-496e-8413-98dd1a867028
     m_ActionName: 'Player/Scroll[/Mouse/scroll/down,/Mouse/scroll/up]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5554993727216487844}
+        m_TargetAssemblyTypeName: InputSystem, Assembly-CSharp
+        m_MethodName: CheatMenu
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: fb0c3e3c-79f9-465d-b800-b69260aede8a
+    m_ActionName: 'Player/CheatMenu[/Keyboard/tab]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

@@ -87,17 +87,18 @@ public class LLMConectorPreClientMeeting : LLMConector
 
     protected override bool sendContextPrompt(int indexConfig = 0)
     {
+        _text = inputFieldText;
+
         _uiMeeting.StartPendingMessage();
 
         _buttonContinue.SetActive(false);
-
-        _text = inputFieldText;
 
         bool messageSent = base.sendContextPrompt(indexConfig);
 
         if (!messageSent)
         {
             _uiMeeting.EndPendingMessage("¿Puedes volver a repetirmelo por favor?");
+            _buttonContinue.SetActive(true);
         }
 
         return messageSent;
