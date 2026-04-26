@@ -1,0 +1,6 @@
+[submodule "TelemetrySubmodule"]
+	path = TelemetrySystem
+	url = https://github.com/LuisEnriqueCabelloBlanco/TelemetrySystem.git
+[submodule "TelemetrySystem"]
+	path = TelemetrySystem
+	url = https://github.com/LuisEnriqueCabelloBlanco/TelemetrySystem.git
