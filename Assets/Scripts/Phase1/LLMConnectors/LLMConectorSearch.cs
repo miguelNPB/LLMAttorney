@@ -108,6 +108,8 @@ public class LLMConectorSearch : LLMConector
                     TelemetryDispatch.SendNotConsistentAnswer(_messageID);
                 }
 
+                TelemetryDispatch.SendQueryReceived(_messageID);
+
                 _historical.Add("Respuesta :" + jsonResponse.answer);
                 _stepCounter = 0;
                 _promptSent = false;

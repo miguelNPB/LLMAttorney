@@ -53,6 +53,8 @@ public class LLMConnectorDocumentsBudget : LLMConector
 
                 TelemetryDispatch.SendAskedDocument(jsonResponse.CosteDocumento, (int)docType);
 
+                TelemetryDispatch.SendQueryReceived(_messageID);
+
                 _stepCounter = 0;
                 _promptSent = false;
 
