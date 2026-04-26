@@ -1,5 +1,7 @@
 ﻿using System;
+using Telemetry;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LLMConectorPreClientMeeting : LLMConector
 {
@@ -16,6 +18,7 @@ public class LLMConectorPreClientMeeting : LLMConector
     private BudgetManager _budgetManager;
 
     private string _text;
+    private int _messageID = -1;
 
     [Serializable]
     private class PreMeetingResponse
@@ -30,25 +33,30 @@ public class LLMConectorPreClientMeeting : LLMConector
         if (success)
         {
             // deserializamos la respuesta
-            PreMeetingResponse jsonResponse = JsonUtility.FromJson<PreMeetingResponse>(answer);
-
-            Debug.Log("pregunta coherente: " + jsonResponse.pregunta_coherente);
-            Debug.Log("presupuesto adecuado: " + jsonResponse.presupuesto_adecuado);
-            Debug.Log("dinero presupuestado: " + jsonResponse.dinero_presupuestado);
+            PreMeetingResponse jsonResponse = JsonUtility.FromJson<PreMeetingResponse>(answer);         
 
             if (jsonResponse.pregunta_coherente)
             {
                 if (jsonResponse.presupuesto_adecuado)
                 {
 
+                    string log =
+                    $"[Fase: {SceneManager.GetActiveScene().buildIndex}] [Envio: {_messageID}].\n\n" +
+                    $"Pregunta coherente: {jsonResponse.pregunta_coherente}\n" +
+                    $"Presupuesto adecuado: {jsonResponse.presupuesto_adecuado}\n" +
+                    $"Dinero presupuestado: {jsonResponse.dinero_presupuestado}";
+
+                    LLMLogManager.Instance.LogMessageSent(log, _messageID);
+
                     _budgetManager.SetBudgetFromLLM(_text, jsonResponse.dinero_presupuestado);
-                    _clientMeetingConector.CallSendContext(_text);
+                    _clientMeetingConector.CallSendContext(_text, _messageID);
 
                 }
                 else
                 {
+                    TelemetryDispatch.SendDeniedBudget(_messageID, jsonResponse.dinero_presupuestado);
                     _uiMeeting.EndPendingMessage("Me cuesta creer que valga eso. Por favor, se más realista con el precio");
-                    _buttonContinue.SetActive(true);
+                    _buttonContinue.SetActive(true);           
                 }
             }
             else
@@ -70,6 +78,10 @@ public class LLMConectorPreClientMeeting : LLMConector
 
     public void CallSendContext(int indexConfig = 0)
     {
+        _messageID = LLMLogManager.Instance.getNumMessageSent();
+        LLMLogManager.Instance.addMessageSent();
+        TelemetryDispatch.SendQueryPost(_messageID);
+
         sendContextPrompt(indexConfig);
     }
 

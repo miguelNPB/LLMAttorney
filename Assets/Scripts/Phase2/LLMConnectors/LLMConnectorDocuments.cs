@@ -1,3 +1,4 @@
+using Telemetry;
 using UnityEngine;
 
 //Para generar documentos a partir de la llm
@@ -31,8 +32,7 @@ public class LLMConnectorDocuments : LLMConector
 
             if (_stepCounter == 0)
             {
-                _messageID = LLMLogManager.Instance.getNumMessageSent();
-                LLMLogManager.Instance.addMessageSent();
+                
             }
 
             if (_stepCounter < _config[_indexConfig].getStepsChecks().Length)
@@ -41,6 +41,7 @@ public class LLMConnectorDocuments : LLMConector
             }
             else
             {
+
                 _stepCounter = 0;
                 _promptSent = false;
 
@@ -60,6 +61,12 @@ public class LLMConnectorDocuments : LLMConector
     public void CallSendContext(ClientPromptType type, int indexConfig = 0)
     {
         _type = type;
+
+        _messageID = LLMLogManager.Instance.getNumMessageSent();
+        LLMLogManager.Instance.addMessageSent();
+
+        TelemetryDispatch.SendQueryPost(_messageID);
+
         sendContextPrompt(indexConfig);  
     }
 
