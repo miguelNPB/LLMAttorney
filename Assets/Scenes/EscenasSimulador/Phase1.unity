@@ -2710,7 +2710,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6603538375019839910, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_LineLimit
-      value: 3
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6603538375019839910, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_CharacterLimit
@@ -2812,7 +2812,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4934587262290455700, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
       propertyPath: m_LineLimit
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4934587262290455700, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
       propertyPath: m_CharacterLimit
