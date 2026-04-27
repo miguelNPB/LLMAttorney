@@ -59,11 +59,6 @@ public class CheatsSystem : MonoBehaviour
             cheatMenu.GetComponentInChildren<TMP_InputField>().onEndEdit.RemoveAllListeners();
             cheatMenu.GetComponentInChildren<TMP_InputField>().onEndEdit.AddListener(Phase1toPhase2);
         }
-        else if(scene.name == "Phase2")
-        {
-            cheatMenu.GetComponentInChildren<TMP_InputField>().onEndEdit.RemoveAllListeners();
-            cheatMenu.GetComponentInChildren<TMP_InputField>().onEndEdit.AddListener(Phase1toPhase2);
-        }
         
         if (cheatMenu != null)
             cheatMenu.SetActive(false);

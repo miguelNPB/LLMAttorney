@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using TMPro;
 
 public class Phase3Manager : MonoBehaviour
 {
@@ -42,6 +43,7 @@ public class Phase3Manager : MonoBehaviour
     [SerializeField] private GameObject _objectionButton;
     [SerializeField] private Animator _judgeAnimator;
     [SerializeField] private LLMConnectorRivalObjection _llmConnectorRivalObjection;
+    [SerializeField] private TMP_Text _remainingTimeToObjectText;
 
 
     // documentos iniciales al entrar a la fase disponbiles de cada parte
@@ -186,6 +188,9 @@ public class Phase3Manager : MonoBehaviour
             while (!_objection && timer < waitingObjectionTime)
             {
                 timer += Time.deltaTime;
+
+                _remainingTimeToObjectText.text = (Mathf.Round(waitingObjectionTime - timer) * 0.1f).ToString();
+
                 yield return null;
             }
             _objectionButton.SetActive(false);

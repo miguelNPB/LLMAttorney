@@ -25,6 +25,7 @@ public class UIClientMeetingManager : MonoBehaviour
     private string _pendingMessage = "";
     private bool _waitingPendingMessage = false;
 
+
     private IEnumerator CoroutinePendingMessage()
     {
         _waitingPendingMessage = true;
