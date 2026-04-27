@@ -4,6 +4,7 @@ using System.Drawing.Text;
 using Telemetry;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class LLMConnectorConciliation : LLMConector
 {
@@ -92,6 +93,12 @@ public class LLMConnectorConciliation : LLMConector
                     else
                     {
                         _answer = JsonUtility.FromJson<LLMConciliationResponseText>(answer).answer;
+
+                        string log =
+                            $"[Fase: {SceneManager.GetActiveScene().buildIndex}] [Envio: {_messageID}] Respuesta de conciliacion cliente: {_answer}.\n\n" +
+                            $"Acepta acuerdo: {_agree}";
+
+                        LLMLogManager.Instance.LogMessageSent(log, _messageID);
                     }
                     break;
                 case CurrentPromptType.RivalNormal:
@@ -103,6 +110,12 @@ public class LLMConnectorConciliation : LLMConector
                     else
                     {
                         _answer = JsonUtility.FromJson<LLMConciliationResponseText>(answer).answer;
+
+                        string log =
+                            $"[Fase: {SceneManager.GetActiveScene().buildIndex}] [Envio: {_messageID}] Respuesta de conciliacion rival: {_answer}.\n\n" +
+                            $"Acepta acuerdo: {_agree}";
+
+                        LLMLogManager.Instance.LogMessageSent(log, _messageID);
                     }
                     break;
                 case CurrentPromptType.RivalRechazar:

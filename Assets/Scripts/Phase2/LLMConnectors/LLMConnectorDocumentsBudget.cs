@@ -22,11 +22,6 @@ public class LLMConnectorDocumentsBudget : LLMConector
 
     protected override void receiveResponse(bool success, string answer)
     {
-        #if DEBUG
-            Debug.Log(answer);
-        #endif
-
-        Debug.Log("Step: " + _stepCounter);
 
         if (success)
         {
