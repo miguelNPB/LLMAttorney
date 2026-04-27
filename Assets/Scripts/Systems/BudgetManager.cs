@@ -217,7 +217,7 @@ public class BudgetManager : MonoBehaviour
                              $"Cargando '{bankruptcySceneName}'.");
 
             if (!string.IsNullOrEmpty(bankruptcySceneName))
-                SceneManager.LoadScene(bankruptcySceneName);
+                SceneManager.LoadScene(5);
         }
     }
 
