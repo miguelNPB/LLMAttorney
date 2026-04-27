@@ -73,10 +73,6 @@ public abstract class LLMConector : MonoBehaviour
 
             string prompt = _inputField.text;
 
-            if(prompt == "")
-            {
-                return false;
-            }
 
             string configLLM = _config[_indexConfig].context
                 + _config[_indexConfig].safeguard;
