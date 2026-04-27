@@ -91,7 +91,10 @@ public class ConciliationPage : IPage
         clienteAnswerText.text = _clientAnswer;
 
         if (!_open)
+        {
+            _computerSystem.PingOverlayNotification("¡Has recibido la contestacion del cliente a la conciliacion!");
             _computerSystem.ToggleNotification(Page.Conciliation, true);
+        }
 
 
         if (_clientAgrees)
@@ -136,7 +139,10 @@ public class ConciliationPage : IPage
         rivalAnswerText.text = _rivalAnswer;
 
         if (!_open)
+        {
+            _computerSystem.PingOverlayNotification("¡Has recibido la contestacion del rival a la conciliacion!");
             _computerSystem.ToggleNotification(Page.Conciliation, true);
+        }
 
 
         if (_rivalAgrees)

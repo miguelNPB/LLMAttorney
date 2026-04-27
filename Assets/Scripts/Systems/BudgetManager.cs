@@ -48,7 +48,6 @@ public class BudgetManager : MonoBehaviour
 
     public event Action OnBudgetChanged;
 
-
     private void Awake()
     {
         if (Instance != null && Instance != this)

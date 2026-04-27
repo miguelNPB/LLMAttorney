@@ -39,11 +39,13 @@ public class ClientChatPage : ChatPage
     /// <param name="answer"></param>
     private void getPromptTypeFromPrompt(bool success, string answer)
     {
-        ClientPromptTypeRequest typeRequest = JsonUtility.FromJson<ClientPromptTypeRequest>(answer);
-
-        Debug.Log("Devolucion: " +  typeRequest.documentQueryType);
-
-        _lastTypePromptRequest = typeRequest.documentQueryType;
+        if (success)
+        {
+            ClientPromptTypeRequest typeRequest = JsonUtility.FromJson<ClientPromptTypeRequest>(answer);
+            _lastTypePromptRequest = typeRequest.documentQueryType;
+        }
+        else
+            _lastTypePromptRequest = ClientPromptType.Question;
     }
     
     /// <summary>

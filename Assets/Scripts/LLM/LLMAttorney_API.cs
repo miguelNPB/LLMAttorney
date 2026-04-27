@@ -304,14 +304,12 @@ public class LLMAttorney_API : MonoBehaviour
         string response = success ? recievedString : ("Error LLMAtorney: " + www.error);
 
 
-        if (success)
-        {
-            // llamamos al callback
-            onComplete?.Invoke(success, response);
-        }
-        else
-            Debug.LogError(response);
+        onComplete?.Invoke(success, response);
 
+        if (!success)
+        {
+            Debug.LogError(response);
+        }
 
         _sendingPrompt = false;
     }

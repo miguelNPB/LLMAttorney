@@ -55,15 +55,20 @@ public class LLMConnectorDocumentsBudget : LLMConector
 
                 _historical.Add("Respuesta :" + answer);      
 
-                int coste = 0;
+                int cost = 0;
 
                 if(docType != DocumentType.ReceiptFacture || docType != DocumentType.Witness)
                 {
-                    coste = jsonResponse.CosteDocumento;
+                    cost = jsonResponse.CosteDocumento;
+
                 }
 
-                GameSystem.Instance.CaseData.documentManager.CreateDocument(_docName, docType, _docContent, true, coste);
+                GameSystem.Instance.CaseData.documentManager.CreateDocument(_docName, docType, _docContent, true, cost);
+
+
+                _msgUIComponent._computerSystem.PingOverlayNotification("Nuevo cobro " + cost + ": " + _docName);
                 _msgUIComponent._computerSystem.ToggleNotification(Page.ClientChat, true);
+                _msgUIComponent._computerSystem.PingOverlayNotification("¡El cliente te ha mandado un documento!");
                 _msgUIComponent.EndPendingMessage("Tu cliente te ha mandado " + _docName + ".txt");
 
             }

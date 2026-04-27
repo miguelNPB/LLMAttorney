@@ -25,7 +25,7 @@ public class CheatsSystem : MonoBehaviour
     {
         if (_instance != null && _instance != this)
         { 
-            Destroy(this);
+            Destroy(gameObject);
             return;
         }
 
@@ -65,12 +65,12 @@ public class CheatsSystem : MonoBehaviour
             cheatMenu.GetComponentInChildren<TMP_InputField>().onEndEdit.AddListener(Phase1toPhase2);
         }
         
-        cheatMenu.SetActive(false);
+        if (cheatMenu != null)
+            cheatMenu.SetActive(false);
     }
 
     public void Phase1toPhase2(string text)
     {
-        Debug.Log(text);
         BudgetManager.Instance.SetBudget(text);
         SceneSystem.Instance.LoadPhase2();
     }

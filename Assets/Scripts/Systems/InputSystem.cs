@@ -36,7 +36,7 @@ public class InputSystem : MonoBehaviour
 
     public void CheatMenu(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && CheatsSystem.Instance.cheatMenu != null)
         {
             CheatsSystem.Instance.cheatMenu.gameObject.SetActive(!CheatsSystem.Instance.cheatMenu.activeSelf);
             if (SceneManager.GetActiveScene().name == "Phase2") CheatsSystem.Instance.cheatMenu.gameObject.SetActive(true);
@@ -51,7 +51,7 @@ public class InputSystem : MonoBehaviour
     private void Awake()
     {
         if (InputSystem.Instance != null && Instance != this)
-            Destroy(this);
+            Destroy(gameObject);
 
         if (!_initialized)
         {

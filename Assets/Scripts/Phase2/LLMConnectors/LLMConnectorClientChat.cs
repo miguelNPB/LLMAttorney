@@ -43,7 +43,10 @@ public class LLMConnectorClientChat : LLMConector
             GameSystem.Instance.CaseData.clientMessages.Add(conversationMessage);
 
             if (!_clientChatPage.IsOpen())
+            {
+                _computerSystem.PingOverlayNotification("¡Has recibido un mensaje del cliente!");
                 _computerSystem.ToggleNotification(Page.ClientChat, true);
+            }
 
 
             _promptSent = false;

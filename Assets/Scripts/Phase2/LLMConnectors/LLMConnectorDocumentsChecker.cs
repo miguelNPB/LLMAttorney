@@ -51,6 +51,7 @@ public class LLMConnectorDocumentsChecker : LLMConector
                 {
                     _historical.Add("Respuesta: texto final sin coherencia");
                     _msgUIComponent._computerSystem.ToggleNotification(Page.ClientChat, true);
+                    _msgUIComponent._computerSystem.PingOverlayNotification("¡Has recibido un mensaje del cliente!");
                     _msgUIComponent.EndPendingMessage("Perdona pero no he podido conseguir el documento, ¿Puedes ser un poco mas especifico?");
                     TelemetryDispatch.SendNotConsistentAnswer(_messageID);
                 }

@@ -560,7 +560,7 @@ namespace Telemetry
             }
             else
             {
-                Destroy(this);
+                Destroy(gameObject);
             }
         }
 

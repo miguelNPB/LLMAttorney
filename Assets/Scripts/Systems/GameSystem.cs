@@ -2,22 +2,13 @@ using UnityEngine;
 
 public class GameSystem : MonoBehaviour
 {
+    [SerializeField] private Notepad _notepad;
+
     private static GameSystem instance = null;
     private bool initialized = false;
     public static GameSystem Instance
     {
-        get
-        {
-            if (instance == null)
-            {
-                instance = FindFirstObjectByType<GameSystem>();
-                if (instance != null && instance._caseData == null)
-                {
-                    instance.Init();
-                }
-            }
-            return instance;
-        }
+        get {  return instance; }
     }
     private CaseData _caseData = null; 
     public CaseData CaseData { get { return _caseData; } }
@@ -49,7 +40,22 @@ public class GameSystem : MonoBehaviour
     /// </summary>
     public void ResetCaseData()
     {
+        
         CreateExampleCaseData();
+    }
+
+    /// <summary>
+    /// Activa o dessactiva el notepad
+    /// </summary>
+    /// <param name="on"></param>
+    public void ToggleNotepad(bool on)
+    {
+        _notepad.ToggleNotepad(on);
+    }
+
+    public void ResetNotepad()
+    {
+        _notepad.ResetText();
     }
 
     private void Init()
@@ -63,9 +69,9 @@ public class GameSystem : MonoBehaviour
 
     private void Awake()
     {
-        if (GameSystem.Instance != null && Instance != this)
+        if (GameSystem.Instance != null)
         {
-            Destroy(this);
+            Destroy(gameObject);
             return;
         }
 

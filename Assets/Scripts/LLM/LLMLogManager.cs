@@ -51,7 +51,7 @@ public class LLMLogManager : MonoBehaviour
         }
         else
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 }

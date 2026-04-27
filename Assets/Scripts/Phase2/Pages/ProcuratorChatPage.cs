@@ -68,7 +68,10 @@ public class ProcuratorChatPage : ChatPage {
         EndPendingMessage(answer);
 
         if (!_isOpen)
+        {
+            _computerSystem.PingOverlayNotification("¡Has recibido un mensaje del procurador!");
             _computerSystem.ToggleNotification(Page.ProcuratorChat, true);
+        }
     }
   
     private IEnumerator processDocument(string docName)
@@ -174,7 +177,10 @@ public class ProcuratorChatPage : ChatPage {
         EndPendingMessage(summary);
 
         if (!_isOpen)
+        {
             _computerSystem.ToggleNotification(Page.ProcuratorChat, true);
+            _computerSystem.PingOverlayNotification("¡Has recibido un mensaje del procurador!");
+        }
     }
 
     public void CancelPendingOpponentMessage()

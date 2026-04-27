@@ -45,7 +45,7 @@ public class SceneSystem : MonoBehaviour
     {
         if (SceneSystem.Instance != null)
         {
-            Destroy(this);
+            Destroy(gameObject);
             return;
         }
 
