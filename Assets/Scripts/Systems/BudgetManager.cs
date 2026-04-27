@@ -147,6 +147,11 @@ public class BudgetManager : MonoBehaviour
         OnBudgetChanged?.Invoke();
     }
 
+    public void AddBudget(string budgetToAdd)
+    {
+        CurrentBudget += int.Parse(budgetToAdd);
+    }
+
     private static float FindGreatestNumber(string text)
     {
         MatchCollection matches = Regex.Matches(text, @"\d+(?:[.,]\d+)?");
@@ -215,4 +220,5 @@ public class BudgetManager : MonoBehaviour
                 SceneManager.LoadScene(bankruptcySceneName);
         }
     }
+
 }

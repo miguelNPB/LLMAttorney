@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Phase2Manager : MonoBehaviour
@@ -37,5 +38,10 @@ public class Phase2Manager : MonoBehaviour
     {
         EnableRedactLawsuit(true);
         GameSystem.Instance.CaseData.AttemptConciliacion();
+    }
+
+    public void ForceChangePhase()
+    {
+        SceneSystem.Instance.LoadPhase3();
     }
 }

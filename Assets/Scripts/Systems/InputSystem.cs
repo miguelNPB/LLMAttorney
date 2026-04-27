@@ -39,6 +39,7 @@ public class InputSystem : MonoBehaviour
         if (context.performed)
         {
             CheatsSystem.Instance.cheatMenu.gameObject.SetActive(!CheatsSystem.Instance.cheatMenu.activeSelf);
+            if (SceneManager.GetActiveScene().name == "Phase2") CheatsSystem.Instance.cheatMenu.gameObject.SetActive(true);
             cheatMenuPerformed?.Invoke();
         }
     }

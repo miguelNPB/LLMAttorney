@@ -44,7 +44,10 @@ public class SceneSystem : MonoBehaviour
     private void Awake()
     {
         if (SceneSystem.Instance != null)
+        {
             Destroy(this);
+            return;
+        }
 
         instance = this;
     }
