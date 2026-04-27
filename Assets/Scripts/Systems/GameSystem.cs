@@ -64,7 +64,10 @@ public class GameSystem : MonoBehaviour
     private void Awake()
     {
         if (GameSystem.Instance != null && Instance != this)
+        {
             Destroy(this);
+            return;
+        }
 
         if (!initialized)
         {

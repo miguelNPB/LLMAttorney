@@ -9,18 +9,13 @@ public class LLMConnectorOpponentDocuments : LLMConector
     [Serializable]
     private class OpponentDocResponse
     {
-        public string NombreDocumento;
-        public int    TipoDocumento;
-        public string ContenidoDocumento;
-        public bool   DocumentoValido;
-        public int    CosteDocumento;
-        public string answer;
+        public string content;
     }
     
 
     [SerializeField] private ProcuratorChatPage _procuradorPage;
 
-    [SerializeField] public string oppPrompt;
+    public string oppPrompt;
 
     private int _messageID;
 
@@ -28,20 +23,10 @@ public class LLMConnectorOpponentDocuments : LLMConector
     protected override void createJsonSchemas()
     {
         _contextSchema = new JsonSchema();
-        _contextSchema.properties.Add("NombreDocumento",    new PropertyInfo(JsonDataType.String));
-        _contextSchema.properties.Add("TipoDocumento",      new PropertyInfo(JsonDataType.Integer));
-        _contextSchema.properties.Add("ContenidoDocumento", new PropertyInfo(JsonDataType.String));
-        _contextSchema.properties.Add("DocumentoValido",    new PropertyInfo(JsonDataType.Boolean));
-        _contextSchema.properties.Add("CosteDocumento",     new PropertyInfo(JsonDataType.Integer));
-        _contextSchema.properties.Add("answer",             new PropertyInfo(JsonDataType.String));
+        _contextSchema.properties.Add("content", new PropertyInfo(JsonDataType.String));
 
         _stepsSchema = new JsonSchema();
-        _stepsSchema.properties.Add("NombreDocumento",    new PropertyInfo(JsonDataType.String));
-        _stepsSchema.properties.Add("TipoDocumento",      new PropertyInfo(JsonDataType.Integer));
-        _stepsSchema.properties.Add("ContenidoDocumento", new PropertyInfo(JsonDataType.String));
-        _stepsSchema.properties.Add("DocumentoValido",    new PropertyInfo(JsonDataType.Boolean));
-        _stepsSchema.properties.Add("CosteDocumento",     new PropertyInfo(JsonDataType.Integer));
-        _stepsSchema.properties.Add("answer",             new PropertyInfo(JsonDataType.String));
+        _stepsSchema.properties.Add("content", new PropertyInfo(JsonDataType.String));
 
         _schemasCreated = true;
     }
@@ -80,13 +65,13 @@ public class LLMConnectorOpponentDocuments : LLMConector
             return;
         }
 
-        if (response == null || !response.DocumentoValido)
+        if (response == null)
         {
             TelemetryDispatch.SendNotConsistentAnswer(_messageID);
             _procuradorPage.CancelPendingOpponentMessage();
             return;
         }
-
+        /*
         string log =
                 $"[Fase: {SceneManager.GetActiveScene().buildIndex}] [Envio: {_messageID}] Nombre del documento del rival: {response.NombreDocumento}.\n\n" +
                 $"Tipo de documento: {(DocumentType)response.TipoDocumento}\n" +
@@ -106,6 +91,7 @@ public class LLMConnectorOpponentDocuments : LLMConector
             true,
             true
         );
+        */
 
         _procuradorPage.ReceiveOpponentDocMessage("Has recibido un documento de la parte del damandado.");
     }
@@ -179,33 +165,6 @@ public class LLMConnectorOpponentDocuments : LLMConector
         return false;
 
     }
-
-
-
-    // protected override bool SendContextMessage(int indexConfig = 0)
-    // {
-    //     _procuradorPage.StartPendingOpponentMessage();
-
-    //     bool sent = base.SendContextMessage(indexConfig);
-
-    //     if (!sent)
-    //        _procuradorPage.CancelPendingOpponentMessage();
-
-    //     return sent;
-    // }
-
-    // protected override bool SendSecuritySteps(string prompt)
-    // {
-    //     _procuradorPage.StartPendingOpponentMessage();
-
-    //     bool sent = base.SendSecuritySteps(prompt);
-
-    //     if (!sent)
-    //         return false;
-    //         _procuradorPage.CancelPendingOpponentMessage();
-
-    //     return sent;
-    // }
 
     protected override bool sendSecuritySteps(string prompt)
     {

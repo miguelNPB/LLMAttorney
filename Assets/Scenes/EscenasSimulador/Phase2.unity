@@ -2663,12 +2663,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdb10bfa7b77f2f4c8627faf0c06a4c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OpponentDocProcuration
-  config:
-    minIntervalSeconds: 3
-    maxIntervalSeconds: 10
-    maxStartingDocs: 5
-    docThemes: []
-  _llmConnector: {fileID: 1330613494}
+  minIntervalSeconds: 60
+  maxIntervalSeconds: 180
+  maxStartingDocs: 5
+  docValidThemes: []
+  docInvalidThemes: []
+  _llmConnectorOpponentDocGeneration: {fileID: 0}
+  _llmConnectorOpponentDocList: {fileID: 0}
+  _generateDocumentsListConfig: {fileID: 0}
+  _procuradorPage: {fileID: 8220094570629320639}
 --- !u!1 &545925051
 GameObject:
   m_ObjectHideFlags: 0
