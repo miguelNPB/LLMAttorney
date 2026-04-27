@@ -127,12 +127,10 @@ public class ConciliationPage : IPage
 
         if (random > GameSystem.Instance.CaseData.conciliationRivalInstantRejectProbability)
         {
-            Debug.Log("Prompt normal rival decision");
             yield return StartCoroutine(_llmConnector.SendRivalPromptNormal());
         }
         else
         {
-            Debug.Log("Prompt instant rival rejection");
             yield return StartCoroutine(_llmConnector.SendRivalPromptRejectionConfirmed());
         }
 

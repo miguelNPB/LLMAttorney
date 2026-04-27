@@ -67,7 +67,6 @@ public class BudgetTicketUI : MonoBehaviour
     {
         if (expenseEntryPrefab == null || expensesListContainer == null) return;
 
-        Debug.Log("SpawnRow " + title);
 
         GameObject row = Instantiate(expenseEntryPrefab, expensesListContainer);
  

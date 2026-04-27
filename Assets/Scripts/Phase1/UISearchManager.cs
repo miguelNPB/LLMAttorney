@@ -62,7 +62,8 @@ public class UISearchManager : MonoBehaviour
 
     public void PressAccessButton()
     {
-        Debug.Log(!_searchMenuView.activeSelf);
+        
+        (!_searchMenuView.activeSelf);
         _searchMenuView.SetActive(!_searchMenuView.activeSelf);
     }
 

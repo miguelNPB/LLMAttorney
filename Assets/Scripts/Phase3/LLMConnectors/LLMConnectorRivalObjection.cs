@@ -39,7 +39,6 @@ public class LLMConnectorRivalObjection : LLMConector
         if (success)
         {
             RivalObjectionResponse response = JsonUtility.FromJson<RivalObjectionResponse>(answer);
-            Debug.Log("Valid: " + response.valid);
             _onRecievePrompt?.Invoke(response.valid);
         }
         else

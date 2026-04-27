@@ -40,16 +40,12 @@ public class ProcuratorChatPage : ChatPage {
         }
 
 
-        Debug.Log("Documentos que mostrar en el apartado del procurador: " + documents.Count);
-
         // instanciar prefabs ui
         for (int i = 0; i < documents.Count; i++)
         {
             GameObject documentInstanced = Instantiate(_procuradorDocUIPrefab, _docsUIContainer.transform);
 
             documentInstanced.GetComponent<ProcuratorUIDocument>().Init(this, documents[i]);
-
-            Debug.Log("Documento " + i + " instanciado en la posicion " + documentInstanced.transform.position);
         }
     }
 
