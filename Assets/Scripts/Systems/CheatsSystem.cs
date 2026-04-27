@@ -69,8 +69,6 @@ public class CheatsSystem : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("Loaded scene: " + scene.name);
-
         
 
         cheatMenu = GameObject.FindGameObjectWithTag("CheatMenu");

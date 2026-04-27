@@ -65,9 +65,6 @@ namespace Telemetry
         /// <param name="phaseID"></param>
         public void SendNotConsistentAnswerEvent(int messageID, int phaseID)
         {
-
-            Debug.Log("Envio de evento de fakta de coherencia");
-
             //Establecimiento del numero de atributos
             const int attributeCount = 4;
 
@@ -119,9 +116,6 @@ namespace Telemetry
             //Escritura de directivas externas a atributos
             TelemetryUtils.WriteEventHeader(eventPtr, 0, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
 
-            Debug.Log("Se envio del todo");
-
-            //TODO Envio del evento
             SubmitEvent(eventPtr);
         }
 
@@ -517,8 +511,6 @@ namespace Telemetry
 
             string filePath = System.IO.Path.Combine(Application.persistentDataPath, "telemetry_events_" + numSession + "_" + _userID + ".json");
 
-            Debug.Log(filePath);
-
             try
             {
                 _trackerHandle = TelemetryNative.CreateTracker(
@@ -530,7 +522,7 @@ namespace Telemetry
 
                 if (_trackerHandle == IntPtr.Zero)
                 {
-                    Debug.Log("No se pudo abrir el archivo");
+                    Debug.LogError("No se pudo abrir el archivo");
                 }
             }
             catch (System.EntryPointNotFoundException)

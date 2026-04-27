@@ -33,7 +33,7 @@ public class LLMConnectorClientChat : LLMConector
             // deserializamos la respuesta
             ClientChatResponse jsonResponse = JsonUtility.FromJson<ClientChatResponse>(answer);
             string response = jsonResponse.answer;
-            Debug.Log("Respuesta cruda: " + response);
+
 
             _clientChatPage.EndPendingMessage(response);
 

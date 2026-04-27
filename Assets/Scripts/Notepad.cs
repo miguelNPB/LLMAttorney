@@ -69,7 +69,6 @@ public class Notepad : MonoBehaviour
 
     void OnClick()
     {
-        Debug.Log("Clicked I have been");
         
         if (isAtEndingPos)
         {
