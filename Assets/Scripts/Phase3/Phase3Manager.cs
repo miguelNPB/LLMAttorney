@@ -189,7 +189,7 @@ public class Phase3Manager : MonoBehaviour
             {
                 timer += Time.deltaTime;
 
-                _remainingTimeToObjectText.text = (Mathf.Round(waitingObjectionTime - timer) * 0.1f).ToString();
+                _remainingTimeToObjectText.text = (waitingObjectionTime - timer).ToString("F1");
 
                 yield return null;
             }

@@ -1053,7 +1053,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Phase3Manager
   _rivalObjectionChance: 0.5
   _minTimeBetweenTexts: 5
-  _maxTimeBetweenTexts: 7
+  _maxTimeBetweenTexts: 5
   _minTimeBetweenDocuments: 5
   _maxTimeBetweenDocuments: 10
   _judgeInitialSpeech:
@@ -1099,6 +1099,7 @@ MonoBehaviour:
   _objectionButton: {fileID: 180628293}
   _judgeAnimator: {fileID: 1840472982}
   _llmConnectorRivalObjection: {fileID: 784846286}
+  _remainingTimeToObjectText: {fileID: 1256212896}
 --- !u!4 &784846283
 Transform:
   m_ObjectHideFlags: 0
@@ -1145,9 +1146,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84503debfc911554ea92ac374c8dab56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::JudgePatienceSystem
-  _minPunishDecrement: 0.2
-  _maxPunishDecrement: 0.15
-  _minPatienceValue: 0.4
+  _minPunishDecrement: 0.15
+  _maxPunishDecrement: 0.25
+  _minPatienceValue: 0.3
   _animationDuration: 0.5
   _animator: {fileID: 164594844}
   _holder: {fileID: 164594842}

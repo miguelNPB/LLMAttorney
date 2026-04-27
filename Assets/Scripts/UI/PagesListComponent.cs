@@ -92,9 +92,13 @@ public class PagesListComponent : MonoBehaviour
             Debug.LogError("Lista de pages vacia");
             return;
         }
+        
+        if (rightButton != null)
+            rightButton.SetActive(false);
 
-        rightButton.SetActive(false);
-        leftButton.SetActive(false);
+        if (leftButton != null)
+            leftButton.SetActive(false);
+
         foreach (GameObject page in pages)
         {
             page.SetActive(false);
