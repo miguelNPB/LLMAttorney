@@ -1,12 +1,7 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Telemetry;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Experimental.AI;
-using UnityEngine.UI;
-using UnityEngine.WSA;
 
 /// <summary>
 /// Pagina para gestionar el sistema de mensajes con el procurador
