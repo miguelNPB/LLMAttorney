@@ -494,7 +494,7 @@ namespace Telemetry
             TelemetryUtils.WriteAttributeInt32(attributesBase, 3, (int)AtributesNameId.phaseID, phaseID);
 
             //Escritura de directivas externas a atributos
-            TelemetryUtils.WriteEventHeader(eventPtr, 5, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
+            TelemetryUtils.WriteEventHeader(eventPtr, 6, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
 
             //TODO Envio del evento
             SubmitEvent(eventPtr);
