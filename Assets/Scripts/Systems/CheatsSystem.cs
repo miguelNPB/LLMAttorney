@@ -29,8 +29,8 @@ public class CheatsSystem : MonoBehaviour
 
         docManager.CreateDocument("Testimonio de vecinos sobre la actitud de Ana", DocumentType.Witness, "Yo, Fran Bernabé, soy vecino del edificio, y rara vez he visto a Ana ser amable o saludar a vecinos. Además hace mucho que no la veo en juntas de comunidad de vecinos, se podría decir que nos tiene olvidados.", true, 0, false, false);
 
+        /*
         bool relevant = true;
-
         docManager.CreateDocument("Factura de reparación de tuberías 2012", DocumentType.ReceiptFacture, "Se adjunta una factura de una reparación integral de todas las tuberías a causa de un reventón por frío de unas tuberías. Se sustituyeron todas las tuberías antiguas por unas nuevas en toda la casa.", relevant, 0, true, true);
 
         docManager.CreateDocument("Informe del origen de la fuga de agua", DocumentType.Report, "Se ha realizado una investigación y no se puede determinar el origen concreto de la fuga de agua a la casa de Pedro. Dado que la zona afectada es tan grande, pasa por zonas de tuberías de la comunidad como por zonas de tuberías de la casa de Ana, por lo que no hay pruebas concluyentes de que la fuga provenga de una tubería de Ana.", relevant, 0, true, true);
@@ -40,6 +40,7 @@ public class CheatsSystem : MonoBehaviour
         docManager.CreateDocument("Testimonio de Juan Pérez", DocumentType.Witness, "Yo, Juan Pérez, estuve en casa de mi prima Ana el pasado fin de semana. Miré por encima el baño y no vi ninguna fuga. Las tuberías se ven secas. Creo que el problema de abajo es porque el edificio es viejo y las bajantes de la comunidad están mal.", relevant, 0, true, true);
 
         docManager.CreateDocument("Conversación de whatsapp", DocumentType.Report, "Se adjunta una conversación de whatsapp donde Ana habla con otra vecina donde la vecina se queja de que Pedro es un exagerado y suele decir que las cosas son más grandes de las que son, y que seguramente quiere que Ana le pague los daños pero para pintarse la casa gratis.", relevant, 0, true, true);
+        */
     }
 
     private void Awake()
