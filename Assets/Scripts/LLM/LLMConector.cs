@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public abstract class LLMConector : MonoBehaviour
 {
@@ -88,6 +89,9 @@ public abstract class LLMConector : MonoBehaviour
             }
 
             _historical.Add("Pregunta: " + prompt);
+
+            string log =
+                $"[Fase: {SceneManager.GetActiveScene().buildIndex}] [Envio: Pregunta] Pregunta a LLM: {prompt}.\n\n";
 
             _promptSent = true;
 
