@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Telemetry;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Pagina para gestionar el sistema de mensajes con el procurador
@@ -47,6 +48,9 @@ public class ProcuratorChatPage : ChatPage {
 
             documentInstanced.GetComponent<ProcuratorUIDocument>().Init(this, documents[i]);
         }
+
+        Canvas.ForceUpdateCanvases();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_docsUIContainer.GetComponent<RectTransform>());
     }
 
     /// <summary>

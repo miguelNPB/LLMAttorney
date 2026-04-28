@@ -44,6 +44,12 @@ public class GameSystem : MonoBehaviour
         CreateExampleCaseData();
     }
 
+
+    public void DEBUG_ClearPlayerDocs()
+    {
+        _caseData.documentManager.DEBUG_ClearPlayerDocs();
+    }
+
     /// <summary>
     /// Activa o dessactiva el notepad
     /// </summary>

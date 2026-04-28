@@ -16,7 +16,7 @@ public class CheatsSystem : MonoBehaviour
     /// </summary>
     public void UsePremadeDocuments()
     {
-        GameSystem.Instance.ResetCaseData();
+        GameSystem.Instance.DEBUG_ClearPlayerDocs();
 
         DocumentManager docManager = GameSystem.Instance.CaseData.documentManager;
 
