@@ -14,9 +14,6 @@ public class LLMConectorPreClientMeeting : LLMConector
     [SerializeField]
     private LLMConectorClientMeeting _clientMeetingConector;
 
-    [SerializeField]
-    private BudgetManager _budgetManager;
-
     private string _text;
     private int _messageID = -1;
 
@@ -48,7 +45,7 @@ public class LLMConectorPreClientMeeting : LLMConector
 
                     LLMLogManager.Instance.LogMessageSent(log, _messageID);
 
-                    _budgetManager.SetBudgetFromLLM(_text, jsonResponse.dinero_presupuestado);
+                    BudgetManager.Instance.SetBudgetFromLLM(_text, jsonResponse.dinero_presupuestado);
                     _clientMeetingConector.CallSendContext(_text, _messageID);
 
                 }
