@@ -21,4 +21,4 @@ COPY . .
 EXPOSE 8000
 
 # ejecutamos el docker
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["gunicorn", "-w", "1", "-k", "uvicorn.workers.UvicornWorker", "main:app", "--bind", "0.0.0.0:8000", "--timeout", "900"]
