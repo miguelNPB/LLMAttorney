@@ -1,6 +1,7 @@
-using System.Collections.Generic;
-using UnityEngine;
 using System;
+using System.Collections.Generic;
+using Telemetry;
+using UnityEngine;
 
 public class LLMConnectorTextSentence : LLMConector
 {
@@ -16,6 +17,7 @@ public class LLMConnectorTextSentence : LLMConector
 
     private Action<string> _onRecievePrompt;
     private string _basePrompt;
+    private int _messageID;
     public void PromptTextSentence(bool playerWin, Action<string> onRecievePrompt)
     {
         _onRecievePrompt = onRecievePrompt;
@@ -48,6 +50,8 @@ public class LLMConnectorTextSentence : LLMConector
         _prompt = _prompt.Replace("¡", GameSystem.Instance.CaseData.demandedEntityName);
 
 
+        _messageID = LLMLogManager.Instance.getMessageID();
+        Telemetry.TelemetryDispatch.SendQueryPost(_messageID);
 
         sendContextPrompt(_prompt, 0);
     }
@@ -63,6 +67,8 @@ public class LLMConnectorTextSentence : LLMConector
 
     protected override void receiveResponse(bool success, string answer)
     {
+        TelemetryDispatch.SendQueryReceived(_messageID);
+
         if (success)
         {
             TextSentenceResponse response = JsonUtility.FromJson<TextSentenceResponse>(answer);

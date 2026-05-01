@@ -138,8 +138,7 @@ public class LLMConnectorConciliation : LLMConector
         // sacar el booleano true o false
         _contextSchema = _boolSchema;
 
-        _messageID = LLMLogManager.Instance.getNumMessageSent();
-        LLMLogManager.Instance.addMessageSent();
+        _messageID = LLMLogManager.Instance.getMessageID();
         TelemetryDispatch.SendQueryPost(_messageID);
 
         sendContextPrompt(inputFieldText, 0);
@@ -156,8 +155,7 @@ public class LLMConnectorConciliation : LLMConector
         _contextSchema = _stringSchema;
         _config[2].context = GetTextPromptClientAnswer(_agree);
 
-        _messageID = LLMLogManager.Instance.getNumMessageSent();
-        LLMLogManager.Instance.addMessageSent();
+        _messageID = LLMLogManager.Instance.getMessageID();
         TelemetryDispatch.SendQueryPost(_messageID);
 
         sendContextPrompt(inputFieldText,2);
@@ -186,8 +184,7 @@ public class LLMConnectorConciliation : LLMConector
         // mandar prompt para sacar el booleano true o false
         _contextSchema = _boolSchema;
 
-        _messageID = LLMLogManager.Instance.getNumMessageSent();
-        LLMLogManager.Instance.addMessageSent();
+        _messageID = LLMLogManager.Instance.getMessageID();
         TelemetryDispatch.SendQueryPost(_messageID);
 
         sendContextPrompt(inputFieldText, 1);
@@ -203,8 +200,7 @@ public class LLMConnectorConciliation : LLMConector
         _contextSchema = _stringSchema;
         _config[3].context = GetTextPromptRivalAnswer(_agree);
 
-        _messageID = LLMLogManager.Instance.getNumMessageSent();
-        LLMLogManager.Instance.addMessageSent();
+        _messageID = LLMLogManager.Instance.getMessageID();
         TelemetryDispatch.SendQueryPost(_messageID);
 
         // mandar prompt  de texto
@@ -232,8 +228,7 @@ public class LLMConnectorConciliation : LLMConector
         currentPromptType = CurrentPromptType.RivalRechazar;
         _agree = false;
 
-        _messageID = LLMLogManager.Instance.getNumMessageSent();
-        LLMLogManager.Instance.addMessageSent();
+        _messageID = LLMLogManager.Instance.getMessageID();
         TelemetryDispatch.SendQueryPost(_messageID);
 
         sendContextPrompt(3);

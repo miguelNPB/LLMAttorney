@@ -1200,6 +1200,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 9150854484525700809, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
+      propertyPath: ip
+      value: 192.168.1.172
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

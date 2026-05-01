@@ -195,8 +195,7 @@ public class LLMConnectorOpponentDocuments : LLMConector
 
     public void CallSendContext(int indexConfig = 0)
     {
-        _messageID = LLMLogManager.Instance.getNumMessageSent();
-        LLMLogManager.Instance.addMessageSent();
+        _messageID = LLMLogManager.Instance.getMessageID();
 
         TelemetryDispatch.SendQueryPost(_messageID);
 

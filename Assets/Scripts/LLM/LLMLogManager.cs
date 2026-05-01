@@ -23,14 +23,9 @@ public class LLMLogManager : MonoBehaviour
         Debug.Log(log);
     }
 
-    public int getNumMessageSent()
+    public int getMessageID()
     {
-        return _messageSent;
-    }
-
-    public void addMessageSent()
-    {
-        _messageSent++;
+        return System.DateTime.Now.Millisecond;
     }
 
     private void HandleLog(string logString, string stackTrace, LogType type)

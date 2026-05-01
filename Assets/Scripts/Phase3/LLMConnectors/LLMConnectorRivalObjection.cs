@@ -15,6 +15,8 @@ public class LLMConnectorRivalObjection : LLMConector
 
     private Action<bool> _onRecievePrompt;
     private string _baseContext;
+    private int _messageID;
+
     public void SendPrompt(string documentContent, Action<bool> onRecievePrompt)
     {
         _onRecievePrompt = onRecievePrompt;
@@ -24,6 +26,9 @@ public class LLMConnectorRivalObjection : LLMConector
 
         _promptSent = false;
         sendContextPrompt(_prompt, 0);
+
+        _messageID = LLMLogManager.Instance.getMessageID();
+        Telemetry.TelemetryDispatch.SendQueryPost(_messageID);
     }
 
     protected override void createJsonSchemas()
@@ -36,6 +41,8 @@ public class LLMConnectorRivalObjection : LLMConector
 
     protected override void receiveResponse(bool success, string answer)
     {
+        Telemetry.TelemetryDispatch.SendQueryReceived(_messageID);
+
         if (success)
         {
             RivalObjectionResponse response = JsonUtility.FromJson<RivalObjectionResponse>(answer);

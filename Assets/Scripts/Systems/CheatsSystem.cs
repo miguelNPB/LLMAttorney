@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using Telemetry;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
