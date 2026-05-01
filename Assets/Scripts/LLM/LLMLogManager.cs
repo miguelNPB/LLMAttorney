@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using Telemetry;
 using UnityEngine;
@@ -25,7 +26,7 @@ public class LLMLogManager : MonoBehaviour
 
     public int getMessageID()
     {
-        return System.DateTime.Now.Millisecond;
+        return Guid.NewGuid().GetHashCode() & int.MaxValue;
     }
 
     private void HandleLog(string logString, string stackTrace, LogType type)

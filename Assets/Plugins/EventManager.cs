@@ -174,7 +174,7 @@ namespace Telemetry
             TelemetryUtils.WriteAttributeInt64(attributesBase, 0, (int)AtributesNameId.sessionID, _sessionID);
             TelemetryUtils.WriteAttributeInt64(attributesBase, 1, (int)AtributesNameId.userID, _userID);
             TelemetryUtils.WriteAttributeInt32(attributesBase, 2, (int)AtributesNameId.messageID, messageID);
-            TelemetryUtils.WriteAttributeInt32(attributesBase, 4, (int)AtributesNameId.price, price);
+            TelemetryUtils.WriteAttributeInt32(attributesBase, 3, (int)AtributesNameId.price, price);
 
 
             //Escritura de directivas externas a atributos
