@@ -107,7 +107,7 @@ public enum API_TYPE { LLAMA }
 /**
  * Clase Singleton que sirve para hacer llamadas a nuestro servidor LLMAttorney
  */
-public class LLMAttorney_API : MonoBehaviour
+public class LLMSystemAPI : MonoBehaviour
 {
     // nombre de la ip, si es local poner localhost
     public string ip = "localhost";
@@ -116,7 +116,7 @@ public class LLMAttorney_API : MonoBehaviour
     private bool _sendingPrompt = false;
     private bool _invalidPrompt = false;
 
-    public static LLMAttorney_API Instance { get; private set; }
+    public static LLMSystemAPI Instance { get; private set; }
 
     /**
      * Convierte API_TYPE a string

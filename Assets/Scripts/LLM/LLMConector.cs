@@ -187,7 +187,7 @@ public abstract class LLMConector : MonoBehaviour
 
         float timer = 0;
 
-        while (!LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, receiveResponse, prompt, configLLM, schema,
+        while (!LLMSystemAPI.Instance.SendPrompt(API_TYPE.LLAMA, receiveResponse, prompt, configLLM, schema,
             _config[_indexConfig].getTemperature(), false))
         {
             timer += Time.deltaTime;
@@ -202,7 +202,7 @@ public abstract class LLMConector : MonoBehaviour
 
         float timer = 0;
 
-        while (!LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, receiveResponse, prompt, configLLM, schema,
+        while (!LLMSystemAPI.Instance.SendPrompt(API_TYPE.LLAMA, receiveResponse, prompt, configLLM, schema,
             _config[_indexConfig].getTemperature(), _config[_indexConfig].getRagUse(), (int)_config[_indexConfig].getRagFileType()))
         {
             timer += Time.deltaTime;
@@ -215,6 +215,8 @@ public abstract class LLMConector : MonoBehaviour
     private void OnDisable()
     {
         StopAllCoroutines();
-        LLMAttorney_API.Instance.CancelPrompt();
+
+        if (_promptSent)
+            LLMSystemAPI.Instance.CancelPrompt();
     }
 }
