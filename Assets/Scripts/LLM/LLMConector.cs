@@ -215,5 +215,6 @@ public abstract class LLMConector : MonoBehaviour
     private void OnDisable()
     {
         StopAllCoroutines();
+        LLMAttorney_API.Instance.CancelPrompt();
     }
 }

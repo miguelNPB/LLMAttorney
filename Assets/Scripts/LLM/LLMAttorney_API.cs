@@ -114,6 +114,7 @@ public class LLMAttorney_API : MonoBehaviour
     public int port = 8000;
 
     private bool _sendingPrompt = false;
+    private bool _invalidPrompt = false;
 
     public static LLMAttorney_API Instance { get; private set; }
 
@@ -145,6 +146,14 @@ public class LLMAttorney_API : MonoBehaviour
                 UpdateRequiredField(prop);
             }
         }
+    }
+
+    /// <summary>
+    /// Invaida un prompt en curso
+    /// </summary>
+    public void CancelPrompt()
+    {
+        _invalidPrompt = true;
     }
 
     /**
@@ -226,7 +235,7 @@ public class LLMAttorney_API : MonoBehaviour
     /// <param name="max_length"></param>
     /// <returns></returns>
     /// 
-    public IEnumerator SendPromptAsync(API_TYPE apiType, Action<bool, string> onComplete, string prompt, string LLMConfig, JsonSchema schema = null, float temperature = 0.8f, bool ragUse = false, int ragIndex = 0, int max_length = 99999)
+    public IEnumerator SendPromptCoroutine(API_TYPE apiType, Action<bool, string> onComplete, string prompt, string LLMConfig, JsonSchema schema = null, float temperature = 0.8f, bool ragUse = false, int ragIndex = 0, int max_length = 99999)
     {
 
         if (_sendingPrompt)
@@ -303,8 +312,15 @@ public class LLMAttorney_API : MonoBehaviour
         bool success = www.result == UnityWebRequest.Result.Success;
         string response = success ? recievedString : ("Error LLMAtorney: " + www.error);
 
-
-        onComplete?.Invoke(success, response);
+        if (!_invalidPrompt)
+        {
+            onComplete?.Invoke(success, response);
+        }
+        else
+        {
+            Debug.LogWarning("Prompt invalidado porque el gameobject del callback asociado ha sido desactivado o destruido");
+            _invalidPrompt = false;
+        }
 
         if (!success)
         {

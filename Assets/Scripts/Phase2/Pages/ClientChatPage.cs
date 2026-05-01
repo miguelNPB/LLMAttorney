@@ -76,7 +76,7 @@ public class ClientChatPage : ChatPage
 
                 Devuelve dicho valor en la variable documentQueryType";
 
-        yield return LLMAttorney_API.Instance.SendPromptAsync(API_TYPE.LLAMA, getPromptTypeFromPrompt, prompt, configLLM, schema);
+        yield return LLMAttorney_API.Instance.SendPromptCoroutine(API_TYPE.LLAMA, getPromptTypeFromPrompt, prompt, configLLM, schema);
 
         Debug.Log("Ya se el tipo de documento que es: " + _lastTypePromptRequest);
 

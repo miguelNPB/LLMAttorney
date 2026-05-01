@@ -24,6 +24,7 @@ public class LLMConnectorClientChat : LLMConector
 
 
         _config[0].historicalConversation = conversation;
+        _promptSent = false;
         sendContextPrompt(0);
     }
     protected override void receiveResponse(bool success, string answer)
