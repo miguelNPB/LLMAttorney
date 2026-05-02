@@ -1051,11 +1051,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2b661d70b0e72d4fbb10068e239568b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Phase3Manager
-  _rivalObjectionChance: 0.5
-  _minTimeBetweenTexts: 5
-  _maxTimeBetweenTexts: 5
-  _minTimeBetweenDocuments: 5
-  _maxTimeBetweenDocuments: 10
+  _rivalObjectionChance: 1
+  _minTimeBetweenTexts: 1
+  _maxTimeBetweenTexts: 1
+  _minTimeBetweenDocuments: 1
+  _maxTimeBetweenDocuments: 3
   _judgeInitialSpeech:
   - "Buenos d\xEDas a todos. Se abre la sesi\xF3n. Hoy nos encontramos para celebrar
     la audiencia previa al pleito entre "
@@ -3168,7 +3168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WriteTextSystem
   _textContainer: {fileID: 8057441200944062110}
   _maxCharactersInContainer: 0
-  _typingSpeed: 0.05
+  _typingSpeed: 0.001
 --- !u!222 &438208304590824770
 CanvasRenderer:
   m_ObjectHideFlags: 0

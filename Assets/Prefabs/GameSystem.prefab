@@ -721,7 +721,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7378174376166987205}
-  - component: {fileID: 9150854484525700809}
+  - component: {fileID: 6590701534197148420}
   - component: {fileID: 5974792926367029468}
   m_Layer: 0
   m_Name: LLMSystem
@@ -745,7 +745,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 276294508596376722}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9150854484525700809
+--- !u!114 &6590701534197148420
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -754,10 +754,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3473967871559614549}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ae057d2ee9958f409c5b13790e76b92, type: 3}
+  m_Script: {fileID: 11500000, guid: bdf6f677057c95d49b0cb6039a5d4173, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LLMAttorney_API
-  ip: localhost
+  m_EditorClassIdentifier: Assembly-CSharp::LLMSystemAPI
+  ip: 192.168.1.172
   port: 8000
 --- !u!114 &5974792926367029468
 MonoBehaviour:

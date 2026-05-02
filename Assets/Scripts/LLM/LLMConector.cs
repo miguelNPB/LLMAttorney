@@ -63,6 +63,7 @@ public abstract class LLMConector : MonoBehaviour
 
         if (!_promptSent && _schemasCreated)
         {
+            _promptSent = true;
 
             if (_config.Length <= 0)
             {
@@ -92,8 +93,6 @@ public abstract class LLMConector : MonoBehaviour
 
             string log =
                 $"[Fase: {SceneManager.GetActiveScene().buildIndex}] [Envio: Pregunta] Pregunta a LLM: {prompt}.\n\n";
-
-            _promptSent = true;
 
             StartCoroutine(coroutineSendPrompt(prompt, configLLM, _contextSchema));
 
@@ -215,8 +214,5 @@ public abstract class LLMConector : MonoBehaviour
     private void OnDisable()
     {
         StopAllCoroutines();
-
-        if (_promptSent)
-            LLMSystemAPI.Instance.CancelPrompt();
     }
 }

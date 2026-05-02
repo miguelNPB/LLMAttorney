@@ -114,7 +114,6 @@ public class LLMSystemAPI : MonoBehaviour
     public int port = 8000;
 
     private bool _sendingPrompt = false;
-    private bool _invalidPrompt = false;
 
     public static LLMSystemAPI Instance { get; private set; }
 
@@ -148,13 +147,6 @@ public class LLMSystemAPI : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Invaida un prompt en curso
-    /// </summary>
-    public void CancelPrompt()
-    {
-        _invalidPrompt = true;
-    }
 
     /**
      * Manda un prompt y al recibir la respuesta del servidor llama al Action onComplete, con un booleano success y el string con el contenido.
@@ -312,14 +304,21 @@ public class LLMSystemAPI : MonoBehaviour
         bool success = www.result == UnityWebRequest.Result.Success;
         string response = success ? recievedString : ("Error LLMAtorney: " + www.error);
 
-        if (!_invalidPrompt)
+        bool isCallbackValid = onComplete != null;
+        if (isCallbackValid && onComplete.Target is UnityEngine.Object targetUnityObject)
+        {
+            if (targetUnityObject == null)
+            {
+                isCallbackValid = false;
+            }
+        }
+        if (isCallbackValid)
         {
             onComplete?.Invoke(success, response);
         }
         else
         {
             Debug.LogWarning("Prompt invalidado porque el gameobject del callback asociado ha sido desactivado o destruido");
-            _invalidPrompt = false;
         }
 
         if (!success)
