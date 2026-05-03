@@ -54,6 +54,7 @@ public class LLMConnectorDocumentsChecker : LLMConector
                     _msgUIComponent._computerSystem.PingOverlayNotification("¡Has recibido un mensaje del cliente!");
                     _msgUIComponent.EndPendingMessage("Perdona pero no he podido conseguir el documento, ¿Puedes ser un poco mas especifico?");
                     TelemetryDispatch.SendNotConsistentAnswer(_messageID);
+                    TelemetryDispatch.SendQueryReceived(_messageID);
                 }
 
             }

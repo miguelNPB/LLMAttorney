@@ -68,6 +68,7 @@ public class LLMConnectorOpponentDocuments : LLMConector
         if (response == null)
         {
             TelemetryDispatch.SendNotConsistentAnswer(_messageID);
+            TelemetryDispatch.SendQueryReceived(_messageID);
             _procuradorPage.CancelPendingOpponentMessage();
             return;
         }
