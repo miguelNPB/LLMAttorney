@@ -757,7 +757,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdf6f677057c95d49b0cb6039a5d4173, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LLMSystemAPI
-  ip: 192.168.1.172
+  ip: localhost
   port: 8000
 --- !u!114 &5974792926367029468
 MonoBehaviour:
