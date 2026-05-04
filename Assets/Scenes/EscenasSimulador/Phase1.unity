@@ -300,6 +300,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1406262492138250, guid: 484a23539f888db46b315bbb2ef59dca, type: 3}
   m_PrefabInstance: {fileID: 383718592}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &383718594 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1855537029926961677, guid: 484a23539f888db46b315bbb2ef59dca, type: 3}
+  m_PrefabInstance: {fileID: 383718592}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &771847229
 GameObject:
   m_ObjectHideFlags: 0
@@ -2749,7 +2754,7 @@ PrefabInstance:
     - target: {fileID: 5051894018414952572, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
       propertyPath: _changePhaseButton
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 383718594}
     - target: {fileID: 5213146876185325900, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
       propertyPath: m_Enabled
       value: 1
