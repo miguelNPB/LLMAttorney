@@ -34,7 +34,7 @@ if %ERRORLEVEL% NEQ 0 (
 
 echo Descargando el modelo (esto puede tardar la primera vez)...
 :: Cambia "llama3" por el modelo que quieras usar
-docker exec ollama-server ollama pull llama3
+docker exec ollama-server ollama pull qwen2.5:7b
 :: Descargando el modelo de embeddings
 docker exec -it ollama-server ollama pull nomic-embed-text
 
@@ -69,8 +69,8 @@ start "" ollama serve
 
 timeout /t 5 >nul
 
-echo Descargando modelo llama3...
-ollama pull llama3
+echo Descargando modelo...
+ollama pull qwen2.5:7b
 echo Descargando el modelo de embeddings
 ollama pull nomic-embed-text
 

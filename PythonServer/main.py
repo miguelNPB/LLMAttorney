@@ -6,7 +6,6 @@ from typing import Optional, Dict, Any
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 #Embeddings
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_ollama import OllamaEmbeddings
 #VectorStore
 from langchain_community.vectorstores.chroma import Chroma
@@ -14,12 +13,10 @@ from langchain_core.vectorstores import InMemoryVectorStore
 from langchain.tools import tool
 from pathlib import Path
 import httpx
-import requests
 import json
 import guidance
 from guidance import models, gen, select
 from guidance import json as gen_json
-import asyncio
 import datetime
 from dataclasses import dataclass
 
@@ -70,8 +67,6 @@ def load_RAG_file(archivo: ArchivoRag):
     path_civilCode = Path(archivo.pathGuardado)
     path_civilCode.mkdir(parents=True, exist_ok=True)
 
-    #EMBEDDINGS!
-    OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://localhost:11434")
 
     embeddingsRag = OllamaEmbeddings(
         model="nomic-embed-text",
@@ -131,11 +126,9 @@ def load_RAG_file(archivo: ArchivoRag):
 
         print(f"Tiempo de carga y vectorizacion: {b-a}")
 
-
-'''
-'''
 # --- Constantes
 
+OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://localhost:11434")
 OLLAMA_ENDPOINT_NVIDIA = "http://ollama-server:11434/v1"
 OLLAMA_ENDPOINT_AMD_VULKAN = "http://host.docker.internal:11434/v1"
 OLLAMA_USE_VULKAN = False
@@ -182,9 +175,8 @@ def retrieve_context(query: str, index: int = 0):
 
     return serialized, retrieved_docs
 
-
 # Crea la query y la ejecuta para Ollama
-async def sendLlamaQuery(prompt, LLMConfig, temperature, max_length, json_schema=None):
+def sendLlamaQuery(prompt, LLMConfig, temperature, max_length, json_schema=None):
     lm = models.OpenAI(
         model="qwen2.5:7b",  # Modelo Ollama
         base_url= OLLAMA_ENDPOINT_AMD_VULKAN if OLLAMA_USE_VULKAN else OLLAMA_ENDPOINT_NVIDIA, 
@@ -216,7 +208,7 @@ async def sendLlamaQuery(prompt, LLMConfig, temperature, max_length, json_schema
 
 # endpoint principal
 @app.post("/ask")
-async def ask_LLMAttorney(query: Query):
+def ask_LLMAttorney(query: Query):
 
 
     #Comprobacion de uso de rag y obtencio de contexto
@@ -243,11 +235,10 @@ async def ask_LLMAttorney(query: Query):
             f"{contexto}"  # Aqui se añade el contenido recuperado al final de la configuracion del LLM
         )
 
-
-    #Peticiones a los servidores de Llama que residen en los respectivos dockers
+    #Peticiones a los servidores de  Llama que residen en los respectivos dockers
     try:
         if query.mode == "Llama":
-            answer = await sendLlamaQuery(query.prompt, query.LLMConfig, query.temperature, query.max_length, query.json_schema)
+            answer = sendLlamaQuery(query.prompt, query.LLMConfig, query.temperature, query.max_length, query.json_schema)
         else:
             raise HTTPException(status_code=400)
         return answer
