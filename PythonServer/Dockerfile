@@ -7,14 +7,8 @@ WORKDIR /app
 # Primero instalamos dependencias 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install -U "langchain[google-genai]"
-RUN pip install -U "langchain[ollama]"
-RUN pip install -U langchain-chroma
-RUN pip install -qU langchain-google-genai
-RUN pip install -qU langchain-ollama
 
-
-# Copiamos el codigo y, si esta, el Gemini_APIKEY
+# Copiamos el codigo
 COPY . .
 
 # exponemos el puerto

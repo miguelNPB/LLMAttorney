@@ -20,6 +20,10 @@ docker rm -f ollama-server llmattorney-server >nul 2>&1
 :: 4. docker de ollama
 echo Intentando iniciar Ollama con soporte de GPU (NVIDIA)...
 
+:: Configuramos el server_config.json
+copy /y "%~dp0\configs\server_config_vulkan.json" "%~dp0\server_config.json" 
+echo "%~dp0\configs\server_config_vulkan.json" "%~dp0\server_config.json" 
+
 :: Intentar con soporte de GPU
 docker run -d --rm --gpus all -p 11434:11434 -v ollama:/root/.ollama --network ollama-net -e OLLAMA_HOST=http://ollama-server:11434 --name ollama-server ollama/ollama
 
