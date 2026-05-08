@@ -102,7 +102,6 @@ public class PropertyInfo
     }
 }
 
-public enum API_TYPE { LLAMA }
 
 /**
  * Clase Singleton que sirve para hacer llamadas a nuestro servidor LLMAttorney
@@ -116,20 +115,6 @@ public class LLMSystemAPI : MonoBehaviour
     private bool _sendingPrompt = false;
 
     public static LLMSystemAPI Instance { get; private set; }
-
-    /**
-     * Convierte API_TYPE a string
-     */
-    private string APItypeToString(API_TYPE type)
-    {
-        switch (type)
-        {
-            case API_TYPE.LLAMA:
-                return "Llama";
-            default:
-                return "";
-        }
-    }
 
 
     /// <summary>
@@ -160,7 +145,7 @@ public class LLMSystemAPI : MonoBehaviour
      * @param max_length Tokens maximos del texto, esto no usarlo mucho q no funciona muy bien
      * @return Devuelve true si se ha podido mandar, si no hay ningun prompt encolado
      */
-    public bool SendPrompt(API_TYPE apiType, Action<bool, string> onComplete, string prompt, string LLMConfig, JsonSchema schema = null, float temperature = 0.8f, bool ragUse = false, int ragIndex = 0, int max_length = 99999)
+    public bool SendPrompt(Action<bool, string> onComplete, string prompt, string LLMConfig, JsonSchema schema = null, float temperature = 0.8f, bool ragUse = false, int ragIndex = 0, int max_length = 99999)
     {
 
         if (_sendingPrompt)
@@ -171,7 +156,6 @@ public class LLMSystemAPI : MonoBehaviour
             // Crear la request
             var requestData = new LLMAttorneyRequest
             {
-                mode = APItypeToString(apiType),
                 LLMConfig = LLMConfig,
                 prompt = prompt,
                 temperature = temperature,
@@ -195,7 +179,6 @@ public class LLMSystemAPI : MonoBehaviour
             // Crear la request
             var requestData = new LLMAttorneyRequestJSONSchema
             {
-                mode = APItypeToString(apiType),
                 LLMConfig = LLMConfig,
                 prompt = prompt,
                 temperature = temperature,
@@ -216,7 +199,6 @@ public class LLMSystemAPI : MonoBehaviour
     /// <summary>
     /// Manda la request igual al servidor, pero espera a recibir respuesta antes de seguir.
     /// </summary>
-    /// <param name="apiType"></param>
     /// <param name="onComplete"></param>
     /// <param name="prompt"></param>
     /// <param name="LLMConfig"></param>
@@ -227,7 +209,7 @@ public class LLMSystemAPI : MonoBehaviour
     /// <param name="max_length"></param>
     /// <returns></returns>
     /// 
-    public IEnumerator SendPromptCoroutine(API_TYPE apiType, Action<bool, string> onComplete, string prompt, string LLMConfig, JsonSchema schema = null, float temperature = 0.8f, bool ragUse = false, int ragIndex = 0, int max_length = 99999)
+    public IEnumerator SendPromptCoroutine(Action<bool, string> onComplete, string prompt, string LLMConfig, JsonSchema schema = null, float temperature = 0.8f, bool ragUse = false, int ragIndex = 0)
     {
 
         if (_sendingPrompt)
@@ -238,11 +220,9 @@ public class LLMSystemAPI : MonoBehaviour
             // Crear la request
             var requestData = new LLMAttorneyRequest
             {
-                mode = APItypeToString(apiType),
                 LLMConfig = LLMConfig,
                 prompt = prompt,
                 temperature = temperature,
-                max_length = max_length,
                 rag_use = ragUse,
                 rag_index = ragIndex
             };
@@ -262,11 +242,9 @@ public class LLMSystemAPI : MonoBehaviour
             // Crear la request
             var requestData = new LLMAttorneyRequestJSONSchema
             {
-                mode = APItypeToString(apiType),
                 LLMConfig = LLMConfig,
                 prompt = prompt,
                 temperature = temperature,
-                max_length = max_length,
                 json_schema = schema,
                 rag_use = ragUse,
                 rag_index = ragIndex

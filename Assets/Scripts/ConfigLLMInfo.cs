@@ -15,8 +15,6 @@ public class ConfigLLMInfo : MonoBehaviour
 
     //Para mas informacion sobre las variables revisar LLMAttorney_API.cs
 
-    [SerializeField]
-    private API_TYPE _apiType;
 
     [SerializeField, TextArea(3, 10)]
     public string context;
@@ -42,10 +40,6 @@ public class ConfigLLMInfo : MonoBehaviour
     [SerializeField]
     private RagFiles _ragFile;
 
-    public API_TYPE getApiType()
-    {
-        return _apiType;
-    }
 
     public string[] getStepsChecks()
     {

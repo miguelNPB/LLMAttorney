@@ -186,7 +186,7 @@ public abstract class LLMConector : MonoBehaviour
 
         float timer = 0;
 
-        while (!LLMSystemAPI.Instance.SendPrompt(API_TYPE.LLAMA, receiveResponse, prompt, configLLM, schema,
+        while (!LLMSystemAPI.Instance.SendPrompt(receiveResponse, prompt, configLLM, schema,
             _config[_indexConfig].getTemperature(), false))
         {
             timer += Time.deltaTime;
@@ -201,7 +201,7 @@ public abstract class LLMConector : MonoBehaviour
 
         float timer = 0;
 
-        while (!LLMSystemAPI.Instance.SendPrompt(API_TYPE.LLAMA, receiveResponse, prompt, configLLM, schema,
+        while (!LLMSystemAPI.Instance.SendPrompt(receiveResponse, prompt, configLLM, schema,
             _config[_indexConfig].getTemperature(), _config[_indexConfig].getRagUse(), (int)_config[_indexConfig].getRagFileType()))
         {
             timer += Time.deltaTime;
