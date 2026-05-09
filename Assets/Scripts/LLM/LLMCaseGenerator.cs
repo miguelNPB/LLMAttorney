@@ -1,28 +1,28 @@
 using System;
-using System.Collections;
-using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
-using iTextSharp.text;
-using IFont = iTextSharp.text.Font;
-using IDocument = iTextSharp.text.Document;
-using iTextSharp.text.pdf;
-
-public class LLMCaseGenerator : MonoBehaviour
+public class LLMCaseGenerator : LLMConector
 {
-    [Header("RAG Output")]
-    [Tooltip("Ruta absoluta, o relativa a Application.dataPath")]
-    public string ragFolderPath = "RAG/casos_civiles";
 
-    [Header("LLM Config")]
-    [Range(0f, 1f)]
-    public float temperature = 0.85f;
+    private class CaseResponse
+    {
+        public string CaseContent;
+    }
 
-    public event Action<string, string> OnCaseGenerated;
-    public event Action<string>         OnError;
+    private class SummaryResponse
+    {
+        public string Summary;
+    }
 
-    private const string LLM_CONFIG =
+
+    [Header("Dependencies")]
+    [SerializeField] private LLMCasePdfBuilder _pdfBuilder;
+
+    [Header("Case generation prompts")]
+    [TextArea(6, 20)]
+    [Tooltip("System prompt para generar el caso completo.")]
+    public string caseConfigPrompt =
         "Eres un redactor juridico especializado en derecho civil espanol. " +
         "Tu tarea es inventar un caso ficticio completo de responsabilidad civil extracontractual entre particulares.\n\n" +
         "INVENTA libremente: nombres, fechas, tipo de dano, importes, circunstancias. Cada generacion debe ser diferente.\n\n" +
@@ -67,194 +67,205 @@ public class LLMCaseGenerator : MonoBehaviour
         "12. FALLO\n" +
         "13. CONCLUSIONES JURIDICAS\n" +
         "14. OBSERVACIONES PARA ANALISIS\n\n" +
-        "Responde SOLO con el documento. Sin texto introductorio ni explicaciones fuera del documento.";
+        "Devuelve SOLO un JSON con la clave \"CaseContent\" conteniendo el documento completo. Sin texto adicional.";
 
-    private const string PROMPT =
+    [TextArea(2, 5)]
+    [Tooltip("User prompt para disparar la generacion del caso.")]
+    public string caseUserPrompt =
         "Genera un caso de responsabilidad civil extracontractual completamente inventado siguiendo la estructura indicada.";
+
+    [Header("Summary prompts")]
+    [TextArea(4, 10)]
+    [Tooltip("System prompt para generar el resumen de contexto del caso.")]
+    public string summaryConfigPrompt =
+        "Eres un asistente juridico. A partir del caso completo que se te proporciona, " +
+        "genera un resumen breve (maximo 5 frases) que sirva como descripcion de contexto para el simulador. " +
+        "Incluye: tipo de dano, partes implicadas, importe reclamado y estado del procedimiento. " +
+        "Redaccion en espanol juridico formal. " +
+        "Devuelve SOLO un JSON con la clave \"Summary\" conteniendo el resumen. Sin texto adicional.";
+
+    [TextArea(2, 4)]
+    [Tooltip("Prefijo del user prompt para el resumen; el caso completo se concatena automaticamente.")]
+    public string summaryUserPromptPrefix =
+        "Resume el siguiente caso para usarlo como contexto en el simulador:\n\n";
+
+
+    public event Action<string, string> OnCaseGenerated;
+
+    public event Action<string> OnSummaryReady;
+
+    public event Action<string> OnError;
+
+
+    private enum Step { Idle, GeneratingCase, GeneratingSummary }
+    private Step _step = Step.Idle;
+
+    private string _rawCaseContent;
+
+
+    private const string KEY_CASE    = "CaseContent";
+    private const string KEY_SUMMARY = "Summary";
+
+
+    protected override void createJsonSchemas()
+    {
+        _contextSchema = new JsonSchema();
+        _contextSchema.properties.Add(KEY_CASE, new PropertyInfo(JsonDataType.String));
+
+        _stepsSchema = new JsonSchema();
+        _stepsSchema.properties.Add(KEY_SUMMARY, new PropertyInfo(JsonDataType.String));
+
+        _schemasCreated = true;
+    }
+
+    protected override void receiveResponse(bool success, string answer)
+    {
+        if (!success)
+        {
+            Fail("Error del servidor: " + answer);
+            _step = Step.Idle;
+            return;
+        }
+
+        switch (_step)
+        {
+            case Step.GeneratingCase:     HandleCaseResponse(answer);    break;
+            case Step.GeneratingSummary:  HandleSummaryResponse(answer); break;
+            default:
+                Debug.LogWarning("[LLMCaseGenerator] receiveResponse en Step.Idle inesperado.");
+                break;
+        }
+    }
+
+
+    private void HandleCaseResponse(string answer)
+    {
+        if (_stepCounter < _config[_indexConfig].getStepsChecks().Length)
+        {
+            sendSecuritySteps(answer);
+            return;
+        }
+
+        _stepCounter = 0;
+        _promptSent  = false;
+
+        CaseResponse json = JsonUtility.FromJson<CaseResponse>(answer);
+
+        if (json == null || string.IsNullOrWhiteSpace(json.CaseContent))
+        {
+            Fail("Respuesta JSON invalida o CaseContent vacio.");
+            _step = Step.Idle;
+            return;
+        }
+
+        _rawCaseContent = json.CaseContent;
+
+        string pdfPath = _pdfBuilder.Build(_rawCaseContent);
+        Debug.Log($"[LLMCaseGenerator] PDF guardado: {pdfPath}");
+        OnCaseGenerated?.Invoke(pdfPath, _rawCaseContent);
+
+        RequestSummary();
+    }
+
+    private void HandleSummaryResponse(string answer)
+    {
+        _stepCounter = 0;
+        _promptSent  = false;
+        _step        = Step.Idle;
+
+        SummaryResponse json = JsonUtility.FromJson<SummaryResponse>(answer);
+
+        if (json == null || string.IsNullOrWhiteSpace(json.Summary))
+        {
+            Fail("Respuesta JSON invalida o Summary vacio.");
+            return;
+        }
+
+        if (GameSystem.Instance?.CaseData != null)
+        {
+            GameSystem.Instance.CaseData.SetCaseDescription(json.Summary);
+            Debug.Log($"[LLMCaseGenerator] Resumen guardado en CaseData.");
+        }
+        else
+        {
+            Debug.LogWarning("[LLMCaseGenerator] GameSystem o CaseData null; resumen descartado.");
+        }
+
+        OnSummaryReady?.Invoke(json.Summary);
+    }
+
 
     public void GenerateCase()
     {
-        if (LLMAttorney_API.Instance == null)
+        if (_step != Step.Idle)
         {
-            Fail("LLMAttorney_API.Instance no encontrado en la escena.");
-            return;
-        }
-        StartCoroutine(SendWithRetry());
-    }
-
-    private IEnumerator SendWithRetry()
-    {
-        bool  sent    = false;
-        float elapsed = 0f;
-        const float timeout = 10f;
-
-        while (!sent && elapsed < timeout)
-        {
-            sent = LLMAttorney_API.Instance.SendPrompt(
-                apiType:     API_TYPE.LLAMA,
-                onComplete:  HandleResponse,
-                prompt:      PROMPT,
-                LLMConfig:   LLM_CONFIG,
-                schema:      null,
-                temperature: temperature,
-                ragUse:      false
-            );
-
-            if (!sent)
-            {
-                elapsed += Time.deltaTime;
-                yield return null;
-            }
-        }
-
-        if (!sent)
-            Fail("Timeout esperando que LLMAttorney_API quede libre.");
-    }
-
-    private void HandleResponse(bool success, string response)
-    {
-        if (!success || string.IsNullOrWhiteSpace(response))
-        {
-            Fail($"Error del servidor: {response}");
+            Debug.LogWarning("[LLMCaseGenerator] Generacion ya en curso.");
             return;
         }
 
-        string pdfPath = SaveAsPdf(response);
-        Debug.Log($"[CivilCaseGenerator] PDF guardado: {pdfPath}");
-        OnCaseGenerated?.Invoke(pdfPath, response);
+        _step = Step.GeneratingCase;
+        SendCasePrompt();
     }
 
 
-    private static readonly Rectangle PAGE_SIZE = PageSize.A4;
-    private const float MARGIN = 60f;
-
-    private static readonly BaseFont BASE_FONT =
-        BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-    private static readonly BaseFont BASE_FONT_BOLD =
-        BaseFont.CreateFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-    private static readonly BaseFont BASE_FONT_ITALIC =
-        BaseFont.CreateFont(BaseFont.HELVETICA_OBLIQUE, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-
-    private static IFont FontTitle    => new IFont(BASE_FONT_BOLD,   12, IFont.NORMAL, BaseColor.BLACK);
-    private static IFont FontSubtitle => new IFont(BASE_FONT_ITALIC,  9, IFont.NORMAL, BaseColor.BLACK);
-    private static IFont FontH1       => new IFont(BASE_FONT_BOLD,   10, IFont.NORMAL, BaseColor.BLACK);
-    private static IFont FontH2       => new IFont(BASE_FONT_BOLD,    9, IFont.NORMAL, BaseColor.BLACK);
-    private static IFont FontBody     => new IFont(BASE_FONT,         9, IFont.NORMAL, BaseColor.BLACK);
-
-    private string SaveAsPdf(string content)
+    private void SendCasePrompt()
     {
-        string folder = Path.IsPathRooted(ragFolderPath)
-            ? ragFolderPath
-            : Path.Combine(Application.dataPath, ragFolderPath);
-        Directory.CreateDirectory(folder);
+        if (_promptSent || !_schemasCreated) return;
+        if (_config.Length <= 0) { Fail("Ningun Config LLM asignado"); return; }
 
-        string filePath = Path.Combine(folder,
-            $"caso_civil_{DateTime.Now:yyyyMMdd_HHmmss}.pdf");
+        string configLLM = BuildConfigLLM(caseConfigPrompt);
+        _historical.Add("Pregunta: " + caseUserPrompt);
+        _promptSent = true;
 
-        using var fs  = new FileStream(filePath, FileMode.Create, FileAccess.Write);
-        using var doc = new IDocument(PAGE_SIZE, MARGIN, MARGIN, MARGIN, MARGIN);
-        PdfWriter.GetInstance(doc, fs);
-        doc.Open();
+        StartCoroutine(coroutineSendPrompt(caseUserPrompt, configLLM, _contextSchema));
+    }
 
-        string[] lines = content.Replace("\r\n", "\n").Replace("\r", "\n").Split('\n');
+    private void RequestSummary()
+    {
+        _step = Step.GeneratingSummary;
 
-        foreach (string raw in lines)
+        string userMsg   = summaryUserPromptPrefix + _rawCaseContent;
+        string configLLM = BuildConfigLLM(summaryConfigPrompt);
+
+        _historical.Add("Pregunta (resumen): " + summaryUserPromptPrefix + "[caso completo]");
+        _promptSent = true;
+
+        StartCoroutine(coroutineSendPrompt(userMsg, configLLM, _stepsSchema));
+    }
+
+    private string BuildConfigLLM(string systemPrompt)
+    {
+        string configLLM = systemPrompt + _config[_indexConfig].safeguard;
+
+        if (_useHistoricalInContext)
         {
-            string line = raw.TrimEnd();
-
-            if (string.IsNullOrWhiteSpace(line))
-            {
-                doc.Add(new Paragraph(" ", FontBody) { SpacingAfter = 2f });
-                continue;
-            }
-
-            LineKind kind = Classify(line);
-
-            switch (kind)
-            {
-                case LineKind.Title:
-                {
-                    var p = new Paragraph(line, FontTitle)
-                    {
-                        SpacingAfter  = 4f,
-                        SpacingBefore = 0f
-                    };
-                    doc.Add(p);
-                    var sep = new iTextSharp.text.pdf.draw.LineSeparator(0.5f, 100f, BaseColor.BLACK, Element.ALIGN_CENTER, -2f);
-                    doc.Add(new Chunk(sep));
-                    doc.Add(new Paragraph(" ", FontBody) { SpacingAfter = 4f });
-                    break;
-                }
-                case LineKind.Subtitle:
-                {
-                    doc.Add(new Paragraph(line, FontSubtitle) { SpacingAfter = 8f });
-                    break;
-                }
-                case LineKind.H1:
-                {
-                    doc.Add(new Paragraph(line, FontH1)
-                    {
-                        SpacingBefore = 10f,
-                        SpacingAfter  = 3f
-                    });
-                    break;
-                }
-                case LineKind.H2:
-                {
-                    doc.Add(new Paragraph(line, FontH2)
-                    {
-                        SpacingBefore = 6f,
-                        SpacingAfter  = 2f
-                    });
-                    break;
-                }
-                case LineKind.Bullet:
-                {
-                    string text = line.TrimStart().TrimStart('-', '\u2022').TrimStart();
-                    var p = new Paragraph($"• {text}", FontBody)
-                    {
-                        IndentationLeft = 14f,
-                        SpacingAfter    = 1.5f
-                    };
-                    doc.Add(p);
-                    break;
-                }
-                default:
-                {
-                    doc.Add(new Paragraph(line, FontBody) { SpacingAfter = 1.5f });
-                    break;
-                }
-            }
+            configLLM += "\n " + _config[_indexConfig].historicalConversation + "\n Historico: \n";
+            foreach (string s in _historical)
+                configLLM += s + "\n";
         }
 
-        doc.Close();
-        return filePath;
+        return configLLM;
     }
 
-    private enum LineKind { Title, Subtitle, H1, H2, Bullet, Body }
 
-    private static LineKind Classify(string line)
+    private void Awake()
     {
-        if (line.StartsWith("CASO DE RESPONSABILIDAD", StringComparison.Ordinal)) return LineKind.Title;
-        if (line.StartsWith("(") && line.EndsWith(")"))                           return LineKind.Subtitle;
-        if (System.Text.RegularExpressions.Regex.IsMatch(line, @"^\d+\.\s+\p{Lu}") &&
-            line.ToUpperInvariant() == line)                                      return LineKind.H1;
-        if (System.Text.RegularExpressions.Regex.IsMatch(line, @"^\d+\.\d+\s"))  return LineKind.H2;
-        string t = line.TrimStart();
-        if (t.StartsWith("•") || t.StartsWith("-"))                               return LineKind.Bullet;
-        return LineKind.Body;
+        createJsonSchemas();
+
+        if (_pdfBuilder == null)
+            _pdfBuilder = GetComponent<LLMCasePdfBuilder>();
+
+        if (_pdfBuilder == null)
+            Debug.LogError("[LLMCaseGenerator] LLMCasePdfBuilder no asignado ni encontrado en el GameObject.");
+
+        Button but = GetComponent<Button>();
+        if (but != null)
+            but.onClick.AddListener(GenerateCase);
     }
 
     private void Fail(string msg)
     {
-        Debug.LogError($"[CivilCaseGenerator] {msg}");
+        Debug.LogError($"[LLMCaseGenerator] {msg}");
         OnError?.Invoke(msg);
-    }
-
-        void Awake()
-    {
-        Button but = GetComponent<Button>();
-        if (but != null)
-            but.onClick.AddListener(GenerateCase);
     }
 }

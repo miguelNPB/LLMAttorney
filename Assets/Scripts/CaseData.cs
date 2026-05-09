@@ -94,6 +94,15 @@ public class CaseData
         _lawsuitText = text;
     }
 
+        /// <summary>
+    /// Reemplaza la descripcion del caso. Llamado por LLMCaseGenerator tras
+    /// recibir el resumen de contexto del LLM.
+    /// </summary>
+    public void SetCaseDescription(string description)
+    {
+        _caseDescription = description;
+    }
+
 
     public void SetSentenceDocuments(List<Document> clientValidDocuments, List<Document> rivalValidDocuments)
     {
