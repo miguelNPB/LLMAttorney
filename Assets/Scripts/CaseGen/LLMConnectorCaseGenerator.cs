@@ -270,3 +270,86 @@ public class LLMCaseGenerator : LLMConector
         OnError?.Invoke(msg);
     }
 }
+
+
+//! --- CODIGO PARA USAR CONFIGLLMINFO DESP ---
+
+    // private const int INDEX_CASE    = 0;
+    // private const int INDEX_SUMMARY = 1;
+
+
+
+
+
+
+    // private void HandleCaseResponse(string answer)
+    // {
+    //     if (_stepCounter < _config[INDEX_CASE].getStepsChecks().Length)
+    //     {
+    //         sendSecuritySteps(answer);
+    //         return;
+    //     }
+
+    //     _stepCounter = 0;
+    //     _promptSent  = false;
+
+    //     CaseResponse json = JsonUtility.FromJson<CaseResponse>(answer);
+
+    //     if (json == null || string.IsNullOrWhiteSpace(json.CaseContent))
+    //     {
+    //         Fail("Respuesta JSON invalida o CaseContent vacio.");
+    //         _step = Step.Idle;
+    //         return;
+    //     }
+
+    //     _rawCaseContent = json.CaseContent;
+
+    //     string pdfPath = _pdfBuilder.Build(_rawCaseContent);
+    //     Debug.Log($"[CaseGenerator] PDF guardado: {pdfPath}");
+    //     OnCaseGenerated?.Invoke(pdfPath, _rawCaseContent);
+
+    //     RequestSummary();
+    // }
+
+
+
+    // public void GenerateCase()
+    // {
+    //     if (_step != Step.Idle)
+    //     {
+    //         Debug.LogWarning("[CaseGenerator] Generacion ya en curso.");
+    //         return;
+    //     }
+
+    //     if (_config.Length <= INDEX_SUMMARY)
+    //     {
+    //         Fail($"Se necesitan al menos 2 ConfigLLMInfo en _config (indice {INDEX_CASE}=caso, {INDEX_SUMMARY}=resumen).");
+    //         return;
+    //     }
+
+    //     _step = Step.GeneratingCase;
+    //     SendCasePrompt();
+    // }
+
+
+    // private void SendCasePrompt()
+    // {
+    //     if (_promptSent || !_schemasCreated) return;
+    //     sendContextPrompt(caseUserPrompt, INDEX_CASE);
+    // }
+
+    // private void RequestSummary()
+    // {
+    //     _step = Step.GeneratingSummary;
+
+    //     _contextSchema = new JsonSchema();
+    //     _contextSchema.properties.Add(KEY_SUMMARY, new PropertyInfo(JsonDataType.String));
+
+    //     _stepsSchema = new JsonSchema();
+    //     _stepsSchema.properties.Add(KEY_SUMMARY, new PropertyInfo(JsonDataType.String));
+
+    //     _promptSent = false; // reset guard so sendContextPrompt fires
+
+    //     string userMsg = summaryUserPromptPrefix + _rawCaseContent;
+    //     sendContextPrompt(userMsg, INDEX_SUMMARY);
+    // }

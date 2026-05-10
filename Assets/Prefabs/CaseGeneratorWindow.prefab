@@ -687,6 +687,8 @@ RectTransform:
   - {fileID: 2661829424177322886}
   - {fileID: 584504748417486699}
   - {fileID: 1372308245086933839}
+  - {fileID: 8644354809605093875}
+  - {fileID: 8824682450548791034}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -931,3 +933,134 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &7078168923454107030
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8644354809605093875}
+  - component: {fileID: 9067793521688893531}
+  m_Layer: 0
+  m_Name: LLMCasePdfBuilder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8644354809605093875
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7078168923454107030}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -245.26093, y: 71.99408, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5126950576599025964}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9067793521688893531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7078168923454107030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aaf286723590184ebaf570be764d698, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LLMCasePdfBuilder
+  ragFolderPath: RAG/casos_civiles
+--- !u!1 &7799010784169064041
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8824682450548791034}
+  - component: {fileID: 3542323354881200416}
+  m_Layer: 0
+  m_Name: LLMCaseGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8824682450548791034
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7799010784169064041}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -245.26093, y: 71.99408, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5126950576599025964}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3542323354881200416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7799010784169064041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6289345e8867532479643300f164d089, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LLMCaseGenerator
+  _config: []
+  _inputField: {fileID: 0}
+  _useSecuritySteps: 1
+  _useHistoricalInContext: 1
+  _useHistoricalInSteps: 0
+  _pdfBuilder: {fileID: 9067793521688893531}
+  caseConfigPrompt: "Eres un redactor juridico especializado en derecho civil espanol.
+    Tu tarea es inventar un caso ficticio completo de responsabilidad civil extracontractual
+    entre particulares.\n\nINVENTA libremente: nombres, fechas, tipo de dano, importes,
+    circunstancias. Cada generacion debe ser diferente.\n\nTIPOS DE DANO posibles
+    (elige uno al azar):\n- Filtraciones de agua entre viviendas\n- Danos por obras
+    en inmueble colindante\n- Caida de objetos desde propiedad ajena\n- Incendio
+    propagado por negligencia\n- Danos por animales domesticos\n- Inundacion por
+    rotura de instalacion privativa\n- Desprendimiento de elementos constructivos\n\nRESTRICCIONES
+    ABSOLUTAS:\n- Procedimiento: SIEMPRE juicio ordinario civil (nunca juicio verbal)\n-
+    NO puede haber testigos en ninguna seccion\n- Prueba limitada a: pericial, documental
+    e inspeccion judicial\n- Normativa: solo Codigo Civil y Ley de Enjuiciamiento
+    Civil\n- Importes totales: entre 2.000 EUR y 15.000 EUR\n- Redaccion en espanol
+    juridico formal\n\nESTRUCTURA OBLIGATORIA - 14 secciones en este orden exacto:\nCASO
+    DE RESPONSABILIDAD CIVIL POR DANOS MATERIALES ENTRE PARTICULARES\n([subtitulo
+    descriptivo del tipo de dano])\n\n1. IDENTIFICACION DEL CASO\n2. ANTECEDENTES
+    DE HECHO\n3. ACTUACIONES PREVIAS AL PROCESO\n   3.1 Reclamacion extrajudicial\n  
+    3.2 Informe pericial previo\n4. INTERPOSICION DE LA DEMANDA\n   4.1 Pretensiones\n  
+    4.2 Fundamentacion juridica\n5. CONTESTACION A LA DEMANDA\n6. AUDIENCIA PREVIA\n  
+    6.1 Fijacion de hechos controvertidos\n   6.2 Proposicion de prueba\n7. JUICIO\n  
+    7.1 Prueba pericial\n   7.2 Prueba documental\n   7.3 Inspeccion judicial\n8.
+    FUNDAMENTOS DE DERECHO\n9. SENTENCIA DE PRIMERA INSTANCIA\n10. RECURSO DE APELACION\n11.
+    RESOLUCION DE LA AUDIENCIA PROVINCIAL\n12. FALLO\n13. CONCLUSIONES JURIDICAS\n14.
+    OBSERVACIONES PARA ANALISIS\n\nDevuelve SOLO un JSON con la clave \"CaseContent\"
+    conteniendo el documento completo. Sin texto adicional."
+  caseUserPrompt: Genera un caso de responsabilidad civil extracontractual completamente
+    inventado siguiendo la estructura indicada.
+  summaryConfigPrompt: 'Eres un asistente juridico. A partir del caso completo que
+    se te proporciona, genera un resumen breve (maximo 5 frases) que sirva como descripcion
+    de contexto para el simulador. Incluye: tipo de dano, partes implicadas, importe
+    reclamado y estado del procedimiento. Redaccion en espanol juridico formal. Devuelve
+    SOLO un JSON con la clave "Summary" conteniendo el resumen. Sin texto adicional.'
+  summaryUserPromptPrefix: 'Resume el siguiente caso para usarlo como contexto en
+    el simulador:
+
+
+'
