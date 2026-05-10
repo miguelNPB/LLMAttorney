@@ -22,6 +22,7 @@ public class LLMCaseGenerator : LLMConector
     [Header("Case generation prompts")]
     [TextArea(6, 20)]
     [Tooltip("System prompt para generar el caso completo.")]
+    //? Quizás quitar esto? por ahorta se queda para agilizar el asunto xd
     public string caseConfigPrompt =
         "Eres un redactor juridico especializado en derecho civil espanol. " +
         "Tu tarea es inventar un caso ficticio completo de responsabilidad civil extracontractual entre particulares.\n\n" +
@@ -132,7 +133,7 @@ public class LLMCaseGenerator : LLMConector
             case Step.GeneratingCase:     HandleCaseResponse(answer);    break;
             case Step.GeneratingSummary:  HandleSummaryResponse(answer); break;
             default:
-                Debug.LogWarning("[LLMCaseGenerator] receiveResponse en Step.Idle inesperado.");
+                Debug.LogWarning("[CaseGenerator] receiveResponse en Step.Idle inesperado.");
                 break;
         }
     }
@@ -161,7 +162,7 @@ public class LLMCaseGenerator : LLMConector
         _rawCaseContent = json.CaseContent;
 
         string pdfPath = _pdfBuilder.Build(_rawCaseContent);
-        Debug.Log($"[LLMCaseGenerator] PDF guardado: {pdfPath}");
+        Debug.Log($"[CaseGenerator] PDF guardado: {pdfPath}");
         OnCaseGenerated?.Invoke(pdfPath, _rawCaseContent);
 
         RequestSummary();
@@ -184,11 +185,11 @@ public class LLMCaseGenerator : LLMConector
         if (GameSystem.Instance?.CaseData != null)
         {
             GameSystem.Instance.CaseData.SetCaseDescription(json.Summary);
-            Debug.Log($"[LLMCaseGenerator] Resumen guardado en CaseData.");
+            Debug.Log($"[CaseGenerator] Resumen guardado en CaseData.");
         }
         else
         {
-            Debug.LogWarning("[LLMCaseGenerator] GameSystem o CaseData null; resumen descartado.");
+            Debug.LogWarning("[CaseGenerator] GameSystem o CaseData null; resumen descartado.");
         }
 
         OnSummaryReady?.Invoke(json.Summary);
@@ -199,7 +200,7 @@ public class LLMCaseGenerator : LLMConector
     {
         if (_step != Step.Idle)
         {
-            Debug.LogWarning("[LLMCaseGenerator] Generacion ya en curso.");
+            Debug.LogWarning("[CaseGenerator] Generacion ya en curso.");
             return;
         }
 
@@ -256,7 +257,7 @@ public class LLMCaseGenerator : LLMConector
             _pdfBuilder = GetComponent<LLMCasePdfBuilder>();
 
         if (_pdfBuilder == null)
-            Debug.LogError("[LLMCaseGenerator] LLMCasePdfBuilder no asignado ni encontrado en el GameObject.");
+            Debug.LogError("[CaseGenerator] LLMCasePdfBuilder no asignado ni encontrado en el GameObject.");
 
         Button but = GetComponent<Button>();
         if (but != null)
@@ -265,7 +266,7 @@ public class LLMCaseGenerator : LLMConector
 
     private void Fail(string msg)
     {
-        Debug.LogError($"[LLMCaseGenerator] {msg}");
+        Debug.LogError($"[CaseGenerator] {msg}");
         OnError?.Invoke(msg);
     }
 }
