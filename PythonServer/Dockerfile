@@ -7,18 +7,12 @@ WORKDIR /app
 # Primero instalamos dependencias 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install -U "langchain[google-genai]"
-RUN pip install -U "langchain[ollama]"
-RUN pip install -U langchain-chroma
-RUN pip install -qU langchain-google-genai
-RUN pip install -qU langchain-ollama
 
-
-# Copiamos el codigo y, si esta, el Gemini_APIKEY
+# Copiamos el codigo
 COPY . .
 
 # exponemos el puerto
 EXPOSE 8000
 
 # ejecutamos el docker
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["gunicorn", "-w", "1", "-k", "uvicorn.workers.UvicornWorker", "main:app", "--bind", "0.0.0.0:8000", "--timeout", "900"]

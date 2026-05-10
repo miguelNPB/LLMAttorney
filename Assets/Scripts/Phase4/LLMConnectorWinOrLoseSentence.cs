@@ -1,6 +1,7 @@
-using System.Collections.Generic;
-using UnityEngine;
 using System;
+using System.Collections.Generic;
+using Telemetry;
+using UnityEngine;
 
 public class LLMConnectorWinOrLoseSentence : LLMConector
 {
@@ -14,6 +15,7 @@ public class LLMConnectorWinOrLoseSentence : LLMConector
 
     private Action<bool> _onRecievePrompt;
     private string _basePrompt;
+    private int _messageID;
     public void PromptBoolSentence(Action<bool> onRecievePrompt)
     {
         _onRecievePrompt = onRecievePrompt;
@@ -51,6 +53,8 @@ public class LLMConnectorWinOrLoseSentence : LLMConector
 
         _prompt = _prompt.Replace("~", GameSystem.Instance.CaseData.caseDescription);
 
+        _messageID = LLMLogManager.Instance.getMessageID();
+        Telemetry.TelemetryDispatch.SendQueryPost(_messageID);
 
         sendContextPrompt(_prompt, 0);
     }
@@ -66,6 +70,8 @@ public class LLMConnectorWinOrLoseSentence : LLMConector
 
     protected override void receiveResponse(bool success, string answer)
     {
+        TelemetryDispatch.SendQueryReceived(_messageID);
+
         if (success)
         {
             WinOrLoseSentenceResponse response = JsonUtility.FromJson<WinOrLoseSentenceResponse>(answer);

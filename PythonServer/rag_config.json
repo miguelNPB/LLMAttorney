@@ -1,0 +1,17 @@
+[
+    {
+        "pathDatabase": "./vector_db/CodigoCivil_db",
+        "pathContent": "./documentos_rag/boe_codigo_civil_legislacion_complementaria.pdf",
+        "ragCollectionName": "codigo_civil"
+    },
+    {
+        "pathDatabase": "./vector_db/Precios_db",
+        "pathContent": "./documentos_rag/precios.pdf",
+        "ragCollectionName": "precios"
+    },
+    {
+        "pathDatabase": "./vector_db/CasoBase_db",
+        "pathContent": "./documentos_rag/caso_base.pdf",
+        "ragCollectionName": "caso_base"
+    }
+]

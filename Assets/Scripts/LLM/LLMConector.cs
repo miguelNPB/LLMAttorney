@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public abstract class LLMConector : MonoBehaviour
 {
@@ -62,6 +63,7 @@ public abstract class LLMConector : MonoBehaviour
 
         if (!_promptSent && _schemasCreated)
         {
+            _promptSent = true;
 
             if (_config.Length <= 0)
             {
@@ -89,7 +91,8 @@ public abstract class LLMConector : MonoBehaviour
 
             _historical.Add("Pregunta: " + prompt);
 
-            _promptSent = true;
+            string log =
+                $"[Fase: {SceneManager.GetActiveScene().buildIndex}] [Envio: Pregunta] Pregunta a LLM: {prompt}.\n\n";
 
             StartCoroutine(coroutineSendPrompt(prompt, configLLM, _contextSchema));
 
@@ -183,7 +186,7 @@ public abstract class LLMConector : MonoBehaviour
 
         float timer = 0;
 
-        while (!LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, receiveResponse, prompt, configLLM, schema,
+        while (!LLMSystemAPI.Instance.SendPrompt(receiveResponse, prompt, configLLM, schema,
             _config[_indexConfig].getTemperature(), false))
         {
             timer += Time.deltaTime;
@@ -198,7 +201,7 @@ public abstract class LLMConector : MonoBehaviour
 
         float timer = 0;
 
-        while (!LLMAttorney_API.Instance.SendPrompt(API_TYPE.LLAMA, receiveResponse, prompt, configLLM, schema,
+        while (!LLMSystemAPI.Instance.SendPrompt(receiveResponse, prompt, configLLM, schema,
             _config[_indexConfig].getTemperature(), _config[_indexConfig].getRagUse(), (int)_config[_indexConfig].getRagFileType()))
         {
             timer += Time.deltaTime;

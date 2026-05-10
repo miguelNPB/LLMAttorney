@@ -86,12 +86,19 @@ public class CharacterCreator : MonoBehaviour
     private float _maleProbability;
 
     [SerializeField]
-    private Roles _role; 
+    private Roles _role;
+
+    private bool _aspectoAsignado = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        createRandomCharacter();
+        if (!_aspectoAsignado)
+        {
+            createRandomCharacter();
+            _aspectoAsignado = true;
+        }
+        
     }
 
     // Update is called once per frame

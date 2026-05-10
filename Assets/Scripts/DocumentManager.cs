@@ -15,6 +15,20 @@ public class DocumentManager : MonoBehaviour
 
     uint ids = 0;
 
+
+
+    public void DEBUG_ClearPlayerDocs()
+    {
+        foreach (uint id in _playerDocs)
+        {
+            if (_documents.ContainsKey(id))
+            {
+                _documents.Remove(id);
+            }
+        }
+        _playerDocs.Clear();
+    }
+
     /// <summary>
     /// Devuelve la cantidad de documentos en la lista de doucmentos
     /// </summary>

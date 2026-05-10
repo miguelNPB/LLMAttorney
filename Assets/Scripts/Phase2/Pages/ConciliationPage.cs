@@ -91,7 +91,10 @@ public class ConciliationPage : IPage
         clienteAnswerText.text = _clientAnswer;
 
         if (!_open)
+        {
+            _computerSystem.PingOverlayNotification("¡Has recibido la contestacion del cliente a la conciliacion!");
             _computerSystem.ToggleNotification(Page.Conciliation, true);
+        }
 
 
         if (_clientAgrees)
@@ -124,19 +127,20 @@ public class ConciliationPage : IPage
 
         if (random > GameSystem.Instance.CaseData.conciliationRivalInstantRejectProbability)
         {
-            Debug.Log("Prompt normal rival decision");
             yield return StartCoroutine(_llmConnector.SendRivalPromptNormal());
         }
         else
         {
-            Debug.Log("Prompt instant rival rejection");
             yield return StartCoroutine(_llmConnector.SendRivalPromptRejectionConfirmed());
         }
 
         rivalAnswerText.text = _rivalAnswer;
 
         if (!_open)
+        {
+            _computerSystem.PingOverlayNotification("¡Has recibido la contestacion del rival a la conciliacion!");
             _computerSystem.ToggleNotification(Page.Conciliation, true);
+        }
 
 
         if (_rivalAgrees)

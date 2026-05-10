@@ -50,15 +50,17 @@ public abstract class ChatPage : IPage
         ImageComp.color = fromPlayer ? _playerColor : _otherPersonColor;
 
         TMP_Text tmpText = _lastMessageAdded.GetComponentInChildren<TMP_Text>();
-        tmpText.text = text;
+        RectTransform rectTr = _lastMessageAdded.GetComponent<RectTransform>();
 
+        rectTr.sizeDelta = new Vector2(1500, rectTr.sizeDelta.y);
+
+        tmpText.text = text;
         tmpText.ForceMeshUpdate();
-        int numLineas = tmpText.textInfo.lineCount;
-        int height = forceHeight + 25 + (numLineas * 50);
+
+        int height = forceHeight + 25 + (int)tmpText.preferredHeight;
 
         _totalHeight += height;
 
-        RectTransform rectTr = _lastMessageAdded.GetComponent<RectTransform>();
         rectTr.sizeDelta = new Vector2(1500, height);
     }
 
@@ -102,12 +104,14 @@ public abstract class ChatPage : IPage
         }
 
         tmpText.text = _pendingMessage;
-        // actualizar caja de texto y lineas totales
+
         tmpText.ForceMeshUpdate();
-        int numLineas = tmpText.textInfo.lineCount;
-        int height = 25 + (numLineas * 50);
+
+        int height = 25 + (int)tmpText.preferredHeight;
 
         _totalHeight += height;
+
+        _totalHeight += (int)_layoutGroup.spacing;
 
         RectTransform rectTr = _lastMessageAdded.GetComponent<RectTransform>();
         rectTr.sizeDelta = new Vector2(1500, height);

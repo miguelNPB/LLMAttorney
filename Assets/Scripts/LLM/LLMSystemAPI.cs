@@ -102,12 +102,11 @@ public class PropertyInfo
     }
 }
 
-public enum API_TYPE { LLAMA }
 
 /**
  * Clase Singleton que sirve para hacer llamadas a nuestro servidor LLMAttorney
  */
-public class LLMAttorney_API : MonoBehaviour
+public class LLMSystemAPI : MonoBehaviour
 {
     // nombre de la ip, si es local poner localhost
     public string ip = "localhost";
@@ -115,21 +114,7 @@ public class LLMAttorney_API : MonoBehaviour
 
     private bool _sendingPrompt = false;
 
-    public static LLMAttorney_API Instance { get; private set; }
-
-    /**
-     * Convierte API_TYPE a string
-     */
-    private string APItypeToString(API_TYPE type)
-    {
-        switch (type)
-        {
-            case API_TYPE.LLAMA:
-                return "Llama";
-            default:
-                return "";
-        }
-    }
+    public static LLMSystemAPI Instance { get; private set; }
 
 
     /// <summary>
@@ -147,6 +132,7 @@ public class LLMAttorney_API : MonoBehaviour
         }
     }
 
+
     /**
      * Manda un prompt y al recibir la respuesta del servidor llama al Action onComplete, con un booleano success y el string con el contenido.
      * @param prompt Prompt de generación de contenido
@@ -159,7 +145,7 @@ public class LLMAttorney_API : MonoBehaviour
      * @param max_length Tokens maximos del texto, esto no usarlo mucho q no funciona muy bien
      * @return Devuelve true si se ha podido mandar, si no hay ningun prompt encolado
      */
-    public bool SendPrompt(API_TYPE apiType, Action<bool, string> onComplete, string prompt, string LLMConfig, JsonSchema schema = null, float temperature = 0.8f, bool ragUse = false, int ragIndex = 0, int max_length = 99999)
+    public bool SendPrompt(Action<bool, string> onComplete, string prompt, string LLMConfig, JsonSchema schema = null, float temperature = 0.8f, bool ragUse = false, int ragIndex = 0, int max_length = 99999)
     {
 
         if (_sendingPrompt)
@@ -170,7 +156,6 @@ public class LLMAttorney_API : MonoBehaviour
             // Crear la request
             var requestData = new LLMAttorneyRequest
             {
-                mode = APItypeToString(apiType),
                 LLMConfig = LLMConfig,
                 prompt = prompt,
                 temperature = temperature,
@@ -194,7 +179,6 @@ public class LLMAttorney_API : MonoBehaviour
             // Crear la request
             var requestData = new LLMAttorneyRequestJSONSchema
             {
-                mode = APItypeToString(apiType),
                 LLMConfig = LLMConfig,
                 prompt = prompt,
                 temperature = temperature,
@@ -206,8 +190,6 @@ public class LLMAttorney_API : MonoBehaviour
 
             string json = JsonConvert.SerializeObject(requestData, Formatting.Indented);
 
-            Debug.Log(json);
-
             StartCoroutine(SendRequest(json, onComplete));
         }
 
@@ -217,7 +199,6 @@ public class LLMAttorney_API : MonoBehaviour
     /// <summary>
     /// Manda la request igual al servidor, pero espera a recibir respuesta antes de seguir.
     /// </summary>
-    /// <param name="apiType"></param>
     /// <param name="onComplete"></param>
     /// <param name="prompt"></param>
     /// <param name="LLMConfig"></param>
@@ -228,7 +209,7 @@ public class LLMAttorney_API : MonoBehaviour
     /// <param name="max_length"></param>
     /// <returns></returns>
     /// 
-    public IEnumerator SendPromptAsync(API_TYPE apiType, Action<bool, string> onComplete, string prompt, string LLMConfig, JsonSchema schema = null, float temperature = 0.8f, bool ragUse = false, int ragIndex = 0, int max_length = 99999)
+    public IEnumerator SendPromptCoroutine(Action<bool, string> onComplete, string prompt, string LLMConfig, JsonSchema schema = null, float temperature = 0.8f, bool ragUse = false, int ragIndex = 0)
     {
 
         if (_sendingPrompt)
@@ -239,11 +220,9 @@ public class LLMAttorney_API : MonoBehaviour
             // Crear la request
             var requestData = new LLMAttorneyRequest
             {
-                mode = APItypeToString(apiType),
                 LLMConfig = LLMConfig,
                 prompt = prompt,
                 temperature = temperature,
-                max_length = max_length,
                 rag_use = ragUse,
                 rag_index = ragIndex
             };
@@ -263,19 +242,15 @@ public class LLMAttorney_API : MonoBehaviour
             // Crear la request
             var requestData = new LLMAttorneyRequestJSONSchema
             {
-                mode = APItypeToString(apiType),
                 LLMConfig = LLMConfig,
                 prompt = prompt,
                 temperature = temperature,
-                max_length = max_length,
                 json_schema = schema,
                 rag_use = ragUse,
                 rag_index = ragIndex
             };
 
             string json = JsonConvert.SerializeObject(requestData, Formatting.Indented);
-
-            Debug.Log(json);
 
             yield return StartCoroutine(SendRequest(json, onComplete));
         }
@@ -307,15 +282,27 @@ public class LLMAttorney_API : MonoBehaviour
         bool success = www.result == UnityWebRequest.Result.Success;
         string response = success ? recievedString : ("Error LLMAtorney: " + www.error);
 
-
-        if (success)
+        bool isCallbackValid = onComplete != null;
+        if (isCallbackValid && onComplete.Target is UnityEngine.Object targetUnityObject)
         {
-            // llamamos al callback
+            if (targetUnityObject == null)
+            {
+                isCallbackValid = false;
+            }
+        }
+        if (isCallbackValid)
+        {
             onComplete?.Invoke(success, response);
         }
         else
-            Debug.LogError(response);
+        {
+            Debug.LogWarning("Prompt invalidado porque el gameobject del callback asociado ha sido desactivado o destruido");
+        }
 
+        if (!success)
+        {
+            Debug.LogError(response);
+        }
 
         _sendingPrompt = false;
     }

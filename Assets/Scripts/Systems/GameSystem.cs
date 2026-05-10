@@ -2,22 +2,13 @@ using UnityEngine;
 
 public class GameSystem : MonoBehaviour
 {
+    [SerializeField] private Notepad _notepad;
+
     private static GameSystem instance = null;
     private bool initialized = false;
     public static GameSystem Instance
     {
-        get
-        {
-            if (instance == null)
-            {
-                instance = FindFirstObjectByType<GameSystem>();
-                if (instance != null && instance._caseData == null)
-                {
-                    instance.Init();
-                }
-            }
-            return instance;
-        }
+        get {  return instance; }
     }
     private CaseData _caseData = null; 
     public CaseData CaseData { get { return _caseData; } }
@@ -28,7 +19,7 @@ public class GameSystem : MonoBehaviour
     /// </summary>
     private void CreateExampleCaseData()
     {
-        float chanceOfInstantRejectionConciliacion = Random.Range(0f,0.5f);
+        float chanceOfInstantRejectionConciliacion = Random.Range(1f,1f);
         string clientName = "Pedro Muñoz";
         string procuratorName = "Alberto Velazquez";
         string demandedEntityName = "Ana Pérez";
@@ -49,7 +40,28 @@ public class GameSystem : MonoBehaviour
     /// </summary>
     public void ResetCaseData()
     {
+        
         CreateExampleCaseData();
+    }
+
+
+    public void DEBUG_ClearPlayerDocs()
+    {
+        _caseData.documentManager.DEBUG_ClearPlayerDocs();
+    }
+
+    /// <summary>
+    /// Activa o dessactiva el notepad
+    /// </summary>
+    /// <param name="on"></param>
+    public void ToggleNotepad(bool on)
+    {
+        _notepad.ToggleNotepad(on);
+    }
+
+    public void ResetNotepad()
+    {
+        _notepad.ResetText();
     }
 
     private void Init()
@@ -63,8 +75,11 @@ public class GameSystem : MonoBehaviour
 
     private void Awake()
     {
-        if (GameSystem.Instance != null && Instance != this)
-            Destroy(this);
+        if (GameSystem.Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
 
         if (!initialized)
         {

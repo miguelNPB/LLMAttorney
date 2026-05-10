@@ -15,6 +15,12 @@ public class SceneChanger : MonoBehaviour
 
     void OnClick()
     {
+
+        if(sceneNumber == -1)
+        {
+            Application.Quit();
+        }
+
         switch (sceneNumber)
         {
             case 0:

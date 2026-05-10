@@ -50,10 +50,7 @@ public class PauseMenu : MonoBehaviour
 
     public void GoToMainMenu()
     {
-        //Time.timeScale = 1f;
-        SceneSystem.Instance.LoadMainMenu();
-                SetPauseActive(false);
-
-        
+        SetPauseActive(false);
+        SceneSystem.Instance.LoadMainMenu();   
     }
 }

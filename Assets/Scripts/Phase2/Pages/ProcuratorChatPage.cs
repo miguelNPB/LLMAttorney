@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Telemetry;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Pagina para gestionar el sistema de mensajes con el procurador
@@ -40,17 +41,16 @@ public class ProcuratorChatPage : ChatPage {
         }
 
 
-        Debug.Log("Documentos que mostrar en el apartado del procurador: " + documents.Count);
-
         // instanciar prefabs ui
         for (int i = 0; i < documents.Count; i++)
         {
             GameObject documentInstanced = Instantiate(_procuradorDocUIPrefab, _docsUIContainer.transform);
 
             documentInstanced.GetComponent<ProcuratorUIDocument>().Init(this, documents[i]);
-
-            Debug.Log("Documento " + i + " instanciado en la posicion " + documentInstanced.transform.position);
         }
+
+        Canvas.ForceUpdateCanvases();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_docsUIContainer.GetComponent<RectTransform>());
     }
 
     /// <summary>
@@ -68,7 +68,10 @@ public class ProcuratorChatPage : ChatPage {
         EndPendingMessage(answer);
 
         if (!_isOpen)
+        {
+            _computerSystem.PingOverlayNotification("¡Has recibido un mensaje del procurador!");
             _computerSystem.ToggleNotification(Page.ProcuratorChat, true);
+        }
     }
   
     private IEnumerator processDocument(string docName)
@@ -174,7 +177,10 @@ public class ProcuratorChatPage : ChatPage {
         EndPendingMessage(summary);
 
         if (!_isOpen)
+        {
             _computerSystem.ToggleNotification(Page.ProcuratorChat, true);
+            _computerSystem.PingOverlayNotification("¡Has recibido un mensaje del procurador!");
+        }
     }
 
     public void CancelPendingOpponentMessage()

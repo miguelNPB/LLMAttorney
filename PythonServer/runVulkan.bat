@@ -20,6 +20,10 @@ docker rm -f ollama-server llmattorney-server >nul 2>&1
 :: 4. docker de ollama
 echo Intentando iniciar Ollama con soporte de GPU (NVIDIA)...
 
+:: Configuramos el server_config.json
+copy /y "%~dp0\configs\server_config_vulkan.json" "%~dp0\server_config.json" 
+echo "%~dp0\configs\server_config_vulkan.json" "%~dp0\server_config.json" 
+
 :: Intentar con soporte de GPU
 docker run -d --rm --gpus all -p 11434:11434 -v ollama:/root/.ollama --network ollama-net -e OLLAMA_HOST=http://ollama-server:11434 --name ollama-server ollama/ollama
 
@@ -34,7 +38,7 @@ if %ERRORLEVEL% NEQ 0 (
 
 echo Descargando el modelo (esto puede tardar la primera vez)...
 :: Cambia "llama3" por el modelo que quieras usar
-docker exec ollama-server ollama pull llama3
+docker exec ollama-server ollama pull qwen2.5:7b
 :: Descargando el modelo de embeddings
 docker exec -it ollama-server ollama pull nomic-embed-text
 
@@ -69,8 +73,8 @@ start "" ollama serve
 
 timeout /t 5 >nul
 
-echo Descargando modelo llama3...
-ollama pull llama3
+echo Descargando modelo...
+ollama pull qwen2.5:7b
 echo Descargando el modelo de embeddings
 ollama pull nomic-embed-text
 

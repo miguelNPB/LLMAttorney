@@ -24,6 +24,7 @@ public class LLMConnectorClientChat : LLMConector
 
 
         _config[0].historicalConversation = conversation;
+        _promptSent = false;
         sendContextPrompt(0);
     }
     protected override void receiveResponse(bool success, string answer)
@@ -33,7 +34,7 @@ public class LLMConnectorClientChat : LLMConector
             // deserializamos la respuesta
             ClientChatResponse jsonResponse = JsonUtility.FromJson<ClientChatResponse>(answer);
             string response = jsonResponse.answer;
-            Debug.Log("Respuesta cruda: " + response);
+
 
             _clientChatPage.EndPendingMessage(response);
 
@@ -43,7 +44,10 @@ public class LLMConnectorClientChat : LLMConector
             GameSystem.Instance.CaseData.clientMessages.Add(conversationMessage);
 
             if (!_clientChatPage.IsOpen())
+            {
+                _computerSystem.PingOverlayNotification("¡Has recibido un mensaje del cliente!");
                 _computerSystem.ToggleNotification(Page.ClientChat, true);
+            }
 
 
             _promptSent = false;

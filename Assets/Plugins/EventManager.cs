@@ -65,9 +65,6 @@ namespace Telemetry
         /// <param name="phaseID"></param>
         public void SendNotConsistentAnswerEvent(int messageID, int phaseID)
         {
-
-            Debug.Log("Envio de evento de fakta de coherencia");
-
             //Establecimiento del numero de atributos
             const int attributeCount = 4;
 
@@ -119,9 +116,6 @@ namespace Telemetry
             //Escritura de directivas externas a atributos
             TelemetryUtils.WriteEventHeader(eventPtr, 0, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
 
-            Debug.Log("Se envio del todo");
-
-            //TODO Envio del evento
             SubmitEvent(eventPtr);
         }
 
@@ -180,7 +174,7 @@ namespace Telemetry
             TelemetryUtils.WriteAttributeInt64(attributesBase, 0, (int)AtributesNameId.sessionID, _sessionID);
             TelemetryUtils.WriteAttributeInt64(attributesBase, 1, (int)AtributesNameId.userID, _userID);
             TelemetryUtils.WriteAttributeInt32(attributesBase, 2, (int)AtributesNameId.messageID, messageID);
-            TelemetryUtils.WriteAttributeInt32(attributesBase, 4, (int)AtributesNameId.price, price);
+            TelemetryUtils.WriteAttributeInt32(attributesBase, 3, (int)AtributesNameId.price, price);
 
 
             //Escritura de directivas externas a atributos
@@ -494,7 +488,7 @@ namespace Telemetry
             TelemetryUtils.WriteAttributeInt32(attributesBase, 3, (int)AtributesNameId.phaseID, phaseID);
 
             //Escritura de directivas externas a atributos
-            TelemetryUtils.WriteEventHeader(eventPtr, 5, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
+            TelemetryUtils.WriteEventHeader(eventPtr, 6, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
 
             //TODO Envio del evento
             SubmitEvent(eventPtr);
@@ -517,8 +511,6 @@ namespace Telemetry
 
             string filePath = System.IO.Path.Combine(Application.persistentDataPath, "telemetry_events_" + numSession + "_" + _userID + ".json");
 
-            Debug.Log(filePath);
-
             try
             {
                 _trackerHandle = TelemetryNative.CreateTracker(
@@ -530,7 +522,7 @@ namespace Telemetry
 
                 if (_trackerHandle == IntPtr.Zero)
                 {
-                    Debug.Log("No se pudo abrir el archivo");
+                    Debug.LogError("No se pudo abrir el archivo");
                 }
             }
             catch (System.EntryPointNotFoundException)
@@ -560,7 +552,7 @@ namespace Telemetry
             }
             else
             {
-                Destroy(this);
+                Destroy(gameObject);
             }
         }
 

@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using Telemetry;
 using UnityEngine;
@@ -23,14 +24,9 @@ public class LLMLogManager : MonoBehaviour
         Debug.Log(log);
     }
 
-    public int getNumMessageSent()
+    public int getMessageID()
     {
-        return _messageSent;
-    }
-
-    public void addMessageSent()
-    {
-        _messageSent++;
+        return Guid.NewGuid().GetHashCode() & int.MaxValue;
     }
 
     private void HandleLog(string logString, string stackTrace, LogType type)
@@ -51,7 +47,7 @@ public class LLMLogManager : MonoBehaviour
         }
         else
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 }

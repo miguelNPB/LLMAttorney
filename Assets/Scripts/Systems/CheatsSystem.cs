@@ -1,3 +1,4 @@
+Ôªøusing Telemetry;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,27 +17,40 @@ public class CheatsSystem : MonoBehaviour
     /// </summary>
     public void UsePremadeDocuments()
     {
-        GameSystem.Instance.ResetCaseData();
+        GameSystem.Instance.DEBUG_ClearPlayerDocs();
 
         DocumentManager docManager = GameSystem.Instance.CaseData.documentManager;
 
-        docManager.CreateDocument("Perito de daÒos por humedad", DocumentType.Perito, "Contenido del documento: - IntroducciÛn\r\n\r\nEste informe pericial es elaborado por un perito especializado con el objetivo de analizar los hechos relacionados con el caso y determinar las circunstancias tÈcnicas relevantes para su valoraciÛn en el ·mbito civil. Se ha realizado una evaluaciÛn tÈcnica detallada basada en las pruebas presentadas y la inspecciÛn judicial.\r\n\r\nDescripciÛn de los Hechos\r\n\r\nEn enero de 2021, el demandante comienza a detectar daÒos materiales en su vivienda consistentes en humedades en techo y paredes, desprendimiento de pintura, apariciÛn de moho y deterioro progresivo del suelo de parquet. Las primeras inspecciones identificaron una posible fuga de agua procedente del cuarto de baÒo de la vivienda superior, propiedad de la demandada.\r\n\r\nMetodologÌa de An·lisis\r\n\r\nPara la elaboraciÛn de este informe se ha realizado un an·lisis documental, revisiÛn tÈcnica de los elementos afectados y aplicaciÛn de criterios periciales basados en la pr·ctica profesional. Se han considerado las facturas de reparaciones previas, fotografÌas cronolÛgicas y mediciones de humedad. Se realizÛ una inspecciÛn judicial exhaustiva del inmueble para corroborar los hallazgos.\r\n\r\nResultados\r\n\r\nExistencia de Humedad Activa: Se constatÛ la presencia de humedad activa en el inmueble, coincidente con el baÒo superior de la vivienda de la demandada.\r\nPatrÛn Descendente: El patrÛn de humedad es descendente y localizado, lo que sugiere un origen en la instalaciÛn privativa del cuarto de baÒo superior.\r\nCorrespondencia entre DaÒos y Origen SeÒalado: Existe una correspondencia clara entre los daÒos detectados y el origen seÒalado por el perito del demandante.\r\n\r\nConclusiones\r\n\r\nSe concluye que la fuga de agua procedente del cuarto de baÒo superior de la vivienda de la demandada es el origen m·s probable de las humedades y otros daÒos en la vivienda del demandante. Se recomienda una reparaciÛn inmediata de la averÌa para evitar un deterioro a˙n mayor.", true, 500, false, false);
-        docManager.CreateDocument("ConversaciÛn de whatsapp", DocumentType.Report, "Se adjunta una conversacion de whatsapp donde Ana ignora las advertencias de que le est·n formando zonas humedas en el techo. Pedro advierte varias ocasiones y no recibe respuesta.", true, 500, false, false);
-        docManager.CreateDocument("Factura de reparaciÛn de daÒos", DocumentType.ReceiptFacture, "", true, 500, false, false);
-        docManager.CreateDocument("Testimonio de vecinos sobre la actitud de Ana", DocumentType.Witness, "Yo, Fran BernabÈ, soy vecino del edificio, y rara vez he visto a Ana ser amable o saludar a vecinos. Adem·s hace mucho que no la veo en juntas de comunidad de vecinos, se podrÌa decir que nos tiene olvidados.", true, 500, false, false);
 
+        docManager.CreateDocument("Perito de da√±os por humedad", DocumentType.Perito, "Contenido del documento: - Introducci√≥n\r\n\r\nEste informe pericial es elaborado por un perito especializado con el objetivo de analizar los hechos relacionados con el caso y determinar las circunstancias t√©cnicas relevantes para su valoraci√≥n en el √°mbito civil. Se ha realizado una evaluaci√≥n t√©cnica detallada basada en las pruebas presentadas y la inspecci√≥n judicial.\r\n\r\nDescripci√≥n de los Hechos\r\n\r\nEn enero de 2021, el demandante comienza a detectar da√±os materiales en su vivienda consistentes en humedades en techo y paredes, desprendimiento de pintura, aparici√≥n de moho y deterioro progresivo del suelo de parquet. Las primeras inspecciones identificaron una posible fuga de agua procedente del cuarto de ba√±o de la vivienda superior, propiedad de la demandada.\r\n\r\nMetodolog√≠a de An√°lisis\r\n\r\nPara la elaboraci√≥n de este informe se ha realizado un an√°lisis documental, revisi√≥n t√©cnica de los elementos afectados y aplicaci√≥n de criterios periciales basados en la pr√°ctica profesional. Se han considerado las facturas de reparaciones previas, fotograf√≠as cronol√≥gicas y mediciones de humedad. Se realiz√≥ una inspecci√≥n judicial exhaustiva del inmueble para corroborar los hallazgos.\r\n\r\nResultados\r\n\r\nExistencia de Humedad Activa: Se constat√≥ la presencia de humedad activa en el inmueble, coincidente con el ba√±o superior de la vivienda de la demandada.\r\nPatr√≥n Descendente: El patr√≥n de humedad es descendente y localizado, lo que sugiere un origen en la instalaci√≥n privativa del cuarto de ba√±o superior.\r\nCorrespondencia entre Da√±os y Origen Se√±alado: Existe una correspondencia clara entre los da√±os detectados y el origen se√±alado por el perito del demandante.\r\n\r\nConclusiones\r\n\r\nSe concluye que la fuga de agua procedente del cuarto de ba√±o superior de la vivienda de la demandada es el origen m√°s probable de las humedades y otros da√±os en la vivienda del demandante. Se recomienda una reparaci√≥n inmediata de la aver√≠a para evitar un deterioro a√∫n mayor.", true, 0, false, false);
+
+        docManager.CreateDocument("Conversaci√≥n de whatsapp", DocumentType.Report, "Se adjunta una conversaci√≥n de whatsapp donde Ana ignora las advertencias de que le est√°n formando zonas h√∫medas en el techo. Pedro advierte varias ocasiones y no recibe respuesta.", true, 0, false, false);
+
+        docManager.CreateDocument("Factura de reparaci√≥n de da√±os", DocumentType.ReceiptFacture, "Se adjunta un presupuesto de la reparaci√≥n de los da√±os causados por humedad que son 15000 euros.", true, 0, false, false);
+
+        docManager.CreateDocument("Testimonio de vecinos sobre la actitud de Ana", DocumentType.Witness, "Yo, Fran Bernab√©, soy vecino del edificio, y rara vez he visto a Ana ser amable o saludar a vecinos. Adem√°s hace mucho que no la veo en juntas de comunidad de vecinos, se podr√≠a decir que nos tiene olvidados.", true, 0, false, false);
+
+        /*
         bool relevant = true;
-        docManager.CreateDocument("Factura de reparaciÛn de tuberÌas 2012", DocumentType.ReceiptFacture, "Se adjunta una factura de una reparaciÛn integral de todas las tuberÌas a causa de un reventÛn por frio de unas tuberÌas. Se sustituyeron todas las tuberÌas antiguas por unas nuevas en toda la casa.", relevant, 0, true, true);
-        docManager.CreateDocument("Informe del origen de la fuga de agua", DocumentType.Report, "Se ha realizado una investigaciÛn y no se puede determinar el origen concreto de la fuga de agua a la casa de Pedro. Dado que la zona afectada es tan grande, pasa por zonas de tuberÌas de la comunidad como por zonas de tuberÌas de la casa de Ana, por lo que no hay pruebas concluyentes de que la fuga provenga de una tuberÌa de Ana.", relevant, 0, true, true);
+        docManager.CreateDocument("Factura de reparaci√≥n de tuber√≠as 2012", DocumentType.ReceiptFacture, "Se adjunta una factura de una reparaci√≥n integral de todas las tuber√≠as a causa de un revent√≥n por fr√≠o de unas tuber√≠as. Se sustituyeron todas las tuber√≠as antiguas por unas nuevas en toda la casa.", relevant, 0, true, true);
+
+        docManager.CreateDocument("Informe del origen de la fuga de agua", DocumentType.Report, "Se ha realizado una investigaci√≥n y no se puede determinar el origen concreto de la fuga de agua a la casa de Pedro. Dado que la zona afectada es tan grande, pasa por zonas de tuber√≠as de la comunidad como por zonas de tuber√≠as de la casa de Ana, por lo que no hay pruebas concluyentes de que la fuga provenga de una tuber√≠a de Ana.", relevant, 0, true, true);
+
         relevant = false;
-        docManager.CreateDocument("Testimonio de Juan PÈrez", DocumentType.Witness, "Yo, Juan PÈrez, estuve en casa de mi prima Ana el pasado fin de semana. MirÈ por encima el baÒo y no vi ninguna fuga. Las tuberÌas se ven secas. Creo que el problema de abajo es porque el edificio es viejo y las bajantes de la comunidad est·n mal.", relevant, 0, true, true);
-        docManager.CreateDocument("ConversaciÛn de whatsapp", DocumentType.Report, "Se adjunta una conversaciÛn de whatsapp donde Ana habla con otra vecina donde la vecina se queja de que Pedro es un exagerado y suele decir que las cosas son mas grandes de las que son, y que seguramente quiere que Ana le pague los daÒos pero para pintarse la casa gratis.", relevant, 0, true, true);
+
+        docManager.CreateDocument("Testimonio de Juan P√©rez", DocumentType.Witness, "Yo, Juan P√©rez, estuve en casa de mi prima Ana el pasado fin de semana. Mir√© por encima el ba√±o y no vi ninguna fuga. Las tuber√≠as se ven secas. Creo que el problema de abajo es porque el edificio es viejo y las bajantes de la comunidad est√°n mal.", relevant, 0, true, true);
+
+        docManager.CreateDocument("Conversaci√≥n de whatsapp", DocumentType.Report, "Se adjunta una conversaci√≥n de whatsapp donde Ana habla con otra vecina donde la vecina se queja de que Pedro es un exagerado y suele decir que las cosas son m√°s grandes de las que son, y que seguramente quiere que Ana le pague los da√±os pero para pintarse la casa gratis.", relevant, 0, true, true);
+        */
     }
 
     private void Awake()
     {
-        if (CheatsSystem.Instance != null && Instance != this)
-            Destroy(this);
+        if (_instance != null && _instance != this)
+        { 
+            Destroy(gameObject);
+            return;
+        }
 
         if (!initialized)
         {
@@ -51,26 +65,35 @@ public class CheatsSystem : MonoBehaviour
 
     void OnDisable()
     {
+        if(cheatMenu != null) cheatMenu.GetComponentInChildren<TMP_InputField>().onEndEdit.RemoveAllListeners();
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("Loaded scene: " + scene.name);
+        
 
         cheatMenu = GameObject.FindGameObjectWithTag("CheatMenu");
 
         if (scene.name == "Phase1")
         {
+            cheatMenu.GetComponentInChildren<TMP_InputField>().onEndEdit.RemoveAllListeners();
             cheatMenu.GetComponentInChildren<TMP_InputField>().onEndEdit.AddListener(Phase1toPhase2);
         }
-        cheatMenu.SetActive(false);
+        
+        if (cheatMenu != null)
+            cheatMenu.SetActive(false);
     }
 
     public void Phase1toPhase2(string text)
     {
-        Debug.Log(text);
-        GameSystem.Instance.GetComponentInChildren<BudgetManager>().SetBudget(text);
-        GameSystem.Instance.GetComponentInChildren<SceneSystem>().LoadPhase2();
+        BudgetManager.Instance.SetBudget(text);
+        SceneSystem.Instance.LoadPhase2();
+    }
+
+    public void AddBudget(string text)
+    {
+        BudgetManager.Instance.AddBudget(text);
+
     }
 }

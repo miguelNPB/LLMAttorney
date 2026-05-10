@@ -12,7 +12,6 @@ public class DocumentsPage : IPage
     [SerializeField] private GameObject _rivalDocumentsContainer;
     [SerializeField] private GameObject _playerDocumentPrefab;
 
-    private DocumentManager _documentManager;
     private List<UIDocument> _playerDocumentsInstanciated = new List<UIDocument>();
     private List<UIDocument> _rivalDocumentsInstanciated = new List<UIDocument>();
 
@@ -23,7 +22,6 @@ public class DocumentsPage : IPage
 
     void Awake()
     {
-        _documentManager = GameSystem.Instance.CaseData.documentManager;
     }
 
     /// <summary>
@@ -63,30 +61,31 @@ public class DocumentsPage : IPage
     /// </summary>
     private void setupUIDocuments()
     {
+        DocumentManager docManager = GameSystem.Instance.CaseData.documentManager;
         // setup la seccion del player
-        List<uint> playerDocuments = _documentManager.GetPlayerDocs();
+        List<uint> playerDocuments = docManager.GetPlayerDocs();
         for (int i = 0; i < playerDocuments.Count; i++)
         {
 
             if (i < _playerDocumentsInstanciated.Count) {
-                updateUIDocument(_playerDocumentsInstanciated[i], _documentManager.GetDocument(playerDocuments[i]));
+                updateUIDocument(_playerDocumentsInstanciated[i], docManager.GetDocument(playerDocuments[i]));
             }
             else{
-                addUIDocument(_documentManager.GetDocument(playerDocuments[i]));
+                addUIDocument(docManager.GetDocument(playerDocuments[i]));
             }
         }
 
         // setup la seccion del rival
-        List<uint> rivalDocuments = _documentManager.GetRivalDocs();
+        List<uint> rivalDocuments = docManager.GetRivalDocs();
         for (int i = 0; i < rivalDocuments.Count; i++)
         {
             if (i < _rivalDocumentsInstanciated.Count)
             {
-                updateUIDocument(_rivalDocumentsInstanciated[i], _documentManager.GetDocument(rivalDocuments[i]));
+                updateUIDocument(_rivalDocumentsInstanciated[i], docManager.GetDocument(rivalDocuments[i]));
             }
             else
             {
-                addUIDocument(_documentManager.GetDocument(rivalDocuments[i]));
+                addUIDocument(docManager.GetDocument(rivalDocuments[i]));
             }
         }
     }

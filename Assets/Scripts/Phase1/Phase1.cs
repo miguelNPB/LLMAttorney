@@ -10,5 +10,6 @@ public class Phase1 : MonoBehaviour
     void Start()
     {
         writeTextSystem.WriteText(_startingText);
+        GameSystem.Instance.ToggleNotepad(true);
     }
 }

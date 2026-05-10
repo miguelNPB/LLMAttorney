@@ -48,7 +48,6 @@ public class BudgetManager : MonoBehaviour
 
     public event Action OnBudgetChanged;
 
-
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -126,8 +125,6 @@ public class BudgetManager : MonoBehaviour
         TotalExpenses += cost;
         CurrentBudget -= cost;
 
-        Debug.Log("Titulo de coste " + title);
-
         _expenses.Add(new ExpenseEntry(title, cost));
 
         Debug.Log($"[BudgetManager] -{cost:F2} ({type} | \"{title}\") | Restante: {CurrentBudget:F2}");
@@ -145,6 +142,11 @@ public class BudgetManager : MonoBehaviour
 
         Debug.Log($"[BudgetManager] Presupuesto restablecido a {CurrentBudget:F2}");
         OnBudgetChanged?.Invoke();
+    }
+
+    public void AddBudget(string budgetToAdd)
+    {
+        CurrentBudget += int.Parse(budgetToAdd);
     }
 
     private static float FindGreatestNumber(string text)
@@ -212,7 +214,8 @@ public class BudgetManager : MonoBehaviour
                              $"Cargando '{bankruptcySceneName}'.");
 
             if (!string.IsNullOrEmpty(bankruptcySceneName))
-                SceneManager.LoadScene(bankruptcySceneName);
+                SceneManager.LoadScene(5);
         }
     }
+
 }

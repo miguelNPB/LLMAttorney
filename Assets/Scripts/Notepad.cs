@@ -14,6 +14,7 @@ public class Notepad : MonoBehaviour
     Vector3 openPos;
     [SerializeField]
     float moveSpeed = 5f;
+    [SerializeField] private TMP_InputField _inputField;
 
     private bool isAtEndingPos = false;
     private bool isMoving = false;
@@ -21,11 +22,31 @@ public class Notepad : MonoBehaviour
     private Vector3 targetPos;
     private float lerpProgress = 0f;
 
+    /// <summary>
+    /// Activa o desactiva notepad
+    /// </summary>
+    /// <param name="on"></param>
+    public void ToggleNotepad(bool on)
+    {
+        notepadButton.gameObject.SetActive(on);
+        notepad.transform.localPosition = startingPos;
+        notepad.SetActive(on);
+    }
+
+    /// <summary>
+    /// vacia el texto del notepad
+    /// </summary>
+    public void ResetText()
+    {
+        _inputField.text = "";
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         notepadButton.onClick.AddListener(OnClick);
         notepad.transform.localPosition = startingPos;
+        DontDestroyOnLoad(gameObject);
     }
     
 
@@ -48,7 +69,6 @@ public class Notepad : MonoBehaviour
 
     void OnClick()
     {
-        Debug.Log("Clicked I have been");
         
         if (isAtEndingPos)
         {

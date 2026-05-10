@@ -39,11 +39,13 @@ public class ClientChatPage : ChatPage
     /// <param name="answer"></param>
     private void getPromptTypeFromPrompt(bool success, string answer)
     {
-        ClientPromptTypeRequest typeRequest = JsonUtility.FromJson<ClientPromptTypeRequest>(answer);
-
-        Debug.Log("Devolucion: " +  typeRequest.documentQueryType);
-
-        _lastTypePromptRequest = typeRequest.documentQueryType;
+        if (success)
+        {
+            ClientPromptTypeRequest typeRequest = JsonUtility.FromJson<ClientPromptTypeRequest>(answer);
+            _lastTypePromptRequest = typeRequest.documentQueryType;
+        }
+        else
+            _lastTypePromptRequest = ClientPromptType.Question;
     }
     
     /// <summary>
@@ -74,7 +76,7 @@ public class ClientChatPage : ChatPage
 
                 Devuelve dicho valor en la variable documentQueryType";
 
-        yield return LLMAttorney_API.Instance.SendPromptAsync(API_TYPE.LLAMA, getPromptTypeFromPrompt, prompt, configLLM, schema);
+        yield return LLMSystemAPI.Instance.SendPromptCoroutine(getPromptTypeFromPrompt, prompt, configLLM, schema);
 
         Debug.Log("Ya se el tipo de documento que es: " + _lastTypePromptRequest);
 
