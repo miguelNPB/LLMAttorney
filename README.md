@@ -24,7 +24,13 @@ Ollama tiene un modo de uso de GPU con Docker compatible de usar con NVIDIA, por
 En el caso de AMD, no podemos ejecutar ollama en docker porque no es soportado, y por lo tanto debe ser ejecutado fuera de él. Por lo que en este caso se deberá tener instalado además Ollama https://ollama.com/. Para estas tarjetas gráficas, llamar a `runVulkan.bat` que ejecutará el servidor llmatorney en docker y ollama normal
 
 
-## Como analizar telemetría
+## Telemetría
+
+### Donde encontrar las trazas json
+
+Se encuentran en `C:\Users\{usuario}\AppData\LocalLow\LLMAttorney\LLMAttorney`
+
+### Como analizarla
 
 Para la telemetría se analiza en `TelemetryAnalyzer`, los datos deben ser puestos en la carpeta `/data` y los resultados saldrán en la carpeta `/results`  
 Además, al ejecutar el main.py, es necesario pasar un argumento con el nombre de los títulos de las gráficas, por ejemplo: `python main.py "Estudiantes Derecho"`  
