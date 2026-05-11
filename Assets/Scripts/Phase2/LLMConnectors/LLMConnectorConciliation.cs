@@ -94,11 +94,6 @@ public class LLMConnectorConciliation : LLMConector
                     {
                         _answer = JsonUtility.FromJson<LLMConciliationResponseText>(answer).answer;
 
-                        string log =
-                            $"[Fase: {SceneManager.GetActiveScene().buildIndex}] [Envio: {_messageID}] Respuesta de conciliacion cliente: {_answer}.\n\n" +
-                            $"Acepta acuerdo: {_agree}";
-
-                        LLMLogManager.Instance.LogMessageSent(log, _messageID);
                     }
                     break;
                 case CurrentPromptType.RivalNormal:
@@ -111,11 +106,6 @@ public class LLMConnectorConciliation : LLMConector
                     {
                         _answer = JsonUtility.FromJson<LLMConciliationResponseText>(answer).answer;
 
-                        string log =
-                            $"[Fase: {SceneManager.GetActiveScene().buildIndex}] [Envio: {_messageID}] Respuesta de conciliacion rival: {_answer}.\n\n" +
-                            $"Acepta acuerdo: {_agree}";
-
-                        LLMLogManager.Instance.LogMessageSent(log, _messageID);
                     }
                     break;
                 case CurrentPromptType.RivalRechazar:
@@ -138,7 +128,7 @@ public class LLMConnectorConciliation : LLMConector
         // sacar el booleano true o false
         _contextSchema = _boolSchema;
 
-        _messageID = LLMLogManager.Instance.getMessageID();
+        _messageID = EventManager.Instance.getMessageID();
         TelemetryDispatch.SendQueryPost(_messageID);
 
         sendContextPrompt(inputFieldText, 0);
@@ -149,13 +139,11 @@ public class LLMConnectorConciliation : LLMConector
 
         TelemetryDispatch.SendQueryReceived(_messageID);
 
-        LLMLogManager.Instance.LogMessageSent("Client agree: " + _agree, _messageID);
-
         // mandar prompt  de texto
         _contextSchema = _stringSchema;
         _config[2].context = GetTextPromptClientAnswer(_agree);
 
-        _messageID = LLMLogManager.Instance.getMessageID();
+        _messageID = EventManager.Instance.getMessageID();
         TelemetryDispatch.SendQueryPost(_messageID);
 
         sendContextPrompt(inputFieldText,2);
@@ -164,8 +152,6 @@ public class LLMConnectorConciliation : LLMConector
             yield return null;
 
         TelemetryDispatch.SendQueryReceived(_messageID);
-
-        LLMLogManager.Instance.LogMessageSent("Client answer: " + _answer, _messageID);
 
         conciliacionPage.SetClientAgrees(_agree, _answer);
 
@@ -184,7 +170,7 @@ public class LLMConnectorConciliation : LLMConector
         // mandar prompt para sacar el booleano true o false
         _contextSchema = _boolSchema;
 
-        _messageID = LLMLogManager.Instance.getMessageID();
+        _messageID = EventManager.Instance.getMessageID();
         TelemetryDispatch.SendQueryPost(_messageID);
 
         sendContextPrompt(inputFieldText, 1);
@@ -195,12 +181,10 @@ public class LLMConnectorConciliation : LLMConector
 
         TelemetryDispatch.SendQueryReceived(_messageID);
 
-        LLMLogManager.Instance.LogMessageSent("Rival agree: " + _agree, _messageID);
-
         _contextSchema = _stringSchema;
         _config[3].context = GetTextPromptRivalAnswer(_agree);
 
-        _messageID = LLMLogManager.Instance.getMessageID();
+        _messageID = EventManager.Instance.getMessageID();
         TelemetryDispatch.SendQueryPost(_messageID);
 
         // mandar prompt  de texto
@@ -212,7 +196,6 @@ public class LLMConnectorConciliation : LLMConector
 
         TelemetryDispatch.SendQueryReceived(_messageID);
 
-        LLMLogManager.Instance.LogMessageSent("Rival answer: " + _answer, _messageID);
         conciliacionPage.SetRivalAgrees(_agree, _answer);
 
         yield return null;
@@ -228,7 +211,7 @@ public class LLMConnectorConciliation : LLMConector
         currentPromptType = CurrentPromptType.RivalRechazar;
         _agree = false;
 
-        _messageID = LLMLogManager.Instance.getMessageID();
+        _messageID = EventManager.Instance.getMessageID();
         TelemetryDispatch.SendQueryPost(_messageID);
 
         sendContextPrompt(3);
@@ -240,7 +223,6 @@ public class LLMConnectorConciliation : LLMConector
         _promptSent = false;
 
         TelemetryDispatch.SendQueryReceived(_messageID);
-        LLMLogManager.Instance.LogMessageSent("Rival answer: " + _answer, _messageID);
         
         conciliacionPage.SetRivalAgrees(_agree, _answer);
 

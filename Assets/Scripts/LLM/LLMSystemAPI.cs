@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Objeto serializable con las variables que incluye una llamada API a nuestro server python sin jsonschema
@@ -13,11 +14,9 @@ using UnityEngine.Networking;
 [System.Serializable]
 public class LLMAttorneyRequest
 {
-    public string mode;
     public string LLMConfig;
     public string prompt;
     public float temperature;
-    public int max_length;
     public bool rag_use;
     public int rag_index;
 }
@@ -28,11 +27,9 @@ public class LLMAttorneyRequest
 [System.Serializable]
 public class LLMAttorneyRequestJSONSchema
 {
-    public string mode;
     public string LLMConfig;
     public string prompt;
     public float temperature;
-    public int max_length;
     public JsonSchema json_schema;
     public bool rag_use;
     public int rag_index;
@@ -145,12 +142,16 @@ public class LLMSystemAPI : MonoBehaviour
      * @param max_length Tokens maximos del texto, esto no usarlo mucho q no funciona muy bien
      * @return Devuelve true si se ha podido mandar, si no hay ningun prompt encolado
      */
-    public bool SendPrompt(Action<bool, string> onComplete, string prompt, string LLMConfig, JsonSchema schema = null, float temperature = 0.8f, bool ragUse = false, int ragIndex = 0, int max_length = 99999)
+    public bool SendPrompt(Action<bool, string> onComplete, string prompt, string LLMConfig, JsonSchema schema = null, float temperature = 0.8f, bool ragUse = false, int ragIndex = 0)
     {
 
         if (_sendingPrompt)
+        {
+            LogSystem.Instance.LogString("Prompt invalidado, ya se esta mandando uno");
             return false;
+        }
 
+        string json = "";
         if (schema == null)
         {
             // Crear la request
@@ -159,13 +160,11 @@ public class LLMSystemAPI : MonoBehaviour
                 LLMConfig = LLMConfig,
                 prompt = prompt,
                 temperature = temperature,
-                max_length = max_length,
                 rag_use = ragUse,
                 rag_index = ragIndex
             };
 
-            string json = JsonConvert.SerializeObject(requestData, Formatting.Indented);
-            StartCoroutine(SendRequest(json, onComplete));
+            json = JsonConvert.SerializeObject(requestData, Formatting.Indented);
         }
         else
         {
@@ -182,16 +181,18 @@ public class LLMSystemAPI : MonoBehaviour
                 LLMConfig = LLMConfig,
                 prompt = prompt,
                 temperature = temperature,
-                max_length = max_length,
                 json_schema = schema,
                 rag_use = ragUse,
                 rag_index = ragIndex
             };
 
-            string json = JsonConvert.SerializeObject(requestData, Formatting.Indented);
-
-            StartCoroutine(SendRequest(json, onComplete));
+            json = JsonConvert.SerializeObject(requestData, Formatting.Indented);
         }
+
+        LogSystem.Instance.LogString($"[Fase: {SceneManager.GetActiveScene().buildIndex}] [SEND PROMPT]:" + "\nPrompt: " + prompt + "\nContext: " + LLMConfig + "\nTemperature: " + temperature + " RagUse: " + ragUse + " RagIndex: " + ragIndex);
+
+        StartCoroutine(SendRequest(json, onComplete));
+
 
         return true;
     }
@@ -293,6 +294,8 @@ public class LLMSystemAPI : MonoBehaviour
         if (isCallbackValid)
         {
             onComplete?.Invoke(success, response);
+            
+            LogSystem.Instance.LogString("$\"[Fase: {SceneManager.GetActiveScene().buildIndex}] [RECIEVE PROMPT]:\n" + response);
         }
         else
         {

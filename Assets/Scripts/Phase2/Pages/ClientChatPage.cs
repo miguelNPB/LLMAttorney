@@ -78,8 +78,6 @@ public class ClientChatPage : ChatPage
 
         yield return LLMSystemAPI.Instance.SendPromptCoroutine(getPromptTypeFromPrompt, prompt, configLLM, schema);
 
-        Debug.Log("Ya se el tipo de documento que es: " + _lastTypePromptRequest);
-
         switch (_lastTypePromptRequest) {
             case ClientPromptType.Question    : _llmConnectorClientChat.CallSendContext(); break;
             case ClientPromptType.Conversation     : _llmConnectorClientChat.CallSendContext(); break;

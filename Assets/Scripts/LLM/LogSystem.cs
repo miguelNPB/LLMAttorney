@@ -3,32 +3,32 @@ using System.IO;
 using Telemetry;
 using UnityEngine;
 
-public class LLMLogManager : MonoBehaviour
+public class LogSystem : MonoBehaviour
 {
 
-    private static LLMLogManager _instance = null;
+    private static LogSystem _instance = null;
 
-    public static LLMLogManager Instance
+    public static LogSystem Instance
     {
         get { return _instance; }
     }
 
     private string _path; 
 
-    private int _messageSent = 0;
 
-    public void LogMessageSent(string message, int id)
+    public void LogString(string message)
     {
-        string log = $"{System.DateTime.Now} [{id}] {message}";
+        string log = $"{System.DateTime.Now} {message}";
 
         Debug.Log(log);
     }
 
-    public int getMessageID()
-    {
-        return Guid.NewGuid().GetHashCode() & int.MaxValue;
-    }
-
+    /// <summary>
+    /// Se registra a logMessageRecieved para loggear los log al fichero game.log
+    /// </summary>
+    /// <param name="logString"></param>
+    /// <param name="stackTrace"></param>
+    /// <param name="type"></param>
     private void HandleLog(string logString, string stackTrace, LogType type)
     {
         string msg = $"{System.DateTime.Now} [{type}] {logString}\n";

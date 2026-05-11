@@ -17,7 +17,7 @@ namespace Telemetry
         private int _userID = -1;
         private IntPtr _trackerHandle = IntPtr.Zero;
 
-        private EventManager _instance = null;
+        private static EventManager _instance = null;
 
         [SerializeField]
         private bool _persistPeriodically = false;
@@ -27,7 +27,7 @@ namespace Telemetry
 
         private double _elapsedTime = 0;
 
-        public EventManager Instance
+        public static EventManager Instance
         {
             get { return _instance; }
         }
@@ -44,6 +44,15 @@ namespace Telemetry
             documentType = 7,
             isValid = 8,
 
+        }
+
+        /// <summary>
+        /// Obtenemos un id unico para casos que sea necesario
+        /// </summary>
+        /// <returns></returns>
+        public int getMessageID()
+        {
+            return Guid.NewGuid().GetHashCode() & int.MaxValue;
         }
 
         private void SubmitEvent(IntPtr eventPtr)

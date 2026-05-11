@@ -37,15 +37,6 @@ public class LLMConnectorDocumentsBudget : LLMConector
 
                 DocumentType docType = fromClientDocumentToDocumentType(_type);
 
-                string log =
-                $"[Fase: {SceneManager.GetActiveScene().buildIndex}] [Envio: {_messageID}] Nombre del documento: {_docName}.\n\n" +
-                $"Tipo de documento: {docType.ToString()}\n" +
-                $"Contenido del documento: {_docContent}\n" +
-                $"Coste del documento: {jsonResponse.CosteDocumento}\n" +
-                $"Respuesta coherente: true";
-
-                LLMLogManager.Instance.LogMessageSent(log, _messageID);
-
                 TelemetryDispatch.SendAskedDocument(jsonResponse.CosteDocumento, (int)docType);
 
                 TelemetryDispatch.SendQueryReceived(_messageID);

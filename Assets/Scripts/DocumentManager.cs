@@ -84,8 +84,8 @@ public class DocumentManager : MonoBehaviour
         {
             _playerDocs.Add(ids);
 
-            if (BudgetManager.Instance != null)
-                BudgetManager.Instance.AddExpense($"0 {cost}", docType, docName);
+            if (BudgetSystem.Instance != null)
+                BudgetSystem.Instance.AddExpense($"0 {cost}", docType, docName);
         }
 
         ids++;

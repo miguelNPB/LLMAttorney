@@ -1,4 +1,5 @@
 using System;
+using Telemetry;
 using UnityEngine;
 
 /// <summary>
@@ -27,7 +28,7 @@ public class LLMConnectorRivalObjection : LLMConector
         _promptSent = false;
         sendContextPrompt(_prompt, 0);
 
-        _messageID = LLMLogManager.Instance.getMessageID();
+        _messageID = EventManager.Instance.getMessageID();
         Telemetry.TelemetryDispatch.SendQueryPost(_messageID);
     }
 

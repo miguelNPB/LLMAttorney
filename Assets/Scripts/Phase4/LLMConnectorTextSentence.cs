@@ -50,7 +50,7 @@ public class LLMConnectorTextSentence : LLMConector
         _prompt = _prompt.Replace("¡", GameSystem.Instance.CaseData.demandedEntityName);
 
 
-        _messageID = LLMLogManager.Instance.getMessageID();
+        _messageID = EventManager.Instance.getMessageID();
         Telemetry.TelemetryDispatch.SendQueryPost(_messageID);
 
         sendContextPrompt(_prompt, 0);
@@ -72,7 +72,6 @@ public class LLMConnectorTextSentence : LLMConector
         if (success)
         {
             TextSentenceResponse response = JsonUtility.FromJson<TextSentenceResponse>(answer);
-            Debug.Log("SentenceText: " + response.sentence);
             _onRecievePrompt?.Invoke(response.sentence);
         }
         else

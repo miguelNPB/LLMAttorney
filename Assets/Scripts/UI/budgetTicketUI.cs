@@ -21,9 +21,9 @@ public class BudgetTicketUI : MonoBehaviour
 
     private void OnEnable()
     {
-        if (BudgetManager.Instance != null)
+        if (BudgetSystem.Instance != null)
         {
-            BudgetManager.Instance.OnBudgetChanged += Refresh;
+            BudgetSystem.Instance.OnBudgetChanged += Refresh;
             Refresh();
         }
         else
@@ -34,13 +34,13 @@ public class BudgetTicketUI : MonoBehaviour
 
     private void OnDisable()
     {
-        if (BudgetManager.Instance != null)
-            BudgetManager.Instance.OnBudgetChanged -= Refresh;
+        if (BudgetSystem.Instance != null)
+            BudgetSystem.Instance.OnBudgetChanged -= Refresh;
     }
 
     public void Refresh()
     {
-        BudgetManager bm = BudgetManager.Instance;
+        BudgetSystem bm = BudgetSystem.Instance;
         if (bm == null) return;
  
         if (startingBudgetText != null)

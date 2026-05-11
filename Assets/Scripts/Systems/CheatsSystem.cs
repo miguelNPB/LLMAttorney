@@ -87,13 +87,13 @@ public class CheatsSystem : MonoBehaviour
 
     public void Phase1toPhase2(string text)
     {
-        BudgetManager.Instance.SetBudget(text);
+        BudgetSystem.Instance.SetBudget(text);
         SceneSystem.Instance.LoadPhase2();
     }
 
     public void AddBudget(string text)
     {
-        BudgetManager.Instance.AddBudget(text);
+        BudgetSystem.Instance.AddBudget(text);
 
     }
 }

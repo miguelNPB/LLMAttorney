@@ -62,7 +62,7 @@ public class LLMConnectorDocuments : LLMConector
     {
         _type = type;
 
-        _messageID = LLMLogManager.Instance.getMessageID();
+        _messageID = EventManager.Instance.getMessageID();
 
         TelemetryDispatch.SendQueryPost(_messageID);
 

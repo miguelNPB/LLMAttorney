@@ -26,10 +26,10 @@ public class ExpenseEntry
     }
 }
 
-public class BudgetManager : MonoBehaviour
+public class BudgetSystem : MonoBehaviour
 {
 
-    public static BudgetManager Instance { get; private set; }
+    public static BudgetSystem Instance { get; private set; }
 
 
     [Header("Configuración del presupuesto")]
@@ -81,7 +81,7 @@ public class BudgetManager : MonoBehaviour
         TotalExpenses  = 0f;
         _expenses.Clear();
 
-        Debug.Log($"[BudgetManager] Presupuesto establecido en {CurrentBudget:F2}");
+        LogSystem.Instance.LogString($"[BudgetManager] Presupuesto establecido en {CurrentBudget:F2}");
         OnBudgetChanged?.Invoke();
         return CurrentBudget;
     }
@@ -97,7 +97,7 @@ public class BudgetManager : MonoBehaviour
             TotalExpenses = 0f;
             _expenses.Clear();
 
-            Debug.Log($"[BudgetManager] Presupuesto establecido en {CurrentBudget:F2}");
+            LogSystem.Instance.LogString($"[BudgetManager] Presupuesto establecido en {CurrentBudget:F2}");
             OnBudgetChanged?.Invoke();
         }
         else
@@ -127,7 +127,7 @@ public class BudgetManager : MonoBehaviour
 
         _expenses.Add(new ExpenseEntry(title, cost));
 
-        Debug.Log($"[BudgetManager] -{cost:F2} ({type} | \"{title}\") | Restante: {CurrentBudget:F2}");
+        LogSystem.Instance.LogString($"[BudgetManager] -{cost:F2} ({type} | \"{title}\") | Restante: {CurrentBudget:F2}");
 
         OnBudgetChanged?.Invoke();
         CheckBankruptcy();
@@ -140,7 +140,7 @@ public class BudgetManager : MonoBehaviour
         TotalExpenses = 0f;
         _expenses.Clear();
 
-        Debug.Log($"[BudgetManager] Presupuesto restablecido a {CurrentBudget:F2}");
+        LogSystem.Instance.LogString($"[BudgetManager] Presupuesto restablecido a {CurrentBudget:F2}");
         OnBudgetChanged?.Invoke();
     }
 

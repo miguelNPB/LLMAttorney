@@ -722,7 +722,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7378174376166987205}
   - component: {fileID: 6590701534197148420}
-  - component: {fileID: 5974792926367029468}
   m_Layer: 0
   m_Name: LLMSystem
   m_TagString: Untagged
@@ -759,18 +758,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LLMSystemAPI
   ip: localhost
   port: 8000
---- !u!114 &5974792926367029468
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3473967871559614549}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 121f441682d5a8346b117d1962fc5569, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LLMLogManager
 --- !u!1 &4036924131006146065
 GameObject:
   m_ObjectHideFlags: 0
@@ -805,6 +792,7 @@ Transform:
   - {fileID: 4287579008500812322}
   - {fileID: 9096839212859988123}
   - {fileID: 7378174376166987205}
+  - {fileID: 3864165696364962097}
   - {fileID: 7800808852715903887}
   - {fileID: 8276027442576445557}
   - {fileID: 7074283460550689019}
@@ -915,9 +903,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7800808852715903887}
-  - component: {fileID: 1594943942279901084}
+  - component: {fileID: 6751823125040953592}
   m_Layer: 0
-  m_Name: BudgetManager
+  m_Name: BudgetSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -931,14 +919,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6367949567814757709}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.869751, y: 84.68738, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 276294508596376722}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1594943942279901084
+--- !u!114 &6751823125040953592
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -947,11 +935,55 @@ MonoBehaviour:
   m_GameObject: {fileID: 6367949567814757709}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84ff31e786eefab42a060609594ccf2b, type: 3}
+  m_Script: {fileID: 11500000, guid: cc90b95e3f7250b4ca21bd9ace10d3ac, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BudgetManager
+  m_EditorClassIdentifier: Assembly-CSharp::BudgetSystem
   startingBudget: 1000
   bankruptcySceneName: GameOver
+--- !u!1 &8109416111130624706
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3864165696364962097}
+  - component: {fileID: 6384727255442435493}
+  m_Layer: 0
+  m_Name: LogSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3864165696364962097
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8109416111130624706}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 276294508596376722}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6384727255442435493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8109416111130624706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9e8712b0c3a0fd48b206b1e40be5fe0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LogSystem
 --- !u!1001 &2159462540546620504
 PrefabInstance:
   m_ObjectHideFlags: 0

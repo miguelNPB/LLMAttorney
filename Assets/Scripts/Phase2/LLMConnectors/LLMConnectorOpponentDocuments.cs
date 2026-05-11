@@ -146,9 +146,6 @@ public class LLMConnectorOpponentDocuments : LLMConector
             // }
 
             configLLM = configLLM + documentsContext;
-            
-            Debug.Log("PROMPT: " + prompt);
-            Debug.Log("CONTEXT: " + configLLM);
 
             _historical.Add("Pregunta: " + prompt);
 
@@ -169,8 +166,6 @@ public class LLMConnectorOpponentDocuments : LLMConector
 
     protected override bool sendSecuritySteps(string prompt)
     {
-        
-        Debug.Log("PROMPT de security checks: " + prompt);
 
         string configLLM = "Teniendo el siguiente texto: \n" + prompt + "\n Y teniedo la siguiente directiva de seguridad" +
             _config[_indexConfig].safeguardSteps +
@@ -196,7 +191,7 @@ public class LLMConnectorOpponentDocuments : LLMConector
 
     public void CallSendContext(int indexConfig = 0)
     {
-        _messageID = LLMLogManager.Instance.getMessageID();
+        _messageID = EventManager.Instance.getMessageID();
 
         TelemetryDispatch.SendQueryPost(_messageID);
 
