@@ -443,7 +443,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
-  _apiType: 0
   context: "Eres un cliente que consulta a un abogado por un problema de derecho
     civil.\r\n\r\nTu objetivo es:\r\n\r\n* explicar tu situaci\xF3n\r\n* hacer preguntas\r\n*
     entender el proceso legal y los costes\r\n\r\n---\r\n\r\nCOMPORTAMIENTO\r\n\r\n*
@@ -505,7 +504,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
-  _apiType: 1
   context: "Genera un documento tipo recibo / ticket / factura simplificada con la
     siguiente informaci\xF3n\r\n\r\nDebes incluir EXACTAMENTE estos encabezados,
     respetando may\xFAsculas y formato:\r\n- Nombre del negocio: [nombre]\r\n- Direcci\xF3n:
@@ -1843,7 +1841,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
-  _apiType: 0
   context: 
   safeguard: 
   safeguardSteps: 
@@ -2503,7 +2500,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
-  _apiType: 1
   context: "Genera un documento tipo recibo / ticket / factura simplificada con la
     siguiente informaci\xF3n\r\n\r\nDebes incluir EXACTAMENTE estos encabezados,
     respetando may\xFAsculas y formato:\r\n- Nombre del negocio: [nombre]\r\n- Direcci\xF3n:
@@ -3055,7 +3051,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
-  _apiType: 0
   context: "CONTEXTO \u2014 GENERACI\xD3N DE PRESUPUESTOS\r\n\r\nEres una herramienta
     que genera presupuestos para documentos necesarios en la preparaci\xF3n de un
     caso civil en Espa\xF1a.\r\n\r\nDebes generar informaci\xF3n sobre el coste de
@@ -3539,7 +3534,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
-  _apiType: 1
   context: "Eres un perito profesional sobre lo que se ha pedido\r\n\r\nEl informe
     debe ser formal, t\xE9cnico y detallado\r\n\r\nRevisar que en el informe haya
     estas secciones como encabezados:\r\n                    - Introduccion\r\n                   
@@ -4751,7 +4745,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
-  _apiType: 1
   context: "Redacta un informe general sobre lo que se ha pedido:\r\n\r\nEl tono
     debe ser claro, profesional y accesible.\r\n\r\nIncluir exactamente estas secciones
     como encabezados:\r\n    - T\xEDtulo\r\n    - Introducci\xF3n\r\n    - Desarrollo
@@ -5038,7 +5031,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
-  _apiType: 0
   context: "Eres un perito profesional sobre lo que se ha pedido\r\n\r\nEl informe
     debe ser formal, t\xE9cnico y detallado\r\n\r\n Incluir exactamente estas secciones
     como encabezados:\r\n                    - Introduccion\r\n                   
@@ -5353,7 +5345,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
-  _apiType: 0
   context: " Act\xFAa como mi cliente en un caso judicial en Espa\xF1a. Yo soy tu
     abogado (el jugador). \r\n\r\nMe dirijo a ti para presentarte una propuesta de
     conciliaci\xF3n de la parte contraria, \r\n\r\nun paso que a menudo es obligatorio
@@ -5556,7 +5547,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
-  _apiType: 0
   context: "Aqu\xED tienes la versi\xF3n mejorada de tu prompt. He ajustado la mentalidad
     del personaje para que eval\xFAe no solo los porcentajes de descuento, sino tambi\xE9n
     el coste de oportunidad y las costas procesales frente a la cuant\xEDa absoluta
@@ -5707,7 +5697,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
-  _apiType: 1
   context: "Redacta un informe general sobre lo que se ha pedido:\r\n\r\nEl tono
     debe ser claro, profesional y accesible.\r\n\r\nIncluir exactamente estas secciones
     como encabezados:\r\n    - T\xEDtulo\r\n    - Introducci\xF3n\r\n    - Desarrollo
@@ -6133,7 +6122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
-  _apiType: 0
   context: Eres el cliente de un abogado. Yo soy el abogado y te voy a hacer una
     pregunta a traves del prompt. Tu tarea es responder como el cliente, pensando
     razonablemente y respondiendo considerando el resumen del caso en "Resumen del
@@ -6189,7 +6177,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
-  _apiType: 0
   context: "Tu tarea es rellenar el atributo \"agree\", un booleano con true o false
     dependiendo de tu juicio sobre la propuesta de conciliaci\xF3n de la parte contraria
     (el demandante).\r\n\r\nTu Rol y Psicolog\xEDa:\r\nEres la parte demandada en
@@ -6839,7 +6826,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
-  _apiType: 1
   context: "Redacta la declaracion del testigo sobre el hecho que se ha pedido:\r\n\r\nEl
     estilo debe ser natural pero claro, como si fuera una declaraci\xF3n oficial\r\n\r\nIMPORTANTE:\r\n-
     Debes incluir EXACTAMENTE estos encabezados, respetando may\xFAsculas y formato:\r\n\tDatos
@@ -7494,7 +7480,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
-  _apiType: 0
   context: "Act\xFAa como la parte demandada (el rival) en un caso judicial en Espa\xF1a.
     Yo soy el abogado de la parte contraria (el jugador), es decir, represento a
     la persona o empresa que te ha demandado.\nTe acabo de hacer llegar una propuesta
@@ -7711,7 +7696,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
-  _apiType: 1
   context: "Redacta la declaracion del testigo sobre el hecho que se ha pedido:\r\n\r\nEl
     estilo debe ser natural pero claro, como si fuera una declaraci\xF3n oficial\r\n\r\nIMPORTANTE:\r\n-
     Debes incluir EXACTAMENTE estos encabezados, respetando may\xFAsculas y formato:\r\n\tDatos
