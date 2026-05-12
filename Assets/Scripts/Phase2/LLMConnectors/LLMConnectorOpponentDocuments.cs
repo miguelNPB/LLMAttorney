@@ -94,7 +94,7 @@ public class LLMConnectorOpponentDocuments : LLMConector
         );
         */
 
-        _procuradorPage.ReceiveOpponentDocMessage("Has recibido un documento de la parte del damandado.");
+        _procuradorPage.ReceiveOpponentDocMessage("Has recibido un documento de la parte del demandado.");
     }
 
     protected override bool sendContextPrompt(int indexConfig = 0)
