@@ -47,6 +47,54 @@ def get_data():
 
     return database
 
+# Sacar una grafica con 4 barras con tiempos medios entre peticion y respuesta por fase
+def analyze_time_between_query_and_response(queryPostEvents, queryRecievedEvents, plot_title):
+    queryPostEvents["4"] = queryPostEvents["4"].astype(str)
+    queryRecievedEvents["4"] = queryRecievedEvents["4"].astype(str)
+
+    merged_df = pd.merge(
+        queryPostEvents, 
+        queryRecievedEvents, 
+        on="4", 
+        suffixes=('_sent', '_rec')
+    )
+
+    if merged_df.empty:
+        print("No hay coincidencias de mensajes para calcular tiempos.")
+        return
+
+    merged_df['latency'] = round((merged_df['timestamp_rec'] - merged_df['timestamp_sent']).dt.total_seconds(), 1) 
+
+    
+    means = merged_df.groupby("5_sent")['latency'].mean()
+    stds = merged_df.groupby("5_sent")['latency'].std().fillna(0)
+
+
+    categories = ['Fase 1', 'Fase 2', 'Fase 3', 'Fase 4']
+    mean_values = [means.get(i, 0) for i in [1, 2, 3, 4]]
+    
+    plt.figure(figsize=(10, 6))
+    plt.title(f"{plot_title} - Segundos medios entre petición y respuesta enviados al LLM")
+    colors = ['#4e79a7', '#f28e2b', "#2bf25d", "#f22b7e"]
+    bars = plt.bar(categories, mean_values, color=colors)
+
+    i = 1
+    y_Limit = means.max()
+    offset_up = y_Limit * 0.025
+    offset_down = y_Limit * 0.125
+    threshold = y_Limit * 0.9
+    for bar in bars:
+        yval = bar.get_height()
+        text_pos = yval + offset_up
+        if text_pos > threshold:
+            text_pos = yval - offset_down
+            
+        plt.text(bar.get_x() + bar.get_width()/2, text_pos, f"Media: {means.get(i, 0):.2f}\nDesv: {stds.get(i, 0):.2f}", 
+                 ha='center', va='bottom', bbox=dict(boxstyle='round', facecolor='white', alpha=0.5))
+        i = i + 1
+
+    plt.savefig(RESULTS_DIR / f"{plot_title}_response_times.jpg")
+    plt.close()
 
 # Metodo usado para el quality score de las puntuaciones de modelos, no usado con telemetria
 def analyze_quality_answer_score(qualityAnswerScore, plot_title):
@@ -109,8 +157,11 @@ def main():
 
     database = get_data()
 
+    queryPostEvents = database[database["eventType"] == 5]
+    queryRecievedEvents = database[database["eventType"] == 6]
     qualityAnswerScore = database[database["eventType"] == 7]
 
+    analyze_time_between_query_and_response(queryPostEvents, queryRecievedEvents, plot_title)
     analyze_quality_answer_score(qualityAnswerScore, plot_title)
     print(RESULTS_DIR)
 
