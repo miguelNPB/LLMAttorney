@@ -5,6 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import warnings
 import matplotlib.ticker as ticker
+import numpy as np
 
 # Ignora los futureWarnings en consola
 warnings.simplefilter(action='ignore', category=FutureWarning)
@@ -62,7 +63,12 @@ def analyze_not_consistent_questions(notConsistentQuestionEvents, queryRecievedE
     colors = ['#4e79a7', '#f28e2b']
     plt.figure(figsize=(8, 6))
     plt.title(f"{plot_title} - Detección del LLM de respuestas no coherentes")
-    plt.bar(categories, values, color=colors)
+    bars = plt.bar(categories, values, color=colors)
+
+    for bar in bars:
+        yval = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width()/2, yval, f"{yval}", 
+                 ha='center', va='bottom')
 
     plt.text(0.05, 0.95, f"% de no coherentes: {percentOfNotCoherent}", transform=plt.gca().transAxes, fontsize=12,
              verticalalignment='top', bbox=dict(boxstyle='round', facecolor='white', alpha=0.5))
@@ -111,7 +117,12 @@ def analyze_asked_document_types(askedDocumentEvents, plot_title):
     
     plt.figure(figsize=(8, 6))
     plt.title(f"{plot_title} - Tipos de documentos obtenidos")
-    plt.bar(categories, values, color=colors)
+    bars = plt.bar(categories, values, color=colors)
+
+    for bar in bars:
+        yval = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width()/2, yval, f"{yval}", 
+                 ha='center', va='bottom')
 
     plt.gca().yaxis.set_major_locator(ticker.MaxNLocator(integer=True))
 
@@ -129,8 +140,13 @@ def analyze_sent_procurator_docs(postDocumentEvents, askedDocumentEvents, plot_t
     colors = ['#4e79a7', '#f28e2b']
     plt.figure(figsize=(8, 6))
     plt.title(f"{plot_title} - Relación de documentos pedidos y documentos utilizados")
-    plt.bar(categories, values, color=colors)
+    bars = plt.bar(categories, values, color=colors)
 
+    for bar in bars:
+        yval = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width()/2, yval, f"{yval}", 
+                 ha='center', va='bottom')
+        
     plt.gca().yaxis.set_major_locator(ticker.MaxNLocator(integer=True))
 
     plt.savefig(RESULTS_DIR / f"{plot_title}_sent_procurator_docs.jpg")
@@ -149,7 +165,13 @@ def analyze_num_sent_querys(queryPostEvents, plot_title):
     colors = ['#4e79a7', '#f28e2b', "#2bf25d", "#f22b7e"]
     plt.figure(figsize=(8, 6))
     plt.title(f"{plot_title} - Número de peticiones enviadas al LLM")
-    plt.bar(categories, values, color=colors)
+    bars = plt.bar(categories, values, color=colors)
+
+    for bar in bars:
+        yval = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width()/2, yval, f"{yval}", 
+                 ha='center', va='bottom')
+
 
     plt.savefig(RESULTS_DIR / f"{plot_title}_sent_querys.jpg")
     plt.close()
@@ -173,20 +195,33 @@ def analyze_time_between_query_and_response(queryPostEvents, queryRecievedEvents
 
     merged_df['latency'] = round((merged_df['timestamp_rec'] - merged_df['timestamp_sent']).dt.total_seconds(), 1) 
 
-    mean_by_phase = merged_df.groupby("5_sent")['latency'].mean()
+    
+    means = merged_df.groupby("5_sent")['latency'].mean()
+    stds = merged_df.groupby("5_sent")['latency'].std().fillna(0)
+
 
     categories = ['Fase 1', 'Fase 2', 'Fase 3', 'Fase 4']
-    mean_values = [mean_by_phase.get(i, 0) for i in [1, 2, 3, 4]]
+    mean_values = [means.get(i, 0) for i in [1, 2, 3, 4]]
     
     plt.figure(figsize=(10, 6))
-    plt.title(f"{plot_title} - Tiempo medio entre petición y respuesta enviados al LLM")
+    plt.title(f"{plot_title} - Segundos medios entre petición y respuesta enviados al LLM")
     colors = ['#4e79a7', '#f28e2b', "#2bf25d", "#f22b7e"]
     bars = plt.bar(categories, mean_values, color=colors)
 
+    i = 1
+    y_Limit = means.max()
+    offset_up = y_Limit * 0.025
+    offset_down = y_Limit * 0.125
+    threshold = y_Limit * 0.9
     for bar in bars:
         yval = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width()/2, yval + 0.05, f"{yval:.2f}s", 
-                 ha='center', va='bottom', fontweight='bold')
+        text_pos = yval + offset_up
+        if text_pos > threshold:
+            text_pos = yval - offset_down
+            
+        plt.text(bar.get_x() + bar.get_width()/2, text_pos, f"Media: {means.get(i, 0):.2f}\nDesv: {stds.get(i, 0):.2f}", 
+                 ha='center', va='bottom', bbox=dict(boxstyle='round', facecolor='white', alpha=0.5))
+        i = i + 1
 
     plt.savefig(RESULTS_DIR / f"{plot_title}_response_times.jpg")
     plt.close()
@@ -196,31 +231,46 @@ def analyze_quality_answer_score(qualityAnswerScore, plot_title):
     if len(qualityAnswerScore) < 1:
         return 
     
-    phase1qualityAnswerScoreMean = (qualityAnswerScore[qualityAnswerScore["phase"] == 1])["score"].mean()
-    phase2qualityAnswerScoreMean = (qualityAnswerScore[qualityAnswerScore["phase"] == 2])["score"].mean()
-    phase3qualityAnswerScoreMean = (qualityAnswerScore[qualityAnswerScore["phase"] == 3])["score"].mean()
-    phase4qualityAnswerScoreMean = (qualityAnswerScore[qualityAnswerScore["phase"] == 4])["score"].mean()
-
+    phases = [1, 2, 3, 4]
     categories = ['Fase 1', 'Fase 2', 'Fase 3', 'Fase 4']
-    values = [phase1qualityAnswerScoreMean, phase2qualityAnswerScoreMean, phase3qualityAnswerScoreMean, phase4qualityAnswerScoreMean]
     colors = ['#4e79a7', '#f28e2b', "#2bf25d", "#f22b7e"]
+    
+    means = []
+    stds = []
+
+    for phase in phases:
+        phase_data = qualityAnswerScore[qualityAnswerScore["phase"] == phase]["score"]
+        means.append(phase_data.mean() if not phase_data.empty else 0)
+        stds.append(phase_data.std() if not phase_data.empty else 0)
+
     plt.figure(figsize=(8, 6))
-    plt.title(f"{plot_title} - Media de puntuación de calidad de respuesta del LLM")
-    bars = plt.bar(categories, values, color=colors)
+    plt.title(f"{plot_title} - Media de calidad de respuesta")
+    
+    bars = plt.bar(categories, means, color=colors, capsize=7, ecolor='black')
 
     plt.ylim(0, 5.5)
     plt.yticks(range(6))
 
+    i = 0
+    y_Limit = 5
+    offset_up = y_Limit * 0.035
+    offset_down = y_Limit * 0.175
+    threshold = y_Limit * 0.9
     for bar in bars:
         yval = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width()/2, yval + 0.05, f"{yval:.2f}", 
-                 ha='center', va='bottom', fontweight='bold')
+        text_pos = yval + offset_up
+        if text_pos > threshold:
+            text_pos = yval - offset_down
+            
+        plt.text(bar.get_x() + bar.get_width()/2, text_pos, f"Media: {means[i]:.2f}\nDesv: {stds[i]:.2f}", 
+                 ha='center', va='bottom', bbox=dict(boxstyle='round', facecolor='white', alpha=0.5))
+        i = i + 1
         
-    finalScore = round((phase1qualityAnswerScoreMean + phase2qualityAnswerScoreMean + phase3qualityAnswerScoreMean + phase4qualityAnswerScoreMean) / 4,1)
+    finalScore = round(np.nanmean(means), 1)
     plt.text(0.05, 0.95, f"Puntuación general: {finalScore}", transform=plt.gca().transAxes, fontsize=12,
-        verticalalignment='top', bbox=dict(boxstyle='round', facecolor='white', alpha=0.5))
+             verticalalignment='top', bbox=dict(boxstyle='round', facecolor='white', alpha=0.5))
 
-
+    plt.tight_layout()
     plt.savefig(RESULTS_DIR / f"{plot_title}_quality_score.jpg")
     plt.close()
 
@@ -251,11 +301,13 @@ def main():
     notConsistentQuestionEvents = database[database["eventType"] == 0]
     deniedBudgetEvents = database[database["eventType"] == 1]
     postDocumentEvents = database[database["eventType"] == 2]
-    askedDocumentEvents = database[database["eventType"] == 3]
-    queryPostEvents = database[database["eventType"] == 4]
-    queryRecievedEvents = database[database["eventType"] == 5]
-    #qualityAnswerScore = database[database["eventType"] == 7]
+    askedDocumentEvents = database[database["eventType"] == 4]
+    queryPostEvents = database[database["eventType"] == 5]
+    queryRecievedEvents = database[database["eventType"] == 6]
+    qualityAnswerScore = database[database["eventType"] == 7]
 
+    '''
+    '''
     analyze_not_consistent_questions(notConsistentQuestionEvents, queryRecievedEvents, plot_title)
     analyze_budget_attempts(deniedBudgetEvents, plot_title)
     analyze_asked_document_types(askedDocumentEvents, plot_title)
