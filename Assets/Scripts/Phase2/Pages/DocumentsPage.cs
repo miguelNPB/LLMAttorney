@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Pagina para gestionar el visualizado y registro de los documentos del caso, tanto del player como del rival
@@ -15,6 +17,8 @@ public class DocumentsPage : IPage
     private List<UIDocument> _playerDocumentsInstanciated = new List<UIDocument>();
     private List<UIDocument> _rivalDocumentsInstanciated = new List<UIDocument>();
 
+    private RectTransform _playerDocsContainerRectTransform;
+    private RectTransform _rivalDocsContainerRectTransform;
 
     //Padre de los documentos abiertos
     [SerializeField] 
@@ -59,8 +63,9 @@ public class DocumentsPage : IPage
     /// <summary>
     /// Inicializa los valores de los documentos para mostrarlos como ficheros
     /// </summary>
-    private void setupUIDocuments()
+    private IEnumerator setupUIDocuments()
     {
+
         DocumentManager docManager = GameSystem.Instance.CaseData.documentManager;
         // setup la seccion del player
         List<uint> playerDocuments = docManager.GetPlayerDocs();
@@ -86,15 +91,22 @@ public class DocumentsPage : IPage
             else
             {
                 addUIDocument(docManager.GetDocument(rivalDocuments[i]));
+
             }
         }
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_playerDocsContainerRectTransform);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_rivalDocsContainerRectTransform);
+        Canvas.ForceUpdateCanvases();
+        yield return new WaitForEndOfFrame();
     }
 
     public override void Open()
     {
-        setupUIDocuments();
-
         _pageHolder.SetActive(true);
+        
+        StartCoroutine(setupUIDocuments());
+
 
         // foreach (UIDocument doc in _detachedDocParent.GetComponentsInChildren<UIDocument>(includeInactive: true))
         //     doc.documentIcon.SetActive(true);
@@ -111,6 +123,8 @@ public class DocumentsPage : IPage
     
     void Start()
     {
+        _playerDocsContainerRectTransform = _playerDocumentsContainer.GetComponent<RectTransform>();
+        _rivalDocsContainerRectTransform = _rivalDocumentsContainer.GetComponent<RectTransform>();
         if (_detachedDocParent == null)
             _detachedDocParent = GameObject.FindWithTag("DetachedDocParent")?.transform;
     }

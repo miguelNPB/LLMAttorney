@@ -1060,11 +1060,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1704195806330178749, guid: f18a19dd2eb656240824c2c016e8d83c, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1704195806330178749, guid: f18a19dd2eb656240824c2c016e8d83c, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1704195806330178749, guid: f18a19dd2eb656240824c2c016e8d83c, type: 3}
       propertyPath: m_AnchorMin.x
@@ -1244,7 +1244,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7393887349058967111, guid: f18a19dd2eb656240824c2c016e8d83c, type: 3}
       propertyPath: m_Value
-      value: -0.049
+      value: -0.019
       objectReference: {fileID: 0}
     - target: {fileID: 7393887349058967111, guid: f18a19dd2eb656240824c2c016e8d83c, type: 3}
       propertyPath: m_Transition
@@ -1294,7 +1294,8 @@ PrefabInstance:
       propertyPath: m_VerticalScrollbar
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8286388835055004513, guid: f18a19dd2eb656240824c2c016e8d83c, type: 3}
     m_RemovedGameObjects:
     - {fileID: 1143703483202826674, guid: f18a19dd2eb656240824c2c016e8d83c, type: 3}
     m_AddedGameObjects: []
