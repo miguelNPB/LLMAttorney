@@ -225,55 +225,6 @@ def analyze_time_between_query_and_response(queryPostEvents, queryRecievedEvents
 
     plt.savefig(RESULTS_DIR / f"{plot_title}_response_times.jpg")
     plt.close()
-        
-# Metodo usado para el quality score de las puntuaciones de modelos, no usado con telemetria
-def analyze_quality_answer_score(qualityAnswerScore, plot_title):
-    if len(qualityAnswerScore) < 1:
-        return 
-    
-    phases = [1, 2, 3, 4]
-    categories = ['Fase 1', 'Fase 2', 'Fase 3', 'Fase 4']
-    colors = ['#4e79a7', '#f28e2b', "#2bf25d", "#f22b7e"]
-    
-    means = []
-    stds = []
-
-    for phase in phases:
-        phase_data = qualityAnswerScore[qualityAnswerScore["phase"] == phase]["score"]
-        means.append(phase_data.mean() if not phase_data.empty else 0)
-        stds.append(phase_data.std() if not phase_data.empty else 0)
-
-    plt.figure(figsize=(8, 6))
-    plt.title(f"{plot_title} - Media de calidad de respuesta")
-    
-    bars = plt.bar(categories, means, color=colors, capsize=7, ecolor='black')
-
-    plt.ylim(0, 5.5)
-    plt.yticks(range(6))
-
-    i = 0
-    y_Limit = 5
-    offset_up = y_Limit * 0.035
-    offset_down = y_Limit * 0.175
-    threshold = y_Limit * 0.9
-    for bar in bars:
-        yval = bar.get_height()
-        text_pos = yval + offset_up
-        if text_pos > threshold:
-            text_pos = yval - offset_down
-            
-        plt.text(bar.get_x() + bar.get_width()/2, text_pos, f"Media: {means[i]:.2f}\nDesv: {stds[i]:.2f}", 
-                 ha='center', va='bottom', bbox=dict(boxstyle='round', facecolor='white', alpha=0.5))
-        i = i + 1
-        
-    finalScore = round(np.nanmean(means), 1)
-    plt.text(0.05, 0.95, f"Puntuación general: {finalScore}", transform=plt.gca().transAxes, fontsize=12,
-             verticalalignment='top', bbox=dict(boxstyle='round', facecolor='white', alpha=0.5))
-
-    plt.tight_layout()
-    plt.savefig(RESULTS_DIR / f"{plot_title}_quality_score.jpg")
-    plt.close()
-
 
 def main():
     if len(sys.argv) < 2:
@@ -304,20 +255,13 @@ def main():
     askedDocumentEvents = database[database["eventType"] == 4]
     queryPostEvents = database[database["eventType"] == 5]
     queryRecievedEvents = database[database["eventType"] == 6]
-    qualityAnswerScore = database[database["eventType"] == 7]
 
-    '''
-    '''
     analyze_not_consistent_questions(notConsistentQuestionEvents, queryRecievedEvents, plot_title)
     analyze_budget_attempts(deniedBudgetEvents, plot_title)
     analyze_asked_document_types(askedDocumentEvents, plot_title)
     analyze_sent_procurator_docs(postDocumentEvents, askedDocumentEvents, plot_title)
     analyze_num_sent_querys(queryPostEvents, plot_title)
     analyze_time_between_query_and_response(queryPostEvents, queryRecievedEvents, plot_title)
-
-    # metodo usado para analizar el qualityScore 
-    #analyze_quality_answer_score(qualityAnswerScore, plot_title)
-
 
 
 if __name__ == "__main__":
