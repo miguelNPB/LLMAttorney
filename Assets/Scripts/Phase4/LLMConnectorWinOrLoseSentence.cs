@@ -74,14 +74,4 @@ public class LLMConnectorWinOrLoseSentence : LLMConnector
         _contextSchema = new JsonSchema();
         _contextSchema.properties.Add("winPlayer", new PropertyInfo(JsonDataType.Boolean));
     }
-
-    protected override string deseralizePromptFirstResponse(string serializedResponse)
-    {
-        return ""; // no hay steps
-    }
-
-    protected override string deseralizePromptStepResponse(string serializedResponse)
-    {
-        return ""; // no hay steps
-    }
 }
