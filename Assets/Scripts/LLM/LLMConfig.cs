@@ -59,6 +59,11 @@ public class LLMConfig : ScriptableObject
         return _context;
     }
 
+    public void OverrideContext(string newContext)
+    {
+        _context = newContext;
+    }
+
     public string GetSafeguard()
     {
         return _safeguard;

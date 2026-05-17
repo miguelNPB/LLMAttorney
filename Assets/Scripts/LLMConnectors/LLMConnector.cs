@@ -1,4 +1,5 @@
 using System;
+using Telemetry;
 using UnityEngine;
 
 public abstract class LLMConnector : MonoBehaviour
@@ -20,6 +21,8 @@ public abstract class LLMConnector : MonoBehaviour
     protected int _configIndex;
     protected int _stepCounter;
     protected string _prompt;
+
+    protected int _messageID;
 
     /// --- Metodos para el json schema
 
@@ -81,6 +84,9 @@ public abstract class LLMConnector : MonoBehaviour
 
         bool sent = LLMSystemAPI.Instance.SendPrompt(recieveFirstResponse, _prompt, configLLM, _contextSchema, _llmConfigs[_configIndex].GetTemperature(), _llmConfigs[_configIndex].GetRagUse(), (int)_llmConfigs[_configIndex].GetRagFileType());
 
+        _messageID = EventManager.Instance.getMessageID();
+        Telemetry.TelemetryDispatch.SendQueryPost(_messageID);
+
         _promptSent = sent;
 
         return sent;
@@ -93,7 +99,8 @@ public abstract class LLMConnector : MonoBehaviour
     /// <param name="text"></param>
     protected virtual void recieveFirstResponse(bool success, string text)
     {
-        Debug.Log("prueba prueba");
+        Telemetry.TelemetryDispatch.SendQueryReceived(_messageID);
+        
         if (_useSteps)
         {
             string deserializedPrompt = deseralizePromptFirstResponse(text);
@@ -117,6 +124,9 @@ public abstract class LLMConnector : MonoBehaviour
         bool sent = LLMSystemAPI.Instance.SendPrompt(recieveStepResponse, prompt, _llmConfigs[_configIndex].GetStepChecks()[_stepCounter], _stepsSchema, _llmConfigs[_configIndex].GetTemperature(), _llmConfigs[_configIndex].GetRagUse(), (int)_llmConfigs[_configIndex].GetRagFileType());
         _stepCounter++;
 
+        _messageID = EventManager.Instance.getMessageID();
+        Telemetry.TelemetryDispatch.SendQueryPost(_messageID);
+
         return sent;
     }
 
@@ -127,6 +137,8 @@ public abstract class LLMConnector : MonoBehaviour
     /// <param name="text"></param>
     protected virtual void recieveStepResponse(bool success, string text)
     {
+        Telemetry.TelemetryDispatch.SendQueryReceived(_messageID);
+
         string deseralizedPrompt = deseralizePromptStepResponse(text);
         if (!sendStepPrompt(deseralizedPrompt))
             respondPrompt(success, text);

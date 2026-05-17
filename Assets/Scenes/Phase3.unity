@@ -915,7 +915,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
-  _apiType: 0
   context: "Rol: Eres un magistrado experto en derecho procesal, con un enfoque estricto
     en los principios de pertinencia y utilidad de la prueba. Tu funci\xF3n es decidir
     la admisibilidad de un medio probatorio en la fase de audiencia previa.\r\n\r\nTarea:
@@ -1167,14 +1166,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 270ce50f595df154da254089b71e6cb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorRivalObjection
-  _config:
-  - {fileID: 470359871}
-  _inputField: {fileID: 0}
-  _useSecuritySteps: 0
+  _llmConfigs:
+  - {fileID: 11400000, guid: 91178c18f8b2e664ab100825b4714501, type: 2}
+  _useSteps: 0
   _useHistoricalInContext: 0
   _useHistoricalInSteps: 0
-  _prompt: "Rellena el booleano \"valid\" en funci\xF3n del veredicto si la prueba
-    tiene relaci\xF3n con el caso y no es in\xFAtil."
 --- !u!1 &983531631
 GameObject:
   m_ObjectHideFlags: 0

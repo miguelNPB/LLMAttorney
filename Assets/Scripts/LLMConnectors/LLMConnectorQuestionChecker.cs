@@ -57,6 +57,8 @@ public class LLMConnectorQuestionChecker : LLMConnector
 
     protected override void recieveFirstResponse(bool success, string text)
     {
+        Telemetry.TelemetryDispatch.SendQueryReceived(_messageID);
+
         if (_useSteps && _llmConfigs[_configIndex].GetStepChecks().Length > 0)
         {
             bool isCoherent = bool.Parse(deseralizePromptFirstResponse(text));
@@ -73,6 +75,8 @@ public class LLMConnectorQuestionChecker : LLMConnector
 
     protected override void recieveStepResponse(bool success, string text)
     {
+        Telemetry.TelemetryDispatch.SendQueryReceived(_messageID);
+
         bool isCoherent = bool.Parse(deseralizePromptStepResponse(text));
         if (isCoherent || !sendStepPrompt(_prompt))
             respondPrompt(success, text);
