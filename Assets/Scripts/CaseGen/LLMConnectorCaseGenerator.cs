@@ -72,6 +72,7 @@ public class LLMCaseGenerator : LLMConnector
         OnCaseGenerated?.Invoke(pdfPath, json.CaseContent);
 
         //! PLACEHOLDER — llamar al generador de resumen con el contenido del caso
+        _summaryGenerator.SendPrompt(OnFinalResponse, text);
         //_summaryGenerator.GenerateSummary(json.CaseContent);
     }
 

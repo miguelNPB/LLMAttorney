@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class LLMConnectorCaseDataGenerator : LLMConnector
 {
-
+    [Serializable]
     private class CaseDataRetrieval
     {
         public string clientName;
@@ -26,11 +26,9 @@ public class LLMConnectorCaseDataGenerator : LLMConnector
         _contextSchema = new JsonSchema();
         _contextSchema.properties.Add("clientName", new PropertyInfo(JsonDataType.String));
 
-        _stepsSchema = new JsonSchema();
-        _stepsSchema.properties.Add("rivalName", new PropertyInfo(JsonDataType.String));
+        _contextSchema.properties.Add("rivalName", new PropertyInfo(JsonDataType.String));
 
-        _stepsSchema = new JsonSchema();
-        _stepsSchema.properties.Add("caseSummary", new PropertyInfo(JsonDataType.String));
+        _contextSchema.properties.Add("caseSummary", new PropertyInfo(JsonDataType.String));
 
     }
 
