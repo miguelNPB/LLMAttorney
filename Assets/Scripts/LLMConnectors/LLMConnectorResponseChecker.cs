@@ -35,10 +35,10 @@ public class LLMConnectorResponseChecker : LLMConnector
     protected override void createJsonSchemas()
     {
         _contextSchema = new JsonSchema();
-        _contextSchema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
+        _contextSchema.properties.Add("isCoherent", new PropertyInfo(JsonDataType.Boolean));
 
         _stepsSchema = new JsonSchema();
-        _stepsSchema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
+        _stepsSchema.properties.Add("isCoherent", new PropertyInfo(JsonDataType.Boolean));
     }
 
     protected override string deseralizePromptFirstResponse(string firstResponse)

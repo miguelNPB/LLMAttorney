@@ -20,6 +20,7 @@ public class SearchPricesManager : MonoBehaviour
     private bool _waitingPendingMessage = false;
 
     private string _prompt;
+    private string _tempAnswer;
     /// <summary>
     /// Corroutina para esperar al mensaje con una animacion
     /// </summary>
@@ -60,21 +61,48 @@ public class SearchPricesManager : MonoBehaviour
         _llmConnectorQuestionChecker.SendPrompt(recieveQuestionCheckerResponse, _prompt);
     }
 
+    /// <summary>
+    /// Termina la busqueda de precios y pone un texto final de respuesta.
+    /// </summary>
+    /// <param name="text"></param>
+    private void endPriceSearch(string text)
+    {
+        _waitingPendingMessage = false;
+        _pendingMessage = text;
+    }
+
+    /// <summary>
+    /// Metodo llamado al recibir la respuesta del primer LLMConector, el de QuestionChecker. Devuelve un booleano si la pregunta es coherente
+    /// </summary>
+    /// <param name="isCoherent"></param>
     private void recieveQuestionCheckerResponse(bool isCoherent)
     {
-        _llmConnectorSearch.SendPrompt(recieveSearchConnectorResponse, _inputField.text);
-
+        if (isCoherent)
+            _llmConnectorSearch.SendPrompt(recieveSearchConnectorResponse, _inputField.text);
+        else
+            endPriceSearch("Lo siento. No he entendido tu petición, deme mas detalles o cambie la forma de pedirlo.");
     }
 
+    /// <summary>
+    /// Metodo llamado al recibir la respuesta dle LLMConnector de buscador de precios.
+    /// </summary>
+    /// <param name="text"></param>
     private void recieveSearchConnectorResponse(string text)
     {
-        _pendingMessage = text;
-        _waitingPendingMessage = false;
+        _tempAnswer = text;
+        _llmConnectorResponseChecker.SendPrompt(recieveResponseCheckerResponse, _tempAnswer);
     }
 
+    /// <summary>
+    /// Metodo llamado al recibir la respuesta del ultimo LLMConnector, el ResponseChecker. Devuelve un booleano si la respuesta es coherente.
+    /// </summary>
+    /// <param name="isCoherent"></param>
     private void recieveResponseCheckerResponse(bool isCoherent)
     {
-
+        if (isCoherent)
+            endPriceSearch(_tempAnswer);
+        else
+            endPriceSearch("Lo siento. No he podido encontrar nada de tu petición. Formule de nuevo la pregunta o pruebe algo distinto.");
     }
 
     /// <summary>
