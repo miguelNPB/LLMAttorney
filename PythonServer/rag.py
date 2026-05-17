@@ -89,7 +89,7 @@ def init_RAG(OLLAMA_HOST):
 
             vectorStores.append(vector_store)
         else:
-            print("Si que existe el directorio del vector store, cargando el vector store ya creado...")
+            print("Existe el directorio del vector store, cargando el vector store...")
 
             vector_store = Chroma(
                 persist_directory=str(databasePath),
@@ -109,13 +109,9 @@ def get_rag_data(prompt, ragIndex, vectorStores):
     if ragIndex >= len(vectorStores) or ragIndex < 0:
         raise HTTPException(status_code=400, detail=f"RAG index {ragIndex} is out of range. Available vector stores: 0 to {len(vectorStores)-1}")
 
-    print("vector_store:", vectorStores[ragIndex])
-
     retriever_output = vectorStores[ragIndex].as_retriever().invoke(prompt)  # Recupera los documentos relevantes para la consulta
 
     contexto = "\n\n".join([doc.page_content for doc in retriever_output])
-
-    print("Contexto generado: ", contexto)
 
     # Sumamos el contexto a la configuracion del LLM para que lo use como referencia a la hora de generar la respuesta
     context = (
