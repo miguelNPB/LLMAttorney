@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Telemetry;
 using UnityEngine;
 
-public class LLMConnectorTextSentence : LLMConector
+public class LLMConnectorTextSentence : LLMConnector
 {
     [Serializable]
     private class TextSentenceResponse
@@ -11,16 +11,20 @@ public class LLMConnectorTextSentence : LLMConector
         public string sentence;
     }
 
-    [SerializeField, TextArea(3, 10)] private string _prompt;
-    [SerializeField, TextArea(3, 10)] private string _winPlayerText;
-    [SerializeField, TextArea(3, 10)] private string _losePlayerText;
+    [SerializeField, TextArea(3, 10)] private string _promptTemplate = "Analiza el siguiente caso y dicta un texto con la sentencia:\r\n\r\n\r\nDemanda de !:\r\n#\r\n\r\n\r\nPruebas presentadas por !:\r\n@\r\n\r\n\r\nPruebas presentadas por ¡:\r\n$\r\n\r\nSentencia del tribunal: \r\n%\r\n\r\n\r\nSegún la sentencia del tribunal, genera un texto como si fueses el juez dictando la sentencia y explicando el porqué de ella. Rellena el string \"sentence\" con tu respuesta.";
+    [SerializeField, TextArea(3, 10)] private string _winPlayerText = "El jurado ha dictado que el player, el demandante, gana el juicio, y por tanto, se aceptan las peticiones de su demanda.\r\nEs importante que menciones en caso la sección de \"petición\" de la demanda, y considerar las peticiones y las costas de dinero al decir tu texto de resolución.";
+    [SerializeField, TextArea(3, 10)] private string _losePlayerText = "El jurado ha dictado que el player, el demandante, pierde el juicio, y por tanto, se desestima su demanda, y tiene que compensar economicamente a la parte demandada por las molestias.";
 
-    private Action<string> _onRecievePrompt;
-    private string _basePrompt;
-    private int _messageID;
-    public void PromptTextSentence(bool playerWin, Action<string> onRecievePrompt)
+    private Action<string> _responseCallback;
+
+    /// <summary>
+    /// Metodo publico para activar el funcionamiento de este LLMConnector
+    /// </summary>
+    /// <param name="responseCallback"></param>
+    /// <param name="prompt"></param>
+    public void SendPrompt(Action<string> responseCallback, bool playerWin)
     {
-        _onRecievePrompt = onRecievePrompt;
+        _responseCallback = responseCallback;
 
         string lawsuitText = GameSystem.Instance.CaseData.lawsuitText;
         string clientDocs = "";
@@ -41,49 +45,30 @@ public class LLMConnectorTextSentence : LLMConector
             rivalDocs += (i + ": " + rivalFinalDocuments[i].GetDocName() + ": " + rivalFinalDocuments[i].GetContent() + "\n");
         }
 
-        _prompt = _basePrompt.Replace("#", lawsuitText);
+        _prompt = _promptTemplate.Replace("#", lawsuitText);
         _prompt = _prompt.Replace("@", clientDocs);
         _prompt = _prompt.Replace("$", rivalDocs);
         _prompt = _prompt.Replace("%", resolutionText);
-
         _prompt = _prompt.Replace("!", GameSystem.Instance.CaseData.clientName);
         _prompt = _prompt.Replace("¡", GameSystem.Instance.CaseData.demandedEntityName);
 
-
-        _messageID = EventManager.Instance.getMessageID();
-        Telemetry.TelemetryDispatch.SendQueryPost(_messageID);
-
-        sendContextPrompt(_prompt, 0);
+        sendPrompt(recieveFinalResponse, _prompt, 0);
     }
 
+    /// <summary>
+    /// Metodo final para devolver la respuesta
+    /// </summary>
+    /// <param name="finalSerializedResponse"></param>
+    private void recieveFinalResponse(string finalSerializedResponse)
+    {
+        TextSentenceResponse jsonResponse = JsonUtility.FromJson<TextSentenceResponse>(finalSerializedResponse);
+
+        _responseCallback?.Invoke(jsonResponse.sentence);
+    }
 
     protected override void createJsonSchemas()
     {
         _contextSchema = new JsonSchema();
         _contextSchema.properties.Add("sentence", new PropertyInfo(JsonDataType.String));
-
-        _schemasCreated = true;
-    }
-
-    protected override void receiveResponse(bool success, string answer)
-    {
-        TelemetryDispatch.SendQueryReceived(_messageID);
-
-        if (success)
-        {
-            TextSentenceResponse response = JsonUtility.FromJson<TextSentenceResponse>(answer);
-            _onRecievePrompt?.Invoke(response.sentence);
-        }
-        else
-        {
-            Debug.LogError("Error en la llamada al LLM: " + answer);
-            _onRecievePrompt?.Invoke("Error en la llamada al LLM: " + answer);
-        }
-    }
-
-    private void Awake()
-    {
-        createJsonSchemas();
-        _basePrompt = _prompt;
     }
 }

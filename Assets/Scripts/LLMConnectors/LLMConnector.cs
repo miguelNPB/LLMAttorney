@@ -32,17 +32,17 @@ public abstract class LLMConnector : MonoBehaviour
     protected abstract void createJsonSchemas();
 
     /// <summary>
-    /// Metodo para obtener el prompt para los steps con el texto json de la primera respuesta
+    /// Solo hace falta hacer override si se usan los steps. Metodo para obtener el prompt para los steps con el texto json de la primera respuesta
     /// </summary>
     /// <param name="serializedResponse"></param>
     /// <returns></returns>
-    protected abstract string deseralizePromptFirstResponse(string serializedResponse);
+    protected virtual string deseralizePromptFirstResponse(string serializedResponse) { return ""; };
     /// <summary>
-    /// Metodo para obtener el prompt para los steps con el texto json de la primera respuesta
+    /// Solo hace falta hacer override si se usan los steps. Metodo para obtener el prompt para los steps con el texto json de la primera respuesta
     /// </summary>
     /// <param name="serializedResponse"></param>
     /// <returns></returns>
-    protected abstract string deseralizePromptStepResponse(string serializedResponse);
+    protected virtual string deseralizePromptStepResponse(string serializedResponse) { return ""; };
 
     /// --- Metodos con la gestion de prompts
 
