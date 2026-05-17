@@ -36,51 +36,5 @@ public class LLMConnectorQuestionChecker : LLMConnector
     {
         _contextSchema = new JsonSchema();
         _contextSchema.properties.Add("isCoherent", new PropertyInfo(JsonDataType.Boolean));
-
-        _stepsSchema = new JsonSchema();
-        _stepsSchema.properties.Add("isCoherent", new PropertyInfo(JsonDataType.Boolean));
     }
-
-    protected override string deseralizePromptFirstResponse(string firstResponse)
-    {
-        QuestionCheckerResponse jsonResponse = JsonUtility.FromJson<QuestionCheckerResponse>(firstResponse);
-        return jsonResponse.isCoherent.ToString();
-    }
-
-    protected override string deseralizePromptStepResponse(string firstResponse)
-    {
-        QuestionCheckerResponse jsonResponse = JsonUtility.FromJson<QuestionCheckerResponse>(firstResponse);
-        return jsonResponse.isCoherent.ToString();
-    }
-
-    // -- Metodos overrideados para el funcionamiento por bool -- 
-
-    protected override void recieveFirstResponse(bool success, string text)
-    {
-        Telemetry.TelemetryDispatch.SendQueryReceived(_messageID);
-
-        if (_useSteps && _llmConfigs[_configIndex].GetStepChecks().Length > 0)
-        {
-            bool isCoherent = bool.Parse(deseralizePromptFirstResponse(text));
-            _stepCounter = 0;
-
-            if (isCoherent)
-                sendStepPrompt(_prompt);
-            else
-                respondPrompt(success, text);
-        }
-        else
-            respondPrompt(success, text);
-    }
-
-    protected override void recieveStepResponse(bool success, string text)
-    {
-        Telemetry.TelemetryDispatch.SendQueryReceived(_messageID);
-
-        bool isCoherent = bool.Parse(deseralizePromptStepResponse(text));
-        if (isCoherent || !sendStepPrompt(_prompt))
-            respondPrompt(success, text);
-    }
-
-    // 
 }

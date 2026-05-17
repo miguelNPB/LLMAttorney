@@ -40,43 +40,4 @@ public class LLMConnectorResponseChecker : LLMConnector
         _stepsSchema = new JsonSchema();
         _stepsSchema.properties.Add("isCoherent", new PropertyInfo(JsonDataType.Boolean));
     }
-
-    protected override string deseralizePromptFirstResponse(string firstResponse)
-    {
-        ResponseCheckerResponse jsonResponse = JsonUtility.FromJson<ResponseCheckerResponse>(firstResponse);
-        return jsonResponse.isCoherent.ToString();
-    }
-
-    protected override string deseralizePromptStepResponse(string firstResponse)
-    {
-        ResponseCheckerResponse jsonResponse = JsonUtility.FromJson<ResponseCheckerResponse>(firstResponse);
-        return jsonResponse.isCoherent.ToString();
-    }
-
-    // -- Metodos overrideados para el funcionamiento por bool -- 
-
-    protected override void recieveFirstResponse(bool success, string text)
-    {
-        if (_useSteps)
-        {
-            bool isCoherent = bool.Parse(deseralizePromptFirstResponse(text));
-            _stepCounter = 0;
-
-            if (isCoherent)
-                sendStepPrompt(_prompt);
-            else
-                respondPrompt(success, text);
-        }
-        else
-            respondPrompt(success, text);
-    }
-
-    protected override void recieveStepResponse(bool success, string text)
-    {
-        bool isCoherent = bool.Parse(deseralizePromptStepResponse(text));
-        if (isCoherent || !sendStepPrompt(_prompt))
-            respondPrompt(success, text);
-    }
-
-    // 
 }
