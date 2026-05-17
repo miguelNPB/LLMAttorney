@@ -1459,17 +1459,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55f21c7b0443d4141a94bbe0d257da76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorTextSentence
-  _config:
-  - {fileID: 1143023829}
-  _inputField: {fileID: 0}
-  _useSecuritySteps: 0
+  _llmConfigs:
+  - {fileID: 11400000, guid: 58a57701149cf744aa9bcfdf9ae5f672, type: 2}
+  _useSteps: 0
   _useHistoricalInContext: 0
   _useHistoricalInSteps: 0
-  _prompt: "Analiza el siguiente caso y dicta un texto con la sentencia:\n\n\nDemanda
-    de !:\n#\n\n\nPruebas presentadas por !:\n@\n\n\nPruebas presentadas por \xA1:\n$\n\nSentencia
-    del tribunal: \n%\n\n\nSeg\xFAn la sentencia del tribunal, genera un texto como
-    si fueses el juez dictando la sentencia y explicando el porqu\xE9 de ella. Rellena
-    el string \"sentence\" con tu respuesta."
+  _promptTemplate: "Analiza el siguiente caso y dicta un texto con la sentencia:\r\n\r\n\r\nDemanda
+    de !:\r\n#\r\n\r\n\r\nPruebas presentadas por !:\r\n@\r\n\r\n\r\nPruebas presentadas
+    por \xA1:\r\n$\r\n\r\nSentencia del tribunal: \r\n%\r\n\r\n\r\nSeg\xFAn la sentencia
+    del tribunal, genera un texto como si fueses el juez dictando la sentencia y
+    explicando el porqu\xE9 de ella. Rellena el string \"sentence\" con tu respuesta."
   _winPlayerText: "El jurado ha dictado que el player, el demandante, gana el juicio,
     y por tanto, se aceptan las peticiones de su demanda.\nEs importante que menciones
     en caso la secci\xF3n de \"petici\xF3n\" de la demanda, y considerar las peticiones
@@ -1636,101 +1635,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!1 &1105967274
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1105967275}
-  m_Layer: 0
-  m_Name: LLMConfigs
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1105967275
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1105967274}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2076484190}
-  - {fileID: 1143023828}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1143023827
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1143023828}
-  - component: {fileID: 1143023829}
-  m_Layer: 0
-  m_Name: SentenceTextLLMConfig
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1143023828
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1143023827}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1105967275}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1143023829
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1143023827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
-  context: "Eres un juez imparcial, anal\xEDtico y experto en derecho civil. Tu objetivo
-    es leer los detalles de un caso judicial ficticio y dictar una sentencia justa
-    bas\xE1ndote \xFAnicamente en la demanda inicial y en el peso de las pruebas
-    presentadas por ambas partes.\r\n\r\nCriterios para juzgar:\r\n\r\n    El \"Player\"
-    (Demandante) debe tener pruebas concluyentes que respalden su demanda.\r\n\r\n   
-    El \"Rival\" (Demandado) ganar\xE1 si sus pruebas contradicen la demanda del
-    Player o demuestran que la demanda no tiene fundamentos.\r\n\nCualquier hecho
-    o prueba que se mencione en la demanda debe estar respaldada en la secci\xF3n
-    de pruebas adjuntadas en la configuraci\xF3n, de lo contrario, no se tendr\xE1
-    en cuenta.\n\r\nSigue siempre la sentencia ya dictada por el jurado. Y da argumentos
-    para explicar el porqu\xE9 se ha dictado sentencia a una parte y no a la otra."
-  safeguard: 
-  safeguardSteps: 
-  historicalConversation: 
-  _stepChecks: []
-  _temperature: 0.8
-  _ragUse: 1
-  _ragFile: 2
 --- !u!1 &1205321845
 GameObject:
   m_ObjectHideFlags: 0
@@ -2266,70 +2170,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1874341112}
   m_CullTransparentMesh: 1
---- !u!1 &2076484189
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2076484190}
-  - component: {fileID: 2076484191}
-  m_Layer: 0
-  m_Name: WinOrLoseSentenceLLMConfig
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2076484190
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2076484189}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1105967275}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2076484191
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2076484189}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
-  context: "Eres un juez imparcial, anal\xEDtico y experto en derecho civil. Tu objetivo
-    es leer los detalles de un caso judicial ficticio y dictar una sentencia justa
-    bas\xE1ndote \xFAnicamente en la demanda inicial y en el peso de las pruebas
-    presentadas por ambas partes.\r\n\r\nCriterios para juzgar:\n   \nIMPORTANTE.
-    Cualquier hecho o prueba que se mencione en la secci\xF3n de demanda debe estar
-    respaldada en la secci\xF3n de pruebas adjuntadas en el prompt, de lo contrario,
-    no se tendr\xE1 en cuenta Y NO SE MENCIONAR\xC1.\n\n   Resumen del caso: $\r\n\r\n   
-    El \"Player\" (Demandante) debe tener pruebas concluyentes que respalden su demanda.\r\n\r\n   
-    El \"Rival\" (Demandado) ganar\xE1 si sus pruebas contradicen la demanda del
-    Player o demuestran que la demanda no tiene fundamentos.\r\n\nCualquier hecho
-    o prueba que se mencione en la secci\xF3n de demanda debe estar respaldada en
-    la secci\xF3n de pruebas adjuntadas en la configuraci\xF3n, de lo contrario,
-    no se tendr\xE1 en cuenta."
-  safeguard: 
-  safeguardSteps: 
-  historicalConversation: 
-  _stepChecks: []
-  _temperature: 0.2
-  _ragUse: 0
-  _ragFile: 2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2338,4 +2178,3 @@ SceneRoots:
   - {fileID: 617983274}
   - {fileID: 1665332161}
   - {fileID: 984039538}
-  - {fileID: 1105967275}
