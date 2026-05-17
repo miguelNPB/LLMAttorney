@@ -13,9 +13,6 @@ public class ConfigLLMInfo : MonoBehaviour
         CasoBase
     }
 
-    //Para mas informacion sobre las variables revisar LLMAttorney_API.cs
-
-
     [SerializeField, TextArea(3, 10)]
     public string context;
 

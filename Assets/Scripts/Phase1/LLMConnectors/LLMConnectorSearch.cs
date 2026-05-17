@@ -1,31 +1,67 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Telemetry;
-using TMPro;
-using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class LLMConectorSearch : LLMConector
+/// <summary>
+/// LLMConnector usado en la fase 1 para buscar precios en el RAG de precios
+/// </summary>
+public class LLMConnectorSearch : LLMConnector
 {
-
-    [SerializeField]
-    private UISearchManager _uiSearch;
-
     [Serializable]
     private class SearchResponse
     {
         public string answer;
-        public bool respuestaValida;
-        public bool respuestaCoherente;
     }
 
-    private int _messageID = -1;
+    private Action<string> _responseCallback;
 
+    /// <summary>
+    /// Metodo publico para activar el funcionamiento de este LLMConnector
+    /// </summary>
+    /// <param name="responseCallback"></param>
+    /// <param name="prompt"></param>
+    public void SendPrompt(Action<string> responseCallback, string prompt)
+    {
+        _responseCallback = responseCallback;
+        sendPrompt(recieveFinalResponse, prompt, 0);
+    }
+
+    /// <summary>
+    /// Metodo final para devolver la respuesta
+    /// </summary>
+    /// <param name="finalSerializedResponse"></param>
+    private void recieveFinalResponse(string finalSerializedResponse)
+    {
+        SearchResponse jsonResponse = JsonUtility.FromJson<SearchResponse>(finalSerializedResponse);
+     
+        _responseCallback?.Invoke(jsonResponse.answer);
+    }
+
+    protected override string deseralizePromptFirstResponse(string serializedResponse)
+    {
+        SearchResponse jsonResponse = JsonUtility.FromJson<SearchResponse>(serializedResponse);
+        return jsonResponse.answer;
+    }
+
+    protected override string deseralizePromptStepResponse(string serializedResponse)
+    {
+        SearchResponse jsonResponse = JsonUtility.FromJson<SearchResponse>(serializedResponse);
+        return jsonResponse.answer;
+    }
+
+    protected override void createJsonSchemas()
+    {
+        _contextSchema = new JsonSchema();
+        _contextSchema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
+
+        _stepsSchema = new JsonSchema();
+        _stepsSchema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
+    }
+
+    /*
     protected override bool sendContextPrompt(int indexConfig = 0)
     {
-        _uiSearch.StartPendingMessage();
+        
 
         bool messageSent = base.sendContextPrompt(indexConfig);
 
@@ -51,20 +87,7 @@ public class LLMConectorSearch : LLMConector
         return securityStepSent;
     }
 
-    protected override void createJsonSchemas()
-    {
-        _contextSchema = new JsonSchema();
-        _contextSchema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
-        _contextSchema.properties.Add("respuestaValida", new PropertyInfo(JsonDataType.Boolean));
-        _contextSchema.properties.Add("respuestaCoherente", new PropertyInfo(JsonDataType.Boolean));
 
-        _stepsSchema = new JsonSchema();
-        _stepsSchema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
-        _stepsSchema.properties.Add("respuestaValida", new PropertyInfo(JsonDataType.Boolean));
-        _stepsSchema.properties.Add("respuestaCoherente", new PropertyInfo(JsonDataType.Boolean));
-
-        _schemasCreated = true;
-    }
 
     protected override void receiveResponse(bool success, string answer)
     {
@@ -124,10 +147,5 @@ public class LLMConectorSearch : LLMConector
 
         sendContextPrompt(indexConfig);
     }
-
-    private void Awake()
-    {
-        createJsonSchemas();
-    }
-
+    */
 }

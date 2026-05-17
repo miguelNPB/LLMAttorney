@@ -278,6 +278,8 @@ public class LLMSystemAPI : MonoBehaviour
         // mandamos la request y esperamos
         yield return www.SendWebRequest();
 
+        _sendingPrompt = false;
+
         string recievedString = www.downloadHandler.text;
 
         bool success = www.result == UnityWebRequest.Result.Success;
@@ -295,7 +297,7 @@ public class LLMSystemAPI : MonoBehaviour
         {
             onComplete?.Invoke(success, response);
             
-            LogSystem.Instance.LogString("$\"[Fase: {SceneManager.GetActiveScene().buildIndex}] [RECIEVE PROMPT]:\n" + response);
+            LogSystem.Instance.LogString($"[Fase: {SceneManager.GetActiveScene().buildIndex}] [RECIEVE PROMPT]:\n" + response);
         }
         else
         {
@@ -307,7 +309,6 @@ public class LLMSystemAPI : MonoBehaviour
             Debug.LogError(response);
         }
 
-        _sendingPrompt = false;
     }
 
 
