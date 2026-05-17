@@ -82,6 +82,7 @@ public class WriteTextSystem : MonoBehaviour
             }
         }
 
+        _textContainer.maxVisibleCharacters = _maxCharactersInContainer;
         _isTyping = false;
     }
 
@@ -105,6 +106,8 @@ public class WriteTextSystem : MonoBehaviour
             counter++;
             yield return new WaitForSeconds(_typingSpeed);
         }
+
+        _textContainer.maxVisibleCharacters = totalVisibleCharacters;
     }
 
     private void OnDisable()

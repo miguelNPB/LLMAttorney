@@ -147,7 +147,7 @@ public class LLMSystemAPI : MonoBehaviour
 
         if (_sendingPrompt)
         {
-            LogSystem.Instance.LogString("Prompt invalidado, ya se esta mandando uno");
+            Debug.LogError("Prompt invalidado, ya se esta mandando uno");
             return false;
         }
 
