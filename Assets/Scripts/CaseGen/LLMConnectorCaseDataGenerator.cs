@@ -41,10 +41,8 @@ public class LLMConnectorCaseDataGenerator : LLMConnector
     private void receiveResponse(string answer)
     {
         CaseDataRetrieval jsonResponse = JsonUtility.FromJson<CaseDataRetrieval>(answer);
-
-        string json = JsonUtility.ToJson(answer);
-                string filePath = System.IO.Path.Combine(Application.persistentDataPath, "CaseData.json");
-                File.WriteAllText(filePath, json);
+        string filePath = System.IO.Path.Combine(Application.persistentDataPath, "CaseData.json");
+        File.WriteAllText(filePath, answer);
     }
 
     protected override string deseralizePromptFirstResponse(string serializedResponse)
