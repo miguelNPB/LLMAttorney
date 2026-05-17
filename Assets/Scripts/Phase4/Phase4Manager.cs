@@ -43,7 +43,7 @@ public class Phase4Manager : MonoBehaviour
     private void onRecieveBoolAnswer(bool playerWin)
     {
         _playerWin = playerWin;
-        _llmConnectorTextSentence.SendPrompt(playerWin, onRecieveStringAnswer, playerWin);
+        _llmConnectorTextSentence.SendPrompt(onRecieveStringAnswer, playerWin);
     }
 
     private IEnumerator animateLoadingText()

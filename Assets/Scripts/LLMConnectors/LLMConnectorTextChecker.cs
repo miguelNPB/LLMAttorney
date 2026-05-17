@@ -1,10 +1,13 @@
 using System;
 using UnityEngine;
 
-public class LLMConnectorQuestionChecker : LLMConnector
+/// <summary>
+/// LLMConnector para comprobar si un texto es coherente. No tiene steps
+/// </summary>
+public class LLMConnectorTextChecker : LLMConnector
 {
     [Serializable]
-    private class QuestionCheckerResponse
+    private class TextCheckerResponse
     {
         public bool isCoherent;
     }
@@ -15,10 +18,10 @@ public class LLMConnectorQuestionChecker : LLMConnector
     /// </summary>
     /// <param name="responseCallback"></param>
     /// <param name="prompt"></param>
-    public void SendPrompt(Action<bool> responseCallback, string prompt)
+    public void SendPrompt(Action<bool> responseCallback, string prompt, int indexConfig)
     {
         _responseCallback = responseCallback;
-        sendPrompt(recieveFinalResponse, prompt, 0);
+        sendPrompt(recieveFinalResponse, prompt, indexConfig);
     }
 
     /// <summary>
@@ -27,7 +30,7 @@ public class LLMConnectorQuestionChecker : LLMConnector
     /// <param name="finalSerializedResponse"></param>
     private void recieveFinalResponse(string finalSerializedResponse)
     {
-        QuestionCheckerResponse jsonResponse = JsonUtility.FromJson<QuestionCheckerResponse>(finalSerializedResponse);
+        TextCheckerResponse jsonResponse = JsonUtility.FromJson<TextCheckerResponse>(finalSerializedResponse);
 
         _responseCallback?.Invoke(jsonResponse.isCoherent);
     }

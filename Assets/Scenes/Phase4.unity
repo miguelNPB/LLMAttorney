@@ -1436,18 +1436,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77a57e97cf781cb46ab423fddaa0dae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorWinOrLoseSentence
-  _config:
-  - {fileID: 2076484191}
-  _inputField: {fileID: 0}
-  _useSecuritySteps: 0
-  _useHistoricalInContext: 1
+  _llmConfigs:
+  - {fileID: 11400000, guid: b15cc40901627dd4885182be33249800, type: 2}
+  _useSteps: 0
+  _useHistoricalInContext: 0
   _useHistoricalInSteps: 0
-  _prompt: "Analiza el siguiente caso y dicta un texto con la sentencia:\n\nResumen
-    del caso: ~\n\nPruebas presentadas por !:\n@\n\nPruebas presentadas por \xA1:\n$\n\nDemanda
-    de !:\n#\n\n\nGenera la sentencia del tribunal OBJETIVAMENTE comprobando que
-    LA DEMANDA SE CORRESPONDE A LAS PRUEBAS PRESENTADAS. Si no se corresponde, invalidar
-    las pruebas.\nAdem\xE1s valorar ambas pruebas y contrastarlas con el resumen
-    del caso"
+  _promptTemplate: "Analiza el siguiente caso y dicta un texto con la sentencia:\r\n\r\nResumen
+    del caso: ~\r\n\r\nPruebas presentadas por !:\r\n@\r\n\r\nPruebas presentadas
+    por \xA1:\r\n$\r\n\r\nDemanda de !:\r\n#\r\n\r\n\r\nGenera la sentencia del tribunal
+    OBJETIVAMENTE comprobando que LA DEMANDA SE CORRESPONDE A LAS PRUEBAS PRESENTADAS.
+    Si no se corresponde, invalidar las pruebas.\r\nAdem\xE1s valorar ambas pruebas
+    y contrastarlas con el resumen del caso"
 --- !u!114 &984039541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1714,7 +1713,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
-  _apiType: 0
   context: "Eres un juez imparcial, anal\xEDtico y experto en derecho civil. Tu objetivo
     es leer los detalles de un caso judicial ficticio y dictar una sentencia justa
     bas\xE1ndote \xFAnicamente en la demanda inicial y en el peso de las pruebas
@@ -2312,7 +2310,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
-  _apiType: 0
   context: "Eres un juez imparcial, anal\xEDtico y experto en derecho civil. Tu objetivo
     es leer los detalles de un caso judicial ficticio y dictar una sentencia justa
     bas\xE1ndote \xFAnicamente en la demanda inicial y en el peso de las pruebas

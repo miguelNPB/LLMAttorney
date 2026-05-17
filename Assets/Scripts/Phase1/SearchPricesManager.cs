@@ -12,9 +12,8 @@ public class SearchPricesManager : MonoBehaviour
 
     [SerializeField] private TMP_Text resultText;
 
-    [SerializeField] private LLMConnectorQuestionChecker _llmConnectorQuestionChecker;
+    [SerializeField] private LLMConnectorTextChecker _llmConnectorResponseChecker;
     [SerializeField] private LLMConnectorSearch _llmConnectorSearch;
-    [SerializeField] private LLMConnectorResponseChecker _llmConnectorResponseChecker;
 
     private string _pendingMessage = "";
     private bool _waitingPendingMessage = false;
@@ -58,7 +57,7 @@ public class SearchPricesManager : MonoBehaviour
         StartCoroutine(CoroutinePendingMessage());
 
         _prompt = _inputField.text;
-        _llmConnectorQuestionChecker.SendPrompt(recieveQuestionCheckerResponse, _prompt);
+        _llmConnectorResponseChecker.SendPrompt(recieveQuestionCheckerResponse, _prompt, 0);
     }
 
     /// <summary>
@@ -77,7 +76,6 @@ public class SearchPricesManager : MonoBehaviour
     /// <param name="isCoherent"></param>
     private void recieveQuestionCheckerResponse(bool isCoherent)
     {
-        Debug.Log("1");
         if (isCoherent)
             _llmConnectorSearch.SendPrompt(recieveSearchConnectorResponse, _inputField.text);
         else
@@ -91,8 +89,7 @@ public class SearchPricesManager : MonoBehaviour
     private void recieveSearchConnectorResponse(string text)
     {
         _tempAnswer = text;
-        Debug.Log("2");
-        _llmConnectorResponseChecker.SendPrompt(recieveResponseCheckerResponse, _tempAnswer);
+        _llmConnectorResponseChecker.SendPrompt(recieveResponseCheckerResponse, _tempAnswer, 1);
     }
 
     /// <summary>
@@ -101,7 +98,6 @@ public class SearchPricesManager : MonoBehaviour
     /// <param name="isCoherent"></param>
     private void recieveResponseCheckerResponse(bool isCoherent)
     {
-        Debug.Log("3");
         if (isCoherent)
             endPriceSearch(_tempAnswer);
         else

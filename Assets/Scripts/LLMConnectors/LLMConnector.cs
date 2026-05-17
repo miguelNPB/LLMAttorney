@@ -36,13 +36,13 @@ public abstract class LLMConnector : MonoBehaviour
     /// </summary>
     /// <param name="serializedResponse"></param>
     /// <returns></returns>
-    protected virtual string deseralizePromptFirstResponse(string serializedResponse) { return ""; };
+    protected virtual string deseralizePromptFirstResponse(string serializedResponse) { return ""; }
     /// <summary>
     /// Solo hace falta hacer override si se usan los steps. Metodo para obtener el prompt para los steps con el texto json de la primera respuesta
     /// </summary>
     /// <param name="serializedResponse"></param>
     /// <returns></returns>
-    protected virtual string deseralizePromptStepResponse(string serializedResponse) { return ""; };
+    protected virtual string deseralizePromptStepResponse(string serializedResponse) { return ""; }
 
     /// --- Metodos con la gestion de prompts
 
