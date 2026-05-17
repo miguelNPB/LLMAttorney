@@ -7,11 +7,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class LLMConectorClientMeeting : LLMConnector
+public class LLMConnectorClientMeeting : LLMConnector
 {
 
     [Serializable]
-    private class QuestionCheckerResponse
+    private class ClientMeetingCheckerResponse
     {
         public string answer;
         public bool validResponse;
@@ -35,7 +35,7 @@ public class LLMConectorClientMeeting : LLMConnector
     /// <param name="finalSerializedResponse"></param>
     private void recieveFinalResponse(string finalSerializedResponse)
     {
-        QuestionCheckerResponse jsonResponse = JsonUtility.FromJson<QuestionCheckerResponse>(finalSerializedResponse);
+        ClientMeetingCheckerResponse jsonResponse = JsonUtility.FromJson<ClientMeetingCheckerResponse>(finalSerializedResponse);
 
         _responseCallback?.Invoke(jsonResponse.answer, jsonResponse.validResponse);
     }
@@ -56,7 +56,7 @@ public class LLMConectorClientMeeting : LLMConnector
 
         if (_useSteps && _llmConfigs[_configIndex].GetStepChecks().Length > 0)
         {
-            QuestionCheckerResponse jsonResponse = JsonUtility.FromJson<QuestionCheckerResponse>(text);
+            ClientMeetingCheckerResponse jsonResponse = JsonUtility.FromJson<ClientMeetingCheckerResponse>(text);
             _stepCounter = 0;
 
             if (!jsonResponse.validResponse)
@@ -78,7 +78,7 @@ public class LLMConectorClientMeeting : LLMConnector
     protected override void recieveStepResponse(bool success, string text)
     {
 
-        QuestionCheckerResponse jsonResponse = JsonUtility.FromJson<QuestionCheckerResponse>(text);
+        ClientMeetingCheckerResponse jsonResponse = JsonUtility.FromJson<ClientMeetingCheckerResponse>(text);
 
         if (jsonResponse.validResponse || !sendStepPrompt(_prompt))
         {

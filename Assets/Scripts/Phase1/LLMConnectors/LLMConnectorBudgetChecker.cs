@@ -3,10 +3,10 @@ using Telemetry;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LLMConectorBudgetChecker : LLMConnector
+public class LLMConnectorBudgetChecker : LLMConnector
 {
     [Serializable]
-    private class QuestionCheckerResponse
+    private class BudgetCheckerResponse
     {
         public bool budgetCoherent;
         public float budget;
@@ -30,7 +30,7 @@ public class LLMConectorBudgetChecker : LLMConnector
     /// <param name="finalSerializedResponse"></param>
     private void recieveFinalResponse(string finalSerializedResponse)
     {
-        QuestionCheckerResponse jsonResponse = JsonUtility.FromJson<QuestionCheckerResponse>(finalSerializedResponse);
+        BudgetCheckerResponse jsonResponse = JsonUtility.FromJson<BudgetCheckerResponse>(finalSerializedResponse);
 
         _responseCallback?.Invoke(jsonResponse.budgetCoherent, jsonResponse.budget);
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 public class LLMConnectorHireLawyerCheck : LLMConnector
 {
     [Serializable]
-    private class QuestionCheckerResponse
+    private class HireLawyerCheckerResponse
     {
         public bool hireLawyer;
     }
@@ -27,7 +27,7 @@ public class LLMConnectorHireLawyerCheck : LLMConnector
     /// <param name="finalSerializedResponse"></param>
     private void recieveFinalResponse(string finalSerializedResponse)
     {
-        QuestionCheckerResponse jsonResponse = JsonUtility.FromJson<QuestionCheckerResponse>(finalSerializedResponse);
+        HireLawyerCheckerResponse jsonResponse = JsonUtility.FromJson<HireLawyerCheckerResponse>(finalSerializedResponse);
 
         _responseCallback?.Invoke(jsonResponse.hireLawyer);
     }

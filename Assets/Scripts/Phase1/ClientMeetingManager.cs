@@ -7,14 +7,15 @@ public class ClientMeetingManager : MonoBehaviour
 {
 
     [SerializeField] private Button _sendMessageButton;
-    [SerializeField] private GameObject _clientMeetingMenuView;
+    [SerializeField] private GameObject _continueButton;
+    [SerializeField] private GameObject _changePhaseButton;
     [SerializeField] private TMP_InputField _inputField;
 
     [SerializeField] private TMP_Text resultText;
 
     [SerializeField] private LLMConnectorTextChecker _llmConnectorQuestionChecker;
-    [SerializeField] private LLMConectorBudgetChecker _llmConnectorBudgetChecker;
-    [SerializeField] private LLMConectorClientMeeting _llmConnectorClientMeeting;
+    [SerializeField] private LLMConnectorBudgetChecker _llmConnectorBudgetChecker;
+    [SerializeField] private LLMConnectorClientMeeting _llmConnectorClientMeeting;
     [SerializeField] private LLMConnectorTextChecker _llmConnectorResponseChecker;
     [SerializeField] private LLMConnectorHireLawyerCheck _llmConnectorLawyerHireCheck; //Falta
 
@@ -58,6 +59,7 @@ public class ClientMeetingManager : MonoBehaviour
 
         _sendMessageButton.interactable = false;
         _waitingPendingMessage = true;
+        _continueButton.SetActive(false);
         StartCoroutine(CoroutinePendingMessage());
 
         _prompt = _inputField.text;
@@ -70,6 +72,8 @@ public class ClientMeetingManager : MonoBehaviour
     /// <param name="text"></param>
     private void endClientMeeting(string text)
     {
+        _continueButton.SetActive(true);
+        _sendMessageButton.interactable = true;
         _waitingPendingMessage = false;
         _pendingMessage = text;
     }
@@ -80,6 +84,9 @@ public class ClientMeetingManager : MonoBehaviour
     /// <param name="isCoherent"></param>
     private void recieveQuestionCheckerResponse(bool isCoherent)
     {
+
+        Debug.Log("Envia presupuestos");
+
         if (isCoherent)
         {
             _llmConnectorBudgetChecker.SendPrompt(recieveBudgetCheckerResponse, _inputField.text);
@@ -105,15 +112,10 @@ public class ClientMeetingManager : MonoBehaviour
 
     private void reciveClientMeetingResponse(string answer, bool isValid)
     {
-        if (isValid)
-        {
-            _tempAnswer = answer;
-            _llmConnectorResponseChecker.SendPrompt(recieveResponseCheckerResponse, _inputField.text, 1);
-        }
-        else
-        {
-            endClientMeeting("No te he podido entender bien, podrias repetirmelo por favor");
-        }
+
+        _tempAnswer = answer;
+        _llmConnectorResponseChecker.SendPrompt(recieveResponseCheckerResponse, _tempAnswer, 1);
+
     }
 
     /// <summary>
@@ -124,7 +126,8 @@ public class ClientMeetingManager : MonoBehaviour
     {
         if (isCoherent)
         {
-            _llmConnectorLawyerHireCheck.SendPrompt(recieveHireLawyerResponse, _inputField.text);
+            string context = "Dialogo abogado: " + _inputField.text + "\n\n Dialogo contestacion cliente: " + _tempAnswer;
+            _llmConnectorLawyerHireCheck.SendPrompt(recieveHireLawyerResponse, context);
         }         
         else
         {
@@ -139,6 +142,12 @@ public class ClientMeetingManager : MonoBehaviour
     /// <param name="text"></param>
     private void recieveHireLawyerResponse(bool hireLawyer)
     {
+        if (hireLawyer)
+        {
+            _changePhaseButton.SetActive(true);
+        }
+
+        BudgetSystem.Instance.SetBudgetFromLLM(_prompt, _tempBudget);
         endClientMeeting(_tempAnswer);   
     }
 
