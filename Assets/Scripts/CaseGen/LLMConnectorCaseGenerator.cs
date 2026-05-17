@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using static System.Net.Mime.MediaTypeNames;
 
 public class LLMCaseGenerator : LLMConnector
 {
@@ -14,6 +15,7 @@ public class LLMCaseGenerator : LLMConnector
     [SerializeField] private CasePdfBuilder _pdfBuilder;
     //! Asignar referencia al LLMConnectorCaseDataGenerator desde el Inspector
     [SerializeField] private LLMConnectorCaseDataGenerator _summaryGenerator;
+    [SerializeField] private LLMConnectorClientIntroductionGenerator _clientInitialText;
 
     [Header("Case generation prompts")]
     [TextArea(2, 5)]
@@ -26,6 +28,8 @@ public class LLMCaseGenerator : LLMConnector
     public event Action<string> OnError;
 
     private const string KEY_CASE = "CaseContent";
+
+    private string _generatedCase;
 
 
     protected override void createJsonSchemas()
@@ -71,9 +75,9 @@ public class LLMCaseGenerator : LLMConnector
         Debug.Log($"[CaseGenerator] PDF guardado: {pdfPath}");
         OnCaseGenerated?.Invoke(pdfPath, json.CaseContent);
 
+        _generatedCase = text;
         //! PLACEHOLDER — llamar al generador de resumen con el contenido del caso
-        _summaryGenerator.SendPrompt(OnFinalResponse, text);
-        //_summaryGenerator.GenerateSummary(json.CaseContent);
+        _summaryGenerator.SendPrompt(OnSummaryExtracted, _generatedCase);
     }
 
 
@@ -94,7 +98,9 @@ public class LLMCaseGenerator : LLMConnector
 
     private void OnFinalResponse(string finalText) { }
 
-
+    private void OnSummaryExtracted(string finalText) {
+        _clientInitialText.SendPrompt(OnFinalResponse, _generatedCase);
+    }
 
     protected override void Awake()
     {

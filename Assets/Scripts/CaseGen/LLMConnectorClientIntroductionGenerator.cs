@@ -12,8 +12,6 @@ public class LLMConnectorClientIntroductionGenerator : LLMConnector
         public string introduction;
     }
 
-    public event Action<string> onError;
-
     protected override void createJsonSchemas()
     {
         _contextSchema = new JsonSchema();

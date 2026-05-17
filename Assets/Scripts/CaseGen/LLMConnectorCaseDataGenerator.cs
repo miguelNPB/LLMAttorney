@@ -15,11 +15,7 @@ public class LLMConnectorCaseDataGenerator : LLMConnector
 
     }
 
-    public event Action<string, string> onCaseGenerated;
-
-    public event Action<string> onSummaryReady;
-
-    public event Action<string> onError;
+    private Action<string> _responseCallback;
 
     protected override void createJsonSchemas()
     {
@@ -34,6 +30,7 @@ public class LLMConnectorCaseDataGenerator : LLMConnector
 
     public void SendPrompt(Action<string> responseCallback, string prompt)
     {
+        _responseCallback = responseCallback;
         sendPrompt(receiveResponse, prompt, 0);
     }
 
@@ -43,6 +40,8 @@ public class LLMConnectorCaseDataGenerator : LLMConnector
         CaseDataRetrieval jsonResponse = JsonUtility.FromJson<CaseDataRetrieval>(answer);
         string filePath = System.IO.Path.Combine(Application.persistentDataPath, "CaseData.json");
         File.WriteAllText(filePath, answer);
+
+        _responseCallback?.Invoke(answer);
     }
 
     protected override string deseralizePromptFirstResponse(string serializedResponse)
