@@ -16293,7 +16293,15 @@ MonoBehaviour:
           m_XAdvance: 0
           m_YAdvance: 0
       m_FeatureLookupFlags: 0
-    m_MarkToBaseAdjustmentRecords: []
+    m_MarkToBaseAdjustmentRecords:
+    - m_BaseGlyphID: 331
+      m_BaseGlyphAnchorPoint:
+        m_XCoordinate: -11.689453
+        m_YCoordinate: -3.515625
+      m_MarkGlyphID: 311
+      m_MarkPositionAdjustment:
+        m_XPositionAdjustment: -13.183594
+        m_YPositionAdjustment: -1.3183594
     m_MarkToMarkAdjustmentRecords: []
   m_ShouldReimportFontFeatures: 0
   m_FallbackFontAssetTable: []

@@ -7,7 +7,7 @@ using IFont = iTextSharp.text.Font;
 using IDocument = iTextSharp.text.Document;
 using iTextSharp.text.pdf;
 
-public class LLMCasePdfBuilder : MonoBehaviour
+public class CasePdfBuilder : MonoBehaviour
 {
     [Header("Output folder")]
     [Tooltip("Ruta absoluta, o relativa a Application.dataPath")]
@@ -16,10 +16,9 @@ public class LLMCasePdfBuilder : MonoBehaviour
 
     public string Build(string content)
     {
-        string folder = Path.IsPathRooted(ragFolderPath)
-            ? ragFolderPath
-            : Path.Combine(Application.dataPath, ragFolderPath);
-        Directory.CreateDirectory(folder);
+        
+
+        string folder = WinDirSelect.Open("Selecciona la carpeta de RAGs del servidor", Path.Combine(Application.dataPath, ragFolderPath));
 
         string filePath = Path.Combine(folder,
             $"caso_civil_{DateTime.Now:yyyyMMdd_HHmmss}.pdf");
