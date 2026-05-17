@@ -296,7 +296,8 @@ public class LLMSystemAPI : MonoBehaviour
         if (isCallbackValid)
         {
             onComplete?.Invoke(success, response);
-            
+            if (!success)
+                Debug.LogError(response);
             LogSystem.Instance.LogString($"[Fase: {SceneManager.GetActiveScene().buildIndex}] [RECIEVE PROMPT]:\n" + response);
         }
         else

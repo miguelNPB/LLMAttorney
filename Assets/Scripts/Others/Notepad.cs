@@ -46,7 +46,6 @@ public class Notepad : MonoBehaviour
     {
         notepadButton.onClick.AddListener(OnClick);
         notepad.transform.localPosition = startingPos;
-        DontDestroyOnLoad(gameObject);
     }
     
 

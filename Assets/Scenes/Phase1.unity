@@ -236,7 +236,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6590701534197148420, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
       propertyPath: ip
-      value: 192.168.1.172
+      value: localhost
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1473,6 +1473,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5307846417687057373, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
   m_PrefabInstance: {fileID: 4665822228252766504}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1353455354 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6929784444275368796, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+  m_PrefabInstance: {fileID: 4665822228252766504}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1431930018
 GameObject:
   m_ObjectHideFlags: 0
@@ -2040,7 +2045,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5126775781348832107, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
   m_PrefabInstance: {fileID: 4665822228252766504}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1353455354}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 049ed6bb32b268e44a60fef74ee9cfef, type: 3}
@@ -2506,6 +2511,14 @@ PrefabInstance:
       propertyPath: _llmConnectorSearch
       value: 
       objectReference: {fileID: 4665822228252766507}
+    - target: {fileID: 5126775781348832107, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: _llmConnectorQuestionChecker
+      value: 
+      objectReference: {fileID: 4665822228252766509}
+    - target: {fileID: 5126775781348832107, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      propertyPath: _llmConnectorResponseChecker
+      value: 
+      objectReference: {fileID: 4665822228252766514}
     - target: {fileID: 5307846417687057373, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2654,7 +2667,13 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 7227474735976659987, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6929784444275368796, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 4665822228252766509}
+    - targetCorrespondingSourceObject: {fileID: 6929784444275368796, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 4665822228252766514}
   m_SourcePrefab: {fileID: 100100000, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
 --- !u!114 &4665822228252766505 stripped
 MonoBehaviour:
@@ -2683,12 +2702,46 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3648675196692939725, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
   m_PrefabInstance: {fileID: 4665822228252766504}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1353455354}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 81b4fcb9cca22ec41b2e5a41a78b185b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LLMConectorSearch
+--- !u!114 &4665822228252766509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1353455354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fc68264bf4632741b1c83a0660cb095, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorQuestionChecker
+  _llmConfigs:
+  - {fileID: 11400000, guid: f951a954a2c28e34182dd2d79ccf91a8, type: 2}
+  _useSteps: 1
+  _useHistoricalInContext: 0
+  _useHistoricalInSteps: 0
+--- !u!114 &4665822228252766514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1353455354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7801c34988c19fc49a60d29e88901ed3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorResponseChecker
+  _llmConfigs:
+  - {fileID: 11400000, guid: 3c55dcf7de7f5de409af59f1c0c165d9, type: 2}
+  _useSteps: 1
+  _useHistoricalInContext: 0
+  _useHistoricalInSteps: 0
 --- !u!1001 &6430441125739056708
 PrefabInstance:
   m_ObjectHideFlags: 0

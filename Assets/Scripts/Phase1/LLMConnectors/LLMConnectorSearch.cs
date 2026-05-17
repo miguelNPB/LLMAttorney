@@ -37,6 +37,15 @@ public class LLMConnectorSearch : LLMConnector
         _responseCallback?.Invoke(jsonResponse.answer);
     }
 
+    protected override void recieveStepResponse(bool success, string text)
+    {
+        if (text.Contains("Sin información"))
+        {
+            recieveFinalResponse("Información no disponible. Especifique mejor la petición.");
+        }
+        else
+            base.recieveStepResponse(success, text);
+    }
     protected override string deseralizePromptFirstResponse(string serializedResponse)
     {
         SearchResponse jsonResponse = JsonUtility.FromJson<SearchResponse>(serializedResponse);

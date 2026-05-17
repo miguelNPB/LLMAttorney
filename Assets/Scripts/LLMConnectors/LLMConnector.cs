@@ -19,6 +19,7 @@ public abstract class LLMConnector : MonoBehaviour
     Action<string> _responseCallback = null;
     protected int _configIndex;
     protected int _stepCounter;
+    protected string _prompt;
 
     /// --- Metodos para el json schema
 
@@ -66,7 +67,7 @@ public abstract class LLMConnector : MonoBehaviour
         _responseCallback = responseCallback;
         _configIndex = configIndex;
 
-        string prompt = promptText;
+        _prompt = promptText;
 
         string configLLM = _llmConfigs[_configIndex].GetContext()
             + _llmConfigs[_configIndex].GetSafeguard();
@@ -76,9 +77,9 @@ public abstract class LLMConnector : MonoBehaviour
             configLLM = configLLM + "\n" + _llmConfigs[_configIndex].GetHistoric();
         }
 
-        _llmConfigs[_configIndex].AddHistoric("Prompt: " + prompt);
+        _llmConfigs[_configIndex].AddHistoric("Prompt: " + _prompt);
 
-        bool sent = LLMSystemAPI.Instance.SendPrompt(recieveFirstResponse, prompt, configLLM, _contextSchema, _llmConfigs[_configIndex].GetTemperature(), _llmConfigs[_configIndex].GetRagUse(), (int)_llmConfigs[_configIndex].GetRagFileType());
+        bool sent = LLMSystemAPI.Instance.SendPrompt(recieveFirstResponse, _prompt, configLLM, _contextSchema, _llmConfigs[_configIndex].GetTemperature(), _llmConfigs[_configIndex].GetRagUse(), (int)_llmConfigs[_configIndex].GetRagFileType());
 
         _promptSent = sent;
 
@@ -107,7 +108,7 @@ public abstract class LLMConnector : MonoBehaviour
     /// </summary>
     /// <param name="prompt"></param>
     /// <returns></returns>
-    private bool sendStepPrompt(string prompt)
+    protected bool sendStepPrompt(string prompt)
     {
         if (_stepCounter >= _llmConfigs[_configIndex].GetStepChecks().Length)
             return false;
