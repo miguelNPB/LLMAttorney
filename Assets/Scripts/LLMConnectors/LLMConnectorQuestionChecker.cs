@@ -43,7 +43,6 @@ public class LLMConnectorQuestionChecker : LLMConnector
 
     protected override string deseralizePromptFirstResponse(string firstResponse)
     {
-        Debug.Log(firstResponse);
         QuestionCheckerResponse jsonResponse = JsonUtility.FromJson<QuestionCheckerResponse>(firstResponse);
         return jsonResponse.isCoherent.ToString();
     }
@@ -64,7 +63,7 @@ public class LLMConnectorQuestionChecker : LLMConnector
             _stepCounter = 0;
 
             if (isCoherent)
-                sendStepPrompt(text);
+                sendStepPrompt(_prompt);
             else
                 respondPrompt(success, text);
         }

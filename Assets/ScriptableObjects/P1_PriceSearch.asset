@@ -36,6 +36,6 @@ MonoBehaviour:
     a\xF1adas explicaciones.\n- No describas el cambio realizado.\n- No confirmes
     que lo has reescrito.\n\nDevuelve \xFAnicamente el texto final reescrito."
   _stepsCommonSafeguard: 
-  _temperature: 0.5
+  _temperature: 0.1
   _ragUse: 1
   _ragFile: 1

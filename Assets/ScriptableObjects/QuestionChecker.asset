@@ -17,6 +17,6 @@ MonoBehaviour:
   _historicHeader: 
   _stepChecks: []
   _stepsCommonSafeguard: 
-  _temperature: 0
+  _temperature: 0.3
   _ragUse: 0
   _ragFile: 0

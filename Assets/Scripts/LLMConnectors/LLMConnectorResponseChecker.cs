@@ -63,7 +63,7 @@ public class LLMConnectorResponseChecker : LLMConnector
             _stepCounter = 0;
 
             if (isCoherent)
-                sendStepPrompt(text);
+                sendStepPrompt(_prompt);
             else
                 respondPrompt(success, text);
         }

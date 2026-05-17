@@ -16,7 +16,7 @@ public abstract class LLMConnector : MonoBehaviour
     protected JsonSchema _stepsSchema = null;
 
     protected bool _promptSent = false;
-    Action<string> _responseCallback = null;
+    Action<string> _internalFinalResponseCallback = null;
     protected int _configIndex;
     protected int _stepCounter;
     protected string _prompt;
@@ -64,7 +64,7 @@ public abstract class LLMConnector : MonoBehaviour
             return false;
         }
 
-        _responseCallback = responseCallback;
+        _internalFinalResponseCallback = responseCallback;
         _configIndex = configIndex;
 
         _prompt = promptText;
@@ -138,10 +138,11 @@ public abstract class LLMConnector : MonoBehaviour
     /// <param name="text"></param>
     protected virtual void respondPrompt(bool success, string text)
     {
-        _llmConfigs[_configIndex].AddHistoric("Response: " + text);
+        if (_useHistoricalInContext || _useHistoricalInSteps)
+            _llmConfigs[_configIndex].AddHistoric("Response: " + text);
         _promptSent = false;
         
-        _responseCallback?.Invoke(text);
+        _internalFinalResponseCallback?.Invoke(text);
     }
 
     virtual protected void Awake()
