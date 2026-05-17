@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using Telemetry;
 using UnityEngine;
 
+/// <summary>
+/// LLMConnector para el texto de la sentencia de la fase 4.
+/// </summary>
 public class LLMConnectorTextSentence : LLMConnector
 {
     [Serializable]

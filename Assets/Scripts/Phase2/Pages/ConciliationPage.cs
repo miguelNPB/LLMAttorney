@@ -1,4 +1,3 @@
-using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +8,8 @@ using UnityEngine.UI;
 public class ConciliationPage : IPage
 {
     [SerializeField] private Phase2Manager _phase2Manager;
-    [SerializeField] private LLMConnectorConciliation _llmConnector;
+    [SerializeField] private LLMConnectorConciliationAgreeBool _llmConnectorAgreeBool;
+    [SerializeField] private LLMConnectorConciliationAgreeText _llmConnectorAgreeText;
     [SerializeField] private Animator _clientCharacterAnimator;
     [SerializeField] private Animator _rivalCharacterAnimator;
     [SerializeField] private Button _sendButton;
@@ -23,46 +23,49 @@ public class ConciliationPage : IPage
     [SerializeField] private GameObject _inputConciliationTabHolder;
     [SerializeField] private GameObject _clientTabHolder;
     [SerializeField] private GameObject _rivalTabHolder;
-    [SerializeField] private TMP_Text clienteAnswerText;
-    [SerializeField] private TMP_Text rivalAnswerText;
-    [SerializeField] private GameObject popupAfterFailedConciliation;
-    [SerializeField] private GameObject popupAfterSuccessfulConciliation;
+    [SerializeField] private TMP_Text _clienteAnswerText;
+    [SerializeField] private TMP_Text _rivalAnswerText;
+    [SerializeField] private GameObject _popupAfterFailedConciliation;
+    [SerializeField] private GameObject _popupAfterSuccessfulConciliation;
+
+    private string _conciliationProposition;
+    private bool _clientAgrees;
+    private bool _rivalAgrees;
 
     private bool _open = false;
-    private bool _clientAgrees = false;
-    private bool _rivalAgrees = false;
-    private string _clientAnswer = "";
-    private string _rivalAnswer = "";
 
-    public void SetClientAgrees(bool value, string answer)
-    {
-        _clientAgrees = value;
-        _clientAnswer = answer;
-    }
-    public void SetRivalAgrees(bool value, string answer)
-    {
-        _rivalAgrees = value;
-        _rivalAnswer = answer;
-    }
 
-    // Llamado al pulsar el boton de mandar intento de conciliacion
+    /// <summary>
+    /// Llamado al pulsar el boton de mandar intento de conciliacion
+    /// </summary>
     public void SendAttempt()
     {
         _sendButton.interactable = false;
 
-        SendProposition();
+        sendProposition();
     }
 
-    // llamado cuando se manda la proposicion, se desactiva el boton y la escritura en el input
-    private void SendProposition()
+    /// <summary>
+    /// llamado cuando se manda la proposicion, se desactiva el boton y la escritura en el input
+    /// </summary>
+    private void sendProposition()
     {
         _popupClientRejects.SetActive(false);
         _inputFieldText.interactable = false;
-        EnableClientResponse();
-    }
+        _conciliationProposition = _inputFieldText.text;
 
-    // pasa si no acepta el cliente
-    private void RestartProposition()
+        _clientTabExclamation.SetActive(true);
+        _changeToClientTabButton.interactable = true;
+        _clientCharacterAnimator.SetTrigger("Thinking");
+
+        // mandar a LLM prompt para que responda el cliente
+        sendClientProposition();
+    }
+    
+    /// <summary>
+    /// Se llama si el cliente no acepta, reinicia el sistema de conciliacion
+    /// </summary>
+    private void restartProposition()
     {
         _popupClientRejects.SetActive(true);
         _inputFieldText.interactable = true;
@@ -70,108 +73,138 @@ public class ConciliationPage : IPage
         _inputFieldText.text = "";
     }
 
-    // activa la pestaña de respuesta de cliente y lo manda
-    private void EnableClientResponse()
+    /// <summary>
+    /// manda el prompt del cliente.
+    /// </summary>
+    private void sendClientProposition()
     {
-        _clientTabExclamation.SetActive(true);
-        _changeToClientTabButton.interactable = true;
+        _llmConnectorAgreeBool.SendPrompt(recieveClientBoolAnswer, _conciliationProposition, true);
+    }
 
-        // mandar a LLM prompt para que responda el cliente
-        StartCoroutine(PromptClientResponse());
+    /// <summary>
+    /// manda el prompt del rival. Tambien hace una tirada de probabilidad de si debe rechazar instantaneamente o no
+    /// </summary>
+    private void sendRivalProposition()
+    {
+        // mandar prompt rival
+        float random = Random.Range(0.0f, 1.0f);
+        // instant rejection
+        if (random < GameSystem.Instance.CaseData.conciliationRivalInstantRejectProbability)
+        {
+            recieveRivalBoolAnswer(false);
+        }
+        else
+        {
+            _llmConnectorAgreeBool.SendPrompt(recieveRivalBoolAnswer, _conciliationProposition, false);
+        }
     }
 
 
-
-    private IEnumerator PromptClientResponse()
+    /// <summary>
+    /// Recibe la respuesta del cliente en booleano de si concuerda con la proposicion o no, manda el prompt a sacar el texto
+    /// </summary>
+    /// <param name="agree"></param>
+    private void recieveClientBoolAnswer(bool agree)
     {
-        _clientCharacterAnimator.SetTrigger("Thinking");
+        _clientAgrees = agree;
+        _llmConnectorAgreeText.SendPrompt(recieveClientTextAnswer, _conciliationProposition, agree, true);
+    }
 
-        yield return StartCoroutine(_llmConnector.SendClientPrompt());
-
-        clienteAnswerText.text = _clientAnswer;
-
+    /// <summary>
+    /// Recibe la respuesta de texto del cliente explicando porque concuerda o no concuerda con la proposicion
+    /// </summary>
+    /// <param name="text"></param>
+    private void recieveClientTextAnswer(string text)
+    {
         if (!_open)
         {
             _computerSystem.PingOverlayNotification("¡Has recibido la contestacion del cliente a la conciliacion!");
             _computerSystem.ToggleNotification(Page.Conciliation, true);
         }
 
+        // actualizar animator
+        _clientCharacterAnimator.SetTrigger(_clientAgrees ? "Success" : "Rejection");
+        _clienteAnswerText.text = text;
 
         if (_clientAgrees)
         {
-            _clientCharacterAnimator.SetTrigger("Success");
-            EnableRivalResponse();
+            _rivalTabExclamation.SetActive(true);
+            _changeToRivalTabButton.interactable = true;
+            _rivalCharacterAnimator.SetTrigger("Thinking");
+
+            sendRivalProposition();
         }
         else
         {
-            _clientCharacterAnimator.SetTrigger("Rejection");
-
-            RestartProposition();
+            restartProposition();
         }
     }
 
-    private void EnableRivalResponse()
+    /// <summary>
+    /// Recibe la respuesta del RIVAL en booleano de si concuerda con la proposicion o no, manda el prompt a sacar el texto
+    /// </summary>
+    /// <param name="agree"></param>
+    private void recieveRivalBoolAnswer(bool agree)
     {
-        _rivalTabExclamation.SetActive(true);
-        _changeToRivalTabButton.interactable = true;
-
-        // mandar a LLM prompt para que responda el rival
-        StartCoroutine(PromptRivalResponse());
+        _rivalAgrees = agree;
+        _llmConnectorAgreeText.SendPrompt(recieveRivalClientTextAnswer, _conciliationProposition, agree, false);
     }
 
-    private IEnumerator PromptRivalResponse()
+    /// <summary>
+    /// Recibe la respuesta de texto del rival explicando porque concuerda o no concuerda con la proposicion
+    /// </summary>
+    /// <param name="text"></param>
+    private void recieveRivalClientTextAnswer(string text)
     {
-        _rivalCharacterAnimator.SetTrigger("Thinking");
-
-        float random = Random.Range(0.0f, 1.0f);
-
-        if (random > GameSystem.Instance.CaseData.conciliationRivalInstantRejectProbability)
-        {
-            yield return StartCoroutine(_llmConnector.SendRivalPromptNormal());
-        }
-        else
-        {
-            yield return StartCoroutine(_llmConnector.SendRivalPromptRejectionConfirmed());
-        }
-
-        rivalAnswerText.text = _rivalAnswer;
-
         if (!_open)
         {
             _computerSystem.PingOverlayNotification("¡Has recibido la contestacion del rival a la conciliacion!");
             _computerSystem.ToggleNotification(Page.Conciliation, true);
         }
 
+        // actualizar animator
+        _rivalCharacterAnimator.SetTrigger(_rivalAgrees ? "Success" : "Rejection");
+        _rivalAnswerText.text = text;
 
         if (_rivalAgrees)
         {
             _rivalCharacterAnimator.SetTrigger("Success");
-            popupAfterSuccessfulConciliation.SetActive(true);
+            _popupAfterSuccessfulConciliation.SetActive(true);
             _computerSystem.ToggleExitButton(false);
         }
         else
         {
             _rivalCharacterAnimator.SetTrigger("Rejection");
-            popupAfterFailedConciliation.SetActive(true);
+            _popupAfterFailedConciliation.SetActive(true);
             _phase2Manager.FailedConciliation();
             _computerSystem.ToggleNotification(Page.Redaction, true);
         }
     }
 
 
-
+    /// <summary>
+    /// Abrir el menu de input de propuesta de conciliacion
+    /// </summary>
     public void GoToInputConciliationTab()
     {
         _inputConciliationTabHolder.SetActive(true);
         _clientTabHolder.SetActive(false);
         _rivalTabHolder.SetActive(false);
     }
+
+    /// <summary>
+    /// Abrir el menu de respuseta del cliente
+    /// </summary>
     public void GoToClienteTab()
     {
         _inputConciliationTabHolder.SetActive(false);
         _clientTabHolder.SetActive(true);
         _rivalTabHolder.SetActive(false);
     }
+
+    /// <summary>
+    /// Abrir el menu de respuesta del rival
+    /// </summary>
     public void GoToRivalTab()
     {
         _inputConciliationTabHolder.SetActive(false);
@@ -197,10 +230,5 @@ public class ConciliationPage : IPage
         for (int i = 0; i < gameObject.transform.childCount; i++)
             gameObject.transform.GetChild(i).gameObject.SetActive(false);
 
-    }
-
-    private void OnDestroy()
-    {
-        StopAllCoroutines();
     }
 }
