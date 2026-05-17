@@ -36,16 +36,7 @@ public class LLMConectorPreClientMeeting : LLMConector
             {
                 if (jsonResponse.presupuesto_adecuado)
                 {
-
-                    string log =
-                    $"[Fase: {SceneManager.GetActiveScene().buildIndex}] [Envio: {_messageID}].\n\n" +
-                    $"Pregunta coherente: {jsonResponse.pregunta_coherente}\n" +
-                    $"Presupuesto adecuado: {jsonResponse.presupuesto_adecuado}\n" +
-                    $"Dinero presupuestado: {jsonResponse.dinero_presupuestado}";
-
-                    LLMLogManager.Instance.LogMessageSent(log, _messageID);
-
-                    BudgetManager.Instance.SetBudgetFromLLM(_text, jsonResponse.dinero_presupuestado);
+                    BudgetSystem.Instance.SetBudgetFromLLM(_text, jsonResponse.dinero_presupuestado);
                     _clientMeetingConector.CallSendContext(_text, _messageID);
 
                 }
@@ -75,7 +66,7 @@ public class LLMConectorPreClientMeeting : LLMConector
 
     public void CallSendContext(int indexConfig = 0)
     {
-        _messageID = LLMLogManager.Instance.getMessageID();
+        _messageID = EventManager.Instance.getMessageID();
         TelemetryDispatch.SendQueryPost(_messageID);
 
         sendContextPrompt(indexConfig);

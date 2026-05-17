@@ -107,7 +107,9 @@ public abstract class ChatPage : IPage
 
         tmpText.ForceMeshUpdate();
 
-        int height = 25 + (int)tmpText.preferredHeight;
+        yield return null;
+
+        int height = 75 + (int)tmpText.preferredHeight;
 
         _totalHeight += height;
 
@@ -115,6 +117,8 @@ public abstract class ChatPage : IPage
 
         RectTransform rectTr = _lastMessageAdded.GetComponent<RectTransform>();
         rectTr.sizeDelta = new Vector2(1500, height);
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_layoutGroup.GetComponent<RectTransform>());
     }
 
     /// <summary>

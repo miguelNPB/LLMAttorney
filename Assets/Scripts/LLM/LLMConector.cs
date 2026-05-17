@@ -91,9 +91,6 @@ public abstract class LLMConector : MonoBehaviour
 
             _historical.Add("Pregunta: " + prompt);
 
-            string log =
-                $"[Fase: {SceneManager.GetActiveScene().buildIndex}] [Envio: Pregunta] Pregunta a LLM: {prompt}.\n\n";
-
             StartCoroutine(coroutineSendPrompt(prompt, configLLM, _contextSchema));
 
             _inputField.text = "";

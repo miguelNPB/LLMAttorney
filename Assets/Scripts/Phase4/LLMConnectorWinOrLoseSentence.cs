@@ -53,7 +53,7 @@ public class LLMConnectorWinOrLoseSentence : LLMConector
 
         _prompt = _prompt.Replace("~", GameSystem.Instance.CaseData.caseDescription);
 
-        _messageID = LLMLogManager.Instance.getMessageID();
+        _messageID = EventManager.Instance.getMessageID();
         Telemetry.TelemetryDispatch.SendQueryPost(_messageID);
 
         sendContextPrompt(_prompt, 0);
@@ -75,7 +75,6 @@ public class LLMConnectorWinOrLoseSentence : LLMConector
         if (success)
         {
             WinOrLoseSentenceResponse response = JsonUtility.FromJson<WinOrLoseSentenceResponse>(answer);
-            Debug.Log("WinPlayer: " + response.winPlayer);
             _onRecievePrompt?.Invoke(response.winPlayer);
         }
         else

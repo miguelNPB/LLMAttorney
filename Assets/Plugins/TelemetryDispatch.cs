@@ -32,13 +32,6 @@ namespace Telemetry
             manager.SendPostDocumentEvent(documentType);
         }
 
-        public static void SendReceivedDocument(int documentType, bool isValid)
-        {
-            if (!TryGetContext(out EventManager manager, out int phaseID)) return;
-
-            manager.SendReceivedDocumentEvent(documentType, isValid);
-        }
-
         public static void SendAskedDocument(int price, int documentType)
         {
             if (!TryGetContext(out EventManager manager, out int phaseID)) return;

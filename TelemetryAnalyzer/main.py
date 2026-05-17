@@ -5,6 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import warnings
 import matplotlib.ticker as ticker
+import numpy as np
 
 # Ignora los futureWarnings en consola
 warnings.simplefilter(action='ignore', category=FutureWarning)
@@ -12,6 +13,7 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 DATA_DIR = Path(__file__).resolve().parent / "data"
 RESULTS_DIR = Path(__file__).resolve().parent / "results"
 
+# comprueba si las carpetas existen y si hay datos
 def check_data_folders():
     # Comprobar si existe la carpeta, si no existe, crearla y salir
     if not DATA_DIR.exists():
@@ -30,12 +32,10 @@ def check_data_folders():
     if not RESULTS_DIR.exists():
         RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
-
+# concatena los json de la carpeta data y saca un dataframe con los datos
 def get_data():
-
     dataframes = []
 
-    #Recorremos los archivos de la carpeta que tiene los datos
     for archivo in os.listdir(DATA_DIR):
         #Carga JSON
         if archivo.endswith(".json"):
@@ -43,14 +43,13 @@ def get_data():
             dataframes.append(df)
 
 
-    #Concatenamos todos los DataFrames en uno solo
     database = pd.concat(dataframes)
 
     return database
 
 
 
-# Plot el numero de respuestas descartadas por no ser coherentes y las respuestas totales recividos
+# saca una grafica con dos barras, el numero de respuestas descartadas por no ser coherentes y las respuestas totales recividos
 def analyze_not_consistent_questions(notConsistentQuestionEvents, queryRecievedEvents, plot_title):
     totalNotCoherentEvents = len(notConsistentQuestionEvents)
     totalRecievedEvents = len(queryRecievedEvents) + totalNotCoherentEvents
@@ -64,7 +63,12 @@ def analyze_not_consistent_questions(notConsistentQuestionEvents, queryRecievedE
     colors = ['#4e79a7', '#f28e2b']
     plt.figure(figsize=(8, 6))
     plt.title(f"{plot_title} - Detección del LLM de respuestas no coherentes")
-    plt.bar(categories, values, color=colors)
+    bars = plt.bar(categories, values, color=colors)
+
+    for bar in bars:
+        yval = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width()/2, yval, f"{yval}", 
+                 ha='center', va='bottom')
 
     plt.text(0.05, 0.95, f"% de no coherentes: {percentOfNotCoherent}", transform=plt.gca().transAxes, fontsize=12,
              verticalalignment='top', bbox=dict(boxstyle='round', facecolor='white', alpha=0.5))
@@ -72,20 +76,16 @@ def analyze_not_consistent_questions(notConsistentQuestionEvents, queryRecievedE
     plt.savefig(RESULTS_DIR / f"{plot_title}_non_coherent_answer.jpg")
     plt.close()
 
+# saca una grafica de puntos con los precios de cada presupuesto rechazados
 def analyze_budget_attempts(deniedBudgetEvents, plot_title):
 
-    # Extraemos los valores de la columna "6" (precios)
     prices = deniedBudgetEvents["6"].values
-    # Creamos un índice para el eje X (1, 2, 3... hasta el número total de eventos)
     x_axis = range(1, len(prices) + 1)
 
     plt.figure(figsize=(10, 6))
     
-    # Dibujamos un punto por cada valor
-    # s=50 es el tamaño del punto, alpha=0.6 por si hay puntos solapados
     plt.scatter(x_axis, prices, color='#4e79a7', s=100, alpha=0.7, edgecolors='black')
 
-    # Añadimos etiquetas de texto a cada punto para ver el valor exacto
     for i, price in enumerate(prices):
         plt.text(x_axis[i], price + 0.1, f"{price}", ha='center', fontsize=9)
 
@@ -93,15 +93,15 @@ def analyze_budget_attempts(deniedBudgetEvents, plot_title):
     plt.xlabel("Número de intento (Evento)")
     plt.ylabel("Valor del presupuesto (Columna 6)")
     
-    # Opcional: Si quieres que el eje X solo muestre números enteros
     import matplotlib.ticker as ticker
     plt.gca().xaxis.set_major_locator(ticker.MaxNLocator(integer=True))
 
-    plt.grid(axis='y', linestyle='--', alpha=0.7) # Ayuda a ver los niveles de precio
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
     plt.savefig(RESULTS_DIR / f"{plot_title}_denied_budgets_scatter.jpg")
     plt.close()
 
 
+# saca una grafica con 4 barras, cada una con el numero de documentos obtenidos de cada tipo posible
 def analyze_asked_document_types(askedDocumentEvents, plot_title):
     if len(askedDocumentEvents) < 1:
         return
@@ -117,7 +117,12 @@ def analyze_asked_document_types(askedDocumentEvents, plot_title):
     
     plt.figure(figsize=(8, 6))
     plt.title(f"{plot_title} - Tipos de documentos obtenidos")
-    plt.bar(categories, values, color=colors)
+    bars = plt.bar(categories, values, color=colors)
+
+    for bar in bars:
+        yval = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width()/2, yval, f"{yval}", 
+                 ha='center', va='bottom')
 
     plt.gca().yaxis.set_major_locator(ticker.MaxNLocator(integer=True))
 
@@ -125,6 +130,7 @@ def analyze_asked_document_types(askedDocumentEvents, plot_title):
     plt.close()
 
 
+# saca una grafica con 2 barras, una con la cantidad de documentos mandados al procurador y otra con todos los documentos obtenidos
 def analyze_sent_procurator_docs(postDocumentEvents, askedDocumentEvents, plot_title):
     totalSentToProcuratorDocs = len(postDocumentEvents)
     totalAskedDocs = len(askedDocumentEvents)
@@ -134,14 +140,20 @@ def analyze_sent_procurator_docs(postDocumentEvents, askedDocumentEvents, plot_t
     colors = ['#4e79a7', '#f28e2b']
     plt.figure(figsize=(8, 6))
     plt.title(f"{plot_title} - Relación de documentos pedidos y documentos utilizados")
-    plt.bar(categories, values, color=colors)
+    bars = plt.bar(categories, values, color=colors)
 
+    for bar in bars:
+        yval = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width()/2, yval, f"{yval}", 
+                 ha='center', va='bottom')
+        
     plt.gca().yaxis.set_major_locator(ticker.MaxNLocator(integer=True))
 
     plt.savefig(RESULTS_DIR / f"{plot_title}_sent_procurator_docs.jpg")
     plt.close()
     
 
+# Sacar una grafica con 4 barras con el numero de peticiones por fase
 def analyze_num_sent_querys(queryPostEvents, plot_title):
     num_sent_querys_phase1 = len(queryPostEvents[queryPostEvents["5"] == 1])
     num_sent_querys_phase2 = len(queryPostEvents[queryPostEvents["5"] == 2])
@@ -153,13 +165,19 @@ def analyze_num_sent_querys(queryPostEvents, plot_title):
     colors = ['#4e79a7', '#f28e2b', "#2bf25d", "#f22b7e"]
     plt.figure(figsize=(8, 6))
     plt.title(f"{plot_title} - Número de peticiones enviadas al LLM")
-    plt.bar(categories, values, color=colors)
+    bars = plt.bar(categories, values, color=colors)
+
+    for bar in bars:
+        yval = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width()/2, yval, f"{yval}", 
+                 ha='center', va='bottom')
+
 
     plt.savefig(RESULTS_DIR / f"{plot_title}_sent_querys.jpg")
     plt.close()
 
 
-
+# Sacar una grafica con 4 barras con tiempos medios entre peticion y respuesta por fase
 def analyze_time_between_query_and_response(queryPostEvents, queryRecievedEvents, plot_title):
     queryPostEvents["4"] = queryPostEvents["4"].astype(str)
     queryRecievedEvents["4"] = queryRecievedEvents["4"].astype(str)
@@ -177,57 +195,36 @@ def analyze_time_between_query_and_response(queryPostEvents, queryRecievedEvents
 
     merged_df['latency'] = round((merged_df['timestamp_rec'] - merged_df['timestamp_sent']).dt.total_seconds(), 1) 
 
-    mean_by_phase = merged_df.groupby("5_sent")['latency'].mean()
+    
+    means = merged_df.groupby("5_sent")['latency'].mean()
+    stds = merged_df.groupby("5_sent")['latency'].std().fillna(0)
+
 
     categories = ['Fase 1', 'Fase 2', 'Fase 3', 'Fase 4']
-    mean_values = [mean_by_phase.get(i, 0) for i in [1, 2, 3, 4]]
+    mean_values = [means.get(i, 0) for i in [1, 2, 3, 4]]
     
     plt.figure(figsize=(10, 6))
-    plt.title(f"{plot_title} - Tiempo medio entre petición y respuesta enviados al LLM")
+    plt.title(f"{plot_title} - Segundos medios entre petición y respuesta enviados al LLM")
     colors = ['#4e79a7', '#f28e2b', "#2bf25d", "#f22b7e"]
     bars = plt.bar(categories, mean_values, color=colors)
 
+    i = 1
+    y_Limit = means.max()
+    offset_up = y_Limit * 0.025
+    offset_down = y_Limit * 0.125
+    threshold = y_Limit * 0.9
     for bar in bars:
         yval = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width()/2, yval + 0.05, f"{yval:.2f}s", 
-                 ha='center', va='bottom', fontweight='bold')
+        text_pos = yval + offset_up
+        if text_pos > threshold:
+            text_pos = yval - offset_down
+            
+        plt.text(bar.get_x() + bar.get_width()/2, text_pos, f"Media: {means.get(i, 0):.2f}\nDesv: {stds.get(i, 0):.2f}", 
+                 ha='center', va='bottom', bbox=dict(boxstyle='round', facecolor='white', alpha=0.5))
+        i = i + 1
 
     plt.savefig(RESULTS_DIR / f"{plot_title}_response_times.jpg")
     plt.close()
-        
-
-def analyze_quality_answer_score(qualityAnswerScore, plot_title):
-    if len(qualityAnswerScore) < 1:
-        return 
-    
-    phase1qualityAnswerScoreMean = (qualityAnswerScore[qualityAnswerScore["phase"] == 1])["score"].mean()
-    phase2qualityAnswerScoreMean = (qualityAnswerScore[qualityAnswerScore["phase"] == 2])["score"].mean()
-    phase3qualityAnswerScoreMean = (qualityAnswerScore[qualityAnswerScore["phase"] == 3])["score"].mean()
-    phase4qualityAnswerScoreMean = (qualityAnswerScore[qualityAnswerScore["phase"] == 4])["score"].mean()
-
-    categories = ['Fase 1', 'Fase 2', 'Fase 3', 'Fase 4']
-    values = [phase1qualityAnswerScoreMean, phase2qualityAnswerScoreMean, phase3qualityAnswerScoreMean, phase4qualityAnswerScoreMean]
-    colors = ['#4e79a7', '#f28e2b', "#2bf25d", "#f22b7e"]
-    plt.figure(figsize=(8, 6))
-    plt.title(f"{plot_title} - Media de puntuación de calidad de respuesta del LLM")
-    bars = plt.bar(categories, values, color=colors)
-
-    plt.ylim(0, 5.5) # Fijamos el límite de 0 a 5 (damos un poco de margen arriba para el texto)
-    plt.yticks(range(6)) # Esto fuerza los tics: 0, 1, 2, 3, 4, 5
-
-    for bar in bars:
-        yval = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width()/2, yval + 0.05, f"{yval:.2f}", 
-                 ha='center', va='bottom', fontweight='bold')
-        
-    finalScore = round((phase1qualityAnswerScoreMean + phase2qualityAnswerScoreMean + phase3qualityAnswerScoreMean + phase4qualityAnswerScoreMean) / 4,1)
-    plt.text(0.05, 0.95, f"Puntuación general: {finalScore}", transform=plt.gca().transAxes, fontsize=12,
-        verticalalignment='top', bbox=dict(boxstyle='round', facecolor='white', alpha=0.5))
-
-
-    plt.savefig(RESULTS_DIR / f"{plot_title}_quality_score.jpg")
-    plt.close()
-
 
 def main():
     if len(sys.argv) < 2:
@@ -258,7 +255,6 @@ def main():
     askedDocumentEvents = database[database["eventType"] == 4]
     queryPostEvents = database[database["eventType"] == 5]
     queryRecievedEvents = database[database["eventType"] == 6]
-    qualityAnswerScore = database[database["eventType"] == 7]
 
     analyze_not_consistent_questions(notConsistentQuestionEvents, queryRecievedEvents, plot_title)
     analyze_budget_attempts(deniedBudgetEvents, plot_title)
@@ -266,9 +262,6 @@ def main():
     analyze_sent_procurator_docs(postDocumentEvents, askedDocumentEvents, plot_title)
     analyze_num_sent_querys(queryPostEvents, plot_title)
     analyze_time_between_query_and_response(queryPostEvents, queryRecievedEvents, plot_title)
-
-    analyze_quality_answer_score(qualityAnswerScore, plot_title)
-
 
 
 if __name__ == "__main__":

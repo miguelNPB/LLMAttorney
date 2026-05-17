@@ -62,15 +62,6 @@ public class LLMConectorClientMeeting : LLMConector
             }
             else
             {
-
-                string log =
-                $"[Fase: {SceneManager.GetActiveScene().buildIndex}] [Envio: {_messageID}] Respuesta del cliente a pregunta: {jsonResponse.answer}.\n\n" +
-                $"Contratar abogado: {jsonResponse.contratar_abogado}\n" +
-                $"Respuesta valida: {jsonResponse.respuesta_valida}\n" +
-                $"Respuesta coherente: {jsonResponse.respuesta_coherente}";
-
-                LLMLogManager.Instance.LogMessageSent(log, _messageID);
-
                 if(!jsonResponse.respuesta_valida || !jsonResponse.respuesta_coherente)
                 {
                     TelemetryDispatch.SendNotConsistentAnswer(_messageID);

@@ -99,7 +99,7 @@ public class RedactLawsuitPage : IPage
 
         GameSystem.Instance.CaseData.SetLawsuitText(lawsuitText);
 
-        Debug.Log(lawsuitText);
+        LogSystem.Instance.LogString("Demanda: " + lawsuitText);
     }
 
     /// <summary>

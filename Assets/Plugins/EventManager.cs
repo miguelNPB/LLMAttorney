@@ -17,7 +17,7 @@ namespace Telemetry
         private int _userID = -1;
         private IntPtr _trackerHandle = IntPtr.Zero;
 
-        private EventManager _instance = null;
+        private static EventManager _instance = null;
 
         [SerializeField]
         private bool _persistPeriodically = false;
@@ -27,7 +27,7 @@ namespace Telemetry
 
         private double _elapsedTime = 0;
 
-        public EventManager Instance
+        public static EventManager Instance
         {
             get { return _instance; }
         }
@@ -44,6 +44,15 @@ namespace Telemetry
             documentType = 7,
             isValid = 8,
 
+        }
+
+        /// <summary>
+        /// Obtenemos un id unico para casos que sea necesario
+        /// </summary>
+        /// <returns></returns>
+        public int getMessageID()
+        {
+            return Guid.NewGuid().GetHashCode() & int.MaxValue;
         }
 
         private void SubmitEvent(IntPtr eventPtr)
@@ -180,7 +189,6 @@ namespace Telemetry
             //Escritura de directivas externas a atributos
             TelemetryUtils.WriteEventHeader(eventPtr, 1, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
 
-            //TODO Envio del evento
             SubmitEvent(eventPtr);
         }
 
@@ -240,70 +248,6 @@ namespace Telemetry
             //Escritura de directivas externas a atributos
             TelemetryUtils.WriteEventHeader(eventPtr, 2, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
 
-            //TODO Envio del evento
-            SubmitEvent(eventPtr);
-        }
-
-    
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="documentType"></param>
-        /// <param name="isValid"></param>
-        public void SendReceivedDocumentEvent(int documentType, bool isValid)
-        {
-            //Establecimiento del numero de atributos
-            const int attributeCount = 4;
-
-            //Creacion del evento
-            IntPtr eventPtr;
-
-            try
-            {
-                eventPtr = TelemetryNative.CreateEvent(attributeCount);
-            }
-            catch (System.EntryPointNotFoundException)
-            {
-                Debug.LogWarning("Telemetry DLL no disponible o funci�n no encontrada");
-                return;
-            }
-            catch (System.DllNotFoundException)
-            {
-                Debug.LogWarning("Telemetry DLL no encontrada");
-                return;
-            }
-
-            if (eventPtr == IntPtr.Zero)
-            {
-                return;
-            }
-
-            //obtencion del puntero de los atributos
-            IntPtr attributesBase = TelemetryUtils.GetEventAttributesPtr(eventPtr);
-
-            if (attributesBase == IntPtr.Zero)
-            {
-                TelemetryNative.DestroyEvent(eventPtr);
-                return;
-            }
-
-            //Comprobacion de valores de los atributos
-            if (documentType < 0 || _sessionID == -1 || _userID == -1)
-            {
-                TelemetryNative.DestroyEvent(eventPtr);
-                return;
-            }
-
-            TelemetryUtils.WriteAttributeInt64(attributesBase, 0, (int)AtributesNameId.sessionID, _sessionID);
-            TelemetryUtils.WriteAttributeInt64(attributesBase, 1, (int)AtributesNameId.userID, _userID);
-            TelemetryUtils.WriteAttributeInt32(attributesBase, 2, (int)AtributesNameId.documentType, documentType);
-            TelemetryUtils.WriteAttributeBool(attributesBase, 3, (int)AtributesNameId.isValid, isValid);
-
-
-            //Escritura de directivas externas a atributos
-            TelemetryUtils.WriteEventHeader(eventPtr, 3, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
-
-            //TODO Envio del evento
             SubmitEvent(eventPtr);
         }
 
@@ -363,11 +307,9 @@ namespace Telemetry
             TelemetryUtils.WriteAttributeInt32(attributesBase, 3, (int)AtributesNameId.documentType, documentType);
 
             //Escritura de directivas externas a atributos
-            TelemetryUtils.WriteEventHeader(eventPtr, 4, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
+            TelemetryUtils.WriteEventHeader(eventPtr, 3, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
 
-            //TODO Envio del evento
             SubmitEvent(eventPtr);
-
         }
 
         /// <summary>
@@ -426,9 +368,8 @@ namespace Telemetry
             TelemetryUtils.WriteAttributeInt32(attributesBase, 3, (int)AtributesNameId.phaseID, phaseID);
 
             //Escritura de directivas externas a atributos
-            TelemetryUtils.WriteEventHeader(eventPtr, 5, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
+            TelemetryUtils.WriteEventHeader(eventPtr, 4, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
 
-            //TODO Envio del evento
             SubmitEvent(eventPtr);
         }
 
@@ -488,9 +429,8 @@ namespace Telemetry
             TelemetryUtils.WriteAttributeInt32(attributesBase, 3, (int)AtributesNameId.phaseID, phaseID);
 
             //Escritura de directivas externas a atributos
-            TelemetryUtils.WriteEventHeader(eventPtr, 6, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
+            TelemetryUtils.WriteEventHeader(eventPtr, 5, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
 
-            //TODO Envio del evento
             SubmitEvent(eventPtr);
         }
 

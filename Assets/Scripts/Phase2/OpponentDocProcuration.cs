@@ -144,22 +144,22 @@ public class OpponentDocProcuration : MonoBehaviour
 
 
         _procuradorPage.StartPendingOpponentMessage();
-        _procuradorPage.ReceiveOpponentDocMessage("Has recibido un documento " + "Factura de reparación de tuberías 2012" + " de la parte del damandado.");
+        _procuradorPage.ReceiveOpponentDocMessage("Has recibido un documento " + "Factura de reparación de tuberías 2012" + " de la parte del demandado.");
 
         yield return null;
         yield return null;
 
         _procuradorPage.StartPendingOpponentMessage();
-        _procuradorPage.ReceiveOpponentDocMessage("Has recibido un documento " + "Informe del origen de la fuga de agua" + " de la parte del damandado.");
+        _procuradorPage.ReceiveOpponentDocMessage("Has recibido un documento " + "Informe del origen de la fuga de agua" + " de la parte del demandado.");
         yield return null;
         yield return null;
         _procuradorPage.StartPendingOpponentMessage();
-        _procuradorPage.ReceiveOpponentDocMessage   ("Has recibido un documento " + "Testimonio de Juan Pérez" + " de la parte del damandado.");
+        _procuradorPage.ReceiveOpponentDocMessage   ("Has recibido un documento " + "Testimonio de Juan Pérez" + " de la parte del demandado.");
         yield return null;
         yield return null;
 
         _procuradorPage.StartPendingOpponentMessage();
-        _procuradorPage.ReceiveOpponentDocMessage("Has recibido un documento " + "Conversación de whatsapp" + " de la parte del damandado.");
+        _procuradorPage.ReceiveOpponentDocMessage("Has recibido un documento " + "Conversación de whatsapp" + " de la parte del demandado.");
         yield return null;
         yield return null;
 
