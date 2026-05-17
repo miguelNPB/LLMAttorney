@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UISearchManager : MonoBehaviour
+public class SearchPricesManager : MonoBehaviour
 {
 
     [SerializeField] private Button _searchToolButton;
@@ -12,11 +12,14 @@ public class UISearchManager : MonoBehaviour
 
     [SerializeField] private TMP_Text resultText;
 
+    [SerializeField] private LLMConnectorQuestionChecker _llmConnectorQuestionChecker;
     [SerializeField] private LLMConnectorSearch _llmConnectorSearch;
+    [SerializeField] private LLMConnectorResponseChecker _llmConnectorResponseChecker;
 
-    private string pendingMessage = "";
-    private bool waitingPendingMessage = false;
+    private string _pendingMessage = "";
+    private bool _waitingPendingMessage = false;
 
+    private string _prompt;
     /// <summary>
     /// Corroutina para esperar al mensaje con una animacion
     /// </summary>
@@ -25,9 +28,7 @@ public class UISearchManager : MonoBehaviour
     {
         float timer = 0;
 
-        waitingPendingMessage = true;
-
-        while (waitingPendingMessage)
+        while (_waitingPendingMessage)
         {
             timer += Time.deltaTime;
 
@@ -38,7 +39,7 @@ public class UISearchManager : MonoBehaviour
             yield return null;
         }
 
-        resultText.text = pendingMessage;
+        resultText.text = _pendingMessage;
 
         resultText.ForceMeshUpdate();
     }
@@ -48,20 +49,32 @@ public class UISearchManager : MonoBehaviour
     /// </summary>
     public void SearchPrice()
     {
-        if (waitingPendingMessage)
+        if (_waitingPendingMessage)
             return;
 
         _searchToolButton.interactable = false;
+        _waitingPendingMessage = true;
         StartCoroutine(CoroutinePendingMessage());
 
+        _prompt = _inputField.text;
+        _llmConnectorQuestionChecker.SendPrompt(recieveQuestionCheckerResponse, _prompt);
+    }
+
+    private void recieveQuestionCheckerResponse(bool isCoherent)
+    {
         _llmConnectorSearch.SendPrompt(recieveSearchConnectorResponse, _inputField.text);
 
     }
 
     private void recieveSearchConnectorResponse(string text)
     {
-        pendingMessage = text;
-        waitingPendingMessage = false;
+        _pendingMessage = text;
+        _waitingPendingMessage = false;
+    }
+
+    private void recieveResponseCheckerResponse(bool isCoherent)
+    {
+
     }
 
     /// <summary>

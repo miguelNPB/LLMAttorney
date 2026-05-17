@@ -6,16 +6,16 @@ public class LLMConnectorResponseChecker : LLMConnector
     [Serializable]
     private class ResponseCheckerResponse
     {
-        public string answer;
+        public bool isCoherent;
     }
-    private Action<string> _responseCallback;
+    private Action<bool> _responseCallback;
 
     /// <summary>
     /// Metodo publico para activar el funcionamiento de este LLMConnector
     /// </summary>
     /// <param name="responseCallback"></param>
     /// <param name="prompt"></param>
-    public void SendPrompt(Action<string> responseCallback, string prompt)
+    public void SendPrompt(Action<bool> responseCallback, string prompt)
     {
         _responseCallback = responseCallback;
         sendPrompt(recieveFinalResponse, prompt, 0);
@@ -29,8 +29,9 @@ public class LLMConnectorResponseChecker : LLMConnector
     {
         ResponseCheckerResponse jsonResponse = JsonUtility.FromJson<ResponseCheckerResponse>(finalSerializedResponse);
 
-        _responseCallback?.Invoke(jsonResponse.answer);
+        _responseCallback?.Invoke(jsonResponse.isCoherent);
     }
+
     protected override void createJsonSchemas()
     {
         _contextSchema = new JsonSchema();
@@ -43,12 +44,39 @@ public class LLMConnectorResponseChecker : LLMConnector
     protected override string deseralizePromptFirstResponse(string firstResponse)
     {
         ResponseCheckerResponse jsonResponse = JsonUtility.FromJson<ResponseCheckerResponse>(firstResponse);
-        return jsonResponse.answer;
+        return jsonResponse.isCoherent.ToString();
     }
 
     protected override string deseralizePromptStepResponse(string firstResponse)
     {
         ResponseCheckerResponse jsonResponse = JsonUtility.FromJson<ResponseCheckerResponse>(firstResponse);
-        return jsonResponse.answer;
+        return jsonResponse.isCoherent.ToString();
     }
+
+    // -- Metodos overrideados para el funcionamiento por bool -- 
+
+    protected override void recieveFirstResponse(bool success, string text)
+    {
+        if (_useSteps)
+        {
+            bool isCoherent = bool.Parse(deseralizePromptFirstResponse(text));
+            _stepCounter = 0;
+
+            if (isCoherent)
+                sendStepPrompt(text);
+            else
+                respondPrompt(success, text);
+        }
+        else
+            respondPrompt(success, text);
+    }
+
+    protected override void recieveStepResponse(bool success, string text)
+    {
+        bool isCoherent = bool.Parse(deseralizePromptStepResponse(text));
+        if (isCoherent || !sendStepPrompt(_prompt))
+            respondPrompt(success, text);
+    }
+
+    // 
 }
