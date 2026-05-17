@@ -57,7 +57,7 @@ public class LLMConnectorQuestionChecker : LLMConnector
 
     protected override void recieveFirstResponse(bool success, string text)
     {
-        if (_useSteps)
+        if (_useSteps && _llmConfigs[_configIndex].GetStepChecks().Length > 0)
         {
             bool isCoherent = bool.Parse(deseralizePromptFirstResponse(text));
             _stepCounter = 0;

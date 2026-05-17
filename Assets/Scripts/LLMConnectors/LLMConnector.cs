@@ -31,13 +31,13 @@ public abstract class LLMConnector : MonoBehaviour
     /// <summary>
     /// Metodo para obtener el prompt para los steps con el texto json de la primera respuesta
     /// </summary>
-    /// <param name="firstResponse"></param>
+    /// <param name="serializedResponse"></param>
     /// <returns></returns>
     protected abstract string deseralizePromptFirstResponse(string serializedResponse);
     /// <summary>
     /// Metodo para obtener el prompt para los steps con el texto json de la primera respuesta
     /// </summary>
-    /// <param name="firstResponse"></param>
+    /// <param name="serializedResponse"></param>
     /// <returns></returns>
     protected abstract string deseralizePromptStepResponse(string serializedResponse);
 
@@ -93,6 +93,7 @@ public abstract class LLMConnector : MonoBehaviour
     /// <param name="text"></param>
     protected virtual void recieveFirstResponse(bool success, string text)
     {
+        Debug.Log("prueba prueba");
         if (_useSteps)
         {
             string deserializedPrompt = deseralizePromptFirstResponse(text);
