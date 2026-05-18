@@ -6,7 +6,6 @@ using UnityEngine.UI;
 using static UnityEditor.MaterialProperty;
 
 
-
 /// <summary>
 /// Pagina para gestionar el sistema de mensajes con el cliente
 /// </summary>
