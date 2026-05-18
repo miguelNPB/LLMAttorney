@@ -7019,6 +7019,64 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1804846547}
   m_CullTransparentMesh: 1
+--- !u!1 &1824619994
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1824619995}
+  - component: {fileID: 1824619996}
+  m_Layer: 5
+  m_Name: ClientDocumentsTextChecker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1824619995
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1824619994}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4617608515042853246}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1824619996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1824619994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7801c34988c19fc49a60d29e88901ed3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorTextChecker
+  _llmConfigs:
+  - {fileID: 11400000, guid: 53a803fda0bf94e41949862fa1e4d7ad, type: 2}
+  - {fileID: 11400000, guid: 53a803fda0bf94e41949862fa1e4d7ad, type: 2}
+  - {fileID: 11400000, guid: 13ee52fac2378d643b98588177be80e9, type: 2}
+  - {fileID: 11400000, guid: 638be89377a9bff4c9c9023430fb8513, type: 2}
+  - {fileID: 11400000, guid: 54408fab4cd974248aeb9586d70ffc4a, type: 2}
+  - {fileID: 11400000, guid: 53a803fda0bf94e41949862fa1e4d7ad, type: 2}
+  _useSteps: 0
+  _useHistoricalInContext: 0
+  _useHistoricalInSteps: 0
 --- !u!1 &1827592503
 GameObject:
   m_ObjectHideFlags: 0
@@ -8106,6 +8164,60 @@ RectTransform:
   m_AnchoredPosition: {x: -729.38855, y: 181.5}
   m_SizeDelta: {x: -1636.7972, y: -1004.5317}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2033328443
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2033328444}
+  - component: {fileID: 2033328445}
+  m_Layer: 5
+  m_Name: ClientQuestionTextChecker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2033328444
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033328443}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4617608515042853246}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2033328445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033328443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7801c34988c19fc49a60d29e88901ed3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorTextChecker
+  _llmConfigs:
+  - {fileID: 11400000, guid: afcb77e5591d12544a045eedeb728c97, type: 2}
+  - {fileID: 11400000, guid: c1d4b7ec86ac3c142bf147c98aef019f, type: 2}
+  _useSteps: 0
+  _useHistoricalInContext: 0
+  _useHistoricalInSteps: 0
 --- !u!1 &2043078040
 GameObject:
   m_ObjectHideFlags: 0
@@ -13398,9 +13510,10 @@ MonoBehaviour:
   _playerColor: {r: 0.495283, g: 1, b: 0.495283, a: 1}
   _scrollSpeed: 15
   _inputField: {fileID: 1486098271155247792}
-  _documentGenerationManager: {fileID: 0}
+  _documentGenerationManager: {fileID: 5197592209566044570}
+  _llmConnectorClientChatTextChecker: {fileID: 2033328445}
   _llmConnectorClientChat: {fileID: 1631395630908722945}
-  _llmConnectorClientTypePrompt: {fileID: 0}
+  _llmConnectorClientTypePrompt: {fileID: 5197592209566044571}
 --- !u!224 &2472186752245920705
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18292,6 +18405,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2033328444}
+  - {fileID: 1824619995}
   - {fileID: 1267117224}
   m_Father: {fileID: 8728627107141110691}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -19775,10 +19890,10 @@ GameObject:
   - component: {fileID: 4617608515042853246}
   - component: {fileID: 2458100822278062543}
   - component: {fileID: 5197592209566044570}
+  - component: {fileID: 5197592209566044571}
   - component: {fileID: 1631395630908722945}
   - component: {fileID: 5197592209566044569}
   - component: {fileID: 5197592209566044568}
-  - component: {fileID: 5197592209566044567}
   m_Layer: 5
   m_Name: ClientChatPage
   m_TagString: Untagged
@@ -19786,26 +19901,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &5197592209566044567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5197592209566044566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7801c34988c19fc49a60d29e88901ed3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorTextChecker
-  _llmConfigs:
-  - {fileID: 11400000, guid: 13ee52fac2378d643b98588177be80e9, type: 2}
-  - {fileID: 11400000, guid: 638be89377a9bff4c9c9023430fb8513, type: 2}
-  - {fileID: 11400000, guid: 54408fab4cd974248aeb9586d70ffc4a, type: 2}
-  - {fileID: 11400000, guid: 53a803fda0bf94e41949862fa1e4d7ad, type: 2}
-  _useSteps: 0
-  _useHistoricalInContext: 0
-  _useHistoricalInSteps: 0
 --- !u!114 &5197592209566044568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19866,9 +19961,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DocumentGenerationManager
   _llmConnectorDocContent: {fileID: 5197592209566044569}
   _llmConnectorDocBudget: {fileID: 5197592209566044568}
-  _llmConnectorTextChecker: {fileID: 5197592209566044567}
+  _llmConnectorTextChecker: {fileID: 1824619996}
   _prompt: "Necesito que generes un documento de texto para un caso jur\xEDdico espa\xF1ol.
     Utiliza el contexto que se te ha suminstrado para generar los campos necesarios."
+--- !u!114 &5197592209566044571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5197592209566044566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b85335ddfaff634d85beed37f0e1b47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorClientTypePrompt
+  _llmConfigs:
+  - {fileID: 11400000, guid: f9ab2fc5fb7a73d44822f9c2caae44c0, type: 2}
+  _useSteps: 0
+  _useHistoricalInContext: 0
+  _useHistoricalInSteps: 0
 --- !u!114 &5200867327823786177
 MonoBehaviour:
   m_ObjectHideFlags: 0

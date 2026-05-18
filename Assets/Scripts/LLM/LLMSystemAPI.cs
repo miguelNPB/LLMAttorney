@@ -99,10 +99,9 @@ public class PropertyInfo
     }
 }
 
-
-/**
- * Clase Singleton que sirve para hacer llamadas a nuestro servidor LLMAttorney
- */
+/// <summary>
+/// Clase Singleton que sirve para hacer llamadas a nuestro servidor LLMAttorney
+/// </summary>
 public class LLMSystemAPI : MonoBehaviour
 {
     // nombre de la ip, si es local poner localhost
@@ -138,21 +137,18 @@ public class LLMSystemAPI : MonoBehaviour
         }
     }
 
-
-    /**
-     * Encola un prompt en la cola de prompts. Cuando sea su turno en la cola, se manda y al recibir la respuesta del servidor llama al Action onComplete, con un booleano success y el string con el contenido.
-     * @param prompt Prompt de generación de contenido
-     * @param onComplete callback que llamara al recibir la respuesta del servidor
-     * @param LLMConfig Texto con instrucciones de como debe responder el LLM
-     * @param schema Esquema JSON de como queremos que responda el LLM de forma mas guiada. En caso de no necesitarlo, pasar null y devolvera un string
-     * @param temperature float en el rango [0f, 1f] que indica como de creativo es el LLM. 0 = Predecible 1 = Creativo
-     * @param ragUse bool que marca si el LLM debe usar la informacion aportada con el Rag para responder al prompt o no
-     * @param ragIndex int que marca el rag que debemos de utilizar para la llamada
-     * @param max_length Tokens maximos del texto, esto no usarlo mucho q no funciona muy bien
-     */
+    /// <summary>
+    /// Encola un prompt en la cola de prompts. Cuando sea su turno en la cola, se manda y al recibir la respuesta del servidor llama al Action onComplete, con un booleano success y el string con el contenido.
+    /// </summary>
+    /// <param name="onComplete">Callback que se llamara con el resultado</param>
+    /// <param name="prompt">Prompt de generación de contenido</param>
+    /// <param name="LLMConfig">Texto con instrucciones de como debe responder el LLM</param>
+    /// <param name="schema">Esquema JSON de como queremos que responda el LLM de forma mas guiada. En caso de no necesitarlo, pasar null y devolvera un string</param>
+    /// <param name="temperature">float en el rango [0f, 1f] que indica como de creativo es el LLM. 0 = Predecible 1 = Creativo</param>
+    /// <param name="ragUse">bool que marca si el LLM debe usar la informacion aportada con el Rag para responder al prompt o no</param>
+    /// <param name="ragIndex">int que marca el rag que debemos de utilizar para la llamada</param>
     public void SendPrompt(Action<bool, string> onComplete, string prompt, string LLMConfig, JsonSchema schema = null, float temperature = 0.8f, bool ragUse = false, int ragIndex = 0)
     {
-        string json = "";
         if (schema == null)
         {
             // Crear la request

@@ -16,7 +16,6 @@ public abstract class LLMConnector : MonoBehaviour
     protected JsonSchema _contextSchema = null;
     protected JsonSchema _stepsSchema = null;
 
-    protected bool _promptSent = false;
     Action<string> _internalFinalResponseCallback = null;
     Action<string> _errorResponseCallback = null;
     protected int _configIndex;
@@ -66,12 +65,6 @@ public abstract class LLMConnector : MonoBehaviour
             return false;
         }
 
-        if (_promptSent)
-        {
-            Debug.LogError("Prompt ya en curso");
-            return false;
-        }
-
         _internalFinalResponseCallback = responseCallback;
         _errorResponseCallback = errorCallback;
         _configIndex = configIndex;
@@ -90,8 +83,6 @@ public abstract class LLMConnector : MonoBehaviour
 
         _messageID = EventManager.Instance.getMessageID();
         Telemetry.TelemetryDispatch.SendQueryPost(_messageID);
-
-        _promptSent = true;
 
         return true;
     }
@@ -177,7 +168,6 @@ public abstract class LLMConnector : MonoBehaviour
         {
             if (_useHistoricalInContext || _useHistoricalInSteps)
                 _historicText += ("Response: " + text);
-            _promptSent = false;
 
             _internalFinalResponseCallback?.Invoke(text);
         }

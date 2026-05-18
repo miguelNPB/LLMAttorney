@@ -3,6 +3,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.MaterialProperty;
 
 
 
@@ -14,22 +15,25 @@ public class ClientChatPage : ChatPage
     [Header("ClientMessages")]
     [SerializeField] private TMP_InputField _inputField;
     [SerializeField] private DocumentGenerationManager _documentGenerationManager;
+    [SerializeField] private LLMConnectorTextChecker _llmConnectorClientChatTextChecker;
     [SerializeField] private LLMConnectorClientChat _llmConnectorClientChat;
     [SerializeField] private LLMConnectorClientTypePrompt _llmConnectorClientTypePrompt;
 
     private string _prompt;
     private bool _isOpen = false;
-
+    private string _currentAnswer;
+    private ClientPromptType _currentPromptType;
     /// <summary>
     /// Llamado al recibir la respuesta del LLM de cual es el tipo de prompt
     /// </summary>
     /// <param name="promptType"></param>
     private void recieveClientPromptType(ClientPromptType promptType)
     {
+        _currentPromptType = promptType;
         switch (promptType)
         {
-            case ClientPromptType.Question: _llmConnectorClientChat.SendPrompt(recieveClientChatResponse, recieveError, _prompt, 0); break;
-            case ClientPromptType.Conversation: _llmConnectorClientChat.SendPrompt(recieveClientChatResponse, recieveError, _prompt, 1); break;
+            case ClientPromptType.Question: _llmConnectorClientChatTextChecker.SendPrompt(recieveClientChatCoherentQuestion, recieveError, _prompt, 0); break;
+            case ClientPromptType.Conversation: _llmConnectorClientChatTextChecker.SendPrompt(recieveClientChatCoherentQuestion, recieveError, _prompt, 1); break;
             case ClientPromptType.Perito: _documentGenerationManager.PromptGenerateDocument(recieveClientDocumentResponse, recieveError, DocumentType.Perito, true); break;
             case ClientPromptType.Report: _documentGenerationManager.PromptGenerateDocument(recieveClientDocumentResponse, recieveError, DocumentType.Report, true); break;
             case ClientPromptType.Witness: _documentGenerationManager.PromptGenerateDocument(recieveClientDocumentResponse, recieveError, DocumentType.Witness, true); break;
@@ -38,11 +42,55 @@ public class ClientChatPage : ChatPage
     }
 
     /// <summary>
-    /// Llamado al recibir la respuesta de texto del LLM
+    /// Llamado al recibir la primera contestacion de si la pregunta es coherente. Si lo es, se procede a sacar el texto, sino se devuelve un mensaje diciendo que no se ha entendido.
+    /// </summary>
+    /// <param name="isCoherent"></param>
+    private void recieveClientChatCoherentQuestion(bool isCoherent)
+    {
+        if (isCoherent)
+        {
+            _llmConnectorClientChat.SendPrompt(recieveClientChatResponse, recieveError, _prompt, (int)_currentPromptType);
+        }
+        else
+        {
+            string response = "Perdona, no te he entendido. ¿Puedes especificarme mejor?";
+            EndPendingMessage(response);
+
+            ConversationMessage conversationMessage;
+            conversationMessage.fromPlayer = false;
+            conversationMessage.text = response;
+            GameSystem.Instance.CaseData.clientMessages.Add(conversationMessage);
+
+            if (!_isOpen)
+            {
+                _computerSystem.PingOverlayNotification("¡Has recibido un mensaje del cliente!");
+                _computerSystem.ToggleNotification(Page.ClientChat, true);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Llamado al recibir la respuesta de texto del LLM. Luego se manda a otro textChecker para comprobar que la respuesta es coherente
     /// </summary>
     /// <param name="response"></param>
     private void recieveClientChatResponse(string response)
     {
+        _currentAnswer = response;
+        _llmConnectorClientChatTextChecker.SendPrompt(recieveClientChatCoherentAnswer, recieveError, _prompt, (int)_currentPromptType);
+    }
+
+    private void recieveClientChatCoherentAnswer(bool isCoherent)
+    {
+        string response = "";
+        if (isCoherent)
+        {
+            response = _currentAnswer;
+        }
+        else
+        {
+            response = "Perdona, pero no te he podido contestar bien. ¿Podrías especificarmelo mejor o preguntarme otra cosa?";
+        }
+            
         EndPendingMessage(response);
 
         ConversationMessage conversationMessage;
