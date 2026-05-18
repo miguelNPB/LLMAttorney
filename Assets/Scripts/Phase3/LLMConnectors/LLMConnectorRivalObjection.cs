@@ -26,7 +26,7 @@ public class LLMConnectorRivalObjection : LLMConnector
     {
         string newContext = _baseContext.Replace("@", GameSystem.Instance.CaseData.caseDescription);
         newContext = newContext.Replace("$", documentContent);
-        _llmConfigs[_configIndex].OverrideContext(newContext);
+        overrideLLMContext(newContext);
 
         _responseCallback = onRecievePrompt;
         sendPrompt(recieveFinalResponse, errorCallback, documentContent, 0);
@@ -44,17 +44,6 @@ public class LLMConnectorRivalObjection : LLMConnector
         RivalObjectionResponse jsonResponse = JsonUtility.FromJson<RivalObjectionResponse>(finalSerializedResponse);
 
         _responseCallback?.Invoke(jsonResponse.valid);
-    }
-
-    protected override string deseralizePromptFirstResponse(string serializedResponse)
-    {
-        RivalObjectionResponse jsonResponse = JsonUtility.FromJson<RivalObjectionResponse>(serializedResponse);
-        return jsonResponse.valid.ToString();
-    }
-
-    protected override string deseralizePromptStepResponse(string serializedResponse)
-    {
-        return ""; // no se usan steps
     }
 
     protected override void createJsonSchemas()

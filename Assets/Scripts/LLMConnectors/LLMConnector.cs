@@ -25,6 +25,10 @@ public abstract class LLMConnector : MonoBehaviour
 
     protected int _messageID;
 
+    protected bool _overrideContext = false;
+    protected string _overrideContextText = "";
+    protected string _historicText = "";
+
     /// --- Metodos para el json schema
 
     /// <summary>
@@ -74,15 +78,13 @@ public abstract class LLMConnector : MonoBehaviour
 
         _prompt = promptText;
 
-        string configLLM = _llmConfigs[_configIndex].GetContext()
+        string configLLM = (_overrideContext ? _overrideContextText : _llmConfigs[_configIndex].GetContext())
             + _llmConfigs[_configIndex].GetSafeguard();
 
         if (_useHistoricalInContext)
         {
-            configLLM = configLLM + "\n" + _llmConfigs[_configIndex].GetHistoric();
+            configLLM = configLLM + "\n" + _llmConfigs[_configIndex].GetHistoricHeader() + "\n" + _historicText;
         }
-
-        _llmConfigs[_configIndex].AddHistoric("Prompt: " + _prompt);
 
         bool sent = LLMSystemAPI.Instance.SendPrompt(recieveFirstResponse, _prompt, configLLM, _contextSchema, _llmConfigs[_configIndex].GetTemperature(), _llmConfigs[_configIndex].GetRagUse(), (int)_llmConfigs[_configIndex].GetRagFileType());
 
@@ -174,7 +176,7 @@ public abstract class LLMConnector : MonoBehaviour
         if (success)
         {
             if (_useHistoricalInContext || _useHistoricalInSteps)
-                _llmConfigs[_configIndex].AddHistoric("Response: " + text);
+                _historicText += ("Response: " + text);
             _promptSent = false;
 
             _internalFinalResponseCallback?.Invoke(text);
@@ -185,13 +187,35 @@ public abstract class LLMConnector : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Metodo para sobreescribir el contexto del primer prompt y utilizar uno modificado del llmconfig
+    /// </summary>
+    /// <param name="newContext"></param>
+    protected void overrideLLMContext(string newContext)
+    {
+        _overrideContext = true;
+        _overrideContextText = newContext;
+    }
 
+    /// <summary>
+    /// Metodo para insertar texto al historico
+    /// </summary>
+    /// <param name="text"></param>
+    protected void appendHistoricText(string text)
+    {
+        _historicText += "\n" + text;
+    }
+
+    /// <summary>
+    /// Metodo para limpiar el historico
+    /// </summary>
+    protected void clearHistoricText()
+    {
+        _historicText = "";
+    }
 
     virtual protected void Awake()
     {
         createJsonSchemas();
-
-        foreach (LLMConfig config in _llmConfigs)
-            config.ClearHistoric();
     }
 }

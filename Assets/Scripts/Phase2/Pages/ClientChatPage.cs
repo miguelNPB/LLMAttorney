@@ -79,13 +79,34 @@ public class ClientChatPage : ChatPage
         yield return LLMSystemAPI.Instance.SendPromptCoroutine(getPromptTypeFromPrompt, prompt, configLLM, schema);
 
         switch (_lastTypePromptRequest) {
-            case ClientPromptType.Question    : _llmConnectorClientChat.CallSendContext(); break;
-            case ClientPromptType.Conversation     : _llmConnectorClientChat.CallSendContext(); break;
+            case ClientPromptType.Question    : _llmConnectorClientChat.SendPrompt(recieveClientChatResponse, recieveError, prompt, 0); break;
+            case ClientPromptType.Conversation     : _llmConnectorClientChat.SendPrompt(recieveClientChatResponse, recieveError, prompt, 1); break;
             case ClientPromptType.Perito      : sendGenerateDocumentPrompt(); break;
             case ClientPromptType.Report     : sendGenerateDocumentPrompt(); break;
             case ClientPromptType.Witness     : sendGenerateDocumentPrompt(); break;
             case ClientPromptType.DocAlt      : sendGenerateDocumentPrompt(); break;
         }
+    }
+
+    private void recieveClientChatResponse(string response)
+    {
+        EndPendingMessage(response);
+
+        ConversationMessage conversationMessage;
+        conversationMessage.fromPlayer = false;
+        conversationMessage.text = response;
+        GameSystem.Instance.CaseData.clientMessages.Add(conversationMessage);
+
+        if (!_isOpen)
+        {
+            _computerSystem.PingOverlayNotification("¡Has recibido un mensaje del cliente!");
+            _computerSystem.ToggleNotification(Page.ClientChat, true);
+        }
+    }
+
+    private void recieveError(string text)
+    {
+        recieveClientChatResponse("Error con el servidor: " + text);
     }
 
     /// <summary>
@@ -130,8 +151,6 @@ public class ClientChatPage : ChatPage
 
         _isOpen = false;
     }
-
-    public bool IsOpen() { return _isOpen; }
 
     public void Start()
     {

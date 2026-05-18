@@ -20,9 +20,6 @@ public class LLMConnectorConciliationAgreeText : LLMConnector
     [SerializeField] private string _rivalAgreeReactionContext = "Dado que ACEPTAS, muestra pragmatismo financiero, voluntad de cerrar el conflicto de una vez por todas para ahorrarte costes mayores, y un tono de 'pago esto y nos olvidamos del tema'.";
     [SerializeField] private string _rivalDisagreeReactionContext = "Dado que RECHAZAS, muestra firmeza, hazle ver que su cliente pide una barbaridad, que el descuento no te compensa el riesgo, y que prefieres que decida el juez antes que ceder a esa oferta.";
 
-    private string _baseClientConfig;
-    private string _baseRivalConfig;
-
     private Action<string> _responseCallback;
 
     /// <summary>
@@ -62,8 +59,6 @@ public class LLMConnectorConciliationAgreeText : LLMConnector
     /// <returns></returns>
     private void SetupConfigClientAnswer(bool agree)
     {
-        _llmConfigs[0].OverrideContext(_baseClientConfig);
-
         string decision = agree ? "ACEPTAR" : "RECHAZAR";
         string reaction = agree ? _clientAgreeReactionContext : _clientDisagreeReactionContext;
 
@@ -71,7 +66,7 @@ public class LLMConnectorConciliationAgreeText : LLMConnector
         config = config.Replace("{decision}", decision);
         config = config.Replace("{reaction}", reaction);
 
-        _llmConfigs[0].OverrideContext(config);
+        overrideLLMContext(config);
     }
 
     /// <summary>
@@ -81,8 +76,6 @@ public class LLMConnectorConciliationAgreeText : LLMConnector
     /// <returns></returns>
     private void SetupConfigRivalAnswer(bool agree)
     {
-        _llmConfigs[1].OverrideContext(_baseRivalConfig);
-
         string decision = agree ? "ACEPTAR" : "RECHAZAR";
         string reaction = agree ? _rivalAgreeReactionContext : _rivalDisagreeReactionContext;
        
@@ -90,7 +83,7 @@ public class LLMConnectorConciliationAgreeText : LLMConnector
         config = config.Replace("{decision}", decision);
         config = config.Replace("{reaction}", reaction);
 
-        _llmConfigs[1].OverrideContext(config);
+        overrideLLMContext(config);
     }
 
     protected override void createJsonSchemas()
@@ -101,10 +94,6 @@ public class LLMConnectorConciliationAgreeText : LLMConnector
 
     private void Start()
     {
-        _baseClientConfig = _llmConfigs[0].GetContext();
-        _baseRivalConfig = _llmConfigs[1].GetContext();
-
-        _llmConfigs[0].AddHistoric(GameSystem.Instance.CaseData.caseDescription);
-        _llmConfigs[1].AddHistoric(GameSystem.Instance.CaseData.caseDescription);
+        appendHistoricText(GameSystem.Instance.CaseData.caseDescription);
     }
 }

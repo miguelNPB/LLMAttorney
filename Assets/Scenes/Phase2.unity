@@ -431,50 +431,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 82692110}
   m_CullTransparentMesh: 1
---- !u!114 &89590392
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5197592209566044566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
-  context: "Eres un cliente que consulta a un abogado por un problema de derecho
-    civil.\r\n\r\nTu objetivo es:\r\n\r\n* explicar tu situaci\xF3n\r\n* hacer preguntas\r\n*
-    entender el proceso legal y los costes\r\n\r\n---\r\n\r\nCOMPORTAMIENTO\r\n\r\n*
-    Hablas de forma clara, natural y sin conocimientos jur\xEDdicos avanzados\r\n*
-    Puedes estar preocupado o confundido\r\n* Preguntas sobre:\r\n\r\n  * pasos legales\r\n 
-    * costes (abogado, procurador, perito, notario, tasas)\r\n  * tiempos y opciones\r\n\r\n---\r\n\r\nREGLAS\r\n\r\n*
-    Siempre act\xFAas como cliente, nunca como abogado\r\n* No das asesoramiento
-    jur\xEDdico\r\n* No inventas leyes ni procedimientos\r\n* No hablas de temas
-    fuera de tu caso civil\r\n\r\n---\r\n\r\nUSO DEL RAG\r\n\r\n* Tu caso est\xE1
-    definido en el RAG\r\n* Usa esa informaci\xF3n para hacer preguntas o dar contexto\r\n*
-    No a\xF1adas informaci\xF3n externa ni inventada\r\n"
-  safeguard: 
-  safeguardSteps: 
-  historicalConversation: "Uso del historial de conversaci\xF3n\r\n\r\nA continuaci\xF3n
-    recibir\xE1s un historial de conversaci\xF3n que representa el contexto del cliente
-    en la consulta con el abogado.\r\n\r\nEste historial incluye:\r\n\r\nLa descripci\xF3n
-    del problema legal del cliente.\r\nInformaci\xF3n relevante sobre el caso civil.\r\nLas
-    preguntas que el cliente ya ha realizado.\r\nLas respuestas que el abogado ya
-    ha proporcionado.\r\n\r\nC\xF3mo utilizar este contexto\r\n\r\nDebes utilizar
-    esta informaci\xF3n para mantener coherencia y continuidad en la conversaci\xF3n.\r\n\r\nReglas:\r\n\r\nTen
-    en cuenta todo lo que ya se ha dicho anteriormente para evitar contradicciones.\r\nNo
-    repitas informaci\xF3n que ya hayas explicado anteriormente, salvo que sea necesario
-    para aclarar algo.\r\nMant\xE9n consistencia con los hechos del caso que ya se
-    han mencionado.\r\nSi haces nuevas preguntas al abogado, deben ser coherentes
-    con la informaci\xF3n que ya aparece en el historial.\r\n\r\nComportamiento esperado\r\n\r\nAct\xFAa
-    siempre como el mismo cliente que ha participado en las interacciones anteriores.\r\nNo
-    cambies los detalles del caso ya mencionados.\r\nNo introduzcas nueva informaci\xF3n
-    que contradiga lo que ya aparece en el historial.\r\n"
-  _stepChecks: []
-  _temperature: 0.7
-  _ragUse: 1
-  _ragFile: 2
 --- !u!1 &99836137
 GameObject:
   m_ObjectHideFlags: 0
@@ -3315,38 +3271,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 641241811}
   m_CullTransparentMesh: 1
---- !u!1 &776870394
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 776870395}
-  m_Layer: 0
-  m_Name: LLMClientChatConfig
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &776870395
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 776870394}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1448040529}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &790412276
 GameObject:
   m_ObjectHideFlags: 0
@@ -5879,61 +5803,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1447260642}
   m_CullTransparentMesh: 1
---- !u!1 &1448040528
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1448040529}
-  - component: {fileID: 1448040530}
-  m_Layer: 0
-  m_Name: ClientChatConfig
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1448040529
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1448040528}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 776870395}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1448040530
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1448040528}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
-  context: Eres el cliente de un abogado. Yo soy el abogado y te voy a hacer una
-    pregunta a traves del prompt. Tu tarea es responder como el cliente, pensando
-    razonablemente y respondiendo considerando el resumen del caso en "Resumen del
-    caso", y el historial de mensajes que hemos tenido que esta en el apartado "Historico"
-  safeguard: 
-  safeguardSteps: 
-  historicalConversation: 
-  _stepChecks: []
-  _temperature: 0.9
-  _ragUse: 0
-  _ragFile: 0
 --- !u!1 &1473085390
 GameObject:
   m_ObjectHideFlags: 0
@@ -12204,14 +12073,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 765aabfcd73c59b4faf254093f47b876, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorClientChat
-  _config:
-  - {fileID: 89590392}
-  _inputField: {fileID: 1486098271155247792}
-  _useSecuritySteps: 0
+  _llmConfigs:
+  - {fileID: 11400000, guid: 7a154c36af5c9e045b20bddee9846df5, type: 2}
+  - {fileID: 11400000, guid: 69cbb5fdb526f334f8b3008429b19ced, type: 2}
+  _useSteps: 0
   _useHistoricalInContext: 1
   _useHistoricalInSteps: 0
-  _clientChatPage: {fileID: 2458100822278062543}
-  _computerSystem: {fileID: 2877935314983381774}
 --- !u!114 &1639739396843352629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19828,7 +19695,6 @@ GameObject:
   - component: {fileID: 4617608515042853246}
   - component: {fileID: 2458100822278062543}
   - component: {fileID: 1631395630908722945}
-  - component: {fileID: 89590392}
   m_Layer: 5
   m_Name: ClientChatPage
   m_TagString: Untagged
@@ -30235,6 +30101,5 @@ SceneRoots:
   - {fileID: 360351042137608086}
   - {fileID: 516469883}
   - {fileID: 512123791}
-  - {fileID: 776870395}
   - {fileID: 1560620141}
   - {fileID: 1912134540}
