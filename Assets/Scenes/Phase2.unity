@@ -19736,8 +19736,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 638be89377a9bff4c9c9023430fb8513, type: 2}
   - {fileID: 11400000, guid: 54408fab4cd974248aeb9586d70ffc4a, type: 2}
   - {fileID: 11400000, guid: 53a803fda0bf94e41949862fa1e4d7ad, type: 2}
-  _useSteps: 1
-  _useHistoricalInContext: 1
+  _useSteps: 0
+  _useHistoricalInContext: 0
   _useHistoricalInSteps: 0
 --- !u!114 &5197592209566044568
 MonoBehaviour:
@@ -19751,9 +19751,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d814ec940a8f8b14b9f2651e7caec7be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorDocumentsBudget
-  _llmConfigs: []
-  _useSteps: 1
-  _useHistoricalInContext: 1
+  _llmConfigs:
+  - {fileID: 11400000, guid: cec51eaae7dad1644807b41eccf463a7, type: 2}
+  - {fileID: 11400000, guid: 6442e4b82eef2cb44befed8b5c45cd6d, type: 2}
+  _useSteps: 0
+  _useHistoricalInContext: 0
   _useHistoricalInSteps: 0
 --- !u!114 &5197592209566044569
 MonoBehaviour:
@@ -19768,18 +19770,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorDocuments
   _llmConfigs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: e159c974c90aef44bb32ee45d7fc9484, type: 2}
+  - {fileID: 11400000, guid: 1c6c179a849366d4f8bb05a1b6448108, type: 2}
+  - {fileID: 11400000, guid: b829bf71d66854a4796f7e196438e2e7, type: 2}
+  - {fileID: 11400000, guid: 1e1db51ee1583c441be10ddb6c45ab47, type: 2}
+  - {fileID: 11400000, guid: e5def5129cfce904eaac6d1fae94ac07, type: 2}
+  - {fileID: 11400000, guid: 0670dea2436655f40b9871709875096a, type: 2}
+  - {fileID: 11400000, guid: 3c73fd99c0f4d2846a1a5fd4067b7930, type: 2}
+  - {fileID: 11400000, guid: 7ebafec54386b7546a0ecaf3db09e4b9, type: 2}
+  - {fileID: 11400000, guid: 1f493b80a9b65ff41a5e91a67d1826fe, type: 2}
+  - {fileID: 11400000, guid: 9546b56d7e01e4047b705e916a978336, type: 2}
+  - {fileID: 11400000, guid: 5f4506efe45b7794d84ea059cb8d55ac, type: 2}
+  - {fileID: 11400000, guid: 1aa472bd5e821e549b0c29f9312c445a, type: 2}
   _useSteps: 1
   _useHistoricalInContext: 1
   _useHistoricalInSteps: 0
