@@ -18,6 +18,7 @@ public abstract class LLMConnector : MonoBehaviour
 
     protected bool _promptSent = false;
     Action<string> _internalFinalResponseCallback = null;
+    Action<string> _errorResponseCallback = null;
     protected int _configIndex;
     protected int _stepCounter;
     protected string _prompt;
@@ -53,7 +54,7 @@ public abstract class LLMConnector : MonoBehaviour
     /// <param name="promptText">Contenido de texto de la petición</param>
     /// <param name="configIndex">Archivo de configuracion a utilizar</param>
     /// <returns>Devuelve true si pudo mandar el prompt</returns>
-    protected virtual bool sendPrompt(Action<string> responseCallback, string promptText, int configIndex = 0)
+    protected virtual bool sendPrompt(Action<string> responseCallback, Action<string> errorCallback, string promptText, int configIndex = 0)
     {
         if (configIndex >= _llmConfigs.Length)
         {
@@ -68,6 +69,7 @@ public abstract class LLMConnector : MonoBehaviour
         }
 
         _internalFinalResponseCallback = responseCallback;
+        _errorResponseCallback = errorCallback;
         _configIndex = configIndex;
 
         _prompt = promptText;
@@ -100,15 +102,25 @@ public abstract class LLMConnector : MonoBehaviour
     protected virtual void recieveFirstResponse(bool success, string text)
     {
         Telemetry.TelemetryDispatch.SendQueryReceived(_messageID);
-        
-        if (_useSteps)
+
+        if (success)
         {
-            string deserializedPrompt = deseralizePromptFirstResponse(text);
-            _stepCounter = 0;
-            sendStepPrompt(deserializedPrompt);
+            if (_useSteps)
+            {
+                string deserializedPrompt = deseralizePromptFirstResponse(text);
+                _stepCounter = 0;
+                sendStepPrompt(deserializedPrompt);
+            }
+            else
+            {
+                respondPrompt(success, text);
+            }                
         }
         else
-            respondPrompt(success, text);
+        {
+            _errorResponseCallback?.Invoke(text);
+        }
+        
     }
 
     /// <summary>
@@ -137,11 +149,19 @@ public abstract class LLMConnector : MonoBehaviour
     /// <param name="text"></param>
     protected virtual void recieveStepResponse(bool success, string text)
     {
-        Telemetry.TelemetryDispatch.SendQueryReceived(_messageID);
+        if (success)
+        {
+            Telemetry.TelemetryDispatch.SendQueryReceived(_messageID);
 
-        string deseralizedPrompt = deseralizePromptStepResponse(text);
-        if (!sendStepPrompt(deseralizedPrompt))
-            respondPrompt(success, text);
+            string deseralizedPrompt = deseralizePromptStepResponse(text);
+            if (!sendStepPrompt(deseralizedPrompt))
+                respondPrompt(success, text);
+        }
+        else
+        {
+            _errorResponseCallback?.Invoke(text);
+        }
+        
     }
 
     /// <summary>
@@ -151,12 +171,21 @@ public abstract class LLMConnector : MonoBehaviour
     /// <param name="text"></param>
     protected virtual void respondPrompt(bool success, string text)
     {
-        if (_useHistoricalInContext || _useHistoricalInSteps)
-            _llmConfigs[_configIndex].AddHistoric("Response: " + text);
-        _promptSent = false;
-        
-        _internalFinalResponseCallback?.Invoke(text);
+        if (success)
+        {
+            if (_useHistoricalInContext || _useHistoricalInSteps)
+                _llmConfigs[_configIndex].AddHistoric("Response: " + text);
+            _promptSent = false;
+
+            _internalFinalResponseCallback?.Invoke(text);
+        }
+        else
+        {
+            _errorResponseCallback?.Invoke(text);
+        }
     }
+
+
 
     virtual protected void Awake()
     {
