@@ -18,9 +18,9 @@ public class LLMConnectorClientIntroductionGenerator : LLMConnector
         _contextSchema.properties.Add("introduction", new PropertyInfo(JsonDataType.String));
     }
 
-    public void SendPrompt(Action<string> responseCallback, string prompt)
+    public void SendPrompt(Action<string> responseCallback, Action<string> errorCallback, string prompt)
     {
-        sendPrompt(receiveResponse, prompt, 0);
+        sendPrompt(receiveResponse,errorCallback, prompt, 0);
     }
 
 

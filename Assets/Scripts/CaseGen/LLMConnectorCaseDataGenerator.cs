@@ -28,10 +28,10 @@ public class LLMConnectorCaseDataGenerator : LLMConnector
 
     }
 
-    public void SendPrompt(Action<string> responseCallback, string prompt)
+    public void SendPrompt(Action<string> responseCallback, Action<string> errorCallback,  string prompt)
     {
         _responseCallback = responseCallback;
-        sendPrompt(receiveResponse, prompt, 0);
+        sendPrompt(receiveResponse,errorCallback, prompt, 0);
     }
 
 

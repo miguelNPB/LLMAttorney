@@ -77,7 +77,7 @@ public class LLMCaseGenerator : LLMConnector
 
         _generatedCase = text;
         //! PLACEHOLDER — llamar al generador de resumen con el contenido del caso
-        _summaryGenerator.SendPrompt(OnSummaryExtracted, _generatedCase);
+        _summaryGenerator.SendPrompt(OnSummaryExtracted,OnErrorCallback, _generatedCase);
     }
 
 
@@ -90,7 +90,7 @@ public class LLMCaseGenerator : LLMConnector
             return;
         }
 
-        bool sent = sendPrompt(OnFinalResponse, caseUserPrompt, configIndex: 0);
+        bool sent = sendPrompt(OnFinalResponse, OnErrorCallback, caseUserPrompt, configIndex: 0);
 
         if (!sent)
             Fail("No se pudo enviar el prompt (prompt ya en curso o config invalido).");
@@ -99,7 +99,12 @@ public class LLMCaseGenerator : LLMConnector
     private void OnFinalResponse(string finalText) { }
 
     private void OnSummaryExtracted(string finalText) {
-        _clientInitialText.SendPrompt(OnFinalResponse, _generatedCase);
+        _clientInitialText.SendPrompt(OnFinalResponse,OnErrorCallback, _generatedCase);
+    }
+
+    private void OnErrorCallback(string finalText)
+    {
+
     }
 
     protected override void Awake()
