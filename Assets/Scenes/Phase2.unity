@@ -1083,7 +1083,7 @@ MonoBehaviour:
   m_text: "Una vez enviadas las pruebas, preparados los documentos que se van a recurrir
     y enviada la demanda se podr\xE1 pulsar este bot\xF3n para avanzar a la fase
     3.\n\nUna vez se cambie de fase no ser\xE1 posible volver atr\xE1s, por lo que
-    asegurate que tienes todo preparado."
+    debes asegurarte de que tienes todo preparado."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
   m_sharedMaterial: {fileID: -42240559382742459, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
@@ -1932,11 +1932,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Lugar en el cual podr\xE1s encontrar tanto los documentos conseguidos
-    por tu cliente como aquellos enviados por la parte contraria. Cada tipo de documento
-    esta dividido en una subsecci\xF3n.\n\nPara abrir un documento pulsa en \xE9l,
-    esto abrira una pesta\xF1a que te permitira leerlo. Esta pesta\xF1a es movible
-    en toda la panta\xF1a, y no se eliminara a menos que pulses la cruz gris."
+  m_text: "Aqu\xED podr\xE1s encontrar tanto tus documentos como aquellos enviados
+    por la parte contraria. \n\nPara abrir un documento pulsa en \xE9l, se abrir\xE1
+    una ventana nueva con su contenido. Esta ventana es arrastrable en toda la panta\xF1a,
+    y no se eliminar\xE1 a menos que pulses la cruz gris."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
   m_sharedMaterial: {fileID: -42240559382742459, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
@@ -1963,7 +1962,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 51.75
+  m_fontSize: 57.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4082,8 +4081,11 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Ventana en la cual podr\xE1s redactar la demanda que ser\xE1 enviada a
     la parte contraria. Este sigue un formato que deber\xE1 ser rellenado con la
-    informaci\xF3n espec\xEDfica del caso.\n\nEs necesario rellenar todos los apartados
-    para poder enviarlo."
+    informaci\xF3n espec\xEDfica del caso.\n\nEn resumen se pondr\xE1 un resumen
+    del caso, en hechos se pondr\xE1n los distintos sucesos del caso ligados a las
+    pruebas, en art\xEDculos los art\xEDculos legales en uso, en petici\xF3n se pondr\xE1
+    la solicitud al tribunal de estimar la demanda y la suma de indemnizaci\xF3n
+    requerida. Es necesario rellenar todos los campos antes de firmarla."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
   m_sharedMaterial: {fileID: -42240559382742459, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
@@ -4110,7 +4112,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 64.6
+  m_fontSize: 46.95
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6420,9 +6422,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Espacio en el que podr\xE1s observar los gastos que has tenido a lo largo
-    del proceso y el dinero restante que le queda a tu cliente respecto al presupuesto
-    que le diste en la fase anterior.\n\nSi tu presupuesto alcanza el cero no podras
+  m_text: "Aqu\xED est\xE1n registrados los gastos que has tenido a lo largo del
+    proceso y el dinero restante que le queda a tu cliente respecto al presupuesto
+    que le diste en la fase anterior.\n\nSi tu presupuesto alcanza cero, no podr\xE1s
     seguir con el proceso y el simulador se terminar\xE1."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
@@ -6450,7 +6452,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 57.4
+  m_fontSize: 57.95
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -8484,11 +8486,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Ventana en la cual podras redactar una oferta para negociar un acuerdo
-    entre ambas partes. Para que la proposici\xF3n llegue a la parte contraria primero
-    debe ser aceptado por tu cliente. Si la parte demandada rechaza la oferta no
-    podra ser posible enviar m\xE1s.\n\nEs necesario enviar un primer acuerdo de
-    negociaci\xF3n antes de poder interponer una demanda."
+  m_text: "Ventana en la cual deber\xE1s proponer una propuesta para negociar un
+    acuerdo entre ambas partes. Para que la proposici\xF3n llegue a la parte contraria
+    primero debe ser aceptado por tu cliente. Si la parte demandada rechaza la oferta
+    no se podr\xE1 enviar m\xE1s.\n\nSeg\xFAn ley, es obligatorio demostrar haber
+    intentado un acuerdo de negociaci\xF3n antes de poder interponer una demanda."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
   m_sharedMaterial: {fileID: -42240559382742459, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
@@ -8724,11 +8726,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Te encuentras en la segunda fase del simulador. Tu objetivo es recaudar
-    la suficiente informaci\xF3n del caso (informes, recibos, testimonios...) para
-    poder o bien lograr un acuerdo entre ambas partes o bien llevar a cabo la demanda
-    y preparar el caso para la audiencia previa.\n\nTen cuidado y no te pases del
-    presupuesto que le diste a tu cliente o este se quedara sin fondos para continuar
-    con el proceso."
+    la suficiente informaci\xF3n del caso (informes, peritos, recibos, testimonios...)
+    para poder o bien lograr un acuerdo entre ambas partes, o bien llevar a cabo
+    la demanda y preparar el caso para la audiencia previa.\n\nTen cuidado y no te
+    pases del presupuesto que le diste a tu cliente o te quedar\xE1s sin fondos para
+    continuar con el proceso."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
   m_sharedMaterial: {fileID: -42240559382742459, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
@@ -10135,12 +10137,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Chat en el cual podras comunicarte con el procurador de tu cliente. Utiliza
-    esta ventana para enviar los distintos documentos que quieras presentar a juicio.
-    Una vez envies uno de estos la acci\xF3n no podr\xE1 deshacerse, por lo que piensatelo
-    bien.\n\nEn este espacio tambi\xE9n recibiras notificaciones cuando la parte
-    contraria te envie documentos previo al juicio. Para leer estos documentos usa
-    la ventana de documentos."
+  m_text: "Chat en el cual podras comunicarte con el procurador de tu cliente para
+    el caso. Utiliza esta ventana para que el procruador env\xEDe los distintos documentos
+    que quieras presentar a juicio. Una vez se env\xEDe uno. la acci\xF3n no podr\xE1
+    deshacerse, por lo que debes pensar bien cuales llevar.\n\nEn este espacio tambi\xE9n
+    recibir\xE1s notificaciones cuando la parte contraria te envie sus documentos
+    previos al juicio. Para leer estos documentos, usa la ventana de documentos."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
   m_sharedMaterial: {fileID: -42240559382742459, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
@@ -10167,7 +10169,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48.6
+  m_fontSize: 46.95
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -16678,12 +16680,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Utiliza esta ventana para comunicarte con tu cliente. Podras hacerle preguntas
-    sobre su situacion o sobre el caso o bien pedirle que busque documentos que puedas
-    presentar como pruebas en la audiencia previa.\n\nMientras esta buscando un documento
-    no podr\xE1s pedirle otro, por lo que puedes centrarte en otras cosas. Una vez
-    termine te saltara una notificaci\xF3n y el documento aparecera en la ventana
-    de documentos"
+  m_text: "Utiliza esta ventana para comunicarte con tu cliente. Podr\xE1s hacerle
+    preguntas sobre el caso, o bien pedirle que busque documentos para tener m\xE1s
+    pruebas para el proceso.\n\nMientras est\xE1 buscando un documento no podr\xE1s
+    pedir otro, por lo que puedes mientras esperas avanzar otras cosas. Una vez termine,
+    aparecer\xE1 una notificaci\xF3n y el documento aparecer\xE1 en la ventana de
+    documentos."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
   m_sharedMaterial: {fileID: -42240559382742459, guid: a3e3feeea8d090346861eb7090dca316, type: 2}
@@ -16710,7 +16712,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48.9
+  m_fontSize: 51.65
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
