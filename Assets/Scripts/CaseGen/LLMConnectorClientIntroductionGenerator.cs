@@ -7,11 +7,14 @@ using UnityEngine.UI;
 public class LLMConnectorClientIntroductionGenerator : LLMConnector
 {
     [Serializable]
-    private class CaseIntroduction
+    public class CaseIntroduction
     {
         public string introduction;
     }
 
+    public CaseIntroduction LastResponse { get; private set; }
+
+    public event Action<CaseIntroduction> OnIntroductionReceived;
     protected override void createJsonSchemas()
     {
         _contextSchema = new JsonSchema();
@@ -26,9 +29,8 @@ public class LLMConnectorClientIntroductionGenerator : LLMConnector
 
     private void receiveResponse(string answer)
     {
-        CaseIntroduction jsonResponse = JsonUtility.FromJson<CaseIntroduction>(answer);
-        string filePath = System.IO.Path.Combine(Application.persistentDataPath, "CaseSummary.json");
-        File.WriteAllText(filePath, answer);
+        LastResponse = JsonUtility.FromJson<CaseIntroduction>(answer);
+        OnIntroductionReceived?.Invoke(LastResponse);
     }
 
     protected override string deseralizePromptFirstResponse(string serializedResponse)

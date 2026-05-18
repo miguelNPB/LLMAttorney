@@ -16,12 +16,14 @@ public class CasePdfBuilder : MonoBehaviour
 
     public string Build(string content)
     {
-        
+        Debug.Log("[CasePdfBuilder] Building PDF with content length: " + content.Length + "\nContent:\n\n" + content);
 
         string folder = WinDirSelect.Open("Selecciona la carpeta de RAGs del servidor", Path.Combine(Application.dataPath, ragFolderPath));
 
         string filePath = Path.Combine(folder,
             $"caso_civil_{DateTime.Now:yyyyMMdd_HHmmss}.pdf");
+
+        Debug.Log("[CasePdfBuilder] Output file path: " + filePath);
 
         using var fs  = new FileStream(filePath, FileMode.Create, FileAccess.Write);
         using var doc = new IDocument(PAGE_SIZE, MARGIN, MARGIN, MARGIN, MARGIN);

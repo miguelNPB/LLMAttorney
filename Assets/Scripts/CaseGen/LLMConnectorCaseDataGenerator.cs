@@ -1,19 +1,20 @@
 using System;
 using System.IO;
-using System.Runtime.InteropServices;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class LLMConnectorCaseDataGenerator : LLMConnector
 {
     [Serializable]
-    private class CaseDataRetrieval
+    public class CaseDataRetrieval          // public so UI can reference the type
     {
         public string clientName;
         public string rivalName;
         public string caseSummary;
-
     }
+
+    public CaseDataRetrieval LastResponse { get; private set; }
+
+    public event Action<CaseDataRetrieval> OnDataReceived;
 
     private Action<string> _responseCallback;
 
@@ -21,44 +22,44 @@ public class LLMConnectorCaseDataGenerator : LLMConnector
     {
         _contextSchema = new JsonSchema();
         _contextSchema.properties.Add("clientName", new PropertyInfo(JsonDataType.String));
-
-        _contextSchema.properties.Add("rivalName", new PropertyInfo(JsonDataType.String));
-
-        _contextSchema.properties.Add("caseSummary", new PropertyInfo(JsonDataType.String));
-
+        _contextSchema.properties.Add("rivalName",  new PropertyInfo(JsonDataType.String));
+        _contextSchema.properties.Add("caseSummary",new PropertyInfo(JsonDataType.String));
     }
 
-    public void SendPrompt(Action<string> responseCallback, Action<string> errorCallback,  string prompt)
+    public void SendPrompt(Action<string> responseCallback, Action<string> errorCallback, string prompt)
     {
         _responseCallback = responseCallback;
-        sendPrompt(receiveResponse,errorCallback, prompt, 0);
+        sendPrompt(receiveResponse, errorCallback, prompt, 0);
     }
-
 
     private void receiveResponse(string answer)
     {
-        CaseDataRetrieval jsonResponse = JsonUtility.FromJson<CaseDataRetrieval>(answer);
-        string filePath = System.IO.Path.Combine(Application.persistentDataPath, "CaseData.json");
-        File.WriteAllText(filePath, answer);
+        LastResponse = JsonUtility.FromJson<CaseDataRetrieval>(answer);
 
+        if (LastResponse == null ||
+            string.IsNullOrEmpty(LastResponse.clientName) ||
+            string.IsNullOrEmpty(LastResponse.rivalName)  ||
+            string.IsNullOrEmpty(LastResponse.caseSummary))
+        {
+            Debug.LogWarning("[CaseDataGenerator] Invalid or incomplete response.");
+            return;
+        }
+
+        OnDataReceived?.Invoke(LastResponse);
         _responseCallback?.Invoke(answer);
     }
 
     protected override string deseralizePromptFirstResponse(string serializedResponse)
     {
-        CaseDataRetrieval jsonResponse = JsonUtility.FromJson<CaseDataRetrieval>(serializedResponse);
+        JsonUtility.FromJson<CaseDataRetrieval>(serializedResponse);
         return serializedResponse;
     }
 
     protected override string deseralizePromptStepResponse(string serializedResponse)
     {
-        CaseDataRetrieval jsonResponse = JsonUtility.FromJson<CaseDataRetrieval>(serializedResponse);
+        JsonUtility.FromJson<CaseDataRetrieval>(serializedResponse);
         return serializedResponse;
     }
-    private void Awake()
-    {
-        createJsonSchemas();
-    }
 
-    
+    private void Awake() => createJsonSchemas();
 }
