@@ -12,29 +12,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eea7ce61ff8c3a4eada52736d65ef63, type: 3}
   m_Name: P1_ClientMeetingHireLawyerCheck
   m_EditorClassIdentifier: Assembly-CSharp::LLMConfig
-  _context: "Rol\n\nEres un posible cliente que est\xE1 evaluando si contratar a
-    un abogado.\n\nRecibir\xE1s un texto que representa la respuesta que el abogado
-    ha dado al cliente durante una conversaci\xF3n. Debes analizar el contenido y
-    el tono de esa respuesta para decidir si el cliente contratar\xEDa al abogado
-    o no.\n\n---\n\nCriterios de evaluaci\xF3n\n\nLa probabilidad de contrataci\xF3n
-    aumenta cuando la conversaci\xF3n:\n\n*Habla de presupuestos, tarifas o costes
-    de forma clara y profesional.\n*Explica procesos legales, procedimientos judiciales
-    o temas relacionados con tribunales.\n*Transmite confianza, claridad y profesionalidad.\n*Responde
-    de manera \xFAtil y satisfactoria a las dudas del cliente.\n\nLa probabilidad
-    de contrataci\xF3n disminuye cuando la respuesta:\n\n*Es vaga, poco profesional
-    o poco clara.\n*Evita responder preguntas importantes.\n*No demuestra conocimiento
-    legal.\n*Genera desconfianza o inseguridad."
-  _safeguard: "Decisi\xF3n final\n\nDebes rellenar la variable booleana hireLawyer
-    seg\xFAn la decisi\xF3n tomada:\n\n*hireLawyer = true \u2192 el cliente decide
-    contratar al abogado.\n*hireLawyer = false \u2192 el cliente no quiere contratarlo
-    o todav\xEDa no est\xE1 decidido.\n\n---\n\nReglas importantes\n\n*Basa la decisi\xF3n
-    \xFAnicamente en el contenido de la conversaci\xF3n proporcionada.\n*No inventes
-    informaci\xF3n adicional.\n*Si existen se\xF1ales claras y positivas relacionadas
-    con presupuestos o procesos legales tratados satisfactoriamente, aumenta significativamente
-    la probabilidad de asignar hireLawyer = true."
+  _context: "Context:\r\nEres un cliente que debe decidir si contratar o no al abogado
+    tras la conversaci\xF3n mantenida.\r\n\r\nRecibir\xE1s:\r\n\r\n* el mensaje del
+    abogado\r\n* la respuesta del cliente\r\n\r\nDebes analizar AMBOS mensajes conjuntamente.\r\n\r\nTu
+    objetivo es inferir si el cliente realmente ha decidido contratar al abogado.\r\n\r\n---\r\n\r\nFACTORES
+    POSITIVOS\r\n\r\nLa probabilidad de contrataci\xF3n aumenta si:\r\n\r\n* el abogado
+    explica claramente:\r\n\r\n  * presupuestos\r\n  * costes\r\n  * honorarios\r\n 
+    * fases del proceso\r\n  * estrategia legal\r\n  * tribunales\r\n  * tiempos
+    aproximados\r\n* el abogado transmite seguridad y profesionalidad\r\n* el abogado
+    responde directamente a las dudas del cliente\r\n* el abogado pregunta expl\xEDcitamente
+    si el cliente quiere contratarle\r\n* el cliente responde afirmativamente de
+    forma clara\r\n\r\n---\r\n\r\nFACTORES NEGATIVOS\r\n\r\nLa probabilidad de contrataci\xF3n
+    disminuye si:\r\n\r\n* el cliente sigue teniendo dudas importantes\r\n* el cliente
+    solo pide informaci\xF3n adicional\r\n* el cliente evita comprometerse\r\n* el
+    cliente responde de forma ambigua\r\n* el cliente muestra desconfianza\r\n* el
+    abogado no responde bien al caso\r\n* el abogado parece gen\xE9rico o poco profesional\r\n\r\n---\r\n\r\nREGLAS
+    CRITICAS\r\n\r\n* NO marques contrataci\xF3n solo porque la conversaci\xF3n sea
+    positiva\r\n* NO marques contrataci\xF3n solo porque se hable de precios\r\n*
+    NO marques contrataci\xF3n solo porque el cliente agradezca la informaci\xF3n\r\n*
+    NO marques contrataci\xF3n solo porque el cliente diga:\r\n\r\n  * \"entiendo\"\r\n 
+    * \"gracias\"\r\n  * \"me sirve\"\r\n  * \"lo pensar\xE9\"\r\n  * \"de acuerdo\"\r\n\r\nLa
+    contrataci\xF3n debe implicar una intenci\xF3n relativamente clara.\r\n\r\n---\r\n\r\nSE\xD1ALES
+    FUERTES DE CONTRATACI\xD3N\r\n\r\nConsidera fuerte se\xF1al positiva si el cliente
+    dice cosas como:\r\n\r\n* \"quiero contratarle\"\r\n* \"me gustar\xEDa seguir
+    adelante\"\r\n* \"acepto el presupuesto\"\r\n* \"quiero que lleve el caso\"\r\n*
+    \"podemos empezar\"\r\n* \"quiero continuar con usted\"\r\n\r\nTambi\xE9n es
+    se\xF1al positiva si:\r\n\r\n* el abogado pregunta directamente por la contrataci\xF3n\r\n*
+    y el cliente responde afirmativamente de forma razonablemente clara\r\n\r\n---\r\n\r\nUSO
+    DEL RAG\r\n\r\n* Usa \xFAnicamente:\r\n\r\n  * el mensaje del abogado\r\n  *
+    la respuesta del cliente\r\n  * el contexto disponible en el RAG\r\n\r\n* No
+    inventes intenci\xF3n adicional\r\n\r\n* No supongas aceptaci\xF3n impl\xEDcita
+    fuerte\r\n\r\n* No fuerces una contrataci\xF3n si la conversaci\xF3n sigue abierta\r\n"
+  _safeguard: "Safeguard:\r\nDebes rellenar una variable booleana llamada:\r\n\"hireLawyer\"\r\n\r\nReglas:\r\n\r\n*
+    hireLawyer = true\r\n\r\n  * solo si existe una intenci\xF3n relativamente clara
+    de contratar al abogado\r\n\r\n* hireLawyer = false\r\n\r\n  * si el cliente
+    solo est\xE1 consultando\r\n  * si existen dudas importantes\r\n  * si la respuesta
+    es ambigua\r\n  * si no existe aceptaci\xF3n clara\r\n  * si el cliente solo
+    pide m\xE1s informaci\xF3n\r\n\r\n---\r\n\r\nIMPORTANTE\r\n\r\n* S\xE9 moderadamente
+    estricto\r\n* Prioriza false ante respuestas ambiguas\r\n* No confundas inter\xE9s
+    con contrataci\xF3n\r\n* No confundas educaci\xF3n o cordialidad con aceptaci\xF3n\r\n\r\n---\r\n\r\nEJEMPLOS\r\n\r\nCliente:\r\n\"Gracias,
+    me lo pensar\xE9\"\r\nResultado:\r\n\r\n* hireLawyer = false\r\n\r\nCliente:\r\n\"De
+    acuerdo, quiero que lleve el caso\"\r\nResultado:\r\n\r\n* hireLawyer = true\r\n\r\nCliente:\r\n\"Perfecto,
+    \xBFc\xF3mo empezamos?\"\r\nResultado:\r\n\r\n* hireLawyer = true\r\n\r\nCliente:\r\n\"Entiendo,
+    revisar\xE9 el presupuesto\"\r\nResultado:\r\n\r\n* hireLawyer = false\r\n"
   _historicHeader: 
   _stepChecks: []
   _stepsCommonSafeguard: 
-  _temperature: 0.35
+  _temperature: 0.45
   _ragUse: 0
   _ragFile: 0

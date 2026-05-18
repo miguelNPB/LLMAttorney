@@ -3037,7 +3037,7 @@ MonoBehaviour:
   _llmConfigs:
   - {fileID: 11400000, guid: d2d2d1ca0bf2b54419b7b2eaf881e265, type: 2}
   _useSteps: 0
-  _useHistoricalInContext: 1
+  _useHistoricalInContext: 0
   _useHistoricalInSteps: 0
 --- !u!114 &6430441125739056717
 MonoBehaviour:
