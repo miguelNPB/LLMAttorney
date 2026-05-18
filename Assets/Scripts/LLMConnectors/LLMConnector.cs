@@ -86,14 +86,14 @@ public abstract class LLMConnector : MonoBehaviour
             configLLM = configLLM + "\n" + _llmConfigs[_configIndex].GetHistoricHeader() + "\n" + _historicText;
         }
 
-        bool sent = LLMSystemAPI.Instance.SendPrompt(recieveFirstResponse, _prompt, configLLM, _contextSchema, _llmConfigs[_configIndex].GetTemperature(), _llmConfigs[_configIndex].GetRagUse(), (int)_llmConfigs[_configIndex].GetRagFileType());
+        LLMSystemAPI.Instance.SendPrompt(recieveFirstResponse, _prompt, configLLM, _contextSchema, _llmConfigs[_configIndex].GetTemperature(), _llmConfigs[_configIndex].GetRagUse(), (int)_llmConfigs[_configIndex].GetRagFileType());
 
         _messageID = EventManager.Instance.getMessageID();
         Telemetry.TelemetryDispatch.SendQueryPost(_messageID);
 
-        _promptSent = sent;
+        _promptSent = true;
 
-        return sent;
+        return true;
     }
 
     /// <summary>
@@ -135,13 +135,13 @@ public abstract class LLMConnector : MonoBehaviour
         if (_stepCounter >= _llmConfigs[_configIndex].GetStepChecks().Length)
             return false;
 
-        bool sent = LLMSystemAPI.Instance.SendPrompt(recieveStepResponse, prompt, _llmConfigs[_configIndex].GetStepChecks()[_stepCounter], _stepsSchema, _llmConfigs[_configIndex].GetTemperature(), _llmConfigs[_configIndex].GetRagUse(), (int)_llmConfigs[_configIndex].GetRagFileType());
+        LLMSystemAPI.Instance.SendPrompt(recieveStepResponse, prompt, _llmConfigs[_configIndex].GetStepChecks()[_stepCounter], _stepsSchema, _llmConfigs[_configIndex].GetTemperature(), _llmConfigs[_configIndex].GetRagUse(), (int)_llmConfigs[_configIndex].GetRagFileType());
         _stepCounter++;
 
         _messageID = EventManager.Instance.getMessageID();
         Telemetry.TelemetryDispatch.SendQueryPost(_messageID);
 
-        return sent;
+        return true;
     }
 
     /// <summary>

@@ -1,156 +1,47 @@
-using Telemetry;
+using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
-public class LLMConnectorDocumentsBudget : LLMConector
+/// <summary>
+/// LLMConnector para calcular el coste de un documento del player. Los documentos con coste son los peritos y informes (report)
+/// </summary>
+public class LLMConnectorDocumentsBudget : LLMConnector
 {
     private class DocumentBudgetResponse
     {
         public int CosteDocumento;
     }
 
-    [SerializeField]
-    private ChatPage _msgUIComponent;
+    private Action<int> _responseCallback;
 
-    private bool _firstTime = true;
-
-    private ClientPromptType _type;
-    private string _docName;
-    private string _docContent;
-    private int _messageID;
-
-    protected override void receiveResponse(bool success, string answer)
+    /// <summary>
+    /// Metodo publico para activar el funcionamiento de este LLMConnector
+    /// </summary>
+    /// <param name="onRecievePrompt"></param>
+    /// <param name="errorCallback"></param>
+    /// <param name="prompt"></param>
+    public void SendPrompt(Action<int> onRecievePrompt, Action<string> errorCallback, string prompt)
     {
+        clearHistoricText();
+        appendHistoricText(GameSystem.Instance.CaseData.caseDescription);
 
-        if (success)
-        {
-            // deserializamos la respuesta
-            DocumentBudgetResponse jsonResponse = JsonUtility.FromJson<DocumentBudgetResponse>(answer);
-
-            if (_stepCounter < _config[_indexConfig].getStepsChecks().Length)
-            {
-                sendSecuritySteps(answer);
-            }
-            else
-            {
-
-                DocumentType docType = fromClientDocumentToDocumentType(_type);
-
-                TelemetryDispatch.SendAskedDocument(jsonResponse.CosteDocumento, (int)docType);
-
-                TelemetryDispatch.SendQueryReceived(_messageID);
-
-                _stepCounter = 0;
-                _promptSent = false;
-
-                _historical.Add("Respuesta :" + answer);      
-
-                int cost = 0;
-
-                if(docType != DocumentType.ReceiptFacture || docType != DocumentType.Witness)
-                {
-                    cost = jsonResponse.CosteDocumento;
-
-                }
-
-                GameSystem.Instance.CaseData.documentManager.CreateDocument(_docName, docType, _docContent, true, cost);
-
-
-                _msgUIComponent._computerSystem.PingOverlayNotification("Nuevo cobro " + cost + ": " + _docName);
-                _msgUIComponent._computerSystem.ToggleNotification(Page.ClientChat, true);
-                _msgUIComponent._computerSystem.PingOverlayNotification("¡El cliente te ha mandado un documento!");
-                _msgUIComponent.EndPendingMessage("Tu cliente te ha mandado " + _docName + ".txt");
-
-            }
-        }
-        else
-        {
-            Debug.LogError("Error en la llamada al LLM: " + answer);
-            _msgUIComponent.EndPendingMessage("Error al contactar con el modelo.");
-        }
+        _responseCallback = onRecievePrompt;
+        sendPrompt(recieveFinalResponse, errorCallback, prompt, 0);
     }
 
-    public void CallSendContext(ClientPromptType type, string docName, string docContent, int messageID, int indexConfig = 0)
+    /// <summary>
+    /// Metodo final para devolver la respuesta
+    /// </summary>
+    /// <param name="finalSerializedResponse"></param>
+    private void recieveFinalResponse(string finalSerializedResponse)
     {
-        _docName = docName;
-        _docContent = docContent;
-        _type = type;
-        _messageID = messageID;
+        DocumentBudgetResponse jsonResponse = JsonUtility.FromJson<DocumentBudgetResponse>(finalSerializedResponse);
 
-        sendContextPrompt(indexConfig);
-    }
-
-    /**
-     * Metodo encargado de enviar un mensaje al LLM con todas las especificaciones obtenidas de ConfigLLMInfo
-     */
-    protected override bool sendContextPrompt(int indexConfig = 0)
-    {
-        //_msgUIComponent.StartPendingMessage(false);
-        if (_firstTime)
-        {
-            _historical.Add(GameSystem.Instance.CaseData.caseDescription);
-            _firstTime = false;
-        }
-        bool messageSent = base.sendContextPrompt(indexConfig);
-
-        if (!messageSent)
-        {
-            _msgUIComponent.EndPendingMessage("Fallo de conexion, escriba de nuevo la pregunta");
-        }
-
-        return messageSent;
-    }
-
-    protected override bool sendSecuritySteps(string prompt)
-    {
-        //_msgUIComponent.StartPendingMessage(false);
-
-        bool securityStepSent = base.sendSecuritySteps(prompt);
-
-        if (!securityStepSent)
-        {
-            _msgUIComponent.EndPendingMessage("Fallo de conexion, escriba de nuevo la pregunta");
-        }
-
-        return securityStepSent;
+        _responseCallback?.Invoke(jsonResponse.CosteDocumento);
     }
 
     protected override void createJsonSchemas()
     {
-        _contextSchema = new JsonSchema();
-        _contextSchema.properties.Add("CosteDocumento", new PropertyInfo(JsonDataType.Integer));
-
-        _stepsSchema = new JsonSchema();
-
-        _schemasCreated = true;
-    }
-
-    private DocumentType fromClientDocumentToDocumentType(ClientPromptType type)
-    {
-        switch (type)
-        {
-            case ClientPromptType.Perito:
-
-                return DocumentType.Perito;
-            case ClientPromptType.Report:
-
-                return DocumentType.Report;
-            case ClientPromptType.Witness:
-
-                return DocumentType.Witness;
-            case ClientPromptType.DocAlt:
-
-                return DocumentType.ReceiptFacture;
-
-            default:
-                return DocumentType.Report;
-
-        }
-    }
-
-    private void Awake()
-    {
-        createJsonSchemas();
+        JsonSchema schema = new JsonSchema();
+        schema.properties.Add("documentQueryType", new PropertyInfo(JsonDataType.Integer));
     }
 }

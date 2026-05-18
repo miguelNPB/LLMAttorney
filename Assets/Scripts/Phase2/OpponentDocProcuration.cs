@@ -30,8 +30,8 @@ public class OpponentDocProcuration : MonoBehaviour
     public List<string> docInvalidThemes = new List<string>();
 
     [Header("References")]
-    [SerializeField] private LLMConnectorOpponentDocuments _llmConnectorOpponentDocGeneration;
-    [SerializeField] private LLMConnectorOpponentDocList _llmConnectorOpponentDocList;
+    //[SerializeField] private LLMConnectorOpponentDocuments _llmConnectorOpponentDocGeneration;
+    //[SerializeField] private LLMConnectorOpponentDocList _llmConnectorOpponentDocList;
     [SerializeField] private ConfigLLMInfo _generateDocumentsListConfig;
 
 

@@ -2598,17 +2598,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aa6d650c28fe624bb42345e8e7be9c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorDocuments
-  _config:
-  - {fileID: 1186516266}
-  - {fileID: 1129028370}
-  - {fileID: 1684070447}
-  - {fileID: 99836138}
-  _inputField: {fileID: 1486098271155247792}
-  _useSecuritySteps: 1
+  _llmConfigs: []
+  _useSteps: 1
   _useHistoricalInContext: 1
   _useHistoricalInSteps: 1
-  _msgUIComponent: {fileID: 2458100822278062543}
-  _checker: {fileID: 512123792}
 --- !u!4 &512123791
 Transform:
   m_ObjectHideFlags: 0
@@ -2650,8 +2643,22 @@ MonoBehaviour:
   _useSecuritySteps: 0
   _useHistoricalInContext: 1
   _useHistoricalInSteps: 0
+  _historical: []
+  _stepCounter: 0
+  _promptSent: 0
+  _indexConfig: 0
+  _contextSchema:
+    required: []
+  _stepsSchema:
+    required: []
+  _schemasCreated: 0
   _msgUIComponent: {fileID: 2458100822278062543}
   _budget: {fileID: 512123793}
+  _firstTime: 1
+  _type: 0
+  _docName: 
+  _docContent: 
+  _messageID: 0
 --- !u!114 &512123793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2664,13 +2671,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d814ec940a8f8b14b9f2651e7caec7be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorDocumentsBudget
-  _config:
-  - {fileID: 610842254}
-  _inputField: {fileID: 1486098271155247792}
-  _useSecuritySteps: 0
+  _llmConfigs: []
+  _useSteps: 1
   _useHistoricalInContext: 1
   _useHistoricalInSteps: 0
-  _msgUIComponent: {fileID: 2458100822278062543}
 --- !u!1 &516469881
 GameObject:
   m_ObjectHideFlags: 0
@@ -2722,8 +2726,6 @@ MonoBehaviour:
   maxStartingDocs: 5
   docValidThemes: []
   docInvalidThemes: []
-  _llmConnectorOpponentDocGeneration: {fileID: 0}
-  _llmConnectorOpponentDocList: {fileID: 0}
   _generateDocumentsListConfig: {fileID: 0}
   _procuradorPage: {fileID: 8220094570629320639}
 --- !u!1 &545925051
@@ -5361,8 +5363,18 @@ MonoBehaviour:
   _useSecuritySteps: 1
   _useHistoricalInContext: 1
   _useHistoricalInSteps: 0
+  _historical: []
+  _stepCounter: 0
+  _promptSent: 0
+  _indexConfig: 0
+  _contextSchema:
+    required: []
+  _stepsSchema:
+    required: []
+  _schemasCreated: 0
   _procuradorPage: {fileID: 8220094570629320639}
   oppPrompt: 
+  _messageID: 0
 --- !u!4 &1330613495
 Transform:
   m_ObjectHideFlags: 0
@@ -13319,8 +13331,9 @@ MonoBehaviour:
   _playerColor: {r: 0.495283, g: 1, b: 0.495283, a: 1}
   _scrollSpeed: 15
   _inputField: {fileID: 1486098271155247792}
-  _llmConnectorDocs: {fileID: 512123790}
+  _documentGenerationManager: {fileID: 0}
   _llmConnectorClientChat: {fileID: 1631395630908722945}
+  _llmConnectorClientTypePrompt: {fileID: 0}
 --- !u!224 &2472186752245920705
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19694,7 +19707,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4617608515042853246}
   - component: {fileID: 2458100822278062543}
+  - component: {fileID: 5197592209566044570}
   - component: {fileID: 1631395630908722945}
+  - component: {fileID: 5197592209566044569}
+  - component: {fileID: 5197592209566044568}
+  - component: {fileID: 5197592209566044567}
   m_Layer: 5
   m_Name: ClientChatPage
   m_TagString: Untagged
@@ -19702,6 +19719,87 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &5197592209566044567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5197592209566044566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7801c34988c19fc49a60d29e88901ed3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorTextChecker
+  _llmConfigs:
+  - {fileID: 11400000, guid: 13ee52fac2378d643b98588177be80e9, type: 2}
+  - {fileID: 11400000, guid: 638be89377a9bff4c9c9023430fb8513, type: 2}
+  - {fileID: 11400000, guid: 54408fab4cd974248aeb9586d70ffc4a, type: 2}
+  - {fileID: 11400000, guid: 53a803fda0bf94e41949862fa1e4d7ad, type: 2}
+  _useSteps: 1
+  _useHistoricalInContext: 1
+  _useHistoricalInSteps: 0
+--- !u!114 &5197592209566044568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5197592209566044566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d814ec940a8f8b14b9f2651e7caec7be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorDocumentsBudget
+  _llmConfigs: []
+  _useSteps: 1
+  _useHistoricalInContext: 1
+  _useHistoricalInSteps: 0
+--- !u!114 &5197592209566044569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5197592209566044566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aa6d650c28fe624bb42345e8e7be9c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorDocuments
+  _llmConfigs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _useSteps: 1
+  _useHistoricalInContext: 1
+  _useHistoricalInSteps: 0
+--- !u!114 &5197592209566044570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5197592209566044566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be1901335def3274180914264fa26ac8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DocumentGenerationManager
+  _llmConnectorDocContent: {fileID: 5197592209566044569}
+  _llmConnectorDocBudget: {fileID: 5197592209566044568}
+  _llmConnectorTextChecker: {fileID: 5197592209566044567}
+  _prompt: "Necesito que generes un documento de texto para un caso jur\xEDdico espa\xF1ol.
+    Utiliza el contexto que se te ha suminstrado para generar los campos necesarios."
 --- !u!114 &5200867327823786177
 MonoBehaviour:
   m_ObjectHideFlags: 0

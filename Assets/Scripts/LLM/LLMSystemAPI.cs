@@ -113,25 +113,34 @@ public class LLMSystemAPI : MonoBehaviour
 
     public static LLMSystemAPI Instance { get; private set; }
 
+    private struct PromptData
+    {
+        public Action<bool, string> onComplete;
+        public bool useJsonSchema;
+        public LLMAttorneyRequest requestNormalData;
+        public LLMAttorneyRequestJSONSchema requestJsonData;
+    }
+
+    private Queue<PromptData> _promptsQueue = new Queue<PromptData>();
 
     /// <summary>
     /// Rellena automaticamente el campo required de un PropertyInfo
     /// </summary>
-    public void UpdateRequiredField(PropertyInfo propertyInfo)
+    private void updateRequiredField(PropertyInfo propertyInfo)
     {
         if (propertyInfo.type == JsonDataType.Object && propertyInfo.properties != null)
         {
             propertyInfo.required = new List<string>(propertyInfo.properties.Keys);
             foreach (PropertyInfo prop in propertyInfo.properties.Values)
             {
-                UpdateRequiredField(prop);
+                updateRequiredField(prop);
             }
         }
     }
 
 
     /**
-     * Manda un prompt y al recibir la respuesta del servidor llama al Action onComplete, con un booleano success y el string con el contenido.
+     * Encola un prompt en la cola de prompts. Cuando sea su turno en la cola, se manda y al recibir la respuesta del servidor llama al Action onComplete, con un booleano success y el string con el contenido.
      * @param prompt Prompt de generación de contenido
      * @param onComplete callback que llamara al recibir la respuesta del servidor
      * @param LLMConfig Texto con instrucciones de como debe responder el LLM
@@ -140,17 +149,9 @@ public class LLMSystemAPI : MonoBehaviour
      * @param ragUse bool que marca si el LLM debe usar la informacion aportada con el Rag para responder al prompt o no
      * @param ragIndex int que marca el rag que debemos de utilizar para la llamada
      * @param max_length Tokens maximos del texto, esto no usarlo mucho q no funciona muy bien
-     * @return Devuelve true si se ha podido mandar, si no hay ningun prompt encolado
      */
-    public bool SendPrompt(Action<bool, string> onComplete, string prompt, string LLMConfig, JsonSchema schema = null, float temperature = 0.8f, bool ragUse = false, int ragIndex = 0)
+    public void SendPrompt(Action<bool, string> onComplete, string prompt, string LLMConfig, JsonSchema schema = null, float temperature = 0.8f, bool ragUse = false, int ragIndex = 0)
     {
-
-        if (_sendingPrompt)
-        {
-            Debug.LogError("Prompt invalidado, ya se esta mandando uno");
-            return false;
-        }
-
         string json = "";
         if (schema == null)
         {
@@ -164,7 +165,7 @@ public class LLMSystemAPI : MonoBehaviour
                 rag_index = ragIndex
             };
 
-            json = JsonConvert.SerializeObject(requestData, Formatting.Indented);
+            _promptsQueue.Enqueue(new PromptData { onComplete = onComplete, requestJsonData = null, requestNormalData = requestData, useJsonSchema = false });
         }
         else
         {
@@ -172,7 +173,7 @@ public class LLMSystemAPI : MonoBehaviour
             foreach (var pinfo in schema.properties)
             {
                 schema.required.Add(pinfo.Key);
-                UpdateRequiredField(pinfo.Value);
+                updateRequiredField(pinfo.Value);
             }
 
             // Crear la request
@@ -186,83 +187,36 @@ public class LLMSystemAPI : MonoBehaviour
                 rag_index = ragIndex
             };
 
-            json = JsonConvert.SerializeObject(requestData, Formatting.Indented);
+            _promptsQueue.Enqueue(new PromptData { onComplete = onComplete, requestJsonData = requestData, requestNormalData = null, useJsonSchema = true });
         }
-
-        LogSystem.Instance.LogString($"[Fase: {SceneManager.GetActiveScene().buildIndex}] [SEND PROMPT]:" + "\nPrompt: " + prompt + "\nContext: " + LLMConfig + "\nTemperature: " + temperature + " RagUse: " + ragUse + " RagIndex: " + ragIndex);
-
-        StartCoroutine(SendRequest(json, onComplete));
-
-
-        return true;
     }
 
     /// <summary>
-    /// Manda la request igual al servidor, pero espera a recibir respuesta antes de seguir.
+    /// Metodo interno para registrar el log del envio de prompt y con un PromptData serializar a JSON y mandar a SendRequest.
     /// </summary>
-    /// <param name="onComplete"></param>
-    /// <param name="prompt"></param>
-    /// <param name="LLMConfig"></param>
-    /// <param name="schema"></param>
-    /// <param name="temperature"></param>
-    /// <param name="ragUse"></param>
-    /// <param name="ragIndex"></param>
-    /// <param name="max_length"></param>
-    /// <returns></returns>
-    /// 
-    public IEnumerator SendPromptCoroutine(Action<bool, string> onComplete, string prompt, string LLMConfig, JsonSchema schema = null, float temperature = 0.8f, bool ragUse = false, int ragIndex = 0)
+    /// <param name="promptData"></param>
+    private void sendPrompt(PromptData promptData)
     {
+        string prompt = promptData.useJsonSchema ? promptData.requestJsonData.prompt : promptData.requestNormalData.prompt;
+        string llmConfig = promptData.useJsonSchema ? promptData.requestJsonData.LLMConfig: promptData.requestNormalData.LLMConfig;
+        float temperature = promptData.useJsonSchema ? promptData.requestJsonData.temperature : promptData.requestNormalData.temperature;
+        bool ragUse = promptData.useJsonSchema ? promptData.requestJsonData.rag_use: promptData.requestNormalData.rag_use;
+        int ragIndex = promptData.useJsonSchema ? promptData.requestJsonData.rag_index : promptData.requestNormalData.rag_index;
+        LogSystem.Instance.LogString($"[Fase: {SceneManager.GetActiveScene().buildIndex}] [SEND PROMPT]:" + "\nPrompt: " + prompt + "\nContext: " + llmConfig + "\nTemperature: " + temperature + " RagUse: " + ragUse + " RagIndex: " + ragIndex);
 
-        if (_sendingPrompt)
-            yield break;
+        string json = JsonConvert.SerializeObject(promptData.useJsonSchema ? promptData.requestJsonData : promptData.requestNormalData, Formatting.Indented);
 
-        if (schema == null)
-        {
-            // Crear la request
-            var requestData = new LLMAttorneyRequest
-            {
-                LLMConfig = LLMConfig,
-                prompt = prompt,
-                temperature = temperature,
-                rag_use = ragUse,
-                rag_index = ragIndex
-            };
-
-            string json = JsonConvert.SerializeObject(requestData, Formatting.Indented);
-            yield return StartCoroutine(SendRequest(json, onComplete));
-        }
-        else
-        {
-            schema.required = new List<string>();
-            foreach (var pinfo in schema.properties)
-            {
-                schema.required.Add(pinfo.Key);
-                UpdateRequiredField(pinfo.Value);
-            }
-
-            // Crear la request
-            var requestData = new LLMAttorneyRequestJSONSchema
-            {
-                LLMConfig = LLMConfig,
-                prompt = prompt,
-                temperature = temperature,
-                json_schema = schema,
-                rag_use = ragUse,
-                rag_index = ragIndex
-            };
-
-            string json = JsonConvert.SerializeObject(requestData, Formatting.Indented);
-
-            yield return StartCoroutine(SendRequest(json, onComplete));
-        }
+        StartCoroutine(SendRequest(json, promptData.onComplete));
     }
 
-    /**
-     * Funcion privada que manda la request al servidor
-     */
+    /// <summary>
+    /// Coroutina que manda la request al servidor
+    /// </summary>
+    /// <param name="json"></param>
+    /// <param name="onComplete"></param>
+    /// <returns></returns>
     private IEnumerator SendRequest(string json, Action<bool, string> onComplete)
     {
-        _sendingPrompt = true;
         string _ip = ip;
         if (ip != "localhost")
             _ip = "http://" + ip;
@@ -309,9 +263,17 @@ public class LLMSystemAPI : MonoBehaviour
         {
             Debug.LogError(response);
         }
-
     }
 
+    private void Update()
+    {
+        if (!_sendingPrompt && _promptsQueue.Count > 0)
+        {
+            _sendingPrompt = true;
+            PromptData prompt = _promptsQueue.Dequeue();
+            sendPrompt(prompt);
+        }
+    }
 
     private void Awake()
     {
@@ -322,7 +284,5 @@ public class LLMSystemAPI : MonoBehaviour
         }
 
         Instance = this;
-
-        //DontDestroyOnLoad(gameObject);
     }
 }

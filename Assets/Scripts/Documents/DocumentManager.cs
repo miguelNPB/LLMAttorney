@@ -15,8 +15,6 @@ public class DocumentManager : MonoBehaviour
 
     uint ids = 0;
 
-
-
     public void DEBUG_ClearPlayerDocs()
     {
         foreach (uint id in _playerDocs)
@@ -65,6 +63,10 @@ public class DocumentManager : MonoBehaviour
         return _rivalDocs;
     }
 
+    /// <summary>
+    /// Registra un documento como mandado al procurador
+    /// </summary>
+    /// <param name="docId"></param>
     public void RegisterSentDocumentToProcurador(uint docId)
     {
         _documents[docId].SendDocumentToProcurator();
@@ -73,19 +75,22 @@ public class DocumentManager : MonoBehaviour
     /// <summary>
     /// Crea un documento y devuelve su ID.
     /// </summary>
-    public uint CreateDocument(string docName, DocumentType docType, string content, bool docIsRelevant, int cost, bool isOpponentDoc = false, bool isSentToProcurador = false)
+    public uint CreateDocument(string docName, DocumentType docType, string content, bool docIsRelevant, int cost, bool isPlayerDoc = false, bool isSentToProcurador = false)
     {
-        Document doc = new Document(ids, docType, docName, content, docIsRelevant, cost, isOpponentDoc, isSentToProcurador);
+        Document doc = new Document(ids, docType, docName, content, docIsRelevant, cost, isPlayerDoc, isSentToProcurador);
         _documents.Add(ids, doc);
 
-        if (isOpponentDoc)
-            _rivalDocs.Add(ids);
-        else
+        if (isPlayerDoc)
         {
             _playerDocs.Add(ids);
 
-            if (BudgetSystem.Instance != null)
+            if (BudgetSystem.Instance != null && (docType == DocumentType.Perito || docType == DocumentType.Report))
                 BudgetSystem.Instance.AddExpense($"0 {cost}", docType, docName);
+        }
+        else
+        {
+            _rivalDocs.Add(ids);
+
         }
 
         ids++;
@@ -94,9 +99,4 @@ public class DocumentManager : MonoBehaviour
         return doc.GetId();
     }
 
-
-    private void Awake()
-    {
-
-    }
 }

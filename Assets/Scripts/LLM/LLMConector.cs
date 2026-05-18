@@ -180,9 +180,10 @@ public abstract class LLMConector : MonoBehaviour
 
     protected IEnumerator coroutineSendPromptSteps(string prompt, string configLLM, JsonSchema schema)
     {
-
+        yield return null;
         float timer = 0;
-
+        
+        /*
         while (!LLMSystemAPI.Instance.SendPrompt(receiveResponse, prompt, configLLM, schema,
             _config[_indexConfig].getTemperature(), false))
         {
@@ -190,14 +191,14 @@ public abstract class LLMConector : MonoBehaviour
 
             yield return null;
         }
-
+        */
     }
 
     protected IEnumerator coroutineSendPrompt(string prompt, string configLLM, JsonSchema schema)
     {
-
+        yield return null;
         float timer = 0;
-
+        /*
         while (!LLMSystemAPI.Instance.SendPrompt(receiveResponse, prompt, configLLM, schema,
             _config[_indexConfig].getTemperature(), _config[_indexConfig].getRagUse(), (int)_config[_indexConfig].getRagFileType()))
         {
@@ -205,7 +206,7 @@ public abstract class LLMConector : MonoBehaviour
 
             yield return null;
         }
-
+        */
     }
 
     private void OnDisable()

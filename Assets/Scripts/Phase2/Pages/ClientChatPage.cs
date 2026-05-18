@@ -5,89 +5,42 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public enum ClientPromptType { Question, Conversation, Perito, Report, Witness, DocAlt }
 
 /// <summary>
 /// Pagina para gestionar el sistema de mensajes con el cliente
 /// </summary>
 public class ClientChatPage : ChatPage
 {
-    /// <summary>
-    /// Formato para el LLM para pedir un promptType
-    /// </summary>
-    [Serializable]
-    private class ClientPromptTypeRequest
-    {
-        public ClientPromptType documentQueryType;
-    }
-
-
     [Header("ClientMessages")]
     [SerializeField] private TMP_InputField _inputField;
-    [SerializeField] private LLMConnectorDocuments _llmConnectorDocs;
+    [SerializeField] private DocumentGenerationManager _documentGenerationManager;
     [SerializeField] private LLMConnectorClientChat _llmConnectorClientChat;
+    [SerializeField] private LLMConnectorClientTypePrompt _llmConnectorClientTypePrompt;
 
-    private ClientPromptType _lastTypePromptRequest;
+    private string _prompt;
     private bool _isOpen = false;
 
-
     /// <summary>
-    /// 
-    /// Callback para saber de que tipo de documento se trata la primera respuesta del LLM
+    /// Llamado al recibir la respuesta del LLM de cual es el tipo de prompt
     /// </summary>
-    /// <param name="success"></param>
-    /// <param name="answer"></param>
-    private void getPromptTypeFromPrompt(bool success, string answer)
+    /// <param name="promptType"></param>
+    private void recieveClientPromptType(ClientPromptType promptType)
     {
-        if (success)
+        switch (promptType)
         {
-            ClientPromptTypeRequest typeRequest = JsonUtility.FromJson<ClientPromptTypeRequest>(answer);
-            _lastTypePromptRequest = typeRequest.documentQueryType;
+            case ClientPromptType.Question: _llmConnectorClientChat.SendPrompt(recieveClientChatResponse, recieveError, _prompt, 0); break;
+            case ClientPromptType.Conversation: _llmConnectorClientChat.SendPrompt(recieveClientChatResponse, recieveError, _prompt, 1); break;
+            case ClientPromptType.Perito: _documentGenerationManager.PromptGenerateDocument(recieveClientDocumentResponse, recieveError, DocumentType.Perito, true); break;
+            case ClientPromptType.Report: _documentGenerationManager.PromptGenerateDocument(recieveClientDocumentResponse, recieveError, DocumentType.Report, true); break;
+            case ClientPromptType.Witness: _documentGenerationManager.PromptGenerateDocument(recieveClientDocumentResponse, recieveError, DocumentType.Witness, true); break;
+            case ClientPromptType.ReceiptFacture: _documentGenerationManager.PromptGenerateDocument(recieveClientDocumentResponse, recieveError, DocumentType.ReceiptFacture, true); break;
         }
-        else
-            _lastTypePromptRequest = ClientPromptType.Question;
     }
-    
+
     /// <summary>
-    /// 
-    /// Llamada asincrona a el modelo para clasificar el prompt en una de 6 categorias, dependiendo de la que sea generando un documento o haciendo una pregunta al LLM
+    /// Llamado al recibir la respuesta de texto del LLM
     /// </summary>
-    /// <returns></returns>
-    public IEnumerator sendGetPromptTypePrompt(string prompt)
-    {
-        JsonSchema schema = new JsonSchema();
-        schema.properties.Add("documentQueryType", new PropertyInfo(JsonDataType.Integer));
-
-        string configLLM = @"Clasifica el siguiente texto en una única categoría llamada documentQueryType y responde solo con un número:
-
-                0 = Pregunta (texto cuyo objetivo principal es solicitar informaci�n)
-                1 = Diálogo (intercambio conversacional entre dos o más interlocutores)
-                2 = Informe pericial (documento técnico elaborado por un experto con conclusiones profesionales)
-                3 = Informe (documento descriptivo o informativo sin carácter pericial)
-                4 = Declaraci�n de testigo (relato de hechos en primera persona o atribuido a un testigo)
-                5 = Peticion de recibo (Factura, ticket)
-
-                Reglas:
-                Responde solo con un JSON válido
-                No añadas texto fuera del JSON
-                No añadas explicación
-                Elige la categoría predominante
-
-
-                Devuelve dicho valor en la variable documentQueryType";
-
-        yield return LLMSystemAPI.Instance.SendPromptCoroutine(getPromptTypeFromPrompt, prompt, configLLM, schema);
-
-        switch (_lastTypePromptRequest) {
-            case ClientPromptType.Question    : _llmConnectorClientChat.SendPrompt(recieveClientChatResponse, recieveError, prompt, 0); break;
-            case ClientPromptType.Conversation     : _llmConnectorClientChat.SendPrompt(recieveClientChatResponse, recieveError, prompt, 1); break;
-            case ClientPromptType.Perito      : sendGenerateDocumentPrompt(); break;
-            case ClientPromptType.Report     : sendGenerateDocumentPrompt(); break;
-            case ClientPromptType.Witness     : sendGenerateDocumentPrompt(); break;
-            case ClientPromptType.DocAlt      : sendGenerateDocumentPrompt(); break;
-        }
-    }
-
+    /// <param name="response"></param>
     private void recieveClientChatResponse(string response)
     {
         EndPendingMessage(response);
@@ -104,6 +57,53 @@ public class ClientChatPage : ChatPage
         }
     }
 
+    private void recieveClientDocumentResponse(string docTitle, string docContent, DocumentType documentType, int cost, bool isPlayer, bool isValid)
+    {
+        string response = "";
+        if (isValid)
+        {
+            GameSystem.Instance.CaseData.documentManager.CreateDocument(docTitle, documentType, docContent, isValid, cost, isPlayer, false);
+            switch (documentType)
+            {
+                case DocumentType.Perito:
+                    response = "Te adjunto el informe pericial: ";
+                    break;
+                case DocumentType.Report:
+                    response = "Te adjunto el informe: ";
+                    break;
+                case DocumentType.Witness:
+                    response = "Te adjunto un documento con un testimonio: ";
+                    break;
+                case DocumentType.ReceiptFacture:
+                    response = "Te adjunto el recibo: ";
+                    break;
+            }
+
+            response += docTitle;
+        }
+        else
+        {
+            response = "Perdona, no he entendido el documento que necesitas. Explicamelo mejor o dime otro que pueda conseguir.";
+        }
+
+        EndPendingMessage(response);
+
+        ConversationMessage conversationMessage;
+        conversationMessage.fromPlayer = false;
+        conversationMessage.text = response;
+        GameSystem.Instance.CaseData.clientMessages.Add(conversationMessage);
+
+        if (!_isOpen)
+        {
+            _computerSystem.PingOverlayNotification("¡Has recibido un mensaje del cliente!");
+            _computerSystem.ToggleNotification(Page.ClientChat, true);
+        }
+    }
+
+    /// <summary>
+    /// Llamado al recibir un error al contactar con el modelo
+    /// </summary>
+    /// <param name="text"></param>
     private void recieveError(string text)
     {
         recieveClientChatResponse("Error con el servidor: " + text);
@@ -114,23 +114,15 @@ public class ClientChatPage : ChatPage
     /// </summary>
     public void OnPressSendButton()
     {
-        string prompt = _inputField.text;
-        addMessage(prompt, true);
-        //inputField.text = "";
-        StartPendingMessage(false);
+        _prompt = _inputField.text;
+        if (_prompt.Length > 1)
+        {
+            addMessage(_prompt, true);
+            StartPendingMessage(false);
 
-        StartCoroutine(sendGetPromptTypePrompt(prompt));
+            _llmConnectorClientTypePrompt.SendPrompt(_prompt, recieveClientPromptType, recieveError);
+        }
     }
-
-    /// <summary>
-    /// Genera un documento en la categoria dada por el resultado de checkprompt
-    /// </summary>
-    private void sendGenerateDocumentPrompt()
-    {
-        _llmConnectorDocs.CallSendContext(_lastTypePromptRequest, (int)_lastTypePromptRequest - 2);
-        _inputField.text = "";
-    }
-
 
     public override void Open()
     {
