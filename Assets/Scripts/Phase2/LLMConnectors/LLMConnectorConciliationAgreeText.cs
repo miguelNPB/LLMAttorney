@@ -30,7 +30,7 @@ public class LLMConnectorConciliationAgreeText : LLMConnector
     /// </summary>
     /// <param name="responseCallback"></param>
     /// <param name="prompt"></param>
-    public void SendPrompt(Action<string> responseCallback, string prompt, bool agree, bool isPlayer)
+    public void SendPrompt(Action<string> responseCallback, Action<string> errorCallback, string prompt, bool agree, bool isPlayer)
     {
         _responseCallback = responseCallback;
 
@@ -41,7 +41,7 @@ public class LLMConnectorConciliationAgreeText : LLMConnector
             SetupConfigRivalAnswer(agree);
         }
 
-        sendPrompt(recieveFinalResponse, prompt, isPlayer ? 0 : 1);
+        sendPrompt(recieveFinalResponse, errorCallback, prompt, isPlayer ? 0 : 1);
     }
 
     /// <summary>

@@ -19,7 +19,7 @@ public class LLMConnectorWinOrLoseSentence : LLMConnector
     /// </summary>
     /// <param name="responseCallback"></param>
     /// <param name="prompt"></param>
-    public void SendPrompt(Action<bool> onRecievePrompt)
+    public void SendPrompt(Action<bool> onRecievePrompt, Action<string> errorCallback)
     {
         _responseCallback = onRecievePrompt;
 
@@ -55,7 +55,7 @@ public class LLMConnectorWinOrLoseSentence : LLMConnector
 
         _prompt = _prompt.Replace("~", GameSystem.Instance.CaseData.caseDescription);
 
-        sendPrompt(recieveFinalResponse, _prompt, 0);
+        sendPrompt(recieveFinalResponse, errorCallback, _prompt, 0);
     }
 
     /// <summary>

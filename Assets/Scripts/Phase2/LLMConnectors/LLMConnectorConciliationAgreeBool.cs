@@ -16,11 +16,11 @@ public class LLMConnectorConciliationAgreeBool : LLMConnector
     /// </summary>
     /// <param name="responseCallback"></param>
     /// <param name="prompt"></param>
-    public void SendPrompt(Action<bool> responseCallback, string prompt, bool isPlayer)
+    public void SendPrompt(Action<bool> responseCallback, Action<string> errorCallback, string prompt, bool isPlayer)
     {
         _responseCallback = responseCallback;
 
-        sendPrompt(recieveFinalResponse, prompt, isPlayer ? 0 : 1);
+        sendPrompt(recieveFinalResponse, errorCallback, prompt, isPlayer ? 0 : 1);
     }
 
     /// <summary>

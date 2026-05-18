@@ -73,12 +73,17 @@ public class ConciliationPage : IPage
         _inputFieldText.text = "";
     }
 
+    private void errorResponse(string text)
+    {
+        restartProposition();
+    }
+
     /// <summary>
     /// manda el prompt del cliente.
     /// </summary>
     private void sendClientProposition()
     {
-        _llmConnectorAgreeBool.SendPrompt(recieveClientBoolAnswer, _conciliationProposition, true);
+        _llmConnectorAgreeBool.SendPrompt(recieveClientBoolAnswer, errorResponse, _conciliationProposition, true);
     }
 
     /// <summary>
@@ -95,7 +100,7 @@ public class ConciliationPage : IPage
         }
         else
         {
-            _llmConnectorAgreeBool.SendPrompt(recieveRivalBoolAnswer, _conciliationProposition, false);
+            _llmConnectorAgreeBool.SendPrompt(recieveRivalBoolAnswer, errorResponse, _conciliationProposition, false);
         }
     }
 
@@ -107,7 +112,7 @@ public class ConciliationPage : IPage
     private void recieveClientBoolAnswer(bool agree)
     {
         _clientAgrees = agree;
-        _llmConnectorAgreeText.SendPrompt(recieveClientTextAnswer, _conciliationProposition, agree, true);
+        _llmConnectorAgreeText.SendPrompt(recieveClientTextAnswer, errorResponse, _conciliationProposition, agree, true);
     }
 
     /// <summary>
@@ -147,7 +152,7 @@ public class ConciliationPage : IPage
     private void recieveRivalBoolAnswer(bool agree)
     {
         _rivalAgrees = agree;
-        _llmConnectorAgreeText.SendPrompt(recieveRivalClientTextAnswer, _conciliationProposition, agree, false);
+        _llmConnectorAgreeText.SendPrompt(recieveRivalClientTextAnswer, errorResponse, _conciliationProposition, agree, false);
     }
 
     /// <summary>

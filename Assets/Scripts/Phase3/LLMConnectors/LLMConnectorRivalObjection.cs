@@ -22,14 +22,14 @@ public class LLMConnectorRivalObjection : LLMConnector
         _baseContext = _llmConfigs[_configIndex].GetContext();
     }
 
-    public void SendPrompt(string documentContent, Action<bool> onRecievePrompt)
+    public void SendPrompt(string documentContent, Action<bool> onRecievePrompt, Action<string> errorCallback)
     {
         string newContext = _baseContext.Replace("@", GameSystem.Instance.CaseData.caseDescription);
         newContext = newContext.Replace("$", documentContent);
         _llmConfigs[_configIndex].OverrideContext(newContext);
 
         _responseCallback = onRecievePrompt;
-        sendPrompt(recieveFinalResponse, documentContent, 0);
+        sendPrompt(recieveFinalResponse, errorCallback, documentContent, 0);
 
         _messageID = EventManager.Instance.getMessageID();
         Telemetry.TelemetryDispatch.SendQueryPost(_messageID);

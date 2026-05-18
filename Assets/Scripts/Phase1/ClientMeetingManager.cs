@@ -102,7 +102,7 @@ public class ClientMeetingManager : MonoBehaviour
         if (budgetCoherent)
         {
             _tempBudget = budget;
-            _llmConnectorClientMeeting.SendPrompt(reciveClientMeetingResponse, _inputField.text);
+            _llmConnectorClientMeeting.SendPrompt(reciveClientMeetingResponse, endClientMeeting, _inputField.text);
         }
         else
         {

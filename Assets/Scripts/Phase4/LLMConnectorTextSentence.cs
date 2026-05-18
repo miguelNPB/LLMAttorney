@@ -25,7 +25,7 @@ public class LLMConnectorTextSentence : LLMConnector
     /// </summary>
     /// <param name="responseCallback"></param>
     /// <param name="prompt"></param>
-    public void SendPrompt(Action<string> responseCallback, bool playerWin)
+    public void SendPrompt(Action<string> responseCallback, Action<string> errorCallback, bool playerWin)
     {
         _responseCallback = responseCallback;
 
@@ -55,7 +55,7 @@ public class LLMConnectorTextSentence : LLMConnector
         _prompt = _prompt.Replace("!", GameSystem.Instance.CaseData.clientName);
         _prompt = _prompt.Replace("¡", GameSystem.Instance.CaseData.demandedEntityName);
 
-        sendPrompt(recieveFinalResponse, _prompt, 0);
+        sendPrompt(recieveFinalResponse, errorCallback, _prompt, 0);
     }
 
     /// <summary>
