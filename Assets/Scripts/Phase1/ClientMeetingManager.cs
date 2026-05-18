@@ -83,9 +83,6 @@ public class ClientMeetingManager : MonoBehaviour
     /// <param name="isCoherent"></param>
     private void recieveQuestionCheckerResponse(bool isCoherent)
     {
-
-        Debug.Log("Envia presupuestos");
-
         if (isCoherent)
         {
             _llmConnectorBudgetChecker.SendPrompt(recieveBudgetCheckerResponse, endClientMeeting, _inputField.text);
@@ -111,10 +108,8 @@ public class ClientMeetingManager : MonoBehaviour
 
     private void reciveClientMeetingResponse(string answer, bool isValid)
     {
-
         _tempAnswer = answer;
         _llmConnectorTextChecker.SendPrompt(recieveResponseCheckerResponse, endClientMeeting, _tempAnswer, 1);
-
     }
 
     /// <summary>
