@@ -2685,8 +2685,11 @@ GameObject:
   m_Component:
   - component: {fileID: 516469883}
   - component: {fileID: 516469884}
+  - component: {fileID: 516469886}
+  - component: {fileID: 516469885}
+  - component: {fileID: 516469887}
   m_Layer: 0
-  m_Name: LLMDocsOpponent
+  m_Name: RivalDocsManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2721,13 +2724,77 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdb10bfa7b77f2f4c8627faf0c06a4c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OpponentDocProcuration
-  minIntervalSeconds: 60
-  maxIntervalSeconds: 180
-  maxStartingDocs: 5
-  docValidThemes: []
-  docInvalidThemes: []
-  _generateDocumentsListConfig: {fileID: 0}
+  _minIntervalSeconds: 60
+  _maxIntervalSeconds: 120
+  _maxStartingDocs: 2
+  _minStartingDocs: 5
+  _documentGenerationManager: {fileID: 516469886}
   _procuradorPage: {fileID: 8220094570629320639}
+--- !u!114 &516469885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516469881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aa6d650c28fe624bb42345e8e7be9c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorDocuments
+  _llmConfigs:
+  - {fileID: 11400000, guid: e159c974c90aef44bb32ee45d7fc9484, type: 2}
+  - {fileID: 11400000, guid: 1c6c179a849366d4f8bb05a1b6448108, type: 2}
+  - {fileID: 11400000, guid: b829bf71d66854a4796f7e196438e2e7, type: 2}
+  - {fileID: 11400000, guid: 1e1db51ee1583c441be10ddb6c45ab47, type: 2}
+  - {fileID: 11400000, guid: e5def5129cfce904eaac6d1fae94ac07, type: 2}
+  - {fileID: 11400000, guid: 0670dea2436655f40b9871709875096a, type: 2}
+  - {fileID: 11400000, guid: 3c73fd99c0f4d2846a1a5fd4067b7930, type: 2}
+  - {fileID: 11400000, guid: 7ebafec54386b7546a0ecaf3db09e4b9, type: 2}
+  - {fileID: 11400000, guid: 1f493b80a9b65ff41a5e91a67d1826fe, type: 2}
+  - {fileID: 11400000, guid: 9546b56d7e01e4047b705e916a978336, type: 2}
+  - {fileID: 11400000, guid: 5f4506efe45b7794d84ea059cb8d55ac, type: 2}
+  - {fileID: 11400000, guid: 1aa472bd5e821e549b0c29f9312c445a, type: 2}
+  _useSteps: 1
+  _useHistoricalInContext: 1
+  _useHistoricalInSteps: 0
+--- !u!114 &516469886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516469881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be1901335def3274180914264fa26ac8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DocumentGenerationManager
+  _llmConnectorDocContent: {fileID: 516469885}
+  _llmConnectorDocBudget: {fileID: 0}
+  _llmConnectorTextChecker: {fileID: 516469887}
+  _prompt: "Necesito que generes un documento de texto para un caso jur\xEDdico espa\xF1ol.
+    Utiliza el contexto que se te ha suminstrado para generar los campos necesarios."
+--- !u!114 &516469887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516469881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7801c34988c19fc49a60d29e88901ed3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorTextChecker
+  _llmConfigs:
+  - {fileID: 11400000, guid: 13ee52fac2378d643b98588177be80e9, type: 2}
+  - {fileID: 11400000, guid: 638be89377a9bff4c9c9023430fb8513, type: 2}
+  - {fileID: 11400000, guid: 54408fab4cd974248aeb9586d70ffc4a, type: 2}
+  - {fileID: 11400000, guid: 53a803fda0bf94e41949862fa1e4d7ad, type: 2}
+  _useSteps: 0
+  _useHistoricalInContext: 0
+  _useHistoricalInSteps: 0
 --- !u!1 &545925051
 GameObject:
   m_ObjectHideFlags: 0
