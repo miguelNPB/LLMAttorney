@@ -245,10 +245,10 @@ public class LLMSystemAPI : MonoBehaviour
         }
         if (isCallbackValid)
         {
+            LogSystem.Instance.LogString($"[Fase: {SceneManager.GetActiveScene().buildIndex}] [RECIEVE PROMPT]:\n" + response);
             onComplete?.Invoke(success, response);
             if (!success)
                 Debug.LogError(response);
-            LogSystem.Instance.LogString($"[Fase: {SceneManager.GetActiveScene().buildIndex}] [RECIEVE PROMPT]:\n" + response);
         }
         else
         {
