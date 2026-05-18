@@ -11,6 +11,18 @@ def clean_json(obj):
         if not math.isfinite(obj):
             return 0.0
         return obj
+    elif isinstance(obj, dict):
+
+        return {
+            key: clean_json(value)
+            for key, value in obj.items()
+        } 
+    elif isinstance(obj, list):
+
+        return [
+            clean_json(item)
+            for item in obj
+        ]
     
     return obj
 
