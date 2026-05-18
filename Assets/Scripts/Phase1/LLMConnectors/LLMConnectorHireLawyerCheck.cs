@@ -15,10 +15,10 @@ public class LLMConnectorHireLawyerCheck : LLMConnector
     /// </summary>
     /// <param name="responseCallback"></param>
     /// <param name="prompt"></param>
-    public void SendPrompt(Action<bool> responseCallback, string prompt)
+    public void SendPrompt(Action<bool> responseCallback, Action<string> errorCallback, string prompt)
     {
         _responseCallback = responseCallback;
-        sendPrompt(recieveFinalResponse, prompt, 0);
+        sendPrompt(recieveFinalResponse, errorCallback, prompt, 0);
     }
 
     /// <summary>

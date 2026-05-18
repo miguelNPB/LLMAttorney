@@ -18,10 +18,10 @@ public class LLMConnectorBudgetChecker : LLMConnector
     /// </summary>
     /// <param name="responseCallback"></param>
     /// <param name="prompt"></param>
-    public void SendPrompt(Action<bool, float> responseCallback, string prompt)
+    public void SendPrompt(Action<bool, float> responseCallback, Action<string> errorCallback, string prompt)
     {
         _responseCallback = responseCallback;
-        sendPrompt(recieveFinalResponse, prompt, 0);
+        sendPrompt(recieveFinalResponse, errorCallback, prompt, 0);
     }
 
     /// <summary>

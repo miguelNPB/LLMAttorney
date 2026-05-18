@@ -57,7 +57,7 @@ public class SearchPricesManager : MonoBehaviour
         StartCoroutine(CoroutinePendingMessage());
 
         _prompt = _inputField.text;
-        _llmConnectorResponseChecker.SendPrompt(recieveQuestionCheckerResponse, _prompt, 0);
+        _llmConnectorResponseChecker.SendPrompt(recieveQuestionCheckerResponse, endPriceSearch, _prompt, 0);
     }
 
     /// <summary>
@@ -77,7 +77,7 @@ public class SearchPricesManager : MonoBehaviour
     private void recieveQuestionCheckerResponse(bool isCoherent)
     {
         if (isCoherent)
-            _llmConnectorSearch.SendPrompt(recieveSearchConnectorResponse, _inputField.text);
+            _llmConnectorSearch.SendPrompt(recieveSearchConnectorResponse, endPriceSearch, _inputField.text);
         else
             endPriceSearch("Lo siento. No he entendido tu petición, deme mas detalles o cambie la forma de pedirlo.");
     }
@@ -89,7 +89,7 @@ public class SearchPricesManager : MonoBehaviour
     private void recieveSearchConnectorResponse(string text)
     {
         _tempAnswer = text;
-        _llmConnectorResponseChecker.SendPrompt(recieveResponseCheckerResponse, _tempAnswer, 1);
+        _llmConnectorResponseChecker.SendPrompt(recieveResponseCheckerResponse, endPriceSearch, _tempAnswer, 1);
     }
 
     /// <summary>

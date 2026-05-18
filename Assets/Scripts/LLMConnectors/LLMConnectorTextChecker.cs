@@ -18,10 +18,10 @@ public class LLMConnectorTextChecker : LLMConnector
     /// </summary>
     /// <param name="responseCallback"></param>
     /// <param name="prompt"></param>
-    public void SendPrompt(Action<bool> responseCallback, string prompt, int indexConfig)
+    public void SendPrompt(Action<bool> responseCallback, Action<string> errorCallback, string prompt, int indexConfig)
     {
         _responseCallback = responseCallback;
-        sendPrompt(recieveFinalResponse, prompt, indexConfig);
+        sendPrompt(recieveFinalResponse, errorCallback, prompt, indexConfig);
     }
 
     /// <summary>

@@ -63,7 +63,7 @@ public class ClientMeetingManager : MonoBehaviour
         StartCoroutine(CoroutinePendingMessage());
 
         _prompt = _inputField.text;
-        _llmConnectorQuestionChecker.SendPrompt(recieveQuestionCheckerResponse, _prompt, 0);
+        _llmConnectorQuestionChecker.SendPrompt(recieveQuestionCheckerResponse, endClientMeeting, _prompt, 0);
     }
 
     /// <summary>
@@ -89,7 +89,7 @@ public class ClientMeetingManager : MonoBehaviour
 
         if (isCoherent)
         {
-            _llmConnectorBudgetChecker.SendPrompt(recieveBudgetCheckerResponse, _inputField.text);
+            _llmConnectorBudgetChecker.SendPrompt(recieveBudgetCheckerResponse, endClientMeeting, _inputField.text);
         }
         else
         {
@@ -114,7 +114,7 @@ public class ClientMeetingManager : MonoBehaviour
     {
 
         _tempAnswer = answer;
-        _llmConnectorResponseChecker.SendPrompt(recieveResponseCheckerResponse, _tempAnswer, 1);
+        _llmConnectorResponseChecker.SendPrompt(recieveResponseCheckerResponse, endClientMeeting, _tempAnswer, 1);
 
     }
 
@@ -127,7 +127,7 @@ public class ClientMeetingManager : MonoBehaviour
         if (isCoherent)
         {
             string context = "Dialogo abogado: " + _inputField.text + "\n\n Dialogo contestacion cliente: " + _tempAnswer;
-            _llmConnectorLawyerHireCheck.SendPrompt(recieveHireLawyerResponse, context);
+            _llmConnectorLawyerHireCheck.SendPrompt(recieveHireLawyerResponse, endClientMeeting, context);
         }         
         else
         {
