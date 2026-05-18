@@ -871,79 +871,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -53}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &470359869
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 470359870}
-  - component: {fileID: 470359871}
-  m_Layer: 0
-  m_Name: LLMRivalObjectionConfig
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &470359870
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 470359869}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &470359871
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 470359869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
-  _apiType: 0
-  context: "Rol: Eres un magistrado experto en derecho procesal, con un enfoque estricto
-    en los principios de pertinencia y utilidad de la prueba. Tu funci\xF3n es decidir
-    la admisibilidad de un medio probatorio en la fase de audiencia previa.\r\n\r\nTarea:
-    Realizar un juicio de relevancia comparando la secci\xF3n \"Prueba Presentada\"
-    frente al \"Historial del Caso\".\r\n\r\nCriterios de Validaci\xF3n (JSON Schema):\r\n\r\n   
-    valid: true -> La prueba cumple con dos condiciones acumulativas: 1. Pertinencia:
-    Guarda una relaci\xF3n l\xF3gica y directa con los hechos controvertidos del
-    historial. 2. Racionalidad: Es una prueba veros\xEDmil, f\xEDsicamente posible
-    y no constituye una maniobra dilatoria o absurda.\r\n\r\n    valid: false ->
-    Debes marcar falso si concurre cualquiera de estos supuestos: 1. Impertinencia:
-    La prueba no aporta nada a la resoluci\xF3n de los hechos narrados en el historial.
-    2. Absurdo/Inutilidad: La prueba es manifiestamente irracional, contraria a las
-    leyes de la l\xF3gica o de la f\xEDsica, o es una prueba impertinente por ser
-    totalmente ajena al objeto del proceso.\r\n\r\nReglas de An\xE1lisis:\r\n\r\n   
-    Examen de Conexi\xF3n: \xBFSi se practica esta prueba, el resultado ayudar\xEDa
-    a esclarecer alg\xFAn punto del historial? Si la respuesta es no, es impertinente.\r\n\r\n   
-    Filtro de Absurdo: \xBFLa prueba propone algo imposible, rid\xEDculo o que contradice
-    hechos notorios? Si es as\xED, es inadmisible.\r\n\r\n    Veredicto: Devuelve
-    exclusivamente el JSON con el campo \"valid\" basado en este razonamiento t\xE9cnico-jur\xEDdico.\n\nA
-    continuaci\xF3n la descripci\xF3n del caso jur\xEDdico: @\n\nA continuaci\xF3n
-    el contenido de la Prueba Presentada: $"
-  safeguard: 
-  safeguardSteps: 
-  historicalConversation: 
-  _stepChecks: []
-  _temperature: 0.2
-  _ragUse: 0
-  _ragFile: 0
 --- !u!1 &621990919
 GameObject:
   m_ObjectHideFlags: 0
@@ -1167,14 +1094,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 270ce50f595df154da254089b71e6cb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorRivalObjection
-  _config:
-  - {fileID: 470359871}
-  _inputField: {fileID: 0}
-  _useSecuritySteps: 0
+  _llmConfigs:
+  - {fileID: 11400000, guid: 91178c18f8b2e664ab100825b4714501, type: 2}
+  _useSteps: 0
   _useHistoricalInContext: 0
   _useHistoricalInSteps: 0
-  _prompt: "Rellena el booleano \"valid\" en funci\xF3n del veredicto si la prueba
-    tiene relaci\xF3n con el caso y no es in\xFAtil."
 --- !u!1 &983531631
 GameObject:
   m_ObjectHideFlags: 0
@@ -4248,4 +4172,3 @@ SceneRoots:
   - {fileID: 2083848459}
   - {fileID: 784846283}
   - {fileID: 1805095107}
-  - {fileID: 470359870}

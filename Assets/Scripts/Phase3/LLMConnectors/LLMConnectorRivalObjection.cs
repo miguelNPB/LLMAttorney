@@ -4,62 +4,51 @@ using UnityEngine;
 
 /// <summary>
 /// LLMConnector para promptear un booleano al LLM y dictar si la recursion del rival es valida o no
+/// Debe rellenar el context con valores del documento a dictar si es valido o no y informacion del caso
 /// </summary>
-public class LLMConnectorRivalObjection : LLMConector
+public class LLMConnectorRivalObjection : LLMConnector
 {
     [Serializable]
     private class RivalObjectionResponse
     {
         public bool valid;
     }
-    [SerializeField, TextArea(3, 10)] private string _prompt;
 
-    private Action<bool> _onRecievePrompt;
+    private Action<bool> _responseCallback;
     private string _baseContext;
-    private int _messageID;
 
-    public void SendPrompt(string documentContent, Action<bool> onRecievePrompt)
+    private void Start()
     {
-        _onRecievePrompt = onRecievePrompt;
+        _baseContext = _llmConfigs[_configIndex].GetContext();
+    }
 
-        _config[0].context = _baseContext.Replace("@", GameSystem.Instance.CaseData.caseDescription);
-        _config[0].context = _config[0].context.Replace("$", documentContent);
+    public void SendPrompt(string documentContent, Action<bool> onRecievePrompt, Action<string> errorCallback)
+    {
+        string newContext = _baseContext.Replace("@", GameSystem.Instance.CaseData.caseDescription);
+        newContext = newContext.Replace("$", documentContent);
+        overrideLLMContext(newContext);
 
-        _promptSent = false;
-        sendContextPrompt(_prompt, 0);
+        _responseCallback = onRecievePrompt;
+        sendPrompt(recieveFinalResponse, errorCallback, documentContent, 0);
 
         _messageID = EventManager.Instance.getMessageID();
         Telemetry.TelemetryDispatch.SendQueryPost(_messageID);
+    }
+
+    /// <summary>
+    /// Metodo final para devolver la respuesta
+    /// </summary>
+    /// <param name="finalSerializedResponse"></param>
+    private void recieveFinalResponse(string finalSerializedResponse)
+    {
+        RivalObjectionResponse jsonResponse = JsonUtility.FromJson<RivalObjectionResponse>(finalSerializedResponse);
+
+        _responseCallback?.Invoke(jsonResponse.valid);
     }
 
     protected override void createJsonSchemas()
     {
         _contextSchema = new JsonSchema();
         _contextSchema.properties.Add("valid", new PropertyInfo(JsonDataType.Boolean));
-
-        _schemasCreated = true;
-    }
-
-    protected override void receiveResponse(bool success, string answer)
-    {
-        Telemetry.TelemetryDispatch.SendQueryReceived(_messageID);
-
-        if (success)
-        {
-            RivalObjectionResponse response = JsonUtility.FromJson<RivalObjectionResponse>(answer);
-            _onRecievePrompt?.Invoke(response.valid);
-        }
-        else
-        {
-            Debug.LogError("Error en la llamada al LLM: " + answer);
-            _onRecievePrompt?.Invoke(false);
-        }
-    }
-
-    private void Awake()
-    {
-        _baseContext = _config[0].context;
-
-        createJsonSchemas();
     }
 }

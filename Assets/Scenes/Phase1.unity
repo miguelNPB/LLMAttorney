@@ -1337,7 +1337,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 429528152396629215, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
   m_PrefabInstance: {fileID: 6430441125739056708}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 6430441125739056713}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4cf7a3d40d4b93468a0b13c4922a1c3, type: 3}
@@ -1404,8 +1404,7 @@ MonoBehaviour:
     No a\xF1adas informaci\xF3n externa ni inventada\r\n"
   safeguard: "Mant\xE9n siempre un tono cordial, respetuoso y directo.\r\n\r\n---\r\n\r\nCOMPORTAMIENTO\r\n\r\n*
     Responde de forma clara y concisa\r\n* Habla solo sobre tu problema legal civil\r\n*
-    No compartas informaci\xF3n personal irrelevante\r\n\r\nSi te preguntan por temas
-    personales no relacionados:\r\n\r\n* responde educadamente que no es relevante\r\n\r\n---\r\n\r\nROL\r\n\r\n*
+    No compartas informaci\xF3n personal irrelevante\r\n\r\n---\r\n\r\nROL\r\n\r\n*
     Act\xFAas siempre como cliente\r\n* No das asesoramiento jur\xEDdico\r\n* No
     cambias de rol\r\n\r\n---\r\n\r\nDECISI\xD3N DE CONTRATACI\xD3N\r\n\r\nGenera
     el campo: \"contratar_abogado\" (bool)\r\n\r\nTRUE solo si dices expl\xEDcitamente
@@ -2302,7 +2301,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5625853903248473597, guid: a66b197d1a3e783458cb95c7672f8ca8, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5823091025047990264, guid: a66b197d1a3e783458cb95c7672f8ca8, type: 3}
       propertyPath: m_text
@@ -2392,7 +2391,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9137247838896442078, guid: a66b197d1a3e783458cb95c7672f8ca8, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2514,7 +2513,7 @@ PrefabInstance:
     - target: {fileID: 5126775781348832107, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: _llmConnectorQuestionChecker
       value: 
-      objectReference: {fileID: 4665822228252766509}
+      objectReference: {fileID: 0}
     - target: {fileID: 5126775781348832107, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
       propertyPath: _llmConnectorResponseChecker
       value: 
@@ -2669,10 +2668,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6929784444275368796, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      insertIndex: 1
-      addedObject: {fileID: 4665822228252766509}
-    - targetCorrespondingSourceObject: {fileID: 6929784444275368796, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
-      insertIndex: 3
+      insertIndex: 2
       addedObject: {fileID: 4665822228252766514}
   m_SourcePrefab: {fileID: 100100000, guid: fafe30ece380d6d4681a1e6a104fd641, type: 3}
 --- !u!114 &4665822228252766505 stripped
@@ -2708,23 +2704,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b4fcb9cca22ec41b2e5a41a78b185b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LLMConectorSearch
---- !u!114 &4665822228252766509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1353455354}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fc68264bf4632741b1c83a0660cb095, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorQuestionChecker
-  _llmConfigs:
-  - {fileID: 11400000, guid: f951a954a2c28e34182dd2d79ccf91a8, type: 2}
-  _useSteps: 1
-  _useHistoricalInContext: 0
-  _useHistoricalInSteps: 0
 --- !u!114 &4665822228252766514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2738,8 +2717,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorResponseChecker
   _llmConfigs:
+  - {fileID: 11400000, guid: f951a954a2c28e34182dd2d79ccf91a8, type: 2}
   - {fileID: 11400000, guid: 3c55dcf7de7f5de409af59f1c0c165d9, type: 2}
-  _useSteps: 1
+  _useSteps: 0
   _useHistoricalInContext: 0
   _useHistoricalInSteps: 0
 --- !u!1001 &6430441125739056708
@@ -2750,6 +2730,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 912615290}
     m_Modifications:
+    - target: {fileID: 429528152396629215, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: _maxCharactersInContainer
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 560960862846232664, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
       propertyPath: _inputField
       value: 
@@ -2758,6 +2742,14 @@ PrefabInstance:
       propertyPath: '_config.Array.data[0]'
       value: 
       objectReference: {fileID: 1285998453}
+    - target: {fileID: 560960862846232664, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: _llmConfigs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 560960862846232664, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: '_llmConfigs.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: d731c5a113994244084068dd460e6658, type: 2}
     - target: {fileID: 3645317662809712251, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
       propertyPath: m_text
       value: "asdfasdfnegratasasdfasdfnegratasasdasdfasdfnegratasasdfasdfnegratasasdasdfasdfnegratasasdfasdfnegratasasdasdfasdfnegratasasdfasdfnegratasasdasdfasdfnegratasasdfasdfnegratasasdasdfasdfnegratasasdfasdfnegratasasdasdfasdfnegratasasdfasdfnegratasasdasdfasdfnegratasasdfasdfnegratasasdasdfasdfnegratasasdfasdfnegratasasdasdfasdfnegratasasdfasdfn\u200B\u200B"
@@ -2899,12 +2891,20 @@ PrefabInstance:
       value: ConversationStage1
       objectReference: {fileID: 0}
     - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 6430441125739056710}
+      objectReference: {fileID: 6430441125739056718}
+    - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TalkToClient
+      objectReference: {fileID: 0}
     - target: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: LLMConectorPreClientMeeting, Assembly-CSharp
+      value: ClientMeetingManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7828999558807138563, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
       propertyPath: _calculator
@@ -2934,10 +2934,27 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8057441202603224496, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7828999558807138563, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6486600762471374973, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6430441125739056718}
+    - targetCorrespondingSourceObject: {fileID: 6486600762471374973, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6430441125739056717}
+    - targetCorrespondingSourceObject: {fileID: 6486600762471374973, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6430441125739056716}
+    - targetCorrespondingSourceObject: {fileID: 6486600762471374973, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6430441125739056715}
   m_SourcePrefab: {fileID: 100100000, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
 --- !u!224 &6430441125739056709 stripped
 RectTransform:
@@ -2946,15 +2963,121 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &6430441125739056710 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7828999558807138563, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8057441202603224496, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
   m_PrefabInstance: {fileID: 6430441125739056708}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b1bc563052274c4da8a8705cfd8edfe, type: 3}
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LLMConectorPreClientMeeting
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &6430441125739056711 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6574676419011616182, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+  m_PrefabInstance: {fileID: 6430441125739056708}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+--- !u!1 &6430441125739056712 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3998013804900407694, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+  m_PrefabInstance: {fileID: 6430441125739056708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6430441125739056713 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6486600762471374973, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+  m_PrefabInstance: {fileID: 6430441125739056708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6430441125739056714 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 560960862846232664, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+  m_PrefabInstance: {fileID: 6430441125739056708}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6430441125739056713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 226b6958ccfde4a43a7a2f4f22a0d647, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LLMConectorClientMeeting
+--- !u!114 &6430441125739056715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6430441125739056713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7801c34988c19fc49a60d29e88901ed3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorTextChecker
+  _llmConfigs:
+  - {fileID: 11400000, guid: 7433219f49c4dae45b926738990634e2, type: 2}
+  - {fileID: 11400000, guid: 50a117c775dc7f04797ed723dbac2b60, type: 2}
+  _useSteps: 0
+  _useHistoricalInContext: 1
+  _useHistoricalInSteps: 0
+--- !u!114 &6430441125739056716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6430441125739056713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a515e4dad97fc444b79e5f20c8575b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorBudgetChecker
+  _llmConfigs:
+  - {fileID: 11400000, guid: d2d2d1ca0bf2b54419b7b2eaf881e265, type: 2}
+  _useSteps: 0
+  _useHistoricalInContext: 0
+  _useHistoricalInSteps: 0
+--- !u!114 &6430441125739056717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6430441125739056713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5b54da3999917442b5a4229e70e19cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorHireLawyerCheck
+  _llmConfigs:
+  - {fileID: 11400000, guid: b1c75c468fb8bd84ea9307e5f5cf8979, type: 2}
+  _useSteps: 0
+  _useHistoricalInContext: 0
+  _useHistoricalInSteps: 0
+--- !u!114 &6430441125739056718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6430441125739056713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d241b1d548e41ea44b9890a0f3b3ee5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClientMeetingManager
+  _sendMessageButton: {fileID: 6430441125739056711}
+  _continueButton: {fileID: 6430441125739056712}
+  _changePhaseButton: {fileID: 383718594}
+  _inputField: {fileID: 160238200}
+  resultText: {fileID: 6430441125739056710}
+  _llmConnectorQuestionChecker: {fileID: 6430441125739056715}
+  _llmConnectorBudgetChecker: {fileID: 6430441125739056716}
+  _llmConnectorClientMeeting: {fileID: 6430441125739056714}
+  _llmConnectorResponseChecker: {fileID: 6430441125739056715}
+  _llmConnectorLawyerHireCheck: {fileID: 6430441125739056717}
 --- !u!224 &7996628435419659413 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2216014338794435774, guid: a66b197d1a3e783458cb95c7672f8ca8, type: 3}

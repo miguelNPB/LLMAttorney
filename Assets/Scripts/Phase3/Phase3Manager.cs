@@ -308,6 +308,16 @@ public class Phase3Manager : MonoBehaviour
     }
 
     /// <summary>
+    /// Llamado si algo sale mal con el servidor durante el prompt
+    /// </summary>
+    /// <param name="text"></param>
+    private void recieveError(string text)
+    {
+        // para no cortar el juego, que devuelva false
+        receivePromptAnswer(false);
+    }
+
+    /// <summary>
     /// Coroutina para promptear si la recursion del rival es valida
     /// </summary>
     /// <returns></returns>
@@ -315,11 +325,13 @@ public class Phase3Manager : MonoBehaviour
     {
         _objectedDocumentIsValid = false;
 
-        _llmConnectorRivalObjection.SendPrompt(documentContent, receivePromptAnswer);
+        _llmConnectorRivalObjection.SendPrompt(documentContent, receivePromptAnswer, recieveError);
 
         while (!_recievedPromptAnswer)
             yield return null;
     }
+
+
 
     /// <summary>
     /// Inicializa las listas de documentos con los documentos validos en la fase de audiencia previa

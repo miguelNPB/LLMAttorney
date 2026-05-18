@@ -25,8 +25,6 @@ public class LLMConfig : ScriptableObject
     [Tooltip("Header para el historico")]
     private string _historicHeader;
 
-    private string _historicContent;
-
     [Header("Chain Of Thought")]
 
     [SerializeField, TextArea(3, 10)]
@@ -69,26 +67,9 @@ public class LLMConfig : ScriptableObject
         return _stepsCommonSafeguard;
     }
 
-    public string GetHistoric()
+    public string GetHistoricHeader()
     {
-        return _historicHeader + _historicContent;
-    }
-
-    /// <summary>
-    /// Suma texto al historico actual
-    /// </summary>
-    /// <returns></returns>
-    public void AddHistoric(string additionText)
-    {
-        _historicContent += "\n" + additionText;
-    }
-
-    /// <summary>
-    /// Limpia el historico
-    /// </summary>
-    public void ClearHistoric()
-    {
-        _historicContent = "";
+        return _historicHeader;
     }
 
     public string[] GetStepChecks()

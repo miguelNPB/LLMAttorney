@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Telemetry;
 using UnityEngine;
 
-public class LLMConnectorWinOrLoseSentence : LLMConector
+public class LLMConnectorWinOrLoseSentence : LLMConnector
 {
     [Serializable]
     private class WinOrLoseSentenceResponse
@@ -11,14 +11,17 @@ public class LLMConnectorWinOrLoseSentence : LLMConector
         public bool winPlayer;
     }
 
-    [SerializeField, TextArea(3, 10)] private string _prompt;
+    [SerializeField, TextArea(3, 10)] private string _promptTemplate = "Analiza el siguiente caso y dicta un texto con la sentencia:\r\n\r\nResumen del caso: ~\r\n\r\nPruebas presentadas por !:\r\n@\r\n\r\nPruebas presentadas por ¡:\r\n$\r\n\r\nDemanda de !:\r\n#\r\n\r\n\r\nGenera la sentencia del tribunal OBJETIVAMENTE comprobando que LA DEMANDA SE CORRESPONDE A LAS PRUEBAS PRESENTADAS. Si no se corresponde, invalidar las pruebas.\r\nAdemás valorar ambas pruebas y contrastarlas con el resumen del caso";
+    private Action<bool> _responseCallback;
 
-    private Action<bool> _onRecievePrompt;
-    private string _basePrompt;
-    private int _messageID;
-    public void PromptBoolSentence(Action<bool> onRecievePrompt)
+    /// <summary>
+    /// Metodo publico para activar el funcionamiento de este LLMConnector
+    /// </summary>
+    /// <param name="responseCallback"></param>
+    /// <param name="prompt"></param>
+    public void SendPrompt(Action<bool> onRecievePrompt, Action<string> errorCallback)
     {
-        _onRecievePrompt = onRecievePrompt;
+        _responseCallback = onRecievePrompt;
 
         string lawsuitText = GameSystem.Instance.CaseData.lawsuitText;
         string clientDocs = "";
@@ -40,11 +43,10 @@ public class LLMConnectorWinOrLoseSentence : LLMConector
             rivalDocs += (i + ": " + rivalFinalDocuments[i].GetDocName() + ": " + rivalFinalDocuments[i].GetContent() + "\n");
         }
 
-
         if (rivalFinalDocuments.Count == 0)
             rivalDocs = "Ninguna.";
 
-        _prompt = _basePrompt.Replace("#", lawsuitText);
+        _prompt = _promptTemplate.Replace("#", lawsuitText);
         _prompt = _prompt.Replace("@", clientDocs);
         _prompt = _prompt.Replace("$", rivalDocs);
 
@@ -53,40 +55,23 @@ public class LLMConnectorWinOrLoseSentence : LLMConector
 
         _prompt = _prompt.Replace("~", GameSystem.Instance.CaseData.caseDescription);
 
-        _messageID = EventManager.Instance.getMessageID();
-        Telemetry.TelemetryDispatch.SendQueryPost(_messageID);
-
-        sendContextPrompt(_prompt, 0);
+        sendPrompt(recieveFinalResponse, errorCallback, _prompt, 0);
     }
 
+    /// <summary>
+    /// Metodo final para devolver la respuesta
+    /// </summary>
+    /// <param name="finalSerializedResponse"></param>
+    private void recieveFinalResponse(string finalSerializedResponse)
+    {
+        WinOrLoseSentenceResponse jsonResponse = JsonUtility.FromJson<WinOrLoseSentenceResponse>(finalSerializedResponse);
+
+        _responseCallback?.Invoke(jsonResponse.winPlayer);
+    }
 
     protected override void createJsonSchemas()
     {
         _contextSchema = new JsonSchema();
         _contextSchema.properties.Add("winPlayer", new PropertyInfo(JsonDataType.Boolean));
-
-        _schemasCreated = true;
-    }
-
-    protected override void receiveResponse(bool success, string answer)
-    {
-        TelemetryDispatch.SendQueryReceived(_messageID);
-
-        if (success)
-        {
-            WinOrLoseSentenceResponse response = JsonUtility.FromJson<WinOrLoseSentenceResponse>(answer);
-            _onRecievePrompt?.Invoke(response.winPlayer);
-        }
-        else
-        {
-            Debug.LogError("Error en la llamada al LLM: " + answer);
-            _onRecievePrompt?.Invoke(false);
-        }
-    }
-
-    private void Awake()
-    {
-        createJsonSchemas();
-        _basePrompt = _prompt;
     }
 }
