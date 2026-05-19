@@ -12,11 +12,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eea7ce61ff8c3a4eada52736d65ef63, type: 3}
   m_Name: P2_ReceiptRivalNotValid
   m_EditorClassIdentifier: Assembly-CSharp::LLMConfig
-  _context: 
-  _safeguard: 
+  _context: "Context:\r\nGenera un documento tipo recibo, ticket o factura simplificada
+    relacionado con el caso civil definido en el RAG.\r\n\r\nEl documento debe estar
+    orientado principalmente a respaldar razonablemente la posici\xF3n del demandado
+    dentro del caso.\r\n\r\nDebes revisar el RAG para:\r\n\r\n* entender la situaci\xF3n
+    del demandado\r\n* identificar posibles servicios o conceptos relacionados\r\n*
+    generar un recibo coherente con el contexto del caso\r\n\r\nBAJO NING\xDAN CONCEPTO
+    debes generar un documento desde la perspectiva del demandante.\r\n\r\n---\r\n\r\nOBJETIVO
+    ESPECIAL\r\n\r\nEl documento debe parecer una factura real, PERO debe incluir
+    peque\xF1os errores o defectos sutiles que reduzcan su calidad o validez formal.\r\n\r\nDebe
+    seguir siendo entendible, pero no perfectamente profesional.\r\n\r\n---\r\n\r\nESTRUCTURA
+    OBLIGATORIA\r\n\r\nDebes incluir EXACTAMENTE estos encabezados:\r\n\r\n* Nombre
+    del negocio\r\n* Direcci\xF3n\r\n* Fecha y hora\r\n* Productos/servicios\r\n*
+    Subtotal\r\n* Impuestos\r\n* Total\r\n* M\xE9todo de pago\r\n\r\nNo cambiar nombres.\r\nNo
+    a\xF1adir encabezados extra.\r\n\r\n---\r\n\r\nERRORES PERMITIDOS\r\n\r\nIncluye
+    algunos defectos leves como:\r\n\r\n* peque\xF1as inconsistencias en la redacci\xF3n\r\n*
+    ligeras imprecisiones en la descripci\xF3n de servicios\r\n* conceptos algo gen\xE9ricos\r\n*
+    leves desajustes en coherencia narrativa\r\n* organizaci\xF3n ligeramente mejorable\r\n*
+    detalles poco precisos\r\n* alg\xFAn concepto ambiguo\r\n* relaci\xF3n parcial
+    con el caso\r\n* peque\xF1as repeticiones\r\n\r\n---\r\n\r\nLIMITES\r\n\r\n*
+    El documento debe seguir siendo legible\r\n* No generar incoherencias graves\r\n*
+    No generar texto aleatorio\r\n* No romper completamente la estructura\r\n* Debe
+    seguir pareciendo una factura real\r\n\r\n---\r\n\r\nCONTENIDO\r\n\r\n1. Nombre
+    del negocio\r\n\r\n* Debe ser plausible\r\n* Puede ser algo gen\xE9rico en algunos
+    casos\r\n\r\n---\r\n\r\n2. Direcci\xF3n\r\n\r\n* Puede ser gen\xE9rica o parcialmente
+    incompleta\r\n* Debe ser plausible en Espa\xF1a\r\n\r\n---\r\n\r\n3. Fecha y
+    hora\r\n\r\n* Debe existir\r\n* Puede ser ligeramente imprecisa o gen\xE9rica\r\n\r\n---\r\n\r\n4.
+    Productos/servicios\r\n\r\n* Deben estar relacionados parcialmente con el caso\r\n*
+    Pueden ser algo vagos o poco espec\xEDficos\r\n* Puede haber conceptos gen\xE9ricos\r\n\r\n---\r\n\r\n5.
+    Subtotal\r\n\r\n* Debe ser coherente pero puede haber ligeras imprecisiones\r\n\r\n---\r\n\r\n6.
+    Impuestos\r\n\r\n* Puede estar incompleto o aproximado\r\n* Puede indicar \u201CNo
+    aplica\u201D en casos ambiguos\r\n\r\n---\r\n\r\n7. Total\r\n\r\n* Debe ser coherente
+    en general\r\n* Peque\xF1as inconsistencias son aceptables\r\n\r\n---\r\n\r\n8.
+    M\xE9todo de pago\r\n\r\n* Puede ser gen\xE9rico\r\n* Puede estar poco detallado\r\n\r\n---\r\n\r\nREGLAS
+    IMPORTANTES\r\n\r\n* El documento debe parecer real pero imperfecto\r\n* No generar
+    errores extremos\r\n* No generar texto aleatorio\r\n* No romper completamente
+    la coherencia\r\n* Mantener relaci\xF3n parcial con el caso del RAG\r\n* Mantener
+    perspectiva general del demandado\r\n\r\n---\r\n\r\nFORMATO\r\n\r\n* Solo texto
+    plano\r\n* No HTML\r\n* No XML\r\n* No etiquetas\r\n* Cada secci\xF3n en l\xEDnea
+    separada\r\n"
+  _safeguard: "Safeguard:\r\nDebes incluir los campos:\r\n\r\n* documentName (string)\r\n*
+    documentContent (string)\r\n\r\n---\r\n\r\nVALIDACI\xD3N OBLIGATORIA\r\n\r\nEl
+    campo \"documentContent\" debe contener una factura o recibo estructurado relacionado
+    con el caso.\r\n\r\nDebe incluir EXACTAMENTE y en este orden:\r\n\r\n1. Nombre
+    del negocio\r\n2. Direcci\xF3n\r\n3. Fecha y hora\r\n4. Productos/servicios\r\n5.
+    Subtotal\r\n6. Impuestos\r\n7. Total\r\n8. M\xE9todo de pago\r\n\r\n---\r\n\r\nREGLAS
+    CRITICAS\r\n\r\n* El documento debe estar orientado principalmente al demandado\r\n*
+    Debe usar el RAG como referencia general\r\n* El documento NO debe parecer perfectamente
+    v\xE1lido o profesional\r\n* Debe contener defectos leves y realistas\r\n\r\n---\r\n\r\nERRORES
+    OBLIGATORIOS\r\n\r\nIncluye algunos problemas como:\r\n\r\n* imprecisiones leves
+    en conceptos\r\n* descripciones gen\xE9ricas\r\n* ligeras incoherencias en servicios\r\n*
+    estructura algo imperfecta\r\n* detalles poco consistentes\r\n* redacci\xF3n
+    mejorable\r\n* peque\xF1as repeticiones\r\n* relaci\xF3n incompleta con el caso\r\n\r\n---\r\n\r\nLIMITES\r\n\r\n*
+    El documento debe seguir siendo entendible\r\n* No generar texto absurdo o aleatorio\r\n*
+    No romper totalmente la estructura\r\n* Mantener apariencia de factura real\r\n\r\n---\r\n\r\nRESTRICCIONES\r\n\r\n*
+    No usar HTML\r\n* No usar etiquetas especiales\r\n* No dejar apartados vac\xEDos\r\n*
+    No mezclar claramente la perspectiva del demandante\r\n* No generar incoherencias
+    extremas\r\n\r\n---\r\n\r\nEN CASO DE DUDA\r\n\r\n* Priorizar la coherencia general
+    del documento\r\n* Mantener relaci\xF3n parcial con el RAG\r\n* Generar un recibo
+    imperfecto pero cre\xEDble\r\n"
   _historicHeader: 
   _stepChecks: []
   _stepsCommonSafeguard: 
-  _temperature: 0
-  _ragUse: 0
-  _ragFile: 0
+  _temperature: 0.75
+  _ragUse: 1
+  _ragFile: 2

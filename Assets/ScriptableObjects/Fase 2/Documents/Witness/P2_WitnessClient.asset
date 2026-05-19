@@ -57,8 +57,7 @@ MonoBehaviour:
     vac\xEDas\n\n"
   _historicHeader: "Analiza el hist\xF3rico de conversaci\xF3n que se te proporciona
     junto con la nueva pregunta.\n\nEl hist\xF3rico contiene pares de pregunta y
-    respuesta anteriores.\n\nSi el documento es relevante a lo que se esta hablando,
-    pon el campo EsValido a true, si no, a false\n"
+    respuesta anteriores."
   _stepChecks:
   - "Comprueba que el campo del JSON documentContent sea una declaracion de un testigo
     en espa\xF1a. Si es asi no cambies nada y devuelve exactamente lo mismo, si no,
@@ -70,9 +69,8 @@ MonoBehaviour:
     que no se indican en el prompt.
 
 
-
-    Devuelve siempre al final el JSON que
-    se te proporciona solo modificando el campo que se te indique.
+    Devuelve siempre al final el JSON que se
+    te proporciona solo modificando el campo que se te indique.
 
 '
   _temperature: 0.6
