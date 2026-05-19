@@ -16,7 +16,6 @@ public class ClientMeetingManager : MonoBehaviour
     [SerializeField] private LLMConnectorTextChecker _llmConnectorTextChecker;
     [SerializeField] private LLMConnectorBudgetChecker _llmConnectorBudgetChecker;
     [SerializeField] private LLMConnectorClientMeeting _llmConnectorClientMeeting;
-    [SerializeField] private LLMConnectorHireLawyerCheck _llmConnectorLawyerHireCheck; //Falta
 
     private string _pendingMessage = "";
     private bool _waitingPendingMessage = false;
@@ -71,6 +70,7 @@ public class ClientMeetingManager : MonoBehaviour
     /// <param name="text"></param>
     private void endClientMeeting(string text)
     {
+
         _continueButton.SetActive(true);
         _sendMessageButton.interactable = true;
         _waitingPendingMessage = false;
@@ -120,29 +120,21 @@ public class ClientMeetingManager : MonoBehaviour
     {
         if (isCoherent)
         {
-            string context = "Dialogo abogado: " + _inputField.text + "\n\n Dialogo contestacion cliente: " + _tempAnswer;
-            _llmConnectorLawyerHireCheck.SendPrompt(recieveHireLawyerResponse, endClientMeeting, context);
+            if (_tempBudget > 0)
+            {
+                Debug.Log("Cambio de fase boton");
+                _changePhaseButton.SetActive(true);
+            }
+
+            BudgetSystem.Instance.SetBudgetFromLLM(_prompt, _tempBudget);
+
+            endClientMeeting(_tempAnswer);
         }         
         else
         {
             endClientMeeting("No te he podido entender bien, podrias repetirmelo por favor");
         }
             
-    }
-
-    /// <summary>
-    /// Metodo llamado al recibir la respuesta dle LLMConnector de buscador de precios.
-    /// </summary>
-    /// <param name="text"></param>
-    private void recieveHireLawyerResponse(bool hireLawyer)
-    {
-        if (hireLawyer)
-        {
-            _changePhaseButton.SetActive(true);
-        }
-
-        BudgetSystem.Instance.SetBudgetFromLLM(_prompt, _tempBudget);
-        endClientMeeting(_tempAnswer);   
     }
 
     private void OnDisable()

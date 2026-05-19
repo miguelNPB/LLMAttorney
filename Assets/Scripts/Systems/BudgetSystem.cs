@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -34,7 +33,7 @@ public class BudgetSystem : MonoBehaviour
 
     [Header("Configuración del presupuesto")]
     [Tooltip("Presupuesto inicial del caso.")]
-    public float startingBudget = 1000f;
+    public float startingBudget = 0;
 
     [Header("Escena al entrar en quiebra")]
     [Tooltip("Nombre de la escena que se cargará cuando el presupuesto baje de 0. Debe estar en Build Settings.")]
