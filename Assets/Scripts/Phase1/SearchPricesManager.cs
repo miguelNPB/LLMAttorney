@@ -52,7 +52,6 @@ public class SearchPricesManager : MonoBehaviour
         if (_waitingPendingMessage)
             return;
 
-        _searchToolButton.interactable = false;
         _waitingPendingMessage = true;
         StartCoroutine(CoroutinePendingMessage());
 

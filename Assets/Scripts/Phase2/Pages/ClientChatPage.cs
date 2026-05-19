@@ -1,9 +1,6 @@
-using System;
-using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using static UnityEditor.MaterialProperty;
+
 
 
 /// <summary>
@@ -26,10 +23,10 @@ public class ClientChatPage : ChatPage
     /// Llamado al recibir la respuesta del LLM de cual es el tipo de prompt
     /// </summary>
     /// <param name="promptType"></param>
-    private void recieveClientPromptType(ClientPromptType promptType)
+    private void recieveClientPromptType(int promptType)
     {
-        _currentPromptType = promptType;
-        switch (promptType)
+        _currentPromptType = (ClientPromptType)promptType;
+        switch (_currentPromptType)
         {
             case ClientPromptType.Question: _llmConnectorClientChatTextChecker.SendPrompt(recieveClientChatCoherentQuestion, recieveError, _prompt, 0); break;
             case ClientPromptType.Conversation: _llmConnectorClientChatTextChecker.SendPrompt(recieveClientChatCoherentQuestion, recieveError, _prompt, 1); break;
