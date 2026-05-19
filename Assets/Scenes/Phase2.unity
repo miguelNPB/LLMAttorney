@@ -3411,8 +3411,7 @@ MonoBehaviour:
   safeguardSteps: 
   historicalConversation: "Analiza el hist\xF3rico de conversaci\xF3n que se te proporciona
     junto con la nueva pregunta.\r\n\r\nEl hist\xF3rico contiene pares de pregunta
-    y respuesta anteriores.\r\n\r\nSi el documento es relevante a lo que se esta
-    hablando, pon el campo EsValido a true, si no, a false\r\n"
+    y respuesta anteriores.\r\n"
   _stepChecks: []
   _temperature: 0.2
   _ragUse: 0

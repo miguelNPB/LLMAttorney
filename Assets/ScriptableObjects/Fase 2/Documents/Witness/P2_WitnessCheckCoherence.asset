@@ -12,11 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eea7ce61ff8c3a4eada52736d65ef63, type: 3}
   m_Name: P2_WitnessCheckCoherence
   m_EditorClassIdentifier: Assembly-CSharp::LLMConfig
-  _context: 
-  _safeguard: 
-  _historicHeader: 
+  _context: "Redacta la declaracion del testigo sobre el hecho que se ha pedido:\n\nEl
+    estilo debe ser natural pero claro, como si fuera una declaraci\xF3n oficial\n\nIMPORTANTE:\n-
+    Debes incluir EXACTAMENTE estos encabezados, respetando may\xFAsculas y formato:\n\tDatos
+    del testigo (nombre ficticio, edad, profesi\xF3n)\n\tDeclaracion (En primera
+    persona)\n\tDescripci\xF3n cronol\xF3gica de los hechos\n\tDetalles sensoriales
+    (lo que vio, oy\xF3, etc.)\n\tNivel de seguridad o dudas en lo declarado\n\tCierre
+    formal (fecha y firma)\n\n- No a\xF1adas ning\xFAn otro encabezado ni formato
+    (sin HTML, sin etiquetas, sin negritas, sin cursivas).\n- Cada secci\xF3n debe
+    ir en una l\xEDnea separada con su contenido debajo.\n- El texto entre par\xE9ntesis
+    en los encabezados NO debe repetirse ni desarrollarse.\n"
+  _safeguard: "DIRECTIVA \u2014 VALIDACI\xD3N TESTIMONIO\n\nEval\xFAa el documento
+    sin modificarlo.\n\nDevuelve:\n\"isCoherent\" (bool)\n\n---\n\nCRITERIOS\n\nTRUE
+    solo si:\n\n* Es una declaraci\xF3n personal o relato de hechos\n* Que tenga
+    la estructura de (datos testigo + declaracion + descripcion cronologica + nivel
+    de seguridad + cierre formal)\n* Tiene sentido y coherencia narrativa\n* Est\xE1
+    relacionado con un contexto realista\n* Est\xE1 principalmente en espa\xF1ol\n\nFALSE
+    si:\n\n* No es un testimonio\n* Es incoherente o sin sentido\n* Mezcla clara
+    de idiomas\n\n---\n\nREGLAS\n\n* No corregir\n* No modificar\n* No explicar\n*
+    En caso de duda \u2192 TRUE\n\n\nSALIDA NO PERMITIDA:\nexplicaciones\nconfirmaciones\ncomentarios\netiquetas\n"
+  _historicHeader: "Analiza el hist\xF3rico de conversaci\xF3n que se te proporciona
+    junto con la nueva pregunta.\n\nEl hist\xF3rico contiene pares de pregunta y
+    respuesta anteriores.\n"
   _stepChecks: []
   _stepsCommonSafeguard: 
-  _temperature: 0
+  _temperature: 0.2
   _ragUse: 0
   _ragFile: 0
