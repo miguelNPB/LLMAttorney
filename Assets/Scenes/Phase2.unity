@@ -2943,16 +2943,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
-  context: "CONTEXTO \u2014 GENERACI\xD3N DE PRESUPUESTOS\r\n\r\nEres una herramienta
-    que genera presupuestos para documentos necesarios en la preparaci\xF3n de un
-    caso civil en Espa\xF1a.\r\n\r\nDebes generar informaci\xF3n sobre el coste de
-    distintos tipos de documentos, que pueden ser:\r\n\r\n* informe pericial\r\n*
-    informe general\r\n* testimonio\r\n* factura o recibo\r\n\r\nTu objetivo es indicar
-    cu\xE1nto cuesta obtener estos documentos dentro de un caso civil, utilizando
-    valores realistas del mercado en Espa\xF1a.\r\n\r\nTodas las respuestas deben
-    centrarse en estos documentos y en su coste dentro del proceso legal.\r\n"
-  safeguard: "SAFEGUARD \u2014 COSTE DEL DOCUMENTO (VERSI\xD3N ACTUALIZADA)\r\n\r\nDebes
-    generar el campo: \"CosteDocumento\" (int)\r\n\r\n---\r\n\r\nREGLAS\r\n\r\n*
+  context: "Eres una herramienta que genera presupuestos para documentos necesarios
+    en la preparaci\xF3n de un caso civil en Espa\xF1a.\r\n\r\nDebes generar informaci\xF3n
+    sobre el coste de distintos tipos de documentos, que pueden ser:\r\n\r\n* informe
+    pericial\r\n* informe general\r\n* testimonio\r\n* factura o recibo\r\n\r\nTu
+    objetivo es indicar cu\xE1nto cuesta obtener estos documentos dentro de un caso
+    civil, utilizando valores realistas del mercado en Espa\xF1a.\r\n\r\nTodas las
+    respuestas deben centrarse en estos documentos y en su coste dentro del proceso
+    legal.\r\n"
+  safeguard: "Debes generar el campo: \"CosteDocumento\" (int)\r\n\r\n---\r\n\r\nREGLAS\r\n\r\n*
     El valor debe ser un n\xFAmero entero\r\n* Debe representar el coste de obtener
     el documento en Espa\xF1a\r\n* Debe basarse en los precios disponibles en el
     RAG\r\n\r\n---\r\n\r\nRESTRICCIONES\r\n\r\n* No inventar precios sin referencia\r\n*
@@ -2960,8 +2959,7 @@ MonoBehaviour:
     el valor a rangos realistas seg\xFAn el tipo de documento\r\n\r\n---\r\n\r\nEN
     CASO DE DUDA\r\n\r\n* usar el valor m\xE1s cercano presente en el RAG\r\n"
   safeguardSteps: 
-  historicalConversation: "HIST\xD3RICO \u2014 CONSISTENCIA DE PRESUPUESTOS (VERSI\xD3N
-    ACTUALIZADA)\r\n\r\nDispones de un hist\xF3rico de respuestas previas.\r\n\r\n---\r\n\r\nREGLAS\r\n\r\n*
+  historicalConversation: "Dispones de un hist\xF3rico de respuestas previas.\r\n\r\n---\r\n\r\nREGLAS\r\n\r\n*
     Usa los presupuestos ya generados como referencia\r\n\r\n* Mant\xE9n coherencia
     entre respuestas similares\r\n\r\n* Si se repite el mismo tipo de documento:\r\n\r\n 
     * y ya se ha generado previamente \u2192 \"CosteDocumento\" = 0\r\n  * en otros

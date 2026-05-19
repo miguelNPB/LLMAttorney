@@ -8,7 +8,7 @@ public class LLMConnectorDocumentsBudget : LLMConnector
 {
     private class DocumentBudgetResponse
     {
-        public int CosteDocumento;
+        public int cost;
     }
 
     private Action<int> _responseCallback;
@@ -36,7 +36,7 @@ public class LLMConnectorDocumentsBudget : LLMConnector
     {
         DocumentBudgetResponse jsonResponse = JsonUtility.FromJson<DocumentBudgetResponse>(finalSerializedResponse);
 
-        _responseCallback?.Invoke(jsonResponse.CosteDocumento);
+        _responseCallback?.Invoke(jsonResponse.cost);
     }
 
     protected override void createJsonSchemas()
