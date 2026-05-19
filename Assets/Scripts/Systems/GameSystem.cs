@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Sistema para almacenar cosas persistentes y sobre el caso. Tiene el notepad y caseData
+/// </summary>
 public class GameSystem : MonoBehaviour
 {
     [SerializeField] private Notepad _notepad;
@@ -43,8 +46,18 @@ public class GameSystem : MonoBehaviour
         
         CreateExampleCaseData();
     }
+    
+    /// <summary>
+    /// Lee el case data y lo inicializa. Lee el json con el contenido
+    /// </summary>
+    public void ReadCaseData()
+    {
 
+    }
 
+    /// <summary>
+    /// Metodo solo usable en pruebas para limpiar los documentos del cliente
+    /// </summary>
     public void DEBUG_ClearPlayerDocs()
     {
         _caseData.documentManager.DEBUG_ClearPlayerDocs();
@@ -59,10 +72,14 @@ public class GameSystem : MonoBehaviour
         _notepad.ToggleNotepad(on);
     }
 
+    /// <summary>
+    /// Reinicia el notepad
+    /// </summary>
     public void ResetNotepad()
     {
         _notepad.ResetText();
     }
+
 
     private void Init()
     {

@@ -7,21 +7,27 @@ using IFont = iTextSharp.text.Font;
 using IDocument = iTextSharp.text.Document;
 using iTextSharp.text.pdf;
 
+/// <summary>
+/// Clase para crear un pdf a partir del contenido de un caso
+/// </summary>
 public class CasePdfBuilder : MonoBehaviour
 {
     [Header("Output folder")]
     [Tooltip("Ruta absoluta, o relativa a Application.dataPath")]
     public string ragFolderPath = "RAG/casos_civiles";
 
-
-    public string Build(string content)
+    /// <summary>
+    /// Crea un pdf a partir del contenido de un caso.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="content"></param>
+    /// <returns></returns>
+    public string Build(int id, string path, string content)
     {
         Debug.Log("[CasePdfBuilder] Building PDF with content length: " + content.Length + "\nContent:\n\n" + content);
 
-        string folder = WinDirSelect.Open("Selecciona la carpeta de RAGs del servidor", Path.Combine(Application.dataPath, ragFolderPath));
-
-        string filePath = Path.Combine(folder,
-            $"caso_civil_{DateTime.Now:yyyyMMdd_HHmmss}.pdf");
+        
+        string filePath = Path.Combine(path,$"savedCaseContent_{id}.pdf");
 
         Debug.Log("[CasePdfBuilder] Output file path: " + filePath);
 
