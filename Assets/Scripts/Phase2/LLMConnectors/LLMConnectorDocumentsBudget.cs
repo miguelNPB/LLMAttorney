@@ -42,6 +42,6 @@ public class LLMConnectorDocumentsBudget : LLMConnector
     protected override void createJsonSchemas()
     {
         _contextSchema = new JsonSchema();
-        _contextSchema.properties.Add("documentQueryType", new PropertyInfo(JsonDataType.Integer));
+        _contextSchema.properties.Add("cost", new PropertyInfo(JsonDataType.Integer));
     }
 }

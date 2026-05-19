@@ -26,6 +26,9 @@ public class ClientChatPage : ChatPage
     private void recieveClientPromptType(int promptType)
     {
         _currentPromptType = (ClientPromptType)promptType;
+
+        Debug.Log(_currentPromptType.ToString());
+
         switch (_currentPromptType)
         {
             case ClientPromptType.Question: _llmConnectorClientChatTextChecker.SendPrompt(recieveClientChatCoherentQuestion, recieveError, _prompt, 0); break;

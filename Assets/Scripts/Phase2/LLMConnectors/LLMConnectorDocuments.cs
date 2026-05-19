@@ -89,11 +89,11 @@ public class LLMConnectorDocuments : LLMConnector
     protected override void createJsonSchemas()
     {
         _contextSchema = new JsonSchema();
-        _contextSchema.properties.Add("NombreDocumento", new PropertyInfo(JsonDataType.String));
-        _contextSchema.properties.Add("ContenidoDocumento", new PropertyInfo(JsonDataType.String));
+        _contextSchema.properties.Add("documentName", new PropertyInfo(JsonDataType.String));
+        _contextSchema.properties.Add("documentContent", new PropertyInfo(JsonDataType.String));
 
         _stepsSchema = new JsonSchema();
-        _stepsSchema.properties.Add("NombreDocumento", new PropertyInfo(JsonDataType.String));
-        _stepsSchema.properties.Add("ContenidoDocumento", new PropertyInfo(JsonDataType.String));
+        _stepsSchema.properties.Add("documentName", new PropertyInfo(JsonDataType.String));
+        _stepsSchema.properties.Add("documentContent", new PropertyInfo(JsonDataType.String));
     }
 }
