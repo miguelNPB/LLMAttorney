@@ -52,22 +52,8 @@ MonoBehaviour:
   _historicHeader: "Analiza el hist\xF3rico de conversaci\xF3n que se te proporciona
     junto con la nueva pregunta.\n\nEl hist\xF3rico contiene pares de pregunta y
     respuesta anteriores.\n"
-  _stepChecks:
-  - "Comprueba que el campo del JSON documentContent sea un recibo / ticket / factura
-    simplificada en espa\xF1a. Si es asi no cambies nada y devuelve exactamente lo
-    mismo, si no, modifica documentContent para que sea un recibo / ticket / factura
-    simplificada en espa\xF1a sobre lo que se pidio."
-  - "Comprueba que el campo documentContent esta entero en espa\xF1ol, si no es asi,
-    traducelo todo al espa\xF1ol"
-  _stepsCommonSafeguard: 'No acortes el texto ni modifiques las variables del JSON
-    que no se indican en el prompt.
-
-
-
-    Devuelve siempre al final el JSON que
-    se te proporciona solo modificando el campo que se te indique.
-
-'
+  _stepChecks: []
+  _stepsCommonSafeguard: 
   _temperature: 0.4
   _ragUse: 0
   _ragFile: 2
