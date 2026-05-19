@@ -13,10 +13,9 @@ public class ClientMeetingManager : MonoBehaviour
 
     [SerializeField] private TMP_Text resultText;
 
-    [SerializeField] private LLMConnectorTextChecker _llmConnectorQuestionChecker;
+    [SerializeField] private LLMConnectorTextChecker _llmConnectorTextChecker;
     [SerializeField] private LLMConnectorBudgetChecker _llmConnectorBudgetChecker;
     [SerializeField] private LLMConnectorClientMeeting _llmConnectorClientMeeting;
-    [SerializeField] private LLMConnectorTextChecker _llmConnectorResponseChecker;
     [SerializeField] private LLMConnectorHireLawyerCheck _llmConnectorLawyerHireCheck; //Falta
 
     private string _pendingMessage = "";
@@ -63,7 +62,7 @@ public class ClientMeetingManager : MonoBehaviour
         StartCoroutine(CoroutinePendingMessage());
 
         _prompt = _inputField.text;
-        _llmConnectorQuestionChecker.SendPrompt(recieveQuestionCheckerResponse, endClientMeeting, _prompt, 0);
+        _llmConnectorTextChecker.SendPrompt(recieveQuestionCheckerResponse, endClientMeeting, _prompt, 0);
     }
 
     /// <summary>
@@ -84,9 +83,6 @@ public class ClientMeetingManager : MonoBehaviour
     /// <param name="isCoherent"></param>
     private void recieveQuestionCheckerResponse(bool isCoherent)
     {
-
-        Debug.Log("Envia presupuestos");
-
         if (isCoherent)
         {
             _llmConnectorBudgetChecker.SendPrompt(recieveBudgetCheckerResponse, endClientMeeting, _inputField.text);
@@ -112,10 +108,8 @@ public class ClientMeetingManager : MonoBehaviour
 
     private void reciveClientMeetingResponse(string answer, bool isValid)
     {
-
         _tempAnswer = answer;
-        _llmConnectorResponseChecker.SendPrompt(recieveResponseCheckerResponse, endClientMeeting, _tempAnswer, 1);
-
+        _llmConnectorTextChecker.SendPrompt(recieveResponseCheckerResponse, endClientMeeting, _tempAnswer, 1);
     }
 
     /// <summary>

@@ -73,9 +73,14 @@ public class ConciliationPage : IPage
         _inputFieldText.text = "";
     }
 
+    /// <summary>
+    /// Se llama si algo falla con la comunicacion al servidor
+    /// </summary>
+    /// <param name="text"></param>
     private void errorResponse(string text)
     {
         restartProposition();
+        _clienteAnswerText.text = "Error con el servidor: " + text;
     }
 
     /// <summary>

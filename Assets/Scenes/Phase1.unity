@@ -3073,10 +3073,9 @@ MonoBehaviour:
   _changePhaseButton: {fileID: 383718594}
   _inputField: {fileID: 160238200}
   resultText: {fileID: 6430441125739056710}
-  _llmConnectorQuestionChecker: {fileID: 6430441125739056715}
+  _llmConnectorTextChecker: {fileID: 6430441125739056715}
   _llmConnectorBudgetChecker: {fileID: 6430441125739056716}
   _llmConnectorClientMeeting: {fileID: 6430441125739056714}
-  _llmConnectorResponseChecker: {fileID: 6430441125739056715}
   _llmConnectorLawyerHireCheck: {fileID: 6430441125739056717}
 --- !u!224 &7996628435419659413 stripped
 RectTransform:

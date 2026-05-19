@@ -1,107 +1,89 @@
-using Telemetry;
+using System;
 using UnityEngine;
 
-//Para generar documentos a partir de la llm
-
-public class LLMConnectorDocuments : LLMConector
+/// <summary>
+/// LLMConnector para generar el contenido de los documentos
+/// </summary>
+public class LLMConnectorDocuments : LLMConnector
 {
     private class DocumentResponse
     {
-        public string NombreDocumento;
-        public string ContenidoDocumento;
+        public string documentName;
+        public string documentContent;
     }
 
-    [SerializeField]
-    private ChatPage _msgUIComponent;
+    Action<string, string> _responseCallback;
 
-    [SerializeField]
-    private LLMConnectorDocumentsChecker _checker;
+    // ORDEN DE LOS LLMCONFIG
+    // 0 = client perito
+    // 1 = client informe
+    // 2 = client testigo
+    // 3 = client factura
+    // 4 = rival perito valido
+    // 5 = rival informe valido
+    // 6 = rival testigo valido
+    // 7 = rival factura valido
+    // 8 = rival perito no valido
+    // 9 = rival informe no valido
+    // 10 = rival testigo no valido
+    // 11 = rival factura no valido
 
-    private bool _firstTime = true;
-
-    private ClientPromptType _type;
-
-    private int _messageID = -1;
-
-    protected override void receiveResponse(bool success, string answer)
+    /// <summary>
+    /// Manda el prompt de generar el documento.
+    /// </summary>
+    /// <param name="prompt">Prompt</param>
+    /// <param name="docType">Tipo de documento</param>
+    /// <param name="isPlayer">Si para el cliente el documento o del rival</param>
+    /// <param name="isValid">Si el documento es valido en la audiencia previa o no</param>
+    public void SendPrompt(Action<string, string> responseCallback, Action<string> errorCallback, string prompt, DocumentType docType, bool isPlayer, bool isValid = true)
     {
+        clearHistoricText();
+        appendHistoricText(GameSystem.Instance.CaseData.caseDescription);
 
-        if (success)
+        _responseCallback = responseCallback;
+
+        int configIndex = 0;
+        switch (docType)
         {
-            DocumentResponse jsonResponse = JsonUtility.FromJson<DocumentResponse>(answer);
-
-            if (_stepCounter == 0)
-            {
-                
-            }
-
-            if (_stepCounter < _config[_indexConfig].getStepsChecks().Length)
-            {
-                sendSecuritySteps(answer);
-            }
-            else
-            {
-
-                _stepCounter = 0;
-                _promptSent = false;
-
-                _historical.Add("Respuesta :" + answer);
-
-                _checker.CallSendContext(_type, jsonResponse.NombreDocumento, jsonResponse.ContenidoDocumento, _messageID, _indexConfig);
-                
-            }
+            case DocumentType.Perito:
+                configIndex = isPlayer ? 0 : (isValid ? 4 : 8);
+                break;
+            case DocumentType.Report:
+                configIndex = isPlayer ? 1 : (isValid ? 5 : 9);
+                break;
+            case DocumentType.Witness:
+                configIndex = isPlayer ? 2 : (isValid ? 6 : 10);
+                break;
+            case DocumentType.ReceiptFacture:
+                configIndex = isPlayer ? 3 : (isValid ? 7 : 11);
+                break;
         }
-        else
-        {
-            Debug.LogError("Error en la llamada al LLM: " + answer);
-            _msgUIComponent.EndPendingMessage("Error al contactar con el modelo.");
-        }
+        sendPrompt(recieveFinalResponse, errorCallback, prompt, configIndex);
     }
 
-    public void CallSendContext(ClientPromptType type, int indexConfig = 0)
+    /// <summary>
+    /// Metodo final para devolver la respuesta
+    /// </summary>
+    /// <param name="finalSerializedResponse"></param>
+    private void recieveFinalResponse(string finalSerializedResponse)
     {
-        _type = type;
+        DocumentResponse jsonResponse = JsonUtility.FromJson<DocumentResponse>(finalSerializedResponse);
 
-        _messageID = EventManager.Instance.getMessageID();
-
-        TelemetryDispatch.SendQueryPost(_messageID);
-
-        sendContextPrompt(indexConfig);  
+        _responseCallback?.Invoke(jsonResponse.documentName, jsonResponse.documentContent);
     }
 
-    /**
-     * Metodo encargado de enviar un mensaje al LLM con todas las especificaciones obtenidas de ConfigLLMInfo
-     */
-    protected override bool sendContextPrompt(int indexConfig = 0)
+    protected override string deseralizePromptFirstResponse(string serializedResponse)
     {
-        //_msgUIComponent.StartPendingMessage(false);
-        if(_firstTime)
-        {
-            _historical.Add(GameSystem.Instance.CaseData.caseDescription);
-            _firstTime = false;
-        }
-        bool messageSent = base.sendContextPrompt(indexConfig);
+        DocumentResponse jsonResponse = JsonUtility.FromJson<DocumentResponse>(serializedResponse);
 
-        if (!messageSent)
-        {
-            _msgUIComponent.EndPendingMessage("Fallo de conexion, escriba de nuevo la pregunta");
-        }
-
-        return messageSent;
+        return jsonResponse.documentContent;
     }
 
-    protected override bool sendSecuritySteps(string prompt)
+    protected override string deseralizePromptStepResponse(string serializedResponse)
     {
-        //_msgUIComponent.StartPendingMessage(false);
+        DocumentResponse jsonResponse = JsonUtility.FromJson<DocumentResponse>(serializedResponse);
 
-        bool securityStepSent = base.sendSecuritySteps(prompt);
-
-        if (!securityStepSent)
-        {
-            _msgUIComponent.EndPendingMessage("Fallo de conexion, escriba de nuevo la pregunta");
-        }
-
-        return securityStepSent;
+        return jsonResponse.documentContent;
     }
 
     protected override void createJsonSchemas()
@@ -113,13 +95,5 @@ public class LLMConnectorDocuments : LLMConector
         _stepsSchema = new JsonSchema();
         _stepsSchema.properties.Add("NombreDocumento", new PropertyInfo(JsonDataType.String));
         _stepsSchema.properties.Add("ContenidoDocumento", new PropertyInfo(JsonDataType.String));
-
-        _schemasCreated = true;
     }
-
-    private void Awake()
-    {
-        createJsonSchemas();
-    }
-
 }

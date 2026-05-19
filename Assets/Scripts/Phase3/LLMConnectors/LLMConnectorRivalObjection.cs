@@ -22,6 +22,11 @@ public class LLMConnectorRivalObjection : LLMConnector
         _baseContext = _llmConfigs[_configIndex].GetContext();
     }
 
+    /// <summary>
+    /// Metodo publico para activar el funcionamiento de este LLMConnector
+    /// </summary>
+    /// <param name="responseCallback"></param>
+    /// <param name="prompt"></param>
     public void SendPrompt(string documentContent, Action<bool> onRecievePrompt, Action<string> errorCallback)
     {
         string newContext = _baseContext.Replace("@", GameSystem.Instance.CaseData.caseDescription);
@@ -30,9 +35,6 @@ public class LLMConnectorRivalObjection : LLMConnector
 
         _responseCallback = onRecievePrompt;
         sendPrompt(recieveFinalResponse, errorCallback, documentContent, 0);
-
-        _messageID = EventManager.Instance.getMessageID();
-        Telemetry.TelemetryDispatch.SendQueryPost(_messageID);
     }
 
     /// <summary>

@@ -2084,102 +2084,6 @@ RectTransform:
   m_AnchoredPosition: {x: -2.0787964, y: 46.0726}
   m_SizeDelta: {x: 1734.7898, y: 836.0345}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &372433195
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 372433196}
-  - component: {fileID: 372433198}
-  - component: {fileID: 372433197}
-  - component: {fileID: 372433199}
-  m_Layer: 5
-  m_Name: ForeGround
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &372433196
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 372433195}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 360351042137608086}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1920, y: 1080}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &372433197
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 372433195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Texture: {fileID: 2800000, guid: aeadf35276de27a4087b7d256558a8d0, type: 3}
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
---- !u!222 &372433198
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 372433195}
-  m_CullTransparentMesh: 1
---- !u!223 &372433199
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 372433195}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 1
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 3
-  m_TargetDisplay: 0
 --- !u!1 &394601976
 GameObject:
   m_ObjectHideFlags: 0
@@ -2598,17 +2502,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aa6d650c28fe624bb42345e8e7be9c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorDocuments
-  _config:
-  - {fileID: 1186516266}
-  - {fileID: 1129028370}
-  - {fileID: 1684070447}
-  - {fileID: 99836138}
-  _inputField: {fileID: 1486098271155247792}
-  _useSecuritySteps: 1
+  _llmConfigs: []
+  _useSteps: 1
   _useHistoricalInContext: 1
   _useHistoricalInSteps: 1
-  _msgUIComponent: {fileID: 2458100822278062543}
-  _checker: {fileID: 512123792}
 --- !u!4 &512123791
 Transform:
   m_ObjectHideFlags: 0
@@ -2650,8 +2547,22 @@ MonoBehaviour:
   _useSecuritySteps: 0
   _useHistoricalInContext: 1
   _useHistoricalInSteps: 0
+  _historical: []
+  _stepCounter: 0
+  _promptSent: 0
+  _indexConfig: 0
+  _contextSchema:
+    required: []
+  _stepsSchema:
+    required: []
+  _schemasCreated: 0
   _msgUIComponent: {fileID: 2458100822278062543}
   _budget: {fileID: 512123793}
+  _firstTime: 1
+  _type: 0
+  _docName: 
+  _docContent: 
+  _messageID: 0
 --- !u!114 &512123793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2664,13 +2575,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d814ec940a8f8b14b9f2651e7caec7be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorDocumentsBudget
-  _config:
-  - {fileID: 610842254}
-  _inputField: {fileID: 1486098271155247792}
-  _useSecuritySteps: 0
+  _llmConfigs: []
+  _useSteps: 1
   _useHistoricalInContext: 1
   _useHistoricalInSteps: 0
-  _msgUIComponent: {fileID: 2458100822278062543}
 --- !u!1 &516469881
 GameObject:
   m_ObjectHideFlags: 0
@@ -2681,8 +2589,11 @@ GameObject:
   m_Component:
   - component: {fileID: 516469883}
   - component: {fileID: 516469884}
+  - component: {fileID: 516469886}
+  - component: {fileID: 516469885}
+  - component: {fileID: 516469887}
   m_Layer: 0
-  m_Name: LLMDocsOpponent
+  m_Name: RivalDocsManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2701,7 +2612,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1330613495}
   - {fileID: 264401407}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2717,15 +2627,77 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdb10bfa7b77f2f4c8627faf0c06a4c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OpponentDocProcuration
-  minIntervalSeconds: 60
-  maxIntervalSeconds: 180
-  maxStartingDocs: 5
-  docValidThemes: []
-  docInvalidThemes: []
-  _llmConnectorOpponentDocGeneration: {fileID: 0}
-  _llmConnectorOpponentDocList: {fileID: 0}
-  _generateDocumentsListConfig: {fileID: 0}
+  _minIntervalSeconds: 60
+  _maxIntervalSeconds: 120
+  _maxStartingDocs: 2
+  _minStartingDocs: 5
+  _documentGenerationManager: {fileID: 516469886}
   _procuradorPage: {fileID: 8220094570629320639}
+--- !u!114 &516469885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516469881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aa6d650c28fe624bb42345e8e7be9c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorDocuments
+  _llmConfigs:
+  - {fileID: 11400000, guid: e159c974c90aef44bb32ee45d7fc9484, type: 2}
+  - {fileID: 11400000, guid: 1c6c179a849366d4f8bb05a1b6448108, type: 2}
+  - {fileID: 11400000, guid: b829bf71d66854a4796f7e196438e2e7, type: 2}
+  - {fileID: 11400000, guid: 1e1db51ee1583c441be10ddb6c45ab47, type: 2}
+  - {fileID: 11400000, guid: e5def5129cfce904eaac6d1fae94ac07, type: 2}
+  - {fileID: 11400000, guid: 0670dea2436655f40b9871709875096a, type: 2}
+  - {fileID: 11400000, guid: 3c73fd99c0f4d2846a1a5fd4067b7930, type: 2}
+  - {fileID: 11400000, guid: 7ebafec54386b7546a0ecaf3db09e4b9, type: 2}
+  - {fileID: 11400000, guid: 1f493b80a9b65ff41a5e91a67d1826fe, type: 2}
+  - {fileID: 11400000, guid: 9546b56d7e01e4047b705e916a978336, type: 2}
+  - {fileID: 11400000, guid: 5f4506efe45b7794d84ea059cb8d55ac, type: 2}
+  - {fileID: 11400000, guid: 1aa472bd5e821e549b0c29f9312c445a, type: 2}
+  _useSteps: 1
+  _useHistoricalInContext: 1
+  _useHistoricalInSteps: 0
+--- !u!114 &516469886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516469881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be1901335def3274180914264fa26ac8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DocumentGenerationManager
+  _llmConnectorDocContent: {fileID: 516469885}
+  _llmConnectorDocBudget: {fileID: 0}
+  _llmConnectorTextChecker: {fileID: 516469887}
+  _prompt: "Necesito que generes un documento de texto para un caso jur\xEDdico espa\xF1ol.
+    Utiliza el contexto que se te ha suminstrado para generar los campos necesarios."
+--- !u!114 &516469887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516469881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7801c34988c19fc49a60d29e88901ed3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorTextChecker
+  _llmConfigs:
+  - {fileID: 11400000, guid: 13ee52fac2378d643b98588177be80e9, type: 2}
+  - {fileID: 11400000, guid: 638be89377a9bff4c9c9023430fb8513, type: 2}
+  - {fileID: 11400000, guid: 54408fab4cd974248aeb9586d70ffc4a, type: 2}
+  - {fileID: 11400000, guid: 53a803fda0bf94e41949862fa1e4d7ad, type: 2}
+  _useSteps: 0
+  _useHistoricalInContext: 0
+  _useHistoricalInSteps: 0
 --- !u!1 &545925051
 GameObject:
   m_ObjectHideFlags: 0
@@ -2872,7 +2844,7 @@ GameObject:
   m_Component:
   - component: {fileID: 556074346}
   m_Layer: 5
-  m_Name: detachedDocParent
+  m_Name: DocumentsWindowParent
   m_TagString: DetachedDocParent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2971,16 +2943,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
-  context: "CONTEXTO \u2014 GENERACI\xD3N DE PRESUPUESTOS\r\n\r\nEres una herramienta
-    que genera presupuestos para documentos necesarios en la preparaci\xF3n de un
-    caso civil en Espa\xF1a.\r\n\r\nDebes generar informaci\xF3n sobre el coste de
-    distintos tipos de documentos, que pueden ser:\r\n\r\n* informe pericial\r\n*
-    informe general\r\n* testimonio\r\n* factura o recibo\r\n\r\nTu objetivo es indicar
-    cu\xE1nto cuesta obtener estos documentos dentro de un caso civil, utilizando
-    valores realistas del mercado en Espa\xF1a.\r\n\r\nTodas las respuestas deben
-    centrarse en estos documentos y en su coste dentro del proceso legal.\r\n"
-  safeguard: "SAFEGUARD \u2014 COSTE DEL DOCUMENTO (VERSI\xD3N ACTUALIZADA)\r\n\r\nDebes
-    generar el campo: \"CosteDocumento\" (int)\r\n\r\n---\r\n\r\nREGLAS\r\n\r\n*
+  context: "Eres una herramienta que genera presupuestos para documentos necesarios
+    en la preparaci\xF3n de un caso civil en Espa\xF1a.\r\n\r\nDebes generar informaci\xF3n
+    sobre el coste de distintos tipos de documentos, que pueden ser:\r\n\r\n* informe
+    pericial\r\n* informe general\r\n* testimonio\r\n* factura o recibo\r\n\r\nTu
+    objetivo es indicar cu\xE1nto cuesta obtener estos documentos dentro de un caso
+    civil, utilizando valores realistas del mercado en Espa\xF1a.\r\n\r\nTodas las
+    respuestas deben centrarse en estos documentos y en su coste dentro del proceso
+    legal.\r\n"
+  safeguard: "Debes generar el campo: \"CosteDocumento\" (int)\r\n\r\n---\r\n\r\nREGLAS\r\n\r\n*
     El valor debe ser un n\xFAmero entero\r\n* Debe representar el coste de obtener
     el documento en Espa\xF1a\r\n* Debe basarse en los precios disponibles en el
     RAG\r\n\r\n---\r\n\r\nRESTRICCIONES\r\n\r\n* No inventar precios sin referencia\r\n*
@@ -2988,8 +2959,7 @@ MonoBehaviour:
     el valor a rangos realistas seg\xFAn el tipo de documento\r\n\r\n---\r\n\r\nEN
     CASO DE DUDA\r\n\r\n* usar el valor m\xE1s cercano presente en el RAG\r\n"
   safeguardSteps: 
-  historicalConversation: "HIST\xD3RICO \u2014 CONSISTENCIA DE PRESUPUESTOS (VERSI\xD3N
-    ACTUALIZADA)\r\n\r\nDispones de un hist\xF3rico de respuestas previas.\r\n\r\n---\r\n\r\nREGLAS\r\n\r\n*
+  historicalConversation: "Dispones de un hist\xF3rico de respuestas previas.\r\n\r\n---\r\n\r\nREGLAS\r\n\r\n*
     Usa los presupuestos ya generados como referencia\r\n\r\n* Mant\xE9n coherencia
     entre respuestas similares\r\n\r\n* Si se repite el mismo tipo de documento:\r\n\r\n 
     * y ya se ha generado previamente \u2192 \"CosteDocumento\" = 0\r\n  * en otros
@@ -3439,8 +3409,7 @@ MonoBehaviour:
   safeguardSteps: 
   historicalConversation: "Analiza el hist\xF3rico de conversaci\xF3n que se te proporciona
     junto con la nueva pregunta.\r\n\r\nEl hist\xF3rico contiene pares de pregunta
-    y respuesta anteriores.\r\n\r\nSi el documento es relevante a lo que se esta
-    hablando, pon el campo EsValido a true, si no, a false\r\n"
+    y respuesta anteriores.\r\n"
   _stepChecks: []
   _temperature: 0.2
   _ragUse: 0
@@ -5326,58 +5295,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1327534094}
   m_CullTransparentMesh: 1
---- !u!1 &1330613493
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1330613495}
-  - component: {fileID: 1330613494}
-  m_Layer: 0
-  m_Name: DocumentOpponent
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1330613494
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1330613493}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00a1600378ea1894197053589497db2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorOpponentDocuments
-  _config:
-  - {fileID: 264401406}
-  _inputField: {fileID: 0}
-  _useSecuritySteps: 1
-  _useHistoricalInContext: 1
-  _useHistoricalInSteps: 0
-  _procuradorPage: {fileID: 8220094570629320639}
-  oppPrompt: 
---- !u!4 &1330613495
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1330613493}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 516469883}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1342102160
 GameObject:
   m_ObjectHideFlags: 0
@@ -6940,6 +6857,64 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1804846547}
   m_CullTransparentMesh: 1
+--- !u!1 &1824619994
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1824619995}
+  - component: {fileID: 1824619996}
+  m_Layer: 5
+  m_Name: ClientDocumentsTextChecker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1824619995
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1824619994}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4617608515042853246}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1824619996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1824619994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7801c34988c19fc49a60d29e88901ed3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorTextChecker
+  _llmConfigs:
+  - {fileID: 11400000, guid: 53a803fda0bf94e41949862fa1e4d7ad, type: 2}
+  - {fileID: 11400000, guid: 53a803fda0bf94e41949862fa1e4d7ad, type: 2}
+  - {fileID: 11400000, guid: 13ee52fac2378d643b98588177be80e9, type: 2}
+  - {fileID: 11400000, guid: 638be89377a9bff4c9c9023430fb8513, type: 2}
+  - {fileID: 11400000, guid: 54408fab4cd974248aeb9586d70ffc4a, type: 2}
+  - {fileID: 11400000, guid: 53a803fda0bf94e41949862fa1e4d7ad, type: 2}
+  _useSteps: 0
+  _useHistoricalInContext: 0
+  _useHistoricalInSteps: 0
 --- !u!1 &1827592503
 GameObject:
   m_ObjectHideFlags: 0
@@ -8027,6 +8002,60 @@ RectTransform:
   m_AnchoredPosition: {x: -729.38855, y: 181.5}
   m_SizeDelta: {x: -1636.7972, y: -1004.5317}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2033328443
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2033328444}
+  - component: {fileID: 2033328445}
+  m_Layer: 5
+  m_Name: ClientQuestionTextChecker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2033328444
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033328443}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4617608515042853246}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2033328445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033328443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7801c34988c19fc49a60d29e88901ed3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorTextChecker
+  _llmConfigs:
+  - {fileID: 11400000, guid: afcb77e5591d12544a045eedeb728c97, type: 2}
+  - {fileID: 11400000, guid: c1d4b7ec86ac3c142bf147c98aef019f, type: 2}
+  _useSteps: 0
+  _useHistoricalInContext: 0
+  _useHistoricalInSteps: 0
 --- !u!1 &2043078040
 GameObject:
   m_ObjectHideFlags: 0
@@ -9661,7 +9690,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8728627107141110691}
-  - {fileID: 372433196}
   - {fileID: 5094999031399331850}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13319,8 +13347,10 @@ MonoBehaviour:
   _playerColor: {r: 0.495283, g: 1, b: 0.495283, a: 1}
   _scrollSpeed: 15
   _inputField: {fileID: 1486098271155247792}
-  _llmConnectorDocs: {fileID: 512123790}
+  _documentGenerationManager: {fileID: 5197592209566044570}
+  _llmConnectorClientChatTextChecker: {fileID: 2033328445}
   _llmConnectorClientChat: {fileID: 1631395630908722945}
+  _llmConnectorClientTypePrompt: {fileID: 5197592209566044571}
 --- !u!224 &2472186752245920705
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18212,6 +18242,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2033328444}
+  - {fileID: 1824619995}
   - {fileID: 1267117224}
   m_Father: {fileID: 8728627107141110691}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -19694,7 +19726,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4617608515042853246}
   - component: {fileID: 2458100822278062543}
+  - component: {fileID: 5197592209566044570}
+  - component: {fileID: 5197592209566044571}
   - component: {fileID: 1631395630908722945}
+  - component: {fileID: 5197592209566044569}
+  - component: {fileID: 5197592209566044568}
   m_Layer: 5
   m_Name: ClientChatPage
   m_TagString: Untagged
@@ -19702,6 +19738,86 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &5197592209566044568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5197592209566044566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d814ec940a8f8b14b9f2651e7caec7be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorDocumentsBudget
+  _llmConfigs:
+  - {fileID: 11400000, guid: cec51eaae7dad1644807b41eccf463a7, type: 2}
+  - {fileID: 11400000, guid: 6442e4b82eef2cb44befed8b5c45cd6d, type: 2}
+  _useSteps: 0
+  _useHistoricalInContext: 0
+  _useHistoricalInSteps: 0
+--- !u!114 &5197592209566044569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5197592209566044566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aa6d650c28fe624bb42345e8e7be9c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorDocuments
+  _llmConfigs:
+  - {fileID: 11400000, guid: e159c974c90aef44bb32ee45d7fc9484, type: 2}
+  - {fileID: 11400000, guid: 1c6c179a849366d4f8bb05a1b6448108, type: 2}
+  - {fileID: 11400000, guid: b829bf71d66854a4796f7e196438e2e7, type: 2}
+  - {fileID: 11400000, guid: 1e1db51ee1583c441be10ddb6c45ab47, type: 2}
+  - {fileID: 11400000, guid: e5def5129cfce904eaac6d1fae94ac07, type: 2}
+  - {fileID: 11400000, guid: 0670dea2436655f40b9871709875096a, type: 2}
+  - {fileID: 11400000, guid: 3c73fd99c0f4d2846a1a5fd4067b7930, type: 2}
+  - {fileID: 11400000, guid: 7ebafec54386b7546a0ecaf3db09e4b9, type: 2}
+  - {fileID: 11400000, guid: 1f493b80a9b65ff41a5e91a67d1826fe, type: 2}
+  - {fileID: 11400000, guid: 9546b56d7e01e4047b705e916a978336, type: 2}
+  - {fileID: 11400000, guid: 5f4506efe45b7794d84ea059cb8d55ac, type: 2}
+  - {fileID: 11400000, guid: 1aa472bd5e821e549b0c29f9312c445a, type: 2}
+  _useSteps: 1
+  _useHistoricalInContext: 1
+  _useHistoricalInSteps: 0
+--- !u!114 &5197592209566044570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5197592209566044566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be1901335def3274180914264fa26ac8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DocumentGenerationManager
+  _llmConnectorDocContent: {fileID: 5197592209566044569}
+  _llmConnectorDocBudget: {fileID: 5197592209566044568}
+  _llmConnectorTextChecker: {fileID: 1824619996}
+  _prompt: "Necesito que generes un documento de texto para un caso jur\xEDdico espa\xF1ol.
+    Utiliza el contexto que se te ha suminstrado para generar los campos necesarios."
+--- !u!114 &5197592209566044571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5197592209566044566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b85335ddfaff634d85beed37f0e1b47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LLMConnectorClientTypePrompt
+  _llmConfigs:
+  - {fileID: 11400000, guid: f9ab2fc5fb7a73d44822f9c2caae44c0, type: 2}
+  _useSteps: 0
+  _useHistoricalInContext: 0
+  _useHistoricalInSteps: 0
 --- !u!114 &5200867327823786177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26666,7 +26782,7 @@ MonoBehaviour:
   _playerDocumentsContainer: {fileID: 1772390137}
   _rivalDocumentsContainer: {fileID: 1376105505}
   _playerDocumentPrefab: {fileID: 6451211221277070338, guid: c1d02dde94920f540a16dc5cc0fc5fcd, type: 3}
-  _detachedDocParent: {fileID: 0}
+  _detachedDocParent: {fileID: 556074346}
 --- !u!224 &7921353675492035677
 RectTransform:
   m_ObjectHideFlags: 0
