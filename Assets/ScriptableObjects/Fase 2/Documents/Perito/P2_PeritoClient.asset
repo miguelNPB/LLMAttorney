@@ -32,53 +32,8 @@ MonoBehaviour:
     junto con la nueva pregunta.\n\nEl hist\xF3rico contiene pares de pregunta y
     respuesta anteriores.\n\nSi el documento es relevante a lo que se esta hablando,
     pon el campo EsValido a true, si no, a false\n"
-  _stepChecks:
-  - Rellena el campo documentName con un texto corto que describa el contenido.
-  - "DIRECTIVA \u2014 ESTRUCTURA DE INFORME PERICIAL (VERSI\xD3N EXTENDIDA)\n\nComprueba
-    que el campo \"documentContent\" del JSON contiene un informe pericial completo.\n\nDebe
-    incluir obligatoriamente estas secciones, en este orden:\n\n1. Introduccion\n2.
-    Descripcion de los hechos\n3. Metodologia de analisis\n4. Resultados\n5. Conclusiones\n\n---\n\nREGLAS\n\n*
-    Si alguna secci\xF3n no existe \u2192 debes a\xF1adirla\n* Si existe pero est\xE1
-    vac\xEDa o incompleta \u2192 debes completarla\n* No elimines contenido existente\n*
-    Mant\xE9n coherencia con el resto del documento\n* No a\xF1adas explicaciones
-    fuera del documento\n\n---\n\nFORMATO\n\nCada secci\xF3n debe estar claramente
-    identificada con su t\xEDtulo y desarrollada en texto.\n\n---\n\nCONTENIDO M\xCDNIMO
-    DE CADA SECCI\xD3N\n\n1. Introduccion\n   Debe explicar:\n\n* qui\xE9n realiza
-    el informe (perito)\n* el objetivo del informe\n* el contexto general del caso\n\nEjemplo:\n\u201CEste
-    informe pericial es elaborado por un perito especializado con el objetivo de
-    analizar los hechos relacionados con el caso y determinar las circunstancias
-    t\xE9cnicas relevantes para su valoraci\xF3n en el \xE1mbito civil.\u201D\n\n---\n\n2.
-    Descripcion de los hechos\n   Debe incluir:\n\n* relato claro de lo ocurrido\n*
-    contexto del conflicto\n* partes implicadas (sin inventar datos)\n\nEjemplo:\n\u201CSeg\xFAn
-    la documentaci\xF3n aportada, los hechos se refieren a un da\xF1o producido en
-    un bien material, cuya valoraci\xF3n y origen son objeto del presente an\xE1lisis.\u201D\n\n---\n\n3.
-    Metodologia de analisis\n   Debe explicar:\n\n* c\xF3mo se ha analizado el caso\n*
-    qu\xE9 m\xE9todos o criterios se han utilizado\n\nEjemplo:\n\u201CPara la elaboraci\xF3n
-    de este informe se ha realizado un an\xE1lisis documental, revisi\xF3n t\xE9cnica
-    de los elementos afectados y aplicaci\xF3n de criterios periciales basados en
-    la pr\xE1ctica profesional.\u201D\n\n---\n\n4. Resultados\n   Debe incluir:\n\n*
-    hallazgos obtenidos\n* datos relevantes del an\xE1lisis\n\nEjemplo:\n\u201CDel
-    an\xE1lisis realizado se desprende que los da\xF1os evaluados presentan caracter\xEDsticas
-    compatibles con las circunstancias descritas, estim\xE1ndose un impacto econ\xF3mico
-    acorde a los valores de mercado.\u201D\n\n---\n\n5. Conclusiones\n   Debe incluir:\n\n*
-    resumen final\n* valoraci\xF3n t\xE9cnica clara\n\nEjemplo:\n\u201CSe concluye
-    que los hechos analizados son coherentes con la informaci\xF3n aportada y que
-    los da\xF1os pueden ser valorados conforme a criterios t\xE9cnicos aplicables
-    en el \xE1mbito pericial.\u201D\n\n---\n\nIMPORTANTE\n\n* Todas las secciones
-    deben tener contenido real, no t\xEDtulos vac\xEDos\n* El texto debe ser coherente
-    y profesional\n* Todo el contenido debe estar en espa\xF1ol\n* No generar listas
-    sin desarrollar\n* No repetir texto entre secciones\n"
-  - "Comprueba que el campo documentContent esta entero en espa\xF1ol, si no es asi,
-    traducelo todo al espa\xF1ol"
-  _stepsCommonSafeguard: 'No acortes el texto ni modifiques las variables del JSON
-    que no se indican en el prompt.
-
-
-
-    Devuelve siempre al final el JSON que
-    se te proporciona solo modificando el campo que se te indique.
-
-'
+  _stepChecks: []
+  _stepsCommonSafeguard: 
   _temperature: 0.3
   _ragUse: 1
   _ragFile: 2
