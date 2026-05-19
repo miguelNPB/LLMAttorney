@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eea7ce61ff8c3a4eada52736d65ef63, type: 3}
+  m_Name: P2_WitnessClient
+  m_EditorClassIdentifier: Assembly-CSharp::LLMConfig
+  _context: "Redacta la declaracion del testigo sobre el hecho que se ha pedido:\n\nEl
+    estilo debe ser natural pero claro, como si fuera una declaraci\xF3n oficial\n\nIMPORTANTE:\n-
+    Debes incluir EXACTAMENTE estos encabezados, respetando may\xFAsculas y formato:\n\tDatos
+    del testigo (nombre ficticio, edad, profesi\xF3n)\n\tDeclaracion (En primera
+    persona)\n\tDescripci\xF3n cronol\xF3gica de los hechos\n\tDetalles sensoriales
+    (lo que vio, oy\xF3, etc.)\n\tNivel de seguridad o dudas en lo declarado\n\tCierre
+    formal (fecha y firma)\n\n- No a\xF1adas ning\xFAn otro encabezado ni formato
+    (sin HTML, sin etiquetas, sin negritas, sin cursivas).\n- Cada secci\xF3n debe
+    ir en una l\xEDnea separada con su contenido debajo.\n- El texto entre par\xE9ntesis
+    en los encabezados NO debe repetirse ni desarrollarse.\n"
+  _safeguard: "Debes incluir los siguientes campos:\n\n            Incluye:\n               
+    - documentName (string)\n                - documentContent (string)\n\nDIRECTIVA
+    \u2014 ESTRUCTURA DE TESTIMONIO (VERSI\xD3N EXTENDIDA)\n\nComprueba que el campo
+    \"documentContent\" del JSON contiene un testimonio completo.\n\nDebe incluir
+    obligatoriamente estas secciones, en este orden:\n\n1. Datos del testigo\n2.
+    Declaracion\n3. Descripci\xF3n cronol\xF3gica de los hechos\n4. Detalles sensoriales\n5.
+    Nivel de seguridad o dudas en lo declarado\n6. Cierre formal\n\n---\n\nREGLAS\n\n*
+    Si alguna secci\xF3n no existe \u2192 debes a\xF1adirla\n* Si existe pero est\xE1
+    vac\xEDa o incompleta \u2192 debes completarla\n* No elimines contenido existente\n*
+    Mant\xE9n coherencia con el resto del documento\n* No a\xF1adas explicaciones
+    fuera del documento\n\n---\n\nFORMATO\n\n* Cada secci\xF3n debe ir en una l\xEDnea
+    separada\n* Debajo debe ir su contenido desarrollado\n* No incluir el texto entre
+    par\xE9ntesis en los encabezados\n\nEjemplo de encabezado correcto:\nDatos del
+    testigo\n(no: Datos del testigo (nombre ficticio, edad, profesi\xF3n))\n\n---\n\nCONTENIDO
+    M\xCDNIMO DE CADA SECCI\xD3N\n\n1. Datos del testigo\n   Debe incluir:\n\n* nombre
+    ficticio\n* edad\n* profesi\xF3n\n\nEjemplo:\n\u201CNombre: Juan P\xE9rez. Edad:
+    45 a\xF1os. Profesi\xF3n: electricista.\u201D\n\n---\n\n2. Declaracion\n   Debe
+    estar en primera persona\n\nEjemplo:\n\u201CYo, Juan P\xE9rez, declaro que presenci\xE9
+    los hechos relacionados con el caso en cuesti\xF3n.\u201D\n\n---\n\n3. Descripci\xF3n
+    cronol\xF3gica de los hechos\n   Debe incluir:\n\n* relato ordenado en el tiempo\n*
+    secuencia clara de lo ocurrido\n\nEjemplo:\n\u201CEn primer lugar, observ\xE9
+    que el incidente se produjo en horas de la tarde. Posteriormente, se desarrollaron
+    los acontecimientos que dieron lugar al da\xF1o descrito.\u201D\n\n---\n\n4.
+    Detalles sensoriales\n   Debe incluir:\n\n* lo que vio, oy\xF3 o percibi\xF3\n\nEjemplo:\n\u201CPude
+    observar directamente los da\xF1os materiales y escuch\xE9 un fuerte impacto
+    en el momento en que ocurrieron los hechos.\u201D\n\n---\n\n5. Nivel de seguridad
+    o dudas en lo declarado\n   Debe indicar:\n\n* grado de certeza\n\nEjemplo:\n\u201CEstoy
+    seguro de lo que observ\xE9, aunque algunos detalles menores podr\xEDan no ser
+    completamente precisos.\u201D\n\n---\n\n6. Cierre formal\n   Debe incluir:\n\n*
+    fecha\n* firma\n\nEjemplo:\n\u201CFirmado en fecha actual. Firma: Juan P\xE9rez.\u201D\n\n---\n\nIMPORTANTE\n\n*
+    Todas las secciones deben tener contenido real\n* El texto debe ser coherente
+    y en espa\xF1ol\n* No repetir contenido entre secciones\n* No dejar secciones
+    vac\xEDas\n\n"
+  _historicHeader: "Analiza el hist\xF3rico de conversaci\xF3n que se te proporciona
+    junto con la nueva pregunta.\n\nEl hist\xF3rico contiene pares de pregunta y
+    respuesta anteriores.\n\nSi el documento es relevante a lo que se esta hablando,
+    pon el campo EsValido a true, si no, a false\n"
+  _stepChecks:
+  - "Comprueba que el campo del JSON documentContent sea una declaracion de un testigo
+    en espa\xF1a. Si es asi no cambies nada y devuelve exactamente lo mismo, si no,
+    modifica documentContent para que sea una declaracion de un testigo en espa\xF1a
+    sobre lo que se pidio."
+  - "Comprueba que el campo documentContent esta entero en espa\xF1ol, si no es asi,
+    traducelo todo al espa\xF1ol"
+  _stepsCommonSafeguard: 'No acortes el texto ni modifiques las variables del JSON
+    que no se indican en el prompt.
+
+
+
+    Devuelve siempre al final el JSON que
+    se te proporciona solo modificando el campo que se te indique.
+
+'
+  _temperature: 0.6
+  _ragUse: 0
+  _ragFile: 0

@@ -8,8 +8,8 @@ public class LLMConnectorDocuments : LLMConnector
 {
     private class DocumentResponse
     {
-        public string NombreDocumento;
-        public string ContenidoDocumento;
+        public string documentName;
+        public string documentContent;
     }
 
     Action<string, string> _responseCallback;
@@ -69,21 +69,21 @@ public class LLMConnectorDocuments : LLMConnector
     {
         DocumentResponse jsonResponse = JsonUtility.FromJson<DocumentResponse>(finalSerializedResponse);
 
-        _responseCallback?.Invoke(jsonResponse.NombreDocumento, jsonResponse.ContenidoDocumento);
+        _responseCallback?.Invoke(jsonResponse.documentName, jsonResponse.documentContent);
     }
 
     protected override string deseralizePromptFirstResponse(string serializedResponse)
     {
         DocumentResponse jsonResponse = JsonUtility.FromJson<DocumentResponse>(serializedResponse);
 
-        return jsonResponse.ContenidoDocumento;
+        return jsonResponse.documentContent;
     }
 
     protected override string deseralizePromptStepResponse(string serializedResponse)
     {
         DocumentResponse jsonResponse = JsonUtility.FromJson<DocumentResponse>(serializedResponse);
 
-        return jsonResponse.ContenidoDocumento;
+        return jsonResponse.documentContent;
     }
 
     protected override void createJsonSchemas()
