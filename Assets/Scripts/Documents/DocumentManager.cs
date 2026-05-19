@@ -6,7 +6,7 @@ public enum DocumentType { Perito, Report, Witness, ReceiptFacture }
 /// <summary>
 /// Clase para gestionar la creacion y lectura de documentos. Una vez creado un documento no se puede eliminar.
 /// </summary>
-public class DocumentManager : MonoBehaviour
+public class DocumentManager
 {
     private Dictionary<uint, Document> _documents = new Dictionary<uint, Document>();
 
