@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 /// <summary>
-/// LLMConnector para generar el contenido de los documentos
+/// LLMConnector enfocado en escribir el el contenido de los documentos pedidos segun el formato marcadompor la configuracion
 /// </summary>
 public class LLMConnectorDocuments : LLMConnector
 {
@@ -64,7 +64,7 @@ public class LLMConnectorDocuments : LLMConnector
     /// <summary>
     /// Metodo final para devolver la respuesta
     /// </summary>
-    /// <param name="finalSerializedResponse"></param>
+    /// <param name="finalSerializedResponse">Texto en formato json devuelto por el servidor que cuenta con los atributos rellenados por el LLM</param>
     private void recieveFinalResponse(string finalSerializedResponse)
     {
         DocumentResponse jsonResponse = JsonUtility.FromJson<DocumentResponse>(finalSerializedResponse);
@@ -86,6 +86,9 @@ public class LLMConnectorDocuments : LLMConnector
         return jsonResponse.documentContent;
     }
 
+    /// <summary>
+    /// Creacion de los esquemas especificos para este conector
+    /// </summary>
     protected override void createJsonSchemas()
     {
         _contextSchema = new JsonSchema();

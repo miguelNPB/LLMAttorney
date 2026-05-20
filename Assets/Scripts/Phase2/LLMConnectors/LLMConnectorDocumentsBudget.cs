@@ -39,6 +39,9 @@ public class LLMConnectorDocumentsBudget : LLMConnector
         _responseCallback?.Invoke(jsonResponse.cost);
     }
 
+    /// <summary>
+    /// Creacion de los esquemas especificos para este conector
+    /// </summary>
     protected override void createJsonSchemas()
     {
         _contextSchema = new JsonSchema();
