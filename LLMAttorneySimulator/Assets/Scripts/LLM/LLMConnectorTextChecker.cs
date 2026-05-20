@@ -34,6 +34,11 @@ public class LLMConnectorTextChecker : LLMConnector
     {
         TextCheckerResponse jsonResponse = JsonUtility.FromJson<TextCheckerResponse>(finalSerializedResponse);
 
+        if (!jsonResponse.isCoherent)
+        {
+            Telemetry.TelemetryDispatch.SendNotConsistentAnswer(_messageID);
+        }
+
         _responseCallback?.Invoke(jsonResponse.isCoherent);
     }
 

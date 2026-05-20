@@ -11,10 +11,10 @@ public class LLMConnectorBudgetChecker : LLMConnector
     private class BudgetCheckerResponse
     {
         public bool budgetCoherent;
-        public float budget;
+        public int budget;
     }
 
-    private Action<bool, float> _responseCallback;
+    private Action<bool, int> _responseCallback;
 
     /// <summary>
     /// Metodo publico para iniciar la llamada al LLM con los parametros y configuracion especificados
@@ -22,7 +22,7 @@ public class LLMConnectorBudgetChecker : LLMConnector
     /// <param name="responseCallback">Metodo que debe llamarse una vez terminado el envio y recibida la contestación del LLM</param>
     /// <param name="errorCallback">Metodo que debe llamarse si el envio del prompt al LLM es fallido debido a un problema del servidor</param>
     /// <param name="prompt">Prompt escrito por el usuario que se desea enviar al LLM</param>
-    public void SendPrompt(Action<bool, float> responseCallback, Action<string> errorCallback, string prompt)
+    public void SendPrompt(Action<bool, int> responseCallback, Action<string> errorCallback, string prompt)
     {
         _responseCallback = responseCallback;
         sendPrompt(recieveFinalResponse, errorCallback, prompt, 0);
@@ -36,6 +36,11 @@ public class LLMConnectorBudgetChecker : LLMConnector
     {
         BudgetCheckerResponse jsonResponse = JsonUtility.FromJson<BudgetCheckerResponse>(finalSerializedResponse);
 
+        if (!jsonResponse.budgetCoherent)
+        {
+            Telemetry.TelemetryDispatch.SendDeniedBudget(_messageID, jsonResponse.budget);
+        }
+
         _responseCallback?.Invoke(jsonResponse.budgetCoherent, jsonResponse.budget);
     }
 
@@ -46,7 +51,7 @@ public class LLMConnectorBudgetChecker : LLMConnector
     {
         _contextSchema = new JsonSchema();
         _contextSchema.properties.Add("budgetCoherent", new PropertyInfo(JsonDataType.Boolean));
-        _contextSchema.properties.Add("budget", new PropertyInfo(JsonDataType.Float));
+        _contextSchema.properties.Add("budget", new PropertyInfo(JsonDataType.Integer));
 
         _stepsSchema = new JsonSchema();
     }

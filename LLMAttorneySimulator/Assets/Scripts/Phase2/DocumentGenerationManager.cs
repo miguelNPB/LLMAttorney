@@ -113,6 +113,8 @@ public class DocumentGenerationManager : MonoBehaviour
     /// </summary>
     private void sendFinalDocument()
     {
+        Telemetry.TelemetryDispatch.SendAskedDocument(_cost, (int)_currentDocType);
+
         _responseCallback?.Invoke(_docTitle, _docContent, _currentDocType, _cost, _isPlayer, _isValid);
     }
 }
