@@ -327,7 +327,7 @@ public class LLMSystemAPI : MonoBehaviour
             bool success = www.result == UnityWebRequest.Result.Success;
             if (success)
             {
-                Debug.Log($"Exito cambiando pdf de case data RAG: {www.downloadHandler.text}");
+                LogSystem.Instance.LogString($"Exito cambiando pdf de case data RAG: {www.downloadHandler.text}");
                 onComplete?.Invoke();
             }
             else

@@ -1,7 +1,9 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// Clase para gestionar funcionamiento de la fase 2
+/// </summary>
 public class Phase2Manager : MonoBehaviour
 {
     [SerializeField] private Button _priorHearingButton;

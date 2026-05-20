@@ -24,12 +24,12 @@ public class CasePdfBuilder : MonoBehaviour
     /// <returns></returns>
     public string Build(int id, string path, string content)
     {
-        Debug.Log("[CasePdfBuilder] Building PDF with content length: " + content.Length + "\nContent:\n\n" + content);
+        LogSystem.Instance.LogString("[CasePdfBuilder] Building PDF with content length: " + content.Length + "\nContent:\n\n" + content);
 
         
         string filePath = Path.Combine(path,$"savedCaseContent_{id}.pdf");
 
-        Debug.Log("[CasePdfBuilder] Output file path: " + filePath);
+        LogSystem.Instance.LogString("[CasePdfBuilder] Output file path: " + filePath);
 
         using var fs  = new FileStream(filePath, FileMode.Create, FileAccess.Write);
         using var doc = new IDocument(PAGE_SIZE, MARGIN, MARGIN, MARGIN, MARGIN);

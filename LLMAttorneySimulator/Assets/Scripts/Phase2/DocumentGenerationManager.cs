@@ -54,8 +54,6 @@ public class DocumentGenerationManager : MonoBehaviour
     /// <param name="docContent"></param>
     private void recieveDocumentContent(string docTitle, string docContent)
     {
-        Debug.Log("Ya tenemos el contenido");
-
         _docTitle = docTitle;
         _docContent = docContent;
 

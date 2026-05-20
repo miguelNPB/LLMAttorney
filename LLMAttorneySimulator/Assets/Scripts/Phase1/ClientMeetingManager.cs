@@ -146,7 +146,6 @@ public class ClientMeetingManager : MonoBehaviour
         {
             if (_tempBudget > 0)
             {
-                Debug.Log("Cambio de fase boton");
                 _changePhaseButton.SetActive(true);
             }
 

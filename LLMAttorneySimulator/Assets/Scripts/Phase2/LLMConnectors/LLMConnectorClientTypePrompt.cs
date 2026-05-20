@@ -40,7 +40,6 @@ public class LLMConnectorClientTypePrompt : LLMConnector
     /// <param name="finalSerializedResponse">Texto en formato json devuelto por el servidor que cuenta con los atributos rellenados por el LLM</param>
     private void recieveFinalResponse(string finalSerializedResponse)
     {
-        Debug.Log(finalSerializedResponse);
         ClientPromptTypeRequest jsonResponse = JsonUtility.FromJson<ClientPromptTypeRequest>(finalSerializedResponse);
 
         _responseCallback?.Invoke(jsonResponse.documentQueryType);

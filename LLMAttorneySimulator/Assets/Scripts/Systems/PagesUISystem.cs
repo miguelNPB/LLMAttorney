@@ -4,7 +4,7 @@ using System.Collections.Generic;
 /// <summary>
 /// Clase para gestionar un menu de paginas como los del menu de ayuda.
 /// </summary>
-public class PagesListComponent : MonoBehaviour
+public class PagesUISystem : MonoBehaviour
 {
     public GameObject rightButton;
     public GameObject leftButton;
