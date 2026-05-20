@@ -1,7 +1,7 @@
 import json
 import math
 import guidance
-from guidance import models, gen, select
+from guidance import models, gen
 from guidance import json as gen_json
 
 #Limpia el json de valores anormales para que fastApi pueda interpretarlo correctamente

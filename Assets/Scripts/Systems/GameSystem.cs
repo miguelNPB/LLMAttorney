@@ -1,4 +1,7 @@
+using System;
+using System.IO;
 using UnityEngine;
+using static PersistCaseData;
 
 /// <summary>
 /// Sistema para almacenar cosas persistentes y sobre el caso. Tiene el notepad y caseData
@@ -17,43 +20,50 @@ public class GameSystem : MonoBehaviour
     public CaseData CaseData { get { return _caseData; } }
 
 
-    /// <summary>
-    /// Crea caseData con datos ejemplo para placeholder antes de usar la LLM
-    /// </summary>
-    private void CreateExampleCaseData()
-    {
-        float chanceOfInstantRejectionConciliacion = Random.Range(0.5f,1f);
-        string clientName = "Pedro Muñoz";
-        string procuratorName = "Alberto Velazquez";
-        string demandedEntityName = "Ana Pérez";
-        string caseDescription = "En fecha enero de 2021, el demandante comienza a detectar daños materiales en su vivienda consistentes " +
-            "en humedades en techo y paredes, desprendimiento de pintura, aparición de moho y deterioro progresivo del suelo de parquet." +
-            "\r\n\r\nTras diversas comprobaciones, se identifica como posible origen de los daños una fuga de agua procedente del cuarto " +
-            "de baño de la vivienda superior, propiedad de la demandada.\r\n\r\nEl demandante realiza varios intentos de contacto con la " +
-            "demandada a fin de solucionar el problema, sin que se adopten medidas eficaces para la reparación del origen de la filtración.";
-
-        _caseData = new CaseData(chanceOfInstantRejectionConciliacion, clientName, procuratorName, demandedEntityName, caseDescription);
-
-        _caseData.clientMessages.Add(new ConversationMessage("Hola, si tienes alguna duda sobre algo que pueda contarte o cuando sepas que documentos debo conseguir por favor dímelo.", false));
-        _caseData.procuratorMessages.Add(new ConversationMessage("Buenas! Mi nombre es " + _caseData.procuratorName + ", seré tu procurador para este caso. Cualquier documento que consideres pertinente adjuntar al proceso, mándamelo y lo registraré.", false));
-    }
+    private CaseData _startingCaseData = null;
 
     /// <summary>
     /// Llamarlo al volver al menu prinicpal
     /// </summary>
     public void ResetCaseData()
     {
-        
-        CreateExampleCaseData();
+        _caseData = _startingCaseData;   
+    }
+
+    /// <summary>
+    /// Lee el case data y lo inicializa. Lee el json con el contenido. LLamado al iniciar el juego para cargar el default, y en caso de pulsar el boton de cambiar caso por uno generado. Devuelve true si salio bien.
+    /// </summary>
+    public bool ReadCaseData(string path)
+    {
+        return readCaseData(path);
+    }
+
+    /// <summary>
+    /// Lee y establece un case data con el path. Devuelve true si salio bien.
+    /// </summary>
+    /// <param name="path"></param>
+    private bool readCaseData(string path)
+    {
+        try
+        {
+            string jsonText = File.ReadAllText(path);
+
+            PersistCaseData.CaseDataSerializable caseData = JsonUtility.FromJson<CaseDataSerializable>(jsonText);
+
+            _caseData = new CaseData(caseData.id, caseData.clientName, caseData.rivalName, caseData.caseSummary, caseData.caseClientIntroduction);
+            _startingCaseData = _caseData;
+
+            return true;
+        }
+        catch (Exception e)
+        {
+            _caseData = null;
+            _startingCaseData = null;
+            Debug.LogError($"Error leyendo case data {path} " + e.Message);
+            return false;
+        }
     }
     
-    /// <summary>
-    /// Lee el case data y lo inicializa. Lee el json con el contenido
-    /// </summary>
-    public void ReadCaseData()
-    {
-
-    }
 
     /// <summary>
     /// Metodo solo usable en pruebas para limpiar los documentos del cliente
@@ -85,7 +95,9 @@ public class GameSystem : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
 
-        CreateExampleCaseData();
+        // init default
+        string path = Path.Combine(Application.streamingAssetsPath, "savedCaseData_default.json");
+        readCaseData(path);
 
         initialized = true;
     }

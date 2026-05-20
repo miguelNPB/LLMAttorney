@@ -3,6 +3,7 @@ using Newtonsoft.Json.Converters;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -109,6 +110,7 @@ public class LLMSystemAPI : MonoBehaviour
     public int port = 8000;
 
     private bool _sendingPrompt = false;
+    private bool _changingPDF = false;
 
     public static LLMSystemAPI Instance { get; private set; }
 
@@ -202,7 +204,7 @@ public class LLMSystemAPI : MonoBehaviour
 
         string json = JsonConvert.SerializeObject(promptData.useJsonSchema ? promptData.requestJsonData : promptData.requestNormalData, Formatting.Indented);
 
-        StartCoroutine(SendRequest(json, promptData.onComplete));
+        StartCoroutine(SendPromptRequest(json, promptData.onComplete));
     }
 
     /// <summary>
@@ -211,7 +213,7 @@ public class LLMSystemAPI : MonoBehaviour
     /// <param name="json"></param>
     /// <param name="onComplete"></param>
     /// <returns></returns>
-    private IEnumerator SendRequest(string json, Action<bool, string> onComplete)
+    private IEnumerator SendPromptRequest(string json, Action<bool, string> onComplete)
     {
         string _ip = ip;
         if (ip != "localhost")
@@ -258,6 +260,128 @@ public class LLMSystemAPI : MonoBehaviour
         if (!success)
         {
             Debug.LogError(response);
+        }
+    }
+
+    /// <summary>
+    /// Metodo publico parr cambiar el pdf que usa el servidor como rag para los datos del caso.
+    /// </summary>
+    /// <param name="pdfPath"></param>
+    /// <param name="id"></param>
+    /// <param name="onComplete"></param>
+    public void ChangePDFCase(string pdfPath, int id, Action onComplete, Action<string> onError)
+    {
+        if (!_changingPDF)
+        {
+            _changingPDF = true;
+            StartCoroutine(sendChangeCasePDFRequest(pdfPath, id, onComplete, onError));
+        }
+        else
+        {
+            Debug.LogError("Error, ya se esta cambiando el pdf en curso");
+        }
+    }
+
+    /// <summary>
+    /// Coroutina para mandar peticiones para cambiar el pdf que usa el servidor como rag case data.
+    /// </summary>
+    /// <param name="pdfPath"></param>
+    /// <param name="id"></param>
+    /// <param name="onComplete"></param>
+    /// <returns></returns>
+    private IEnumerator sendChangeCasePDFRequest(string pdfPath, int id, Action onComplete, Action<string> onError)
+    {
+        if (!File.Exists(pdfPath))
+        {
+            Debug.LogError($"El archivo no existe en la ruta: {pdfPath}");
+            _changingPDF = false;
+            yield break;
+        }
+
+        byte[] pdfBytes = File.ReadAllBytes(pdfPath);
+        string pdfFilename = Path.GetFileName(pdfPath);
+
+        List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
+
+        formData.Add(new MultipartFormDataSection("id", id.ToString()));
+        formData.Add(new MultipartFormFileSection("file", pdfBytes, pdfFilename, "application/pdf"));
+
+        string _ip = ip;
+        if (ip != "localhost")
+            _ip = "http://" + ip;
+
+        string url = $"{_ip}:{port.ToString()}/upload-pdf";
+        using (UnityWebRequest www = UnityWebRequest.Post(url, formData))
+        {
+            // enviar peticion
+            yield return www.SendWebRequest();
+
+            bool success = www.result == UnityWebRequest.Result.Success;
+            if (success)
+            {
+                Debug.Log($"Exito cambiando pdf de case data RAG: {www.downloadHandler.text}");
+                onComplete?.Invoke();
+            }
+            else
+            {
+                Debug.LogError($"Error cambiando pdf de case data RAG: {www.error} + {www.downloadHandler.text}");
+                onError?.Invoke($"Error cambiando pdf de case data RAG: {www.error} + {www.downloadHandler.text}\"");
+            }
+        }
+        _changingPDF = false;
+    }
+
+    /// <summary>
+    /// Pide el id del caso usado en el servidor 
+    /// </summary>
+    /// <param name="onComplete"></param>
+    /// <param name="onError"></param>
+    public void GetServerCaseID(Action<int> onComplete, Action<string> onError)
+    {
+        StartCoroutine(sendGetServerCaseIDRequest(onComplete, onError));
+    }
+
+    private IEnumerator sendGetServerCaseIDRequest(Action<int> onComplete, Action<string> onError)
+    {
+        string _ip = ip;
+        if (ip != "localhost")
+            _ip = "http://" + ip;
+
+        string url = $"{_ip}:{port.ToString()}/getcase-id";
+
+        using (UnityWebRequest request = new UnityWebRequest(url, "POST"))
+        {
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
+            {
+                onError?.Invoke($"Error obteniendo el Case ID: {request.error} + {request.downloadHandler.text}");
+            }
+            else
+            {
+                try
+                {
+                    // Leemos la respuesta del servidor
+                    string responseText = request.downloadHandler.text;
+                    string cleanResponse = responseText.Replace("\"", "").Trim();
+
+                    if (int.TryParse(cleanResponse, out int caseId))
+                    {
+                        onComplete?.Invoke(caseId);
+                    }
+                    else
+                    {
+                        onError?.Invoke($"El servidor ha devuelto ID con formato inválido. Respuesta cruda: {responseText}");
+                    }
+                }
+                catch (Exception e)
+                {
+                    onError?.Invoke($"Error procesando la del ID del caso del servidor: {e.Message}");
+                }
+            }
         }
     }
 

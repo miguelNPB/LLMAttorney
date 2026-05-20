@@ -15,4 +15,5 @@ COPY . .
 EXPOSE 8000
 
 # ejecutamos el docker
-CMD ["gunicorn", "-w", "1", "-k", "uvicorn.workers.UvicornWorker", "main:app", "--bind", "0.0.0.0:8000", "--timeout", "900"]
+ENV PYTHONUNBUFFERED=1
+CMD ["gunicorn", "-w", "1", "-k", "uvicorn.workers.UvicornWorker", "main:app", "--bind", "0.0.0.0:8000", "--timeout", "900", "--capture-output", "--log-level", "info"]

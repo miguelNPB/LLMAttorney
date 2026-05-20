@@ -5,9 +5,9 @@ public class LLMConfig : ScriptableObject
 {
     public enum RagFiles
     {
+        CasoBase, // caso base debe siempre ser el primero = 0
         CodigoCivil,
         Precios,
-        CasoBase
     }
 
     [Header("Configuración inicial")]

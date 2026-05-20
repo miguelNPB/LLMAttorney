@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 /// <summary>
@@ -20,6 +21,7 @@ public struct ConversationMessage
 /// </summary>
 public class CaseData
 {
+    private int _id; // id unico de este caso para diferenciar entre casos
     private bool _isDemandaSent = false; // true = demanda realizada, false = No se ha hecho la demanda
     private bool _attemptedConciliation = false;
     private float _conciliationRivalInstantRejectProbability; // valor del 0.f al 1.f que indica la probabilidad de que el rival rechace cualquier intento de conciliacion (0 = nunca, 1 = siempre)
@@ -27,11 +29,13 @@ public class CaseData
     private string _procuratorName;
     private string _demandedEntityName; // demandado o demandador en caso de ser respuesta
     private string _caseDescription; // Descripcion del caso para pasar a llm contraria
+    private string _initialClientSpeech; // Monologo inicial del cliente explicando el caso
     private string _lawsuitText; // texto de la demanda
     private List<Document> _finalPlayerDocuments; // docuemntos finales para la sentencia del player
     private List<Document> _finalRivalDocuments; // docuemntos finales para la sentencia del rival
 
     // getters
+    public int id => _id;
     public bool isDemandaSent => _isDemandaSent;
     public bool attemptedConciliation => _attemptedConciliation;
     public float conciliationRivalInstantRejectProbability => _conciliationRivalInstantRejectProbability;
@@ -39,6 +43,7 @@ public class CaseData
     public string procuratorName => _procuratorName;
     public string demandedEntityName => _demandedEntityName;
     public string caseDescription => _caseDescription;
+    public string initialClientSpeech => _initialClientSpeech;
     public string lawsuitText => _lawsuitText;
     public List<Document> finalPlayerDocuments { get { return _finalPlayerDocuments; } }
     public List<Document> finalRivalDocuments { get { return _finalRivalDocuments; } }
@@ -54,17 +59,22 @@ public class CaseData
 
 
     public CaseData(
-        float conciliationRivalInstantRejectProbability,
+        int id,
         string clientName,
-        string procuratorName,
         string demandedEntityName,
-        string caseDescription)
+        string caseDescription,
+        string initialClientSpeech)
     {
-        _conciliationRivalInstantRejectProbability = conciliationRivalInstantRejectProbability;
+        _id = id;
+        _conciliationRivalInstantRejectProbability = UnityEngine.Random.Range(0.5f,1f);
         _clientName = clientName;
-        _procuratorName = procuratorName;
+        _procuratorName = "Máximo Décimo Meridio";
         _demandedEntityName = demandedEntityName;
         _caseDescription = caseDescription;
+        _initialClientSpeech = initialClientSpeech;
+
+        clientMessages.Add(new ConversationMessage($"Hola, soy {_clientName} si tienes alguna duda sobre algo que pueda contarte para nuestro caso y demanda a {_demandedEntityName} o cuando sepas que documentos debo conseguir por favor dímelo.", false));
+        procuratorMessages.Add(new ConversationMessage($"Buenas! Mi nombre es {_procuratorName}, seré tu procurador para este caso. Cualquier documento que consideres pertinente adjuntar al proceso, mándamelo y lo registraré.", false));
     }
 
 
@@ -84,7 +94,6 @@ public class CaseData
         _isDemandaSent = true;
     }
 
-
     /// <summary>
     /// Establece el texto de la demanda
     /// </summary>
@@ -94,16 +103,11 @@ public class CaseData
         _lawsuitText = text;
     }
 
-        /// <summary>
-    /// Reemplaza la descripcion del caso. Llamado por LLMCaseGenerator tras
-    /// recibir el resumen de contexto del LLM.
+    /// <summary>
+    /// Establece los documentos finales para considerar en la sentencia
     /// </summary>
-    public void SetCaseDescription(string description)
-    {
-        _caseDescription = description;
-    }
-
-
+    /// <param name="clientValidDocuments"></param>
+    /// <param name="rivalValidDocuments"></param>
     public void SetSentenceDocuments(List<Document> clientValidDocuments, List<Document> rivalValidDocuments)
     {
         _finalPlayerDocuments = clientValidDocuments;

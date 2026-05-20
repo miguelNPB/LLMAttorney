@@ -13,3 +13,4 @@ bs4
 pypdf
 guidance
 openai
+python-multipart
