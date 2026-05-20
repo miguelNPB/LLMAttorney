@@ -1574,25 +1574,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8502b51f8609944cac39c8657e6e55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfigLLMInfo
-  context: 
-  safeguard: 
-  safeguardSteps: 
-  historicalConversation: 
-  _stepChecks:
-  - "Clasifica el documento seg\xFAn su tipo y modifica unicamente el campo tipoDocumento,
-    poniendo unicamente un numero.\n\nReglas de clasificaci\xF3n:\n\nSi es un informe
-    pericial: 1\nSi es un informe: 2\nSi es una declaraci\xF3n de un testigo: 3\nSi
-    es un recibo o factura: 4"
-  - "Modifica el campo contenidoDocumento:\nDebes eliminar completamente cualquier
-    fragmento entre corchetes [...].\nDebes reemplazar esos fragmentos con informaci\xF3n
-    inventada coherente y veros\xEDmil, manteniendo el contexto jur\xEDdico del documento.\nNo
-    puedes dejar corchetes ni marcas de plantilla en la salida final.\nNo expliques
-    los cambios.\nMant\xE9n el estilo de una declaraci\xF3n formal en derecho procesal
-    civil en Espa\xF1a.\nSi falta informaci\xF3n, compl\xE9tala de forma razonable
-    y consistente con el resto del texto"
-  _temperature: 0
-  _ragUse: 1
-  _ragFile: 0
 --- !u!4 &264401407
 Transform:
   m_ObjectHideFlags: 0
@@ -4665,7 +4646,7 @@ Camera:
   m_GameObject: {fileID: 1427089573}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 4
   m_BackGroundColor: {r: 0.47009602, g: 0.4912641, b: 0.5245282, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -5016,6 +4997,63 @@ RectTransform:
   m_AnchoredPosition: {x: -1.164917, y: 44.777832}
   m_SizeDelta: {x: 1737.8696, y: 841.4633}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &1530154970
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 276294508596376722, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1137.958
+      objectReference: {fileID: 0}
+    - target: {fileID: 276294508596376722, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 598.2529
+      objectReference: {fileID: 0}
+    - target: {fileID: 276294508596376722, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 276294508596376722, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 276294508596376722, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 276294508596376722, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 276294508596376722, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 276294508596376722, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 276294508596376722, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 276294508596376722, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4036924131006146065, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
+      propertyPath: m_Name
+      value: GameSystem
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 322e3f513d6890c42aa08d5c9a9c1f41, type: 3}
 --- !u!1 &1550168512
 GameObject:
   m_ObjectHideFlags: 0
@@ -29122,3 +29160,4 @@ SceneRoots:
   - {fileID: 360351042137608086}
   - {fileID: 516469883}
   - {fileID: 1560620141}
+  - {fileID: 1530154970}
