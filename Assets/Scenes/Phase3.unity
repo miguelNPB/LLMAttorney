@@ -3092,7 +3092,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WriteTextSystem
   _textContainer: {fileID: 8057441200944062110}
   _maxCharactersInContainer: 0
-  _typingSpeed: 0.075
+  _typingSpeed: 0.05
 --- !u!222 &438208304590824770
 CanvasRenderer:
   m_ObjectHideFlags: 0
