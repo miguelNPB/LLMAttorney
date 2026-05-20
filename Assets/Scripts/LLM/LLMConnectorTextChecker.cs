@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 /// <summary>
-/// LLMConnector para comprobar si un texto es coherente. No tiene steps
+/// LLMConnector enfocado en la resvisión de la coherencia según el contexto o el formato especifico
 /// </summary>
 public class LLMConnectorTextChecker : LLMConnector
 {
@@ -14,10 +14,12 @@ public class LLMConnectorTextChecker : LLMConnector
     private Action<bool> _responseCallback;
 
     /// <summary>
-    /// Metodo publico para activar el funcionamiento de este LLMConnector
+    /// Metodo publico para iniciar la llamada al LLM con los parametros y configuracion especificados
     /// </summary>
-    /// <param name="responseCallback"></param>
-    /// <param name="prompt"></param>
+    /// <param name="responseCallback">Metodo que debe llamarse una vez terminado el envio y recibida la contestación del LLM</param>
+    /// <param name="errorCallback">Metodo que debe llamarse si el envio del prompt al LLM es fallido debido a un problema del servidor</param>
+    /// <param name="prompt">Prompt escrito por el usuario que se desea enviar al LLM</param>
+    /// <param name="indexConfig">Configuración concreta que se debe usar para este envio</param>
     public void SendPrompt(Action<bool> responseCallback, Action<string> errorCallback, string prompt, int indexConfig)
     {
         Debug.Log("Este es el index del comprobador de puto texto " + indexConfig);
@@ -28,7 +30,7 @@ public class LLMConnectorTextChecker : LLMConnector
     /// <summary>
     /// Metodo final para devolver la respuesta
     /// </summary>
-    /// <param name="finalSerializedResponse"></param>
+    /// <param name="finalSerializedResponse">Texto en formato json devuelto por el servidor que cuenta con los atributos rellenados por el LLM</param>
     private void recieveFinalResponse(string finalSerializedResponse)
     {
         TextCheckerResponse jsonResponse = JsonUtility.FromJson<TextCheckerResponse>(finalSerializedResponse);
@@ -36,6 +38,9 @@ public class LLMConnectorTextChecker : LLMConnector
         _responseCallback?.Invoke(jsonResponse.isCoherent);
     }
 
+    /// <summary>
+    /// Creacion de los esquemas especificos para este conector
+    /// </summary>
     protected override void createJsonSchemas()
     {
         _contextSchema = new JsonSchema();

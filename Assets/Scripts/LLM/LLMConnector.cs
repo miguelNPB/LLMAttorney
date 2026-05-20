@@ -2,6 +2,10 @@ using System;
 using Telemetry;
 using UnityEngine;
 
+/// <summary>
+/// Clase enfocada en manejar los envios de peticiones del simulador al servidor y el LLM, recibiendo también las respuestas de estos y devolviendolas
+/// para su uso.
+/// </summary>
 public abstract class LLMConnector : MonoBehaviour
 {
     [SerializeField] protected LLMConfig[] _llmConfigs;
@@ -31,29 +35,36 @@ public abstract class LLMConnector : MonoBehaviour
     /// --- Metodos para el json schema
 
     /// <summary>
-    /// En este metodo se debe crear e inicializar los jsonSchemas con los campos a usar
+    /// Metodo enfocado en la creacion de los distintos esquemas que usara el LLM. Estos esquemas marcan los atributos que deben ser rellenados y 
+    /// devueltos por el LLM
     /// </summary>
     protected abstract void createJsonSchemas();
 
     /// <summary>
-    /// Solo hace falta hacer override si se usan los steps. Metodo para obtener el prompt para los steps con el texto json de la primera respuesta
+    /// Metodo enfocado en deserializar los datos devueltos en la primera respuesta por el LLM para la selección de uno o varios de los 
+    /// atributos que pasar al step. Por ejemplo si mi step solo revisa uno de los dos strings devueltos solo paso ese a la siguiente llamada.
+    /// Solo hace falta hacer override si se usan los steps.
     /// </summary>
-    /// <param name="serializedResponse"></param>
+    /// <param name="serializedResponse">Respuesta del LLM que se desea deserializar</param>
     /// <returns></returns>
     protected virtual string deseralizePromptFirstResponse(string serializedResponse) { return serializedResponse; }
+
     /// <summary>
-    /// Solo hace falta hacer override si se usan los steps. Metodo para obtener el prompt para los steps con el texto json de la primera respuesta
+    /// Metodo enfocado en deserializar los datos devueltos las respuestas de los steps por el LLM para la selección de uno o varios de los 
+    /// atributos que pasar al step. Por ejemplo si mi step solo revisa uno de los dos strings devueltos solo paso ese a la siguiente llamada.
+    /// Solo hace falta hacer override si se usan los steps.
     /// </summary>
-    /// <param name="serializedResponse"></param>
+    /// <param name="serializedResponse">Respuesta del LLM que se desea deserializar</param>
     /// <returns></returns>
     protected virtual string deseralizePromptStepResponse(string serializedResponse) { return serializedResponse; }
 
     /// --- Metodos con la gestion de prompts
 
     /// <summary>
-    /// Metodo interno encargado de enviar un mensaje al LLM con todas las especificaciones obtenidas de ConfigLLMInfo
+    /// Metodo interno encargado de enviar un mensaje al LLM con todas las especificaciones obtenidas de ConfigLLM
     /// </summary>
     /// <param name="responseCallback">Metodo al que llamar con la respuesta del LLM</param>
+    /// <param name="errorCallback">Metodo al que llamar si se devuelve un fallo del servidor en la llamada</param>
     /// <param name="promptText">Contenido de texto de la petición</param>
     /// <param name="configIndex">Archivo de configuracion a utilizar</param>
     /// <returns>Devuelve true si pudo mandar el prompt</returns>
@@ -90,8 +101,8 @@ public abstract class LLMConnector : MonoBehaviour
     /// <summary>
     /// Metodo encargado de recibir la primera respuesta del LLM, y en caso de haber steps, mandarlos, sino mandar el resultado a respondPrompt
     /// </summary>
-    /// <param name="success"></param>
-    /// <param name="text"></param>
+    /// <param name="success"> Indica si la respuesta a sido devuelta del servidor sin ningun error o problema</param>
+    /// <param name="text"> Atributos rellenados por el LLM</param>
     protected virtual void recieveFirstResponse(bool success, string text)
     {
         Telemetry.TelemetryDispatch.SendQueryReceived(_messageID);
@@ -119,12 +130,14 @@ public abstract class LLMConnector : MonoBehaviour
     /// <summary>
     /// Metodo privado para mandar un prompt de step
     /// </summary>
-    /// <param name="prompt"></param>
-    /// <returns></returns>
+    /// <param name="prompt"> Prompt que ha sido enviado</param>
+    /// <returns> Devuelve true si aun quedan steps que revisar</returns>
     protected bool sendStepPrompt(string prompt)
     {
         if (_stepCounter >= _llmConfigs[_configIndex].GetStepChecks().Length)
+        {
             return false;
+        }     
 
         LLMSystemAPI.Instance.SendPrompt(recieveStepResponse, prompt, _llmConfigs[_configIndex].GetStepChecks()[_stepCounter], _stepsSchema, _llmConfigs[_configIndex].GetTemperature(), _llmConfigs[_configIndex].GetRagUse(), (int)_llmConfigs[_configIndex].GetRagFileType());
         _stepCounter++;
@@ -138,8 +151,8 @@ public abstract class LLMConnector : MonoBehaviour
     /// <summary>
     /// Metodo encargado de recibir las respuestas de los steps y en caso de terminarlos, mandar el resultado a respondPrompt
     /// </summary>
-    /// <param name="success"></param>
-    /// <param name="text"></param>
+    /// <param name="success">Indica si el servidor a podido devolver los atributos sin ningun problema</param>
+    /// <param name="text">Conjunto de atributos rellenados por el LLM</param>
     protected virtual void recieveStepResponse(bool success, string text)
     {
         if (success)
@@ -160,8 +173,8 @@ public abstract class LLMConnector : MonoBehaviour
     /// <summary>
     /// Metodo encargado de finalizar el proceso del prompt y devolver la respuesta
     /// </summary>
-    /// <param name="success"></param>
-    /// <param name="text"></param>
+    /// <param name="success">Indica si el servidor a podido devolver los atributos sin ningun problema</param>
+    /// <param name="text">Conjunto de atributos rellenados por el LLM</param>
     protected virtual void respondPrompt(bool success, string text)
     {
         if (success)
@@ -178,9 +191,10 @@ public abstract class LLMConnector : MonoBehaviour
     }
 
     /// <summary>
-    /// Metodo para sobreescribir el contexto del primer prompt y utilizar uno modificado del llmconfig
+    /// Metodo que permite alterar el contexto que se le pasa al LLM sin afectar el LLMConfig original. Se usa por ejemplo si se quiere meter 
+    /// contexto extra generado durante el proceso a las llamadas de los steps.
     /// </summary>
-    /// <param name="newContext"></param>
+    /// <param name="newContext">Nuevo contexto que se debe incluir en la llamada al LLM</param>
     protected void overrideLLMContext(string newContext)
     {
         _overrideContext = true;
@@ -190,7 +204,7 @@ public abstract class LLMConnector : MonoBehaviour
     /// <summary>
     /// Metodo para insertar texto al historico
     /// </summary>
-    /// <param name="text"></param>
+    /// <param name="text">Texto que se desea insertar</param>
     protected void appendHistoricText(string text)
     {
         _historicText += "\n" + text;
