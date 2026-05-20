@@ -75,22 +75,21 @@ public class DocumentManager
     /// <summary>
     /// Crea un documento y devuelve su ID.
     /// </summary>
-    public uint CreateDocument(string docName, DocumentType docType, string content, bool docIsRelevant, int cost, bool isPlayerDoc = false, bool isSentToProcurador = false)
+    public uint CreateDocument(string docName, DocumentType docType, string content, bool docIsRelevant, int cost, bool isOpponentDoc = false, bool isSentToProcurador = false)
     {
-        Document doc = new Document(ids, docType, docName, content, docIsRelevant, cost, isPlayerDoc, isSentToProcurador);
+        Document doc = new Document(ids, docType, docName, content, docIsRelevant, cost, isOpponentDoc, isSentToProcurador);
         _documents.Add(ids, doc);
 
-        if (isPlayerDoc)
+        if (isOpponentDoc)
+        {
+            _rivalDocs.Add(ids);
+        }
+        else
         {
             _playerDocs.Add(ids);
 
             if (BudgetSystem.Instance != null && (docType == DocumentType.Perito || docType == DocumentType.Report))
                 BudgetSystem.Instance.AddExpense($"0 {cost}", docType, docName);
-        }
-        else
-        {
-            _rivalDocs.Add(ids);
-
         }
 
         ids++;

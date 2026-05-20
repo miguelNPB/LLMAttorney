@@ -24,9 +24,6 @@ public class DocumentsPage : IPage
     [SerializeField] 
     private Transform _detachedDocParent;
 
-    void Awake()
-    {
-    }
 
     /// <summary>
     /// Instancia un uidocument 
@@ -63,7 +60,7 @@ public class DocumentsPage : IPage
     /// <summary>
     /// Inicializa los valores de los documentos para mostrarlos como ficheros
     /// </summary>
-    private IEnumerator setupUIDocuments()
+    private void setupUIDocuments()
     {
 
         DocumentManager docManager = GameSystem.Instance.CaseData.documentManager;
@@ -98,27 +95,18 @@ public class DocumentsPage : IPage
         LayoutRebuilder.ForceRebuildLayoutImmediate(_playerDocsContainerRectTransform);
         LayoutRebuilder.ForceRebuildLayoutImmediate(_rivalDocsContainerRectTransform);
         Canvas.ForceUpdateCanvases();
-        yield return new WaitForEndOfFrame();
     }
 
     public override void Open()
     {
         _pageHolder.SetActive(true);
-        
-        StartCoroutine(setupUIDocuments());
 
-
-        // foreach (UIDocument doc in _detachedDocParent.GetComponentsInChildren<UIDocument>(includeInactive: true))
-        //     doc.documentIcon.SetActive(true);
+        setupUIDocuments();
     }
 
     public override void Close()
     {
         _pageHolder.SetActive(false);
-        // Esconder iconos de los documentos abiertos en el detached parent para evitar que sigan visibles al cerrar la pagina
-
-        // foreach (UIDocument doc in _detachedDocParent.GetComponentsInChildren<UIDocument>(includeInactive: true))
-        //     doc.documentIcon.SetActive(true);
     }
     
     void Start()

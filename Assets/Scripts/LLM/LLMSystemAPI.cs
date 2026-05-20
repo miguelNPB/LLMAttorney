@@ -395,9 +395,7 @@ public class LLMSystemAPI : MonoBehaviour
 
     private void onSceneChanged(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("antes:" + _promptsQueue.Count);
         _promptsQueue.Clear();
-        Debug.Log("despues:" + _promptsQueue.Count);
     }
 
     private void Update()
