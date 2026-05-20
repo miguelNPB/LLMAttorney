@@ -125,7 +125,7 @@ public class LLMSystemAPI : MonoBehaviour
     private Queue<PromptData> _promptsQueue = new Queue<PromptData>();
 
     /// <summary>
-    /// Rellena automaticamente el campo required de un PropertyInfo
+    /// Rellena automaticamente el campo required de un PropertyInfo para prepararlo para una peticion al servidor
     /// </summary>
     private void updateRequiredField(PropertyInfo propertyInfo)
     {
@@ -137,6 +137,14 @@ public class LLMSystemAPI : MonoBehaviour
                 updateRequiredField(prop);
             }
         }
+    }
+
+    /// <summary>
+    /// Cambia la ip del servidor
+    /// </summary>
+    public void ChangeServerIP(string newIP)
+    {
+        ip = newIP;
     }
 
     /// <summary>
@@ -358,7 +366,7 @@ public class LLMSystemAPI : MonoBehaviour
 
             if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
             {
-                onError?.Invoke($"Error obteniendo el Case ID: {request.error} + {request.downloadHandler.text}");
+                onError?.Invoke($"Servidor no activo o ip errónea. \nMas información del error: {request.error}");
             }
             else
             {

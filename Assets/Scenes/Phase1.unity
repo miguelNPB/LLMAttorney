@@ -2513,6 +2513,26 @@ PrefabInstance:
       propertyPath: m_text
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8057441202603224496, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 8057441202603224496, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_margin.w
+      value: -165.95029
+      objectReference: {fileID: 0}
+    - target: {fileID: 8057441202603224496, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 8057441202603224496, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_fontSizeMin
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 8057441202603224496, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7828999558807138563, guid: cd6fc15a1968d494a9f5aac22a03497e, type: 3}
     m_RemovedGameObjects: []

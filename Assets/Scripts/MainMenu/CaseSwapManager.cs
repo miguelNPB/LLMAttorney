@@ -65,6 +65,8 @@ public class CaseSwapManager : MonoBehaviour
             return;
         }
 
+        GameSystem.Instance.ReadCaseData(pathCaseDataJSON);
+       
         string pathCaseContentPDF = WinFileSelect.Open("Selecciona el fichero caseContent .pdf a usar", null,"pdf");
         if (pathCaseContentPDF == null || !pathCaseContentPDF.EndsWith(".pdf"))
         {

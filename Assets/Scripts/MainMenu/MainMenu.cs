@@ -10,12 +10,22 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] private Button _playGameButton;
+    [SerializeField] private TMP_InputField _serverIPInputField;
     [SerializeField] private TMP_Text _serverStatusText;
     [SerializeField] private TMP_Text _caseDisplayText;
     [SerializeField] private float _timeBetweenChecks = 3;
 
     float _timer = 0;
     bool _casesIDMatch = false;
+    public void ChangeServerIP()
+    {
+        LLMSystemAPI.Instance.ChangeServerIP(_serverIPInputField.text);
+        
+        // para que compruebe
+        _casesIDMatch = false;
+
+        checkReadyToPlay();
+    }
 
     /// <summary>
     /// Comprueba si esta todo listo para jugar el simulador y no hay errores
@@ -28,8 +38,6 @@ public class MainMenu : MonoBehaviour
 
         _playGameButton.interactable = ready;
         _serverStatusText.gameObject.SetActive(!ready);
-
-        Debug.Log("check" + (GameSystem.Instance.CaseData != null).ToString() + " " + _casesIDMatch.ToString());
     }
 
     /// <summary>

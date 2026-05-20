@@ -30,9 +30,10 @@ public class PersistCaseData : MonoBehaviour
     /// <returns></returns>
     public string PersistCase(string clientName, string rivalName, string caseSummary, string caseContent, string caseClientIntroduction)
     {
-        int uniqueID = Guid.NewGuid().GetHashCode() & int.MaxValue;
-
         string path = WinDirSelect.Open("Selecciona la carpeta donde guardar los ficheros generados del caso", Application.persistentDataPath);
+
+
+        int uniqueID = Guid.NewGuid().GetHashCode() & int.MaxValue;
 
         bool savedJson = saveCaseDataJSON(uniqueID, path, clientName, rivalName, caseSummary, caseClientIntroduction);
         bool savedCaseContent = saveCaseContentPDF(uniqueID, path, caseContent);
@@ -58,8 +59,6 @@ public class PersistCaseData : MonoBehaviour
     /// <param name="caseClientIntroduction"></param>
     private bool saveCaseDataJSON(int id, string path, string clientName, string rivalName, string caseSummary, string caseClientIntroduction)
     {
-        int uniqueID = Guid.NewGuid().GetHashCode() & int.MaxValue;
-
         CaseDataSerializable serializedData = new CaseDataSerializable();
         serializedData.id = id;
         serializedData.clientName = clientName;
@@ -67,7 +66,7 @@ public class PersistCaseData : MonoBehaviour
         serializedData.caseSummary = caseSummary;
         serializedData.caseClientIntroduction = caseClientIntroduction;
 
-        path = Path.Combine(path, "savedCaseData_" + uniqueID + ".json");
+        path = Path.Combine(path, "savedCaseData_" + id + ".json");
         
         try
         {
