@@ -22,7 +22,6 @@ public class LLMConnectorTextChecker : LLMConnector
     /// <param name="indexConfig">Configuración concreta que se debe usar para este envio</param>
     public void SendPrompt(Action<bool> responseCallback, Action<string> errorCallback, string prompt, int indexConfig)
     {
-        Debug.Log("Este es el index del comprobador de puto texto " + indexConfig);
         _responseCallback = responseCallback;
         sendPrompt(recieveFinalResponse, errorCallback, prompt, indexConfig);
     }

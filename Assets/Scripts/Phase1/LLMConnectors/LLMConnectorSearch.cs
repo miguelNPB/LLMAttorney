@@ -1,9 +1,9 @@
 using System;
-using Telemetry;
 using UnityEngine;
 
 /// <summary>
-/// LLMConnector usado en la fase 1 para buscar precios en el RAG de precios
+/// LLMConnector enfocado en la busqueda y envio de los precios de servicios o productos de un proceso civil enfocando la busqueda en el archivo RAG de 
+/// precios
 /// </summary>
 public class LLMConnectorSearch : LLMConnector
 {
@@ -16,10 +16,11 @@ public class LLMConnectorSearch : LLMConnector
     private Action<string> _responseCallback;
 
     /// <summary>
-    /// Metodo publico para activar el funcionamiento de este LLMConnector
+    /// Metodo publico para iniciar la llamada al LLM con los parametros y configuracion especificados
     /// </summary>
-    /// <param name="responseCallback"></param>
-    /// <param name="prompt"></param>
+    /// <param name="responseCallback">Metodo que debe llamarse una vez terminado el envio y recibida la contestación del LLM</param>
+    /// <param name="errorCallback">Metodo que debe llamarse si el envio del prompt al LLM es fallido debido a un problema del servidor</param>
+    /// <param name="prompt">Prompt escrito por el usuario que se desea enviar al LLM</param>
     public void SendPrompt(Action<string> responseCallback, Action<string> errorCallback, string prompt)
     {
         _responseCallback = responseCallback;
@@ -29,7 +30,7 @@ public class LLMConnectorSearch : LLMConnector
     /// <summary>
     /// Metodo final para devolver la respuesta
     /// </summary>
-    /// <param name="finalSerializedResponse"></param>
+    /// <param name="finalSerializedResponse">Texto en formato json devuelto por el servidor que cuenta con los atributos rellenados por el LLM</param>
     private void recieveFinalResponse(string finalSerializedResponse)
     {
         SearchResponse jsonResponse = JsonUtility.FromJson<SearchResponse>(finalSerializedResponse);
@@ -37,6 +38,12 @@ public class LLMConnectorSearch : LLMConnector
         _responseCallback?.Invoke(jsonResponse.answer);
     }
 
+    /// <summary>
+    /// Metodo que recibe las distintas respuestas de los steps, revisando si la respuesta contiene algun texto de no informacion para devolver 
+    /// directamente que no se tiene la informacion
+    /// </summary>
+    /// <param name="success"> Indica si la respuesta a sido devuelta del servidor sin ningun error o problema</param>
+    /// <param name="text"> Atributos rellenados por el LLM</param>
     protected override void recieveStepResponse(bool success, string text)
     {
         if (text.Contains("Sin información"))
@@ -44,8 +51,11 @@ public class LLMConnectorSearch : LLMConnector
             recieveFinalResponse("Información no disponible. Especifique mejor la petición.");
         }
         else
+        {
             base.recieveStepResponse(success, text);
+        }        
     }
+
     protected override string deseralizePromptFirstResponse(string serializedResponse)
     {
         SearchResponse jsonResponse = JsonUtility.FromJson<SearchResponse>(serializedResponse);
@@ -58,6 +68,9 @@ public class LLMConnectorSearch : LLMConnector
         return jsonResponse.answer;
     }
 
+    /// <summary>
+    /// Creacion de los esquemas especificos para este conector
+    /// </summary>
     protected override void createJsonSchemas()
     {
         _contextSchema = new JsonSchema();
@@ -67,94 +80,4 @@ public class LLMConnectorSearch : LLMConnector
         _stepsSchema.properties.Add("answer", new PropertyInfo(JsonDataType.String));
     }
 
-    /*
-    protected override bool sendContextPrompt(int indexConfig = 0)
-    {
-        
-
-        bool messageSent = base.sendContextPrompt(indexConfig);
-
-        if (!messageSent)
-        {
-            _uiSearch.EndPendingMessage("Fallo de conexion, escriba de nuevo la pregunta");
-        }
-
-        return messageSent;
-    }
-
-    protected override bool sendSecuritySteps(string prompt)
-    {
-        _uiSearch.StartPendingMessage();
-
-        bool securityStepSent = base.sendSecuritySteps(prompt);
-
-        if (!securityStepSent)
-        {
-            _uiSearch.EndPendingMessage("Fallo de conexion, escriba de nuevo la pregunta");
-        }
-
-        return securityStepSent;
-    }
-
-
-
-    protected override void receiveResponse(bool success, string answer)
-    {
-
-        if (success)
-        {
-            // deserializamos la respuesta
-            SearchResponse jsonResponse = JsonUtility.FromJson<SearchResponse>(answer);
-
-            if (jsonResponse.respuestaValida && jsonResponse.respuestaCoherente)
-            {
-                _uiSearch.EndPendingMessage(jsonResponse.answer);
-            }
-            else if (!jsonResponse.respuestaCoherente)
-            {
-                _uiSearch.EndPendingMessage("Información no disponible. Por favor centrese en cuestiones del ambito del derecho civil");
-            }
-            else
-            {
-                _uiSearch.EndPendingMessage("Error de formato. Por favor repita la pregunta");
-            }
-
-            if (_stepCounter < _config[_indexConfig].getStepsChecks().Length &&
-                (!jsonResponse.respuestaValida || !jsonResponse.respuestaCoherente))
-            {
-                sendSecuritySteps(jsonResponse.answer);
-            }
-            else
-            {
-
-                if (!jsonResponse.respuestaValida || !jsonResponse.respuestaCoherente)
-                {
-                    TelemetryDispatch.SendNotConsistentAnswer(_messageID);
-                }
-
-                TelemetryDispatch.SendQueryReceived(_messageID);
-
-                _historical.Add("Respuesta :" + jsonResponse.answer);
-                _stepCounter = 0;
-                _promptSent = false;
-                _uiSearch.ShowMessage();
-                
-            }
-        }
-        else
-        {
-            Debug.LogError("Error en la llamada al LLM: " + answer);
-            _uiSearch.EndPendingMessage("Error al contactar con el modelo.");
-        }
-
-    }
-
-    public void CallSendContext(int indexConfig = 0)
-    {
-        _messageID = EventManager.Instance.getMessageID();
-        TelemetryDispatch.SendQueryPost(_messageID);
-
-        sendContextPrompt(indexConfig);
-    }
-    */
 }
