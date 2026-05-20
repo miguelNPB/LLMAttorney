@@ -26,7 +26,6 @@ public class Phase2Manager : MonoBehaviour
         _redactLawsuitButton.interactable = on;
     }
 
-
     public void SuccesfulConciliation()
     {
         // volver al menu 

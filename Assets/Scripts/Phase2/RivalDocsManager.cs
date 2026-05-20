@@ -16,6 +16,8 @@ public class RivalDocsManager : MonoBehaviour
     [SerializeField] private int _maxStartingDocs = 5;
     [SerializeField] private int _minStartingDocs = 5;
 
+    [SerializeField] private Phase2Manager _phase2Manager;
+    [SerializeField] private ComputerSystem _computerSystem;
     [SerializeField] private DocumentGenerationManager _documentGenerationManager;
     [SerializeField] private ProcuratorChatPage _procuradorPage;
 
@@ -51,6 +53,7 @@ public class RivalDocsManager : MonoBehaviour
     private void generateDocument()
     {
         _generating = true;
+        _numDocsGenerated++;
 
         // 50 / 50 valid o invalid
         bool isValid = 0.5f < Random.Range(0f, 1f);
@@ -72,7 +75,7 @@ public class RivalDocsManager : MonoBehaviour
     {
         _generating = false;
 
-        GameSystem.Instance.CaseData.documentManager.CreateDocument(docTitle, documentType, docContent, isValid, 0, false, true);
+        GameSystem.Instance.CaseData.documentManager.CreateDocument(docTitle, documentType, docContent, isValid, 0, true, true);
 
         _procuradorPage.StartPendingOpponentMessage();
 
@@ -95,6 +98,15 @@ public class RivalDocsManager : MonoBehaviour
 
         response += docTitle + " de la parte del demandado.";
         _procuradorPage.ReceiveOpponentDocMessage(response);
+
+        if (_numDocsGenerated >= _maxDocsGenerated)
+        {
+            _procuradorPage.ReceiveOpponentDocMessage("Con este último documento ya están todos los documentos del rival, voy avisando al tribunal para ir agendando la audiencia previa.");
+            _computerSystem.ToggleNotification(Page.PriorHearing, true);
+
+            _computerSystem.PingOverlayNotification("¡Ya estas listo para la audiencia previa!");
+            _phase2Manager.EnablePriorHearing(true);
+        }
     }
 
     /// <summary>
@@ -115,7 +127,7 @@ public class RivalDocsManager : MonoBehaviour
 
     private void Update()
     {
-        if (GameSystem.Instance.CaseData.isDemandaSent)
+        if (GameSystem.Instance.CaseData.isDemandaSent && _numDocsGenerated < _maxDocsGenerated)
             updateRivalDocGeneration();
     }
 }

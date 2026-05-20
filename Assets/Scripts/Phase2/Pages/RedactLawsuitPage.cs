@@ -45,7 +45,6 @@ public class RedactLawsuitPage : IPage
             setLawsuitText();
 
             _signed = true;
-            _phase2Manager.EnablePriorHearing(true);
 
             _inputLawyerName.interactable = false;
             _inputDigo.interactable = false;
@@ -56,9 +55,8 @@ public class RedactLawsuitPage : IPage
             _sendDemandButton.gameObject.SetActive(false);
 
             _procuratorChatPage.ManuallyAddMessage("Buenas, te adjunto la demanda escrita.", true, 50);
-            _procuratorChatPage.ManuallyAddMessage("Perfecto, se lo paso al tribunal y a la otra parte. Con esto ya estaría todo, cuando me digas, llamo al tribunal para agendar la audiencia previa.", false, 100);
+            _procuratorChatPage.ManuallyAddMessage("Perfecto, se lo paso al tribunal y a la otra parte. Ahora empezarán a llegar los documentos de la otra parte poco a poco, te iré avisando. Cuando estén todos sus documentos te avisaré para que pueda agendar la audiencia previa.", false, 100);
 
-            _computerSystem.ToggleNotification(Page.PriorHearing, true);
             _computerSystem.ToggleNotification(Page.ProcuratorChat, true);
             _computerSystem.GoToMainMenu();
 

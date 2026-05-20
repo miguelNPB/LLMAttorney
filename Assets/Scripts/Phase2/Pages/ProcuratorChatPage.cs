@@ -17,6 +17,11 @@ public class ProcuratorChatPage : ChatPage {
     private bool _isOpen = false;
     private ProcuratorUIDocument _selectedDoc = null;
     private DocumentManager _docManager;
+
+    /// <summary>
+    /// Llamado al seleccionar un documento para ser enviado
+    /// </summary>
+    /// <param name="doc"></param>
     public void SelectDocument(ProcuratorUIDocument doc)
     {
         if (_selectedDoc != null && _selectedDoc != doc)
@@ -26,6 +31,10 @@ public class ProcuratorChatPage : ChatPage {
 
         _sendButton.interactable = _selectedDoc != null;
     }
+
+    /// <summary>
+    /// Inicializa 
+    /// </summary>
     private void setupUIDocuments()
     {
         for (int i = 0; i < _docsUIContainer.transform.childCount; i++)
@@ -79,7 +88,7 @@ public class ProcuratorChatPage : ChatPage {
         _sendButton.interactable = false;
 
         // simulamos que piensa
-        float randomWait = UnityEngine.Random.Range(1f, 3f);
+        float randomWait = UnityEngine.Random.Range(0.5f, 1.5f);
         yield return new WaitForSeconds(randomWait);
 
 
