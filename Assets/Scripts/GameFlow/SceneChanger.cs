@@ -1,6 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+
+[RequireComponent(typeof(Button))]
+/// <summary>
+/// Clase para cambiar de escena con un boton
+/// </summary>
 public class SceneChanger : MonoBehaviour
 {
     [SerializeField] 
@@ -13,7 +18,7 @@ public class SceneChanger : MonoBehaviour
             but.onClick.AddListener(OnClick);
     }
 
-    void OnClick()
+    public void OnClick()
     {
 
         if(sceneNumber == -1)
