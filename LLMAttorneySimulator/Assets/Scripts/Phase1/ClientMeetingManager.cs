@@ -111,7 +111,7 @@ public class ClientMeetingManager : MonoBehaviour
     /// </summary>
     /// <param name="budgetCoherent">Indica si el presupuesto pasado por el jugador es coherente respecto al producto o servicio descrito</param>
     /// <param name="budget">Estimación media de los costes descritos por el usuario</param>
-    private void recieveBudgetCheckerResponse(bool budgetCoherent, float budget)
+    private void recieveBudgetCheckerResponse(bool budgetCoherent, int budget)
     {
         if (budgetCoherent)
         {
