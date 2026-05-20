@@ -1,5 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
+
+/// <summary>
+/// Clase para gestionar un menu de paginas como los del menu de ayuda.
+/// </summary>
 public class PagesListComponent : MonoBehaviour
 {
     public GameObject rightButton;
@@ -9,16 +13,23 @@ public class PagesListComponent : MonoBehaviour
 
     protected bool _open = false;
     protected int _index = 0;
+
+    /// <summary>
+    /// Cambia a la siguiente pagina
+    /// </summary>
     public void GoRight()
     {
         if (_open)
-            ChangePage(true);
+            changePage(true);
     }
 
+    /// <summary>
+    /// Cambia hacia la pagina previa
+    /// </summary>
     public void GoLeft()
     {
         if (_open)
-            ChangePage(false);
+            changePage(false);
     }
 
     /// <summary>
@@ -54,7 +65,12 @@ public class PagesListComponent : MonoBehaviour
             rightButton.SetActive(true);
         }
     }
-    protected void ChangePage(bool right)
+
+    /// <summary>
+    /// Metodo privado para cambiar de pagina
+    /// </summary>
+    /// <param name="right"></param>
+    private void changePage(bool right)
     {
         rightButton.SetActive(true);
         leftButton.SetActive(true);

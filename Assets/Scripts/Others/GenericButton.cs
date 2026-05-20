@@ -1,6 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Clase boton generico para algunos botones que abran ventanas que tengan animacion de apertura
+/// </summary>
 public class GenericButtonCanvas : MonoBehaviour
 {
     enum BehaviourOnClick
@@ -27,26 +30,26 @@ public class GenericButtonCanvas : MonoBehaviour
     [SerializeField] private Vector3 endScale;
 
     [Header("Animation Settings")]
-    [SerializeField] private float animationSpeed = 10f; // Adjust this in the Inspector
+    [SerializeField] private float animationSpeed = 10f;
 
-    private bool isWindowOpen = false; // Tracks the current state reliably
-    private Coroutine currentAnimation; // Stores the active coroutine so we can interrupt it
+    private bool isWindowOpen = false;
+    private Coroutine currentAnimation;
 
     void Start()
     {
-        // Optional: Initialize state based on the window's starting active state
         if (window != null)
         {
             isWindowOpen = window.activeSelf;
         }
     }
 
-    // Call this method from your Button's OnClick event in the Inspector
+    /// <summary>
+    /// Llamado al clicar el boton
+    /// </summary>
     public void OnClick()
     {
         if (window == null) return;
 
-        // 1. Determine the target state based on the button's behaviour
         switch (behaviourOnClick)
         {
             case BehaviourOnClick.OpenWindow:
@@ -56,27 +59,24 @@ public class GenericButtonCanvas : MonoBehaviour
                 isWindowOpen = false;
                 break;
             case BehaviourOnClick.ToggleWindow:
-                // Depends on the current state, so we just flip it
                 isWindowOpen = !isWindowOpen;
                 break;
         }
 
-        // 2. Execute the animation or instant change
         switch (showHideBehaviour)
         {
             case ShowHideBehaviour.Move:
                 Vector3 targetPosition = isWindowOpen ? endPosition : startPosition;
-                StartSmoothAnimation(AnimateMove(targetPosition));
+                startSmoothAnimation(animateMove(targetPosition));
                 break;
 
             case ShowHideBehaviour.Scale:
                 Vector3 targetScale = isWindowOpen ? endScale : startScale;
-                StartSmoothAnimation(AnimateScale(targetScale));
+                startSmoothAnimation(animateScale(targetScale));
                 break;
 
             case ShowHideBehaviour.EnableDisable:
-                // Check if we need to enable or disable the window based on the target state
-                isWindowOpen = window.activeSelf ? !isWindowOpen : isWindowOpen; // Ensure state matches the actual active state
+                isWindowOpen = window.activeSelf ? !isWindowOpen : isWindowOpen;
 
                 window.SetActive(isWindowOpen);
 
@@ -85,9 +85,9 @@ public class GenericButtonCanvas : MonoBehaviour
     }
 
     /// <summary>
-    /// Stops any ongoing animation and starts the new one to prevent jittering.
+    /// Detiene la animacion en curso y activa una nueva
     /// </summary>
-    private void StartSmoothAnimation(IEnumerator animationRoutine)
+    private void startSmoothAnimation(IEnumerator animationRoutine)
     {
         if (currentAnimation != null)
         {
@@ -96,29 +96,35 @@ public class GenericButtonCanvas : MonoBehaviour
         currentAnimation = StartCoroutine(animationRoutine);
     }
 
-    private IEnumerator AnimateMove(Vector3 targetPos)
+    /// <summary>
+    /// Coroutina para  animar el movimiento
+    /// </summary>
+    /// <param name="targetPos"></param>
+    /// <returns></returns>
+    private IEnumerator animateMove(Vector3 targetPos)
     {
-        // Continue lerping until the distance is practically zero
         while (Vector3.Distance(window.transform.position, targetPos) > 0.001f)
         {
             window.transform.position = Vector3.Lerp(window.transform.position, targetPos, Time.deltaTime * animationSpeed);
-            yield return null; // Wait until next frame
+            yield return null;
         }
         
-        // Snap to exact position at the end
         window.transform.position = targetPos; 
     }
-
-    private IEnumerator AnimateScale(Vector3 targetScale)
+    
+    /// <summary>
+    /// Coroutina para animar el escalado
+    /// </summary>
+    /// <param name="targetScale"></param>
+    /// <returns></returns>
+    private IEnumerator animateScale(Vector3 targetScale)
     {
-        // Continue lerping until the distance is practically zero
         while (Vector3.Distance(window.transform.localScale, targetScale) > 0.001f)
         {
             window.transform.localScale = Vector3.Lerp(window.transform.localScale, targetScale, Time.deltaTime * animationSpeed);
-            yield return null; // Wait until next frame
+            yield return null; 
         }
         
-        // Snap to exact scale at the end
         window.transform.localScale = targetScale;
     }
 }

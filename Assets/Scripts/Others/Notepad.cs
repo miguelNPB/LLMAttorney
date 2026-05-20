@@ -2,6 +2,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Clase para getsionar el comportamiento del bloc de notas
+/// </summary>
 public class Notepad : MonoBehaviour
 {
     [SerializeField]
@@ -41,32 +44,10 @@ public class Notepad : MonoBehaviour
         _inputField.text = "";
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        notepadButton.onClick.AddListener(OnClick);
-        notepad.transform.localPosition = startingPos;
-    }
-    
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (isMoving)
-        {
-            lerpProgress += moveSpeed * Time.deltaTime;
-            notepad.transform.localPosition = Vector3.Lerp(startPos, targetPos, lerpProgress);
-            
-            if (lerpProgress >= 1f)
-            {
-                notepad.transform.localPosition = targetPos;
-                isMoving = false;
-                lerpProgress = 0f;
-            }
-        }
-    }
-
-    void OnClick()
+    /// <summary>
+    /// Llamado al clicar el bloc
+    /// </summary>
+    private void onClick()
     {
         
         if (isAtEndingPos)
@@ -86,5 +67,27 @@ public class Notepad : MonoBehaviour
         
         lerpProgress = 0f;
         isMoving = true;
+    }
+
+    void Start()
+    {
+        notepadButton.onClick.AddListener(onClick);
+        notepad.transform.localPosition = startingPos;
+    }
+
+    void Update()
+    {
+        if (isMoving)
+        {
+            lerpProgress += moveSpeed * Time.deltaTime;
+            notepad.transform.localPosition = Vector3.Lerp(startPos, targetPos, lerpProgress);
+
+            if (lerpProgress >= 1f)
+            {
+                notepad.transform.localPosition = targetPos;
+                isMoving = false;
+                lerpProgress = 0f;
+            }
+        }
     }
 }

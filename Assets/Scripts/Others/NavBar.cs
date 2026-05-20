@@ -1,7 +1,6 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 /// <summary>
 /// Clase para el drag de ventanas flotantes
@@ -29,49 +28,32 @@ public class NavBarDrag : MonoBehaviour
     private Vector2 snapTarget;
     private bool isSnapped = false;
 
-    void Start()
-    {
-        rootCanvas = GetComponentInParent<Canvas>();
-        while (rootCanvas != null && !rootCanvas.isRootCanvas)
-            rootCanvas = rootCanvas.transform.parent?.GetComponentInParent<Canvas>();
 
-        canvasRect = rootCanvas.GetComponent<RectTransform>();
-        documentTabRect = targetWindow != null ? targetWindow : transform.parent.GetComponent<RectTransform>();
-
-        SetupNavBarDrag();
-
-        if (winTitle != null)
-            //Search in children for a TMP_Text component to set the title
-            GetComponentInChildren<TMP_Text>().text = winTitle.text;
-        
-        if (dragLimits == null)
-            Debug.LogWarning("Drag limits not set. Searching for game object with tag 'NavLimits'...");
-            dragLimits = GameObject.FindGameObjectWithTag("NavLimits")?.GetComponent<RectTransform>();
-    }
-
-    void OnApplicationFocus(bool hasFocus)
-    {
-        if (!hasFocus) ReleaseWindow();
-    }
-
-    void SetupNavBarDrag()
+    /// <summary>
+    /// Inicializa el sistema de drag
+    /// </summary>
+    private void setupNavBarDrag()
     {
         EventTrigger trigger = gameObject.GetComponent<EventTrigger>() ?? gameObject.AddComponent<EventTrigger>();
 
         EventTrigger.Entry onDown = new EventTrigger.Entry { eventID = EventTriggerType.PointerDown };
-        onDown.callback.AddListener((e) => OnNavBarDown((PointerEventData)e));
+        onDown.callback.AddListener((e) => onNavBarDown((PointerEventData)e));
         trigger.triggers.Add(onDown);
 
         EventTrigger.Entry onDrag = new EventTrigger.Entry { eventID = EventTriggerType.Drag };
-        onDrag.callback.AddListener((e) => OnNavBarDrag((PointerEventData)e));
+        onDrag.callback.AddListener((e) => onNavBarDrag((PointerEventData)e));
         trigger.triggers.Add(onDrag);
 
         EventTrigger.Entry onUp = new EventTrigger.Entry { eventID = EventTriggerType.PointerUp };
-        onUp.callback.AddListener((e) => OnNavBarUp((PointerEventData)e));
+        onUp.callback.AddListener((e) => onNavBarUp((PointerEventData)e));
         trigger.triggers.Add(onUp);
     }
 
-    void OnNavBarDown(PointerEventData eventData)
+    /// <summary>
+    /// Al pulsar una ventana
+    /// </summary>
+    /// <param name="eventData"></param>
+    private void onNavBarDown(PointerEventData eventData)
     {
         draggedWindow = documentTabRect;
         draggedWindow.SetAsLastSibling();
@@ -84,12 +66,18 @@ public class NavBarDrag : MonoBehaviour
         }
 
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            canvasRect, eventData.position, GetCamera(), out Vector2 localPoint);
+            canvasRect, eventData.position, getCamera(), out Vector2 localPoint);
 
         pointerDragOffset = draggedWindow.anchoredPosition - localPoint + dragOffset;
     }
 
-    Vector2 ClampToBounds(Vector2 targetPos, RectTransform window)
+    /// <summary>
+    /// Clamp a los limites de la pantalla
+    /// </summary>
+    /// <param name="targetPos"></param>
+    /// <param name="window"></param>
+    /// <returns></returns>
+    private Vector2 clampToBounds(Vector2 targetPos, RectTransform window)
     {
         // Temporarily move window to targetPos, sample navbar corners, then decide
         Vector2 previousPos = window.anchoredPosition;
@@ -112,28 +100,36 @@ public class NavBarDrag : MonoBehaviour
         return targetPos + (Vector2)canvasRect.InverseTransformVector(nudge);
     }
 
-    void OnNavBarDrag(PointerEventData eventData)
+    /// <summary>
+    /// al mover una ventana arrastrandola
+    /// </summary>
+    /// <param name="eventData"></param>
+    void onNavBarDrag(PointerEventData eventData)
     {
         if (draggedWindow == null) return;
 
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            canvasRect, eventData.position, GetCamera(), out Vector2 localPoint);
+            canvasRect, eventData.position, getCamera(), out Vector2 localPoint);
 
         Vector2 targetPos = localPoint + pointerDragOffset;
 
         if (dragLimits != null)
-            targetPos = ClampToBounds(targetPos, draggedWindow);
+            targetPos = clampToBounds(targetPos, draggedWindow);
 
         draggedWindow.anchoredPosition = targetPos;
     }
 
-    void OnNavBarUp(PointerEventData eventData)
+    /// <summary>
+    /// Al soltar una ventana arrastrable
+    /// </summary>
+    /// <param name="eventData"></param>
+    void onNavBarUp(PointerEventData eventData)
     {
         if (draggedWindow == null) return;
 
-        if (TryGetEdgeSnap(draggedWindow.anchoredPosition, out Vector2 snap))
+        if (tryGetEdgeSnap(draggedWindow.anchoredPosition, out Vector2 snap))
         {
-            snapTarget = dragLimits != null ? ClampToBounds(snap, draggedWindow) : snap;
+            snapTarget = dragLimits != null ? clampToBounds(snap, draggedWindow) : snap;
             isSnapping = true;
         }
         else
@@ -142,7 +138,13 @@ public class NavBarDrag : MonoBehaviour
         }
     }
 
-    bool TryGetEdgeSnap(Vector2 windowPos, out Vector2 result)
+    /// <summary>
+    /// Intenta obtener un borde
+    /// </summary>
+    /// <param name="windowPos"></param>
+    /// <param name="result"></param>
+    /// <returns></returns>
+    bool tryGetEdgeSnap(Vector2 windowPos, out Vector2 result)
     {
         Vector2 canvasHalf = canvasRect.rect.size * 0.5f;
         float snapHalfWidth = canvasRect.rect.size.x * 0.25f;
@@ -163,7 +165,11 @@ public class NavBarDrag : MonoBehaviour
         return false;
     }
 
-    void ResizeTabToEdge(Vector2 snappedPos)
+    /// <summary>
+    /// Llamado para reescalarlo para que se ajuste a un borde
+    /// </summary>
+    /// <param name="snappedPos"></param>
+    void resizeTabToEdge(Vector2 snappedPos)
     {
         Vector2 canvasSize = canvasRect.rect.size;
         documentTabRect.sizeDelta = new Vector2(canvasSize.x * 0.5f, canvasSize.y);
@@ -171,11 +177,14 @@ public class NavBarDrag : MonoBehaviour
         isSnapped = true;
     }
 
-    void ReleaseWindow()
+    /// <summary>
+    /// Llamado al soltar la ventana
+    /// </summary>
+    private void releaseWindow()
     {
         if (draggedWindow == null) return;
 
-        if (TryGetEdgeSnap(draggedWindow.anchoredPosition, out Vector2 snap))
+        if (tryGetEdgeSnap(draggedWindow.anchoredPosition, out Vector2 snap))
         {
             snapTarget = snap;
             isSnapping = true;
@@ -200,13 +209,37 @@ public class NavBarDrag : MonoBehaviour
             if (Vector2.Distance(draggedWindow.anchoredPosition, snapTarget) < 0.5f)
             {
                 draggedWindow.anchoredPosition = snapTarget;
-                ResizeTabToEdge(snapTarget);
+                resizeTabToEdge(snapTarget);
                 isSnapping = false;
                 draggedWindow = null;
             }
         }
     }
 
-    Camera GetCamera() =>
+    void Start()
+    {
+        rootCanvas = GetComponentInParent<Canvas>();
+        while (rootCanvas != null && !rootCanvas.isRootCanvas)
+            rootCanvas = rootCanvas.transform.parent?.GetComponentInParent<Canvas>();
+
+        canvasRect = rootCanvas.GetComponent<RectTransform>();
+        documentTabRect = targetWindow != null ? targetWindow : transform.parent.GetComponent<RectTransform>();
+
+        setupNavBarDrag();
+
+        if (winTitle != null)
+            //Search in children for a TMP_Text component to set the title
+            GetComponentInChildren<TMP_Text>().text = winTitle.text;
+
+        if (dragLimits == null)
+            Debug.LogWarning("Drag limits not set. Searching for game object with tag 'NavLimits'...");
+        dragLimits = GameObject.FindGameObjectWithTag("NavLimits")?.GetComponent<RectTransform>();
+    }
+
+    void OnApplicationFocus(bool hasFocus)
+    {
+        if (!hasFocus) releaseWindow();
+    }
+    private Camera getCamera() =>
         rootCanvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : rootCanvas.worldCamera;
 } 

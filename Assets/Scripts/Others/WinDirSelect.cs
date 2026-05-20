@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 
 /// <summary>
-/// Clase para sacar una ventana de windows para seleccionar una carpeta
+/// Clase para sacar una ventana nativa de windows para seleccionar una carpeta
 /// </summary>
 public static class WinDirSelect
 {
