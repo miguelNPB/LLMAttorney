@@ -21,21 +21,8 @@ MonoBehaviour:
     Argumenta las
     cosas y no des el precio sin nada de texto.'
   _historicHeader: 
-  _stepChecks:
-  - "Revisa el texto recibido.\n\nComprueba si contiene al menos una palabra relacionada
-    con servicios legales civiles.\n\nPalabras v\xE1lidas incluyen:\n\nnotario\nabogado\nprocurador\nperito\ninforme
-    pericial\ntribunal\njuicio civil\ndemanda\ntasas judiciales\ndocumentos legales\nescritura\ncontrato\ncoste\nprecio\npresupuesto\n\nReglas:\n\nSi
-    el texto contiene alguna de estas palabras, devu\xE9lvelo exactamente igual.\nSi
-    no contiene ninguna, devuelve exactamente \"Sin informaci\xF3n\"."
-  - "Revisa el texto recibido.\n\nConsidera texto inv\xE1lido solo si:\n\nes una
-    secuencia sin sentido como asdfgh, 123123123, xxxxx\ncontiene s\xEDmbolos aleatorios
-    sin palabras\ntiene m\xE1s del 50% de caracteres no alfab\xE9ticos\n\nReglas:\n\nSi
-    el texto es normal y entendible, devu\xE9lvelo exactamente igual.\nSi es claramente
-    aleatorio, devuelve \"Sin informaci\xF3n\"."
-  - "Reescribe el texto para que sea claro, objetivo y directo.\n\nReglas:\n- No
-    a\xF1adas explicaciones.\n- No describas el cambio realizado.\n- No confirmes
-    que lo has reescrito.\n\nDevuelve \xFAnicamente el texto final reescrito."
+  _stepChecks: []
   _stepsCommonSafeguard: 
-  _temperature: 0.6
+  _temperature: 0.4
   _ragUse: 1
   _ragFile: 1

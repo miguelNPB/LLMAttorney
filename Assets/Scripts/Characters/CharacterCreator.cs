@@ -1,9 +1,12 @@
-using System.Drawing;
 using UnityEngine;
 
+/// <summary>
+/// Clase encargada de la creacion aleatoria de los personajes al iniciar el juego. Para ello hace uso de varios random que mezcla las distintas partes
+/// del cuerpo para generar nuevos personajes.
+/// </summary>
 public class CharacterCreator : MonoBehaviour
 {
-
+    //Los distintos roles que puede tomar el personaje, esto sirve para marcar su vestuario
     enum Roles
     {
         Lawyer,
@@ -45,7 +48,7 @@ public class CharacterCreator : MonoBehaviour
     #endregion
 
     #region Colors
-
+    //Gracias al color blanco de las partes los colores pueden ser configurados desde el propio editor
     [SerializeField]
     private Color32[] _skinColor;
 
@@ -82,31 +85,31 @@ public class CharacterCreator : MonoBehaviour
 
     #endregion
 
+    //Probabilidad de que sea chico, esto permite configurar si el personage es de un genero o se deja aleatorio.
     [SerializeField, Range(0, 1)]
     private float _maleProbability;
 
     [SerializeField]
     private Roles _role;
 
-    private bool _aspectoAsignado = false;
+    private bool _designChoosen = false;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    /// <summary>
+    /// Se inicia la creacion del personage en el start siempre y cuando no se tenga ya un aspecto seleccionado
+    /// </summary>
     void Start()
     {
-        if (!_aspectoAsignado)
+        if (!_designChoosen)
         {
             createRandomCharacter();
-            _aspectoAsignado = true;
+            _designChoosen = true;
         }
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    /// <summary>
+    /// Metodo encargado de crear al personaje de forma aleatoria segun las configuraciones del editor.
+    /// </summary>
     private void createRandomCharacter()
     {
 
