@@ -6,6 +6,14 @@ using UnityEngine;
 public abstract class IPage : MonoBehaviour
 {
     public ComputerSystem _computerSystem;
+
+    /// <summary>
+    /// Llamado al abrir la pagina
+    /// </summary>
     abstract public void Open();
+
+    /// <summary>
+    /// Llamado al cerrar la pagina
+    /// </summary>
     abstract public void Close();
 }

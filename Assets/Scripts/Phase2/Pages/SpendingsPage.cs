@@ -7,8 +7,6 @@ using UnityEngine;
 public class SpendingsPage : IPage
 {
     [Header("Etiqueta de Presupuesto")]
-    [Tooltip("Texto de presupuesto inicial")]
-    public TMP_Text startingBudgetText;
     [Tooltip("Texto de presupuesto actual")]
     public TMP_Text currentBudgetText;
     [Header("Lista de Gastos")]
@@ -24,8 +22,8 @@ public class SpendingsPage : IPage
     {
         if (BudgetSystem.Instance != null)
         {
-            BudgetSystem.Instance.OnBudgetChanged += Refresh;
-            Refresh();
+            BudgetSystem.Instance.OnBudgetChanged += refresh;
+            refresh();
         }
         else
         {
@@ -36,16 +34,16 @@ public class SpendingsPage : IPage
     private void OnDisable()
     {
         if (BudgetSystem.Instance != null)
-            BudgetSystem.Instance.OnBudgetChanged -= Refresh;
+            BudgetSystem.Instance.OnBudgetChanged -= refresh;
     }
 
-    public void Refresh()
+    /// <summary>
+    /// Refresca los gastos que hay en el budgetsystem
+    /// </summary>
+    private void refresh()
     {
         BudgetSystem bm = BudgetSystem.Instance;
         if (bm == null) return;
-
-        if (startingBudgetText != null)
-            startingBudgetText.text = $"Starting Budget:  {bm.startingBudget.ToString(currencyFormat)}";
 
         if (expensesListContainer != null)
         {
@@ -53,7 +51,7 @@ public class SpendingsPage : IPage
                 Destroy(child.gameObject);
 
             foreach (ExpenseEntry entry in bm.Expenses)
-                SpawnRow(entry.title, entry.amount);
+                spawnRow(entry.title, entry.amount);
         }
 
         if (currentBudgetText != null)
@@ -62,7 +60,12 @@ public class SpendingsPage : IPage
         }
     }
 
-    private void SpawnRow(string title, float amount)
+    /// <summary>
+    /// Instancia una entrada en el menu de gastos
+    /// </summary>
+    /// <param name="title"></param>
+    /// <param name="amount"></param>
+    private void spawnRow(string title, float amount)
     {
         if (expenseEntryPrefab == null || expensesListContainer == null) return;
 

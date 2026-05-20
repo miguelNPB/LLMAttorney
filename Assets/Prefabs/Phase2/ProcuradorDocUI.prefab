@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 578511607139781379}
   - component: {fileID: -612000057208742494}
   m_Layer: 5
-  m_Name: ProcuradorDoc
+  m_Name: ProcuradorDocUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
