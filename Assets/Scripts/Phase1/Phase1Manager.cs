@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Manager para la fase 1
+/// Manager para la fase 1 encargado de iniciar la conversación del cliente dado el caso usado
 /// </summary>
 public class Phase1Manager : MonoBehaviour
 {
