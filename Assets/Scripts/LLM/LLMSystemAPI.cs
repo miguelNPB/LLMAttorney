@@ -393,6 +393,13 @@ public class LLMSystemAPI : MonoBehaviour
         }
     }
 
+    private void onSceneChanged(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("antes:" + _promptsQueue.Count);
+        _promptsQueue.Clear();
+        Debug.Log("despues:" + _promptsQueue.Count);
+    }
+
     private void Update()
     {
         if (!_sendingPrompt && _promptsQueue.Count > 0)
@@ -401,6 +408,17 @@ public class LLMSystemAPI : MonoBehaviour
             PromptData prompt = _promptsQueue.Dequeue();
             sendPrompt(prompt);
         }
+    }
+
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += onSceneChanged;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= onSceneChanged;
     }
 
     private void Awake()
