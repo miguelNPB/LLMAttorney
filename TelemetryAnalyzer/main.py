@@ -78,6 +78,8 @@ def analyze_not_consistent_questions(notConsistentQuestionEvents, queryRecievedE
 
 # saca una grafica de puntos con los precios de cada presupuesto rechazados
 def analyze_budget_attempts(deniedBudgetEvents, plot_title):
+    if len(deniedBudgetEvents) < 1: 
+        return
 
     prices = deniedBudgetEvents["6"].values
     x_axis = range(1, len(prices) + 1)
@@ -252,9 +254,9 @@ def main():
     notConsistentQuestionEvents = database[database["eventType"] == 0]
     deniedBudgetEvents = database[database["eventType"] == 1]
     postDocumentEvents = database[database["eventType"] == 2]
-    askedDocumentEvents = database[database["eventType"] == 4]
-    queryPostEvents = database[database["eventType"] == 5]
-    queryRecievedEvents = database[database["eventType"] == 6]
+    askedDocumentEvents = database[database["eventType"] == 3]
+    queryPostEvents = database[database["eventType"] == 4]
+    queryRecievedEvents = database[database["eventType"] == 5]
 
     analyze_not_consistent_questions(notConsistentQuestionEvents, queryRecievedEvents, plot_title)
     analyze_budget_attempts(deniedBudgetEvents, plot_title)

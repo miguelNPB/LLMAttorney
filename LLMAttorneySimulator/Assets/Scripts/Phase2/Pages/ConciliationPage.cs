@@ -32,6 +32,9 @@ public class ConciliationPage : IPage
     private bool _clientAgrees;
     private bool _rivalAgrees;
 
+    private bool _firstClientResponseRecieved = false;
+    private bool _firstRivalResponseRecieved = false;
+
     private bool _open = false;
 
 
@@ -113,7 +116,7 @@ public class ConciliationPage : IPage
     /// <summary>
     /// Recibe la respuesta del cliente en booleano de si concuerda con la proposicion o no, manda el prompt a sacar el texto
     /// </summary>
-    /// <param name="agree"></param>
+    /// <param name="agree"></param> 
     private void recieveClientBoolAnswer(bool agree)
     {
         _clientAgrees = agree;
@@ -133,6 +136,7 @@ public class ConciliationPage : IPage
         }
 
         // actualizar animator
+        _firstClientResponseRecieved = true;
         _clientCharacterAnimator.SetTrigger(_clientAgrees ? "Success" : "Rejection");
         _clienteAnswerText.text = text;
 
@@ -173,6 +177,7 @@ public class ConciliationPage : IPage
         }
 
         // actualizar animator
+        _firstRivalResponseRecieved = true;
         _rivalCharacterAnimator.SetTrigger(_rivalAgrees ? "Success" : "Rejection");
         _rivalAnswerText.text = text;
 
@@ -224,13 +229,21 @@ public class ConciliationPage : IPage
 
     public override void Open()
     {
+        if (_firstClientResponseRecieved)
+        {
+            _clientCharacterAnimator.SetTrigger(_clientAgrees ? "Success" : "Rejection");
+        }
+        if (_firstRivalResponseRecieved)
+        {
+            _rivalCharacterAnimator.SetTrigger(_rivalAgrees ? "Success" : "Rejection");
+        }
+
         _open = true;
 
         _computerSystem.ToggleNotification(Page.Conciliation, false);
 
         for (int i = 0; i < gameObject.transform.childCount; i++)
             gameObject.transform.GetChild(i).gameObject.SetActive(true);
-        
     }
 
     public override void Close()
@@ -239,6 +252,5 @@ public class ConciliationPage : IPage
 
         for (int i = 0; i < gameObject.transform.childCount; i++)
             gameObject.transform.GetChild(i).gameObject.SetActive(false);
-
     }
 }
