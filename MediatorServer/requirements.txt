@@ -1,0 +1,16 @@
+fastapi
+gunicorn
+pydantic
+httpx
+requests
+langchain 
+langchain-text-splitters 
+langchain-community 
+langchain-chroma
+langchain-google-genai
+langchain-ollama
+bs4
+pypdf
+guidance
+openai
+python-multipart
