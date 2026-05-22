@@ -26,7 +26,7 @@ public class GameSystem : MonoBehaviour
     /// </summary>
     public void ResetCaseData()
     {
-        _caseData = _startingCaseData;   
+        _caseData = new CaseData(_startingCaseData);
     }
 
     /// <summary>
@@ -50,7 +50,7 @@ public class GameSystem : MonoBehaviour
             PersistCaseData.CaseDataSerializable caseData = JsonUtility.FromJson<PersistCaseData.CaseDataSerializable>(jsonText);
 
             _caseData = new CaseData(caseData.id, caseData.clientName, caseData.rivalName, caseData.caseSummary, caseData.caseClientIntroduction);
-            _startingCaseData = _caseData;
+            _startingCaseData = new CaseData(_caseData);
 
             return true;
         }

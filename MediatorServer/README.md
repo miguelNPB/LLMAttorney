@@ -6,6 +6,7 @@ Esta carpeta almacena el servidor de python intermediario, que gestiona las peti
 - Windows 11 o 10
 - Tener Docker Desktop https://www.docker.com/products/docker-desktop/
 - Si tienes tarjeta gráfica AMD, Ollama https://ollama.com/
+
 ## Como usar
 
 En paralelo a la ejecución de la build del simulador, se debe tener corriendo el servidor que gestione el procesamiento de las peticiones al modelo y Ollama, para ello configurar el servidor y luego ejecutar el .bat correspondiente según la marca de GPU del ordenador.
@@ -28,7 +29,7 @@ De manera que para este caso se deberá tener instalado además localmente Ollam
 En el caso de AMD, no podemos ejecutar ollama en docker usando GPU porque no tiene acceso a para usar GPU, y por lo tanto debe ser ejecutado fuera de él utilizando Vulkan. 
 
 
-### Anotación a tener en cuenta
+### Anotación a tener en cuenta en caso de problemas instalando
 
 Este servidor es posible que no pueda ser instalado mientras haya un partido de fútbol de La Liga en vivo, esto es debido a que durante la emisión de un partido, La Liga utiliza a proveedores de internet para prohibir IPs para evitar la piratería, no obstante bloquea tan masivamente que bloquea a servidores inocentes, en nuestro caso al servidor cloudflare de los modelos de Ollama.   
 Para saber más de este problema visitar: https://hayahora.futbol/  

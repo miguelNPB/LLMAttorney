@@ -123,6 +123,7 @@ public class BudgetSystem : MonoBehaviour
     /// </summary>
     public void ResetBudget()
     {
+        startingBudget = 0;
         CurrentBudget = startingBudget;
         TotalExpenses = 0f;
         _expenses.Clear();

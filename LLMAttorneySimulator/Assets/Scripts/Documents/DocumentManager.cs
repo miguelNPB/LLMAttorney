@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
-
 public enum DocumentType { Perito, Report, Witness, ReceiptFacture }
 
 /// <summary>

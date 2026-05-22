@@ -77,6 +77,22 @@ public class CaseData
         procuratorMessages.Add(new ConversationMessage($"Buenas! Mi nombre es {_procuratorName}, seré tu procurador para este caso. Cualquier documento que consideres pertinente adjuntar al proceso, mándamelo y lo registraré.", false));
     }
 
+    /// <summary>
+    /// Constructor por copia
+    /// </summary>
+    /// <param name="other"></param>
+    public CaseData(CaseData other)
+    {
+        _id = other.id;
+        _conciliationRivalInstantRejectProbability = UnityEngine.Random.Range(0.5f, 1f);
+        _clientName = other.clientName;
+        _procuratorName = "Máximo Décimo";
+        _demandedEntityName = other.demandedEntityName;
+        _caseDescription = other.caseDescription;
+        _initialClientSpeech = other.initialClientSpeech;
+        clientMessages.Add(new ConversationMessage($"Hola, soy {_clientName} si tienes alguna duda sobre algo que pueda contarte para nuestro caso y demanda a {_demandedEntityName} o cuando sepas que documentos debo conseguir por favor dímelo.", false));
+        procuratorMessages.Add(new ConversationMessage($"Buenas! Mi nombre es {_procuratorName}, seré tu procurador para este caso. Cualquier documento que consideres pertinente adjuntar al proceso, mándamelo y lo registraré.", false));
+    }
 
     /// <summary>
     /// Se llama una vez se ha intentado una conciliacion
