@@ -70,7 +70,7 @@ public class RivalDocsManager : MonoBehaviour
     /// <param name="docContent"></param>
     /// <param name="documentType"></param>
     /// <param name="cost"></param>
-    /// <param name="isPlayer"></param>
+    /// <param name="isOpponent"></param>
     /// <param name="isValid"></param>
     private void recieveDocument(string docTitle, string docContent, DocumentType documentType, int cost, bool isOpponent, bool isValid)
     {

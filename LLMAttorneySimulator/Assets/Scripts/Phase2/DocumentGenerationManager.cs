@@ -12,7 +12,7 @@ public class DocumentGenerationManager : MonoBehaviour
 
     [SerializeField] private string _headerPrompt;
 
-    // docTitle, docContent, docType, cost, isPlayer, isValid
+    // docTitle, docContent, docType, cost, isOpponent, isValid
     private Action<string, string, DocumentType, int, bool, bool> _responseCallback;
     private Action<string> _errorCallback;
 
@@ -27,7 +27,7 @@ public class DocumentGenerationManager : MonoBehaviour
     /// Metodo publico para empezar la generacion de un documento
     /// </summary>
     /// <param name="docType"></param>
-    /// <param name="isPlayer"></param>
+    /// <param name="isOpponent"></param>
     /// <param name="isValid"></param>
     public void PromptGenerateDocument(Action<string, string, DocumentType, int, bool, bool> responseCallback, Action<string> errorCallback, string prompt, DocumentType docType, bool isOpponent, bool isValid = true)
     {
