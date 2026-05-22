@@ -33,9 +33,9 @@ public class LLMConnectorDocuments : LLMConnector
     /// </summary>
     /// <param name="prompt">Prompt</param>
     /// <param name="docType">Tipo de documento</param>
-    /// <param name="isPlayer">Si para el cliente el documento o del rival</param>
+    /// <param name="isOpponent">Si para el cliente el documento o del rival</param>
     /// <param name="isValid">Si el documento es valido en la audiencia previa o no</param>
-    public void SendPrompt(Action<string, string> responseCallback, Action<string> errorCallback, string prompt, DocumentType docType, bool isPlayer, bool isValid = true)
+    public void SendPrompt(Action<string, string> responseCallback, Action<string> errorCallback, string prompt, DocumentType docType, bool isOpponent, bool isValid = true)
     {
         clearHistoricText();
         appendHistoricText(GameSystem.Instance.CaseData.caseDescription);
@@ -46,16 +46,16 @@ public class LLMConnectorDocuments : LLMConnector
         switch (docType)
         {
             case DocumentType.Perito:
-                configIndex = isPlayer ? 0 : (isValid ? 4 : 8);
+                configIndex = isOpponent ? (isValid ? 4 : 8) : 0;
                 break;
             case DocumentType.Report:
-                configIndex = isPlayer ? 1 : (isValid ? 5 : 9);
+                configIndex = isOpponent ? (isValid ? 5 : 9) : 1;
                 break;
             case DocumentType.Witness:
-                configIndex = isPlayer ? 2 : (isValid ? 6 : 10);
+                configIndex = isOpponent ? (isValid ? 6 : 10) : 2;
                 break;
             case DocumentType.ReceiptFacture:
-                configIndex = isPlayer ? 3 : (isValid ? 7 : 11);
+                configIndex = isOpponent ? (isValid ? 7 : 11) : 3;
                 break;
         }
         sendPrompt(recieveFinalResponse, errorCallback, prompt, configIndex);
