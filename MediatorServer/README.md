@@ -26,3 +26,11 @@ En el caso de AMD, Docker no da soporte para utilizar la GPU desde un contenedor
 Además, dado que ROCm está desarrollado para Linux y con poco soporte para Windows, Ollama ofrece Vulkan como alternativa para GPUs AMD.  
 De manera que para este caso se deberá tener instalado además localmente Ollama https://ollama.com/, y llamar a `runVulkan.bat`.
 En el caso de AMD, no podemos ejecutar ollama en docker usando GPU porque no tiene acceso a para usar GPU, y por lo tanto debe ser ejecutado fuera de él utilizando Vulkan. 
+
+
+### Anotación a tener en cuenta
+
+Este servidor es posible que no pueda ser instalado mientras haya un partido de fútbol de La Liga en vivo, esto es debido a que durante la emisión de un partido, La Liga utiliza a proveedores de internet para prohibir IPs para evitar la piratería, no obstante bloquea tan masivamente que bloquea a servidores inocentes, en nuestro caso al servidor cloudflare de los modelos de Ollama.   
+Para saber más de este problema visitar: https://hayahora.futbol/  
+
+En caso de problemas con la instalación durante partidos de fútbol de La Liga, utilizar la VPN de la UCM para evitar el bloqueo.
