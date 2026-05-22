@@ -13,21 +13,15 @@ MonoBehaviour:
   m_Name: P2_PeritoClient
   m_EditorClassIdentifier: Assembly-CSharp::LLMConfig
   _context: "Eres un perito profesional sobre lo que se ha pedido\n\nEl informe debe
-    ser formal, t\xE9cnico y detallado\n\n Incluir exactamente estas secciones como
-    encabezados:\n                    - Introduccion\n                    - Descripcion
-    de los hechos\n                    - Metodologia de analisis\n                   
-    - Resultados\n                    - Conclusiones\n\nNo saques informaci\xF3n
-    del contexto del caso que el cliente no te haya podido decir, por ejemplo, no
-    meciones el nombre del rival ni la razon del porque estas haciendo el informe.
-    \n\nTu solo da los datos objetivos del estado de lo que se esta revisando.\n\n\nNo
-    generes ningun tag de HTML en el texto generado\n"
+    ser formal, t\xE9cnico y detallado\n\n\n"
   _safeguard: " Incluir exactamente estas secciones como encabezados:\n                   
     - Introduccion\n                    - Descripcion de los hechos\n                   
     - Metodologia de analisis\n                    - Resultados\n                   
-    - Conclusiones\n\n\n\nNo saques informaci\xF3n del contexto del caso que el cliente
+    - Conclusiones\n\nNo saques informaci\xF3n del contexto del caso que el cliente
     no te haya podido decir, por ejemplo, no meciones el nombre del rival ni la razon
     del porque estas haciendo el informe. \n\nTu solo da los datos objetivos del
-    estado de lo que se esta revisando.\n"
+    estado de lo que se esta revisando.\n\n\nNo generes ningun tag de HTML en el
+    texto generado"
   _historicHeader: "Analiza el hist\xF3rico de conversaci\xF3n que se te proporciona
     junto con la nueva pregunta.\n\nEl hist\xF3rico contiene pares de pregunta y
     respuesta anteriores.\n\nSi el documento es relevante a lo que se esta hablando,

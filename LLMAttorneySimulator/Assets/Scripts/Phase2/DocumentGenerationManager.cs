@@ -10,7 +10,7 @@ public class DocumentGenerationManager : MonoBehaviour
     [SerializeField] private LLMConnectorDocumentsBudget _llmConnectorDocBudget;
     [SerializeField] private LLMConnectorTextChecker _llmConnectorTextChecker;
 
-    [SerializeField] private string _prompt;
+    [SerializeField] private string _headerPrompt;
 
     // docTitle, docContent, docType, cost, isPlayer, isValid
     private Action<string, string, DocumentType, int, bool, bool> _responseCallback;
@@ -29,7 +29,7 @@ public class DocumentGenerationManager : MonoBehaviour
     /// <param name="docType"></param>
     /// <param name="isPlayer"></param>
     /// <param name="isValid"></param>
-    public void PromptGenerateDocument(Action<string, string, DocumentType, int, bool, bool> responseCallback, Action<string> errorCallback, DocumentType docType, bool isOpponent, bool isValid = true)
+    public void PromptGenerateDocument(Action<string, string, DocumentType, int, bool, bool> responseCallback, Action<string> errorCallback, string prompt, DocumentType docType, bool isOpponent, bool isValid = true)
     {
         _responseCallback = responseCallback;
         _errorCallback = errorCallback;
@@ -41,7 +41,7 @@ public class DocumentGenerationManager : MonoBehaviour
         _isValid = isValid;
         _isOpponent = isOpponent;
 
-        _llmConnectorDocContent.SendPrompt(recieveDocumentContent, errorCallback, _prompt, docType, isOpponent, isValid);
+        _llmConnectorDocContent.SendPrompt(recieveDocumentContent, errorCallback, _headerPrompt + prompt, docType, isOpponent, isValid);
     }
 
     /// <summary>

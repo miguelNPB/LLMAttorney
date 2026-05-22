@@ -31,10 +31,10 @@ public class ClientChatPage : ChatPage
         {
             case ClientPromptType.Question: _llmConnectorClientChatTextChecker.SendPrompt(recieveClientChatCoherentQuestion, recieveError, _prompt, 0); break;
             case ClientPromptType.Conversation: _llmConnectorClientChatTextChecker.SendPrompt(recieveClientChatCoherentQuestion, recieveError, _prompt, 1); break;
-            case ClientPromptType.Perito: _documentGenerationManager.PromptGenerateDocument(recieveClientDocumentResponse, recieveError, DocumentType.Perito, false); break;
-            case ClientPromptType.Report: _documentGenerationManager.PromptGenerateDocument(recieveClientDocumentResponse, recieveError, DocumentType.Report, false); break;
-            case ClientPromptType.Witness: _documentGenerationManager.PromptGenerateDocument(recieveClientDocumentResponse, recieveError, DocumentType.Witness, false); break;
-            case ClientPromptType.ReceiptFacture: _documentGenerationManager.PromptGenerateDocument(recieveClientDocumentResponse, recieveError, DocumentType.ReceiptFacture, false); break;
+            case ClientPromptType.Perito: _documentGenerationManager.PromptGenerateDocument(recieveClientDocumentResponse, recieveError, _prompt, DocumentType.Perito, false); break;
+            case ClientPromptType.Report: _documentGenerationManager.PromptGenerateDocument(recieveClientDocumentResponse, recieveError, _prompt, DocumentType.Report, false); break;
+            case ClientPromptType.Witness: _documentGenerationManager.PromptGenerateDocument(recieveClientDocumentResponse, recieveError, _prompt, DocumentType.Witness, false); break;
+            case ClientPromptType.ReceiptFacture: _documentGenerationManager.PromptGenerateDocument(recieveClientDocumentResponse, recieveError, _prompt,DocumentType.ReceiptFacture, false); break;
         }
     }
 

@@ -60,7 +60,7 @@ public class RivalDocsManager : MonoBehaviour
         bool isValid = 0.5f < Random.Range(0f, 1f);
         DocumentType docType = (DocumentType)Random.Range(0, 5);
 
-        _documentGenerationManager.PromptGenerateDocument(recieveDocument, recieveError, docType, true, isValid);
+        _documentGenerationManager.PromptGenerateDocument(recieveDocument, recieveError, "", docType, true, isValid);
     }
 
     /// <summary>

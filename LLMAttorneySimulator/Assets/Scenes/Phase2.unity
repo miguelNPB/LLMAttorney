@@ -2230,8 +2230,8 @@ MonoBehaviour:
   _llmConnectorDocContent: {fileID: 516469885}
   _llmConnectorDocBudget: {fileID: 0}
   _llmConnectorTextChecker: {fileID: 516469887}
-  _prompt: "Necesito que generes un documento de texto para un caso jur\xEDdico espa\xF1ol.
-    Utiliza el contexto que se te ha suminstrado para generar los campos necesarios."
+  _headerPrompt: Genera un documento de un caso civil siguiendo el contexto que se
+    te ha proporcionado.
 --- !u!114 &516469887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18793,8 +18793,7 @@ MonoBehaviour:
   _llmConnectorDocContent: {fileID: 5197592209566044569}
   _llmConnectorDocBudget: {fileID: 5197592209566044568}
   _llmConnectorTextChecker: {fileID: 1824619996}
-  _prompt: "Necesito que generes un documento de texto para un caso jur\xEDdico espa\xF1ol.
-    Utiliza el contexto que se te ha suminstrado para generar los campos necesarios."
+  _headerPrompt: 
 --- !u!114 &5197592209566044571
 MonoBehaviour:
   m_ObjectHideFlags: 0
