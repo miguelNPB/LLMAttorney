@@ -505,7 +505,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5554993727216487844}
         m_TargetAssemblyTypeName: InputSystem, Assembly-CSharp
-        m_MethodName: CheatMenu
+        m_MethodName: CheatMenuPerformed
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

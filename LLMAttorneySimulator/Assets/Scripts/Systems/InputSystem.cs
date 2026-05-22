@@ -8,6 +8,9 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class InputSystem : MonoBehaviour
 {
+    public static InputSystem Instance { get { return _instance; } }
+    private static InputSystem _instance = null;
+
     public Action onSkipTextPerformed;
     public Action<float> onScrollPerformed;
     public Action cheatMenuPerformed;
@@ -21,7 +24,9 @@ public class InputSystem : MonoBehaviour
     public void SkipTextPerformed(InputAction.CallbackContext context)
     {
         if (context.performed)
+        {
             onSkipTextPerformed?.Invoke();
+        }
     }
 
     /// <summary>
@@ -31,14 +36,19 @@ public class InputSystem : MonoBehaviour
     public void ScrollPerformed(InputAction.CallbackContext context)
     {
         if (context.performed)
+        {
             onScrollPerformed?.Invoke(context.ReadValue<float>());
+        }
     }
 
-    public void CheatMenu(InputAction.CallbackContext context)
+    /// <summary>
+    /// Al pulsar el tab para abrir el menu de cheats
+    /// </summary>
+    /// <param name="context"></param>
+    public void CheatMenuPerformed(InputAction.CallbackContext context)
     {
-        if (context.performed && CheatsSystem.Instance.cheatMenu != null)
+        if (context.performed)
         {
-            CheatsSystem.Instance.cheatMenu.gameObject.SetActive(!CheatsSystem.Instance.cheatMenu.activeSelf);
             cheatMenuPerformed?.Invoke();
         }
     }
@@ -49,31 +59,18 @@ public class InputSystem : MonoBehaviour
     }
     private void Awake()
     {
-        if (InputSystem.Instance != null && Instance != this)
+        if (Instance != null)
+        {
             Destroy(gameObject);
+            return;
+        }
 
         if (!_initialized)
         {
-            instance = this;
+            _instance = this;
             Init();
         }
     }
 
-    public static InputSystem Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = FindFirstObjectByType<InputSystem>();
-                if (instance != null)
-                {
-                    instance.Init();
-                }
-            }
-            return instance;
-        }
-    }
-    private static InputSystem instance = null;
 }
 

@@ -20,6 +20,7 @@ public class RivalDocsManager : MonoBehaviour
     [SerializeField] private ComputerSystem _computerSystem;
     [SerializeField] private DocumentGenerationManager _documentGenerationManager;
     [SerializeField] private ProcuratorChatPage _procuradorPage;
+    [SerializeField] private PriorHearingPage _priorHearingPage;
 
     // numero alto para que segun se mande la demanda empiece a generar uno
     private float _timer = 999f; 
@@ -59,7 +60,7 @@ public class RivalDocsManager : MonoBehaviour
         bool isValid = 0.5f < Random.Range(0f, 1f);
         DocumentType docType = (DocumentType)Random.Range(0, 5);
 
-        _documentGenerationManager.PromptGenerateDocument(recieveDocument, recieveError, docType, false, isValid);
+        _documentGenerationManager.PromptGenerateDocument(recieveDocument, recieveError, docType, true, isValid);
     }
 
     /// <summary>
@@ -71,7 +72,7 @@ public class RivalDocsManager : MonoBehaviour
     /// <param name="cost"></param>
     /// <param name="isPlayer"></param>
     /// <param name="isValid"></param>
-    private void recieveDocument(string docTitle, string docContent, DocumentType documentType, int cost, bool isPlayer, bool isValid)
+    private void recieveDocument(string docTitle, string docContent, DocumentType documentType, int cost, bool isOpponent, bool isValid)
     {
         _generating = false;
 
@@ -97,16 +98,18 @@ public class RivalDocsManager : MonoBehaviour
         }
 
         response += docTitle + " de la parte del demandado.";
-        _procuradorPage.ReceiveOpponentDocMessage(response);
 
         if (_numDocsGenerated >= _maxDocsGenerated)
         {
-            _procuradorPage.ReceiveOpponentDocMessage("Con este último documento ya están todos los documentos del rival, voy avisando al tribunal para ir agendando la audiencia previa.");
+            response += ". Con este último documento ya están todos los documentos del rival, voy avisando al tribunal para ir agendando la audiencia previa.";
             _computerSystem.ToggleNotification(Page.PriorHearing, true);
 
+            _priorHearingPage.AllRivalDocsRecieved();
+
             _computerSystem.PingOverlayNotification("¡Ya estas listo para la audiencia previa!");
-            _phase2Manager.EnablePriorHearing(true);
         }
+
+        _procuradorPage.ReceiveOpponentDocMessage(response);
     }
 
     /// <summary>

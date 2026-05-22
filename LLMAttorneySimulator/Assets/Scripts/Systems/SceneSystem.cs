@@ -43,7 +43,7 @@ public class SceneSystem : MonoBehaviour
 
     private void Awake()
     {
-        if (SceneSystem.Instance != null)
+        if (Instance != null)
         {
             Destroy(gameObject);
             return;

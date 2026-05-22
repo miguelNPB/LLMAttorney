@@ -40,17 +40,15 @@ public class LogSystem : MonoBehaviour
 
     private void Awake()
     {
-        if (_instance == null)
-        {
-            _instance = this;
-
-            _path = Application.persistentDataPath + "/game.log";
-            Application.logMessageReceived += handleLog;
-
-        }
-        else
+        if (_instance != null)
         {
             Destroy(gameObject);
+            return;
         }
+
+        _instance = this;
+
+        _path = Application.persistentDataPath + "/game.log";
+        Application.logMessageReceived += handleLog;
     }
 }

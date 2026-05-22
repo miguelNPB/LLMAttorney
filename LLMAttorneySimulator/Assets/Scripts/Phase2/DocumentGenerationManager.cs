@@ -20,7 +20,7 @@ public class DocumentGenerationManager : MonoBehaviour
     private string _docTitle;
     private string _docContent;
     private int _cost;
-    private bool _isPlayer;
+    private bool _isOpponent;
     private bool _isValid;
 
     /// <summary>
@@ -29,7 +29,7 @@ public class DocumentGenerationManager : MonoBehaviour
     /// <param name="docType"></param>
     /// <param name="isPlayer"></param>
     /// <param name="isValid"></param>
-    public void PromptGenerateDocument(Action<string, string, DocumentType, int, bool, bool> responseCallback, Action<string> errorCallback, DocumentType docType, bool isPlayer, bool isValid = true)
+    public void PromptGenerateDocument(Action<string, string, DocumentType, int, bool, bool> responseCallback, Action<string> errorCallback, DocumentType docType, bool isOpponent, bool isValid = true)
     {
         _responseCallback = responseCallback;
         _errorCallback = errorCallback;
@@ -39,9 +39,9 @@ public class DocumentGenerationManager : MonoBehaviour
         _docContent = "";
         _cost = 0;
         _isValid = isValid;
-        _isPlayer = isPlayer;
+        _isOpponent = isOpponent;
 
-        _llmConnectorDocContent.SendPrompt(recieveDocumentContent, errorCallback, _prompt, docType, isPlayer, isValid);
+        _llmConnectorDocContent.SendPrompt(recieveDocumentContent, errorCallback, _prompt, docType, isOpponent, isValid);
     }
 
     /// <summary>
@@ -54,7 +54,7 @@ public class DocumentGenerationManager : MonoBehaviour
         _docTitle = docTitle;
         _docContent = docContent;
 
-        if (_isPlayer)
+        if (!_isOpponent)
         {
             // si el documento es perito o reporte es necesario calcular su coste
             if (_currentDocType == DocumentType.Perito || _currentDocType == DocumentType.Report)
@@ -110,6 +110,6 @@ public class DocumentGenerationManager : MonoBehaviour
     {
         Telemetry.TelemetryDispatch.SendAskedDocument(_cost, (int)_currentDocType);
 
-        _responseCallback?.Invoke(_docTitle, _docContent, _currentDocType, _cost, _isPlayer, _isValid);
+        _responseCallback?.Invoke(_docTitle, _docContent, _currentDocType, _cost, _isOpponent, _isValid);
     }
 }

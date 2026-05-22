@@ -5,28 +5,23 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-[Serializable]
-public class ExpenseTypeToggle
-{
-    public DocumentType type;
-    public bool enabled;
-}
-
-[Serializable]
-public class ExpenseEntry
-{
-    public string title;
-    public float  amount;
-
-    public ExpenseEntry(string title, float amount)
-    {
-        this.title  = title;
-        this.amount = amount;
-    }
-}
-
+/// <summary>
+/// Sistema para gestionar los gastos y presupuesto durante el caso
+/// </summary>
 public class BudgetSystem : MonoBehaviour
 {
+    [Serializable]
+    public class ExpenseEntry
+    {
+        public string title;
+        public float amount;
+
+        public ExpenseEntry(string title, float amount)
+        {
+            this.title = title;
+            this.amount = amount;
+        }
+    }
 
     public static BudgetSystem Instance { get; private set; }
 
@@ -51,8 +46,6 @@ public class BudgetSystem : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Debug.LogWarning("[BudgetManager] Se ha destruido una instancia duplicada. " +
-                             "Coloca BudgetManager solo en la escena inicial/de arranque.");
             Destroy(gameObject);
             return;
         }
@@ -65,27 +58,12 @@ public class BudgetSystem : MonoBehaviour
     }
 
 
-    public float SetBudget(string dialogText)
-    {
-        float greatest = FindGreatestNumber(dialogText);
-
-        if (greatest < 0f)
-        {
-            Debug.LogWarning("[BudgetManager] SetBudget: no se ha encontrado ningún valor numérico en el diálogo.");
-            return -1f;
-        }
-
-        startingBudget = greatest;
-        CurrentBudget  = greatest;
-        TotalExpenses  = 0f;
-        _expenses.Clear();
-
-        LogSystem.Instance.LogString($"[BudgetManager] Presupuesto establecido en {CurrentBudget:F2}");
-        OnBudgetChanged?.Invoke();
-        return CurrentBudget;
-    }
-
-    public float SetBudgetFromLLM(string dialogText, float calculatedMoney)
+    /// <summary>
+    /// Establece un presupuesto
+    /// </summary>
+    /// <param name="dialogText"></param>
+    /// <returns></returns>
+    public float SetBudgetFromPhase1(string dialogText, float calculatedMoney)
     {
         float sum = FindSumNumbers(dialogText);
 
@@ -107,6 +85,13 @@ public class BudgetSystem : MonoBehaviour
         return CurrentBudget;
     }
 
+    /// <summary>
+    /// Suma un nuevo gasto
+    /// </summary>
+    /// <param name="documentText"></param>
+    /// <param name="type"></param>
+    /// <param name="docTitle"></param>
+    /// <returns></returns>
     public float AddExpense(string documentText, DocumentType type, string docTitle = null)
     {
         float cost = FindNthNumber(documentText, 2);
@@ -133,6 +118,9 @@ public class BudgetSystem : MonoBehaviour
         return cost;
     }
 
+    /// <summary>
+    /// Resetea el sistema de budget
+    /// </summary>
     public void ResetBudget()
     {
         CurrentBudget = startingBudget;
@@ -143,23 +131,6 @@ public class BudgetSystem : MonoBehaviour
         OnBudgetChanged?.Invoke();
     }
 
-    public void AddBudget(string budgetToAdd)
-    {
-        CurrentBudget += int.Parse(budgetToAdd);
-    }
-
-    private static float FindGreatestNumber(string text)
-    {
-        MatchCollection matches = Regex.Matches(text, @"\d+(?:[.,]\d+)?");
-        float greatest = float.MinValue;
-        bool  found    = false;
-
-        foreach (Match m in matches)
-            if (TryParseNumber(m.Value, out float val) && val > greatest)
-            { greatest = val; found = true; }
-
-        return found ? greatest : -1f;
-    }
 
     private static float FindSumNumbers(string text)
     {

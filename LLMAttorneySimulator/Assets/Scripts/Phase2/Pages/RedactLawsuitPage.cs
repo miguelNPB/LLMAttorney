@@ -60,6 +60,9 @@ public class RedactLawsuitPage : IPage
             _computerSystem.ToggleNotification(Page.ProcuratorChat, true);
             _computerSystem.GoToMainMenu();
 
+            _computerSystem.ToggleNotification(Page.PriorHearing, true);
+            _phase2Manager.EnablePriorHearing(true);
+
             GameSystem.Instance.CaseData.SentDemandaToProcurador();
         }
     }

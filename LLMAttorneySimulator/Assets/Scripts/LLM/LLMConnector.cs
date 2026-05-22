@@ -72,7 +72,7 @@ public abstract class LLMConnector : MonoBehaviour
     {
         if (configIndex >= _llmConfigs.Length)
         {
-            Debug.LogError("ConfigIndex se sale del array de LLMConfigs");
+            Debug.LogError("ConfigIndex se sale del array de LLMConfigs. Index intentado: " + configIndex + " Longitud del array: " + _llmConfigs.Length);
             return false;
         }
 

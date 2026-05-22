@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using UnityEngine;
-using static PersistCaseData;
 
 /// <summary>
 /// Sistema para almacenar cosas persistentes y sobre el caso. Tiene el notepad y caseData
@@ -48,7 +47,7 @@ public class GameSystem : MonoBehaviour
         {
             string jsonText = File.ReadAllText(path);
 
-            PersistCaseData.CaseDataSerializable caseData = JsonUtility.FromJson<CaseDataSerializable>(jsonText);
+            PersistCaseData.CaseDataSerializable caseData = JsonUtility.FromJson<PersistCaseData.CaseDataSerializable>(jsonText);
 
             _caseData = new CaseData(caseData.id, caseData.clientName, caseData.rivalName, caseData.caseSummary, caseData.caseClientIntroduction);
             _startingCaseData = _caseData;

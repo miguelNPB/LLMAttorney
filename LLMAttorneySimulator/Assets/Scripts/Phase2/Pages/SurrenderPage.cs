@@ -17,7 +17,7 @@ public class SurrenderPage : IPage
 
     public override void Open()
     {
-        _computerSystem.ToggleNotification(Page.ClientChat, false);
+        _computerSystem.ToggleNotification(Page.Surrender, false);
 
         _holder.SetActive(true);
     }

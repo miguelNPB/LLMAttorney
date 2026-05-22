@@ -62,29 +62,35 @@ public class CaseGenerationManager : MonoBehaviour
         _generating = true;
         StartCoroutine(coroutinePendingMessage());
 
-        _llmConnectorCaseDataGenerator.SendPrompt(recieveCaseData, recieveError);
+        _llmConnectorContentGenerator.SendPrompt(recieveCaseContent, recieveError);
     }
 
     /// <summary>
-    /// Llamado al pulsar el boton de continuar generando caso
+    /// Llamado al pulsar el boton de guardar caso generado
     /// </summary>
-    public void ContinueGeneratingCase()
+    public void SaveGeneratedCase()
     {
         if (_generating)
         {
-            Debug.LogError("Error, continuando a generar cuando ya se esta generando, esto no deberia poder pasar");
+            Debug.LogError("Error, intentado guardar cuando se esta generando aún, esto no deberia poder pasar");
             return;
         }
 
-        _generating = true;
-        _closeButton.gameObject.SetActive(false);
+        _closeButton.gameObject.SetActive(true);
         _continueGeneratingCaseButton.interactable = false;
-        _retryGeneratingCaseButton.interactable = false;
+        _retryGeneratingCaseButton.interactable = true;
 
-        StartCoroutine(coroutinePendingMessage());
+        _displayText.text = _persistor.PersistCase(_tmpClientName, _tmpRivalName, _tmpCaseSummary, _tmpCaseContent, _tmpClientIntroduction);
+    }
 
-
-        _llmConnectorContentGenerator.SendPrompt(recieveCaseContent, recieveError);
+    /// <summary>
+    /// Llamado al recibir el contenido del caso
+    /// </summary>
+    /// <param name="content"></param>
+    private void recieveCaseContent(string content)
+    {
+        _tmpCaseContent = content;
+        _llmConnectorCaseDataGenerator.SendPrompt(recieveCaseData, recieveError, content);
     }
 
     /// <summary>
@@ -96,24 +102,12 @@ public class CaseGenerationManager : MonoBehaviour
         _tmpRivalName = rivalName;
         _tmpCaseSummary = caseSummary;
 
-        _retryGeneratingCaseButton.interactable = true;
-        _continueGeneratingCaseButton.interactable = true;
-
-        _generating = false;
         _pendingMessage = "Nombre del cliente: " + clientName + "   Nombre del demandado: " + rivalName + "\n\n" + "Resumen del caso: " + caseSummary;
 
-        _closeButton.gameObject.SetActive(true);
+        _llmConnectorClientIntroductionGenerator.SendPrompt(recieveCaseClientIntroduction, recieveError, _tmpCaseContent);
     }
 
-    /// <summary>
-    /// Llamado al recibir el contenido del caso
-    /// </summary>
-    /// <param name="content"></param>
-    private void recieveCaseContent(string content)
-    {
-        _tmpCaseContent = content;
-        _llmConnectorClientIntroductionGenerator.SendPrompt(recieveCaseClientIntroduction, recieveError, content);
-    }
+
 
     /// <summary>
     /// Llamado al recibir la introduccion que te cuenta el cliente en la fase 1, sobre el caso
@@ -133,10 +127,8 @@ public class CaseGenerationManager : MonoBehaviour
     {
         _closeButton.gameObject.SetActive(true);
         _retryGeneratingCaseButton.interactable = true;
-        _continueGeneratingCaseButton.interactable = false;
+        _continueGeneratingCaseButton.interactable = true;
 
-
-        _pendingMessage = _persistor.PersistCase(_tmpClientName, _tmpRivalName, _tmpCaseSummary, _tmpCaseContent, _tmpClientIntroduction);
         _generating = false;
     }
 

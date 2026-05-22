@@ -62,7 +62,11 @@ public class PagesUISystem : MonoBehaviour
         {
             _index = 0;
             pages[0].SetActive(true);
-            rightButton.SetActive(true);
+
+            if (rightButton != null)
+            {
+                rightButton.SetActive(true);
+            }
         }
     }
 
@@ -72,24 +76,36 @@ public class PagesUISystem : MonoBehaviour
     /// <param name="right"></param>
     private void changePage(bool right)
     {
-        rightButton.SetActive(true);
-        leftButton.SetActive(true);
+        if (rightButton != null)
+        {
+            rightButton.SetActive(true);
+        }
+        if (leftButton != null)
+        {
+            leftButton.SetActive(true);
+        }
 
         if (right)
         {
             _index = (_index + 1) % pages.Count;
 
-            if (_index + 1 >= pages.Count)
+            if (_index + 1 >= pages.Count && rightButton != null)
+            {
                 rightButton.SetActive(false);
+            }
         }
         else
         {
             _index--;
             if (_index < 0)
+            {
                 _index = pages.Count - 1;
+            }
 
-            if (_index - 1 < 0)
+            if (_index - 1 < 0 && leftButton != null)
+            {
                 leftButton.SetActive(false);
+            }
         }
 
         foreach (GameObject page in pages)

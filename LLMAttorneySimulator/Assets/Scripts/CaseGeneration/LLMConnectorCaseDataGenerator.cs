@@ -14,10 +14,6 @@ public class LLMConnectorCaseDataGenerator : LLMConnector
         public string caseSummary;
     }
 
-    [TextArea(2, 5)]
-    [Tooltip("User prompt para disparar la generacion del contenido del caso.")]
-    [SerializeField] private string _promptGenerateCaseDatas = "Genera un caso de responsabilidad civil extracontractual completamente inventado siguiendo la estructura indicada.";
-
     private Action<string, string, string> _responseCallback;
 
     /// <summary>
@@ -26,10 +22,10 @@ public class LLMConnectorCaseDataGenerator : LLMConnector
     /// <param name="responseCallback"></param>
     /// <param name="errorCallback"></param>
     /// <param name="prompt"></param>
-    public void SendPrompt(Action<string, string, string> responseCallback, Action<string> errorCallback)
+    public void SendPrompt(Action<string, string, string> responseCallback, Action<string> errorCallback, string prompt)
     {
         _responseCallback = responseCallback;
-        sendPrompt(receiveResponse, errorCallback, _promptGenerateCaseDatas, 0);
+        sendPrompt(receiveResponse, errorCallback, prompt, 0);
     }
 
     /// <summary>

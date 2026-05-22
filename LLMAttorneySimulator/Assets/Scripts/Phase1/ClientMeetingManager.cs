@@ -149,7 +149,7 @@ public class ClientMeetingManager : MonoBehaviour
                 _changePhaseButton.SetActive(true);
             }
 
-            BudgetSystem.Instance.SetBudgetFromLLM(_prompt, _tempBudget);
+            BudgetSystem.Instance.SetBudgetFromPhase1(_prompt, _tempBudget);
 
             endClientMeeting(_tempAnswer);
         }         

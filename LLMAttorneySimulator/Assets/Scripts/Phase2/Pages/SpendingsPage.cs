@@ -50,7 +50,7 @@ public class SpendingsPage : IPage
             foreach (Transform child in expensesListContainer)
                 Destroy(child.gameObject);
 
-            foreach (ExpenseEntry entry in bm.Expenses)
+            foreach (BudgetSystem.ExpenseEntry entry in bm.Expenses)
                 spawnRow(entry.title, entry.amount);
         }
 

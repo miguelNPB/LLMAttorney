@@ -31,10 +31,10 @@ public class ClientChatPage : ChatPage
         {
             case ClientPromptType.Question: _llmConnectorClientChatTextChecker.SendPrompt(recieveClientChatCoherentQuestion, recieveError, _prompt, 0); break;
             case ClientPromptType.Conversation: _llmConnectorClientChatTextChecker.SendPrompt(recieveClientChatCoherentQuestion, recieveError, _prompt, 1); break;
-            case ClientPromptType.Perito: _documentGenerationManager.PromptGenerateDocument(recieveClientDocumentResponse, recieveError, DocumentType.Perito, true); break;
-            case ClientPromptType.Report: _documentGenerationManager.PromptGenerateDocument(recieveClientDocumentResponse, recieveError, DocumentType.Report, true); break;
-            case ClientPromptType.Witness: _documentGenerationManager.PromptGenerateDocument(recieveClientDocumentResponse, recieveError, DocumentType.Witness, true); break;
-            case ClientPromptType.ReceiptFacture: _documentGenerationManager.PromptGenerateDocument(recieveClientDocumentResponse, recieveError, DocumentType.ReceiptFacture, true); break;
+            case ClientPromptType.Perito: _documentGenerationManager.PromptGenerateDocument(recieveClientDocumentResponse, recieveError, DocumentType.Perito, false); break;
+            case ClientPromptType.Report: _documentGenerationManager.PromptGenerateDocument(recieveClientDocumentResponse, recieveError, DocumentType.Report, false); break;
+            case ClientPromptType.Witness: _documentGenerationManager.PromptGenerateDocument(recieveClientDocumentResponse, recieveError, DocumentType.Witness, false); break;
+            case ClientPromptType.ReceiptFacture: _documentGenerationManager.PromptGenerateDocument(recieveClientDocumentResponse, recieveError, DocumentType.ReceiptFacture, false); break;
         }
     }
 
@@ -102,12 +102,12 @@ public class ClientChatPage : ChatPage
         }
     }
 
-    private void recieveClientDocumentResponse(string docTitle, string docContent, DocumentType documentType, int cost, bool isPlayer, bool isValid)
+    private void recieveClientDocumentResponse(string docTitle, string docContent, DocumentType documentType, int cost, bool isOpponent, bool isValid)
     {
         string response = "";
         if (isValid)
         {
-            GameSystem.Instance.CaseData.documentManager.CreateDocument(docTitle, documentType, docContent, isValid, cost, isPlayer, false);
+            GameSystem.Instance.CaseData.documentManager.CreateDocument(docTitle, documentType, docContent, isValid, cost, isOpponent, false);
             switch (documentType)
             {
                 case DocumentType.Perito:
@@ -151,7 +151,7 @@ public class ClientChatPage : ChatPage
     /// <param name="text"></param>
     private void recieveError(string text)
     {
-        recieveClientChatResponse("Error con el servidor: " + text);
+        EndPendingMessage("Error con el servidor: " + text);
     }
 
     /// <summary>

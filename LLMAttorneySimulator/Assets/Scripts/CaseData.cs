@@ -68,7 +68,7 @@ public class CaseData
         _id = id;
         _conciliationRivalInstantRejectProbability = UnityEngine.Random.Range(0.5f,1f);
         _clientName = clientName;
-        _procuratorName = "Máximo Décimo Meridio";
+        _procuratorName = "Máximo Décimo";
         _demandedEntityName = demandedEntityName;
         _caseDescription = caseDescription;
         _initialClientSpeech = initialClientSpeech;

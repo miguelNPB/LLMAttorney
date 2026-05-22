@@ -34,7 +34,7 @@ public class LLMConnectorClientIntroductionGenerator : LLMConnector
     private void receiveResponse(string finalSerializedAnswer)
     {
         CaseIntroduction jsonResponse = JsonUtility.FromJson<CaseIntroduction>(finalSerializedAnswer);
-        _responseCallback(finalSerializedAnswer);
+        _responseCallback?.Invoke(jsonResponse.introduction);
     }
 
     protected override string deseralizePromptFirstResponse(string serializedResponse)

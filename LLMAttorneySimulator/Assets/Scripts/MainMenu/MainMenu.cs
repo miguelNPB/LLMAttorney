@@ -27,6 +27,17 @@ public class MainMenu : MonoBehaviour
     }
 
     /// <summary>
+    /// Llamar para empezar a jugar
+    /// </summary>
+    public void StartPlaying()
+    {
+        GameSystem.Instance.ResetCaseData();
+        BudgetSystem.Instance.ResetBudget();
+
+        SceneSystem.Instance.LoadPhase1();
+    }
+
+    /// <summary>
     /// Comprueba si esta todo listo para jugar el simulador y no hay errores
     /// </summary>
     private void checkReadyToPlay()
@@ -51,7 +62,7 @@ public class MainMenu : MonoBehaviour
 
             if (!_casesIDMatch)
             {
-                _serverStatusText.text = $"IDs de caso no coinciden con el cliente y el servidor, arreglarlo o mandar un nuevo caso.\nID server: {id}, ID cliente: {GameSystem.Instance.CaseData.id}";
+                _serverStatusText.text = $"IDs de caso no coinciden con el cliente y el servidor, arreglarlo o mandar un nuevo caso.\nID server: {id}, ID cliente: {(GameSystem.Instance.CaseData.id == 0 ? "default" : GameSystem.Instance.CaseData.id)}";
             }
             else
             {

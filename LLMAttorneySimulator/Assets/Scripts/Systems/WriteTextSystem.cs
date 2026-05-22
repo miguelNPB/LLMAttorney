@@ -3,6 +3,9 @@ using TMPro;
 using System.Collections;
 using System;
 
+/// <summary>
+/// Sistema para escribir texto poco a pooco en una caja de texto
+/// </summary>
 public class WriteTextSystem : MonoBehaviour
 {
     [Header("Configuracion")]
@@ -17,6 +20,11 @@ public class WriteTextSystem : MonoBehaviour
     public Action onFinishTyping;
 
     public bool IsTyping() => _isTyping;
+
+    /// <summary>
+    /// Escribir texto
+    /// </summary>
+    /// <param name="text"></param>
     public void WriteText(string text)
     {
 
@@ -28,6 +36,9 @@ public class WriteTextSystem : MonoBehaviour
         _typingCoroutine = StartCoroutine(TypeConversation(text));
     }
 
+    /// <summary>
+    /// Saltar la escrityura de texto y obtener el texto final
+    /// </summary>
     public void SkipTyping()
     {
         if (_isTyping && !_waitingInputToContinue)
@@ -37,6 +48,12 @@ public class WriteTextSystem : MonoBehaviour
 
         _waitingInputToContinue = false;
     }
+
+    /// <summary>
+    /// La coroutina de escribir el texto. Es para conversaciones con varios "continue"
+    /// </summary>
+    /// <param name="text"></param>
+    /// <returns></returns>
 
     public IEnumerator TypeConversation(string text)
     {
@@ -86,6 +103,11 @@ public class WriteTextSystem : MonoBehaviour
         _isTyping = false;
     }
 
+    /// <summary>
+    /// Escribe un texto poco a poco
+    /// </summary>
+    /// <param name="text"></param>
+    /// <returns></returns>
     public IEnumerator TypeText(string text)
     {   
 
