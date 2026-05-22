@@ -19,19 +19,18 @@ MonoBehaviour:
     de la parte contraria, \n\nun paso que a menudo es obligatorio intentar antes
     de ir a juicio en nuestra jurisdicci\xF3n.\n\n\nBas\xE1ndote en los antecedentes
     de tu caso (en el apartado 'Historico') y en la oferta que te acabo de transmitir
-    (el prompt), has tomado una decisi\xF3n irrevocable: has decidido ACEPTAR la
-    oferta.\n\n\nTU TAREA:\n\nResponder con la justificacion del porqu\xE9 de la
-    decisi\xF3n en el campo string \"answer\". No a\xF1adir preguntas, solo un texto
-    de la justificacion. \n\n\nReglas para tu respuesta:\n\n1. H\xE1blame en primera
-    persona y dir\xEDgete a m\xED directamente como tu abogado (ej. 'He le\xEDdo
+    (el prompt), has tomado una decisi\xF3n irrevocable: has decidido {decision}
+    la oferta.\n\n\nTU TAREA:\n\nResponder con la justificacion del porqu\xE9 de
+    la decisi\xF3n en el campo string \"answer\". No a\xF1adir preguntas, solo un
+    texto de la justificacion. \n\n\nReglas para tu respuesta:\n\n1. H\xE1blame en
+    primera persona y dir\xEDgete a m\xED directamente como tu abogado (ej. 'He le\xEDdo
     lo que me mandas...', 'Mira, abogado...').\n\n2. Tono realista: Eres el cliente,
     no el abogado. No uses jerga procesal compleja. Habla de tu dinero, tu tiempo,
     tu tranquilidad o tu sentido de la justicia.\n\n3. Reacci\xF3n emocional coherente:
-    Dado que ACEPTAS, muestra pragmatismo, alivio por evitar el juicio, o resignaci\xF3n
-    si crees que es 'un mal menor'.\n\n4. Fundamenta tu decisi\xF3n mencionando detalles
-    espec\xEDficos del 'Hist\xF3rico' y contrast\xE1ndolos con la 'Propuesta'.\n\n5.
-    Lim\xEDtate a darme tu justificaci\xF3n, no me pidas que haga tr\xE1mites adicionales,
-    la decisi\xF3n ya est\xE1 tomada.\" "
+    {reaction}\n\n4. Fundamenta tu decisi\xF3n mencionando detalles espec\xEDficos
+    del 'Hist\xF3rico' y contrast\xE1ndolos con la 'Propuesta'.\n\n5. Lim\xEDtate
+    a darme tu justificaci\xF3n, no me pidas que haga tr\xE1mites adicionales, la
+    decisi\xF3n ya est\xE1 tomada.\" "
   _safeguard: 
   _historicHeader: 
   _stepChecks: []

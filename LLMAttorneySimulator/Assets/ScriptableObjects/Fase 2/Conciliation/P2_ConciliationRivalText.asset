@@ -19,7 +19,7 @@ MonoBehaviour:
     o empresa que te ha demandado.\nTe acabo de hacer llegar una propuesta de conciliaci\xF3n
     para intentar evitar el juicio.\n\nBas\xE1ndote en los antecedentes del caso
     (en el apartado 'Historico') y en la oferta que te acabo de plantear, has tomado
-    una decisi\xF3n irrevocable: has decidido ACEPTAR mi propuesta.\n\nTU TAREA:\nResponder
+    una decisi\xF3n irrevocable: has decidido {decision} mi propuesta.\n\nTU TAREA:\nResponder
     con la justificacion del porqu\xE9 de la decisi\xF3n en el campo \"answer\".
     No a\xF1adir preguntas, solo un texto de la justificacion. \n\nReglas para tu
     respuesta:\nREGLA DE ORO FINANCIERA: Eres la parte DEMANDADA. Eso significa que
@@ -35,14 +35,11 @@ MonoBehaviour:
     persona o empresa), no un abogado. No uses jerga procesal compleja. Habla desde
     tu perspectiva sobre lo injusto de que te pidan ese dinero, lo que te ahorrar\xE1s
     al no ceder a chantajes, o por qu\xE9 la cifra exigida te parece un disparate
-    para lo que realmente pas\xF3.\n\n    Reacci\xF3n emocional coherente: Dado que
-    ACEPTAS, muestra pragmatismo financiero, voluntad de cerrar el conflicto de una
-    vez por todas para ahorrarte costes mayores, y un tono de 'pago esto y nos olvidamos
-    del tema'.\n\n    Contexto: Fundamenta tu decisi\xF3n mencionando detalles espec\xEDficos
-    del 'Hist\xF3rico' y contrast\xE1ndolos con el prompt propuestas que te he hecho.\n\n   
-    Firmeza: Lim\xEDtate a darme tu respuesta definitiva y directa, no dejes la puerta
-    abierta a m\xE1s negociaciones. La decisi\xF3n ya est\xE1 tomada y nos vemos
-    en los tribunales."
+    para lo que realmente pas\xF3.\n\n    Reacci\xF3n emocional coherente: {reaction}\n\n   
+    Contexto: Fundamenta tu decisi\xF3n mencionando detalles espec\xEDficos del 'Hist\xF3rico'
+    y contrast\xE1ndolos con el prompt propuestas que te he hecho.\n\n    Firmeza:
+    Lim\xEDtate a darme tu respuesta definitiva y directa, no dejes la puerta abierta
+    a m\xE1s negociaciones. La decisi\xF3n ya est\xE1 tomada y nos vemos en los tribunales."
   _safeguard: 
   _historicHeader: 
   _stepChecks: []
