@@ -17,6 +17,7 @@ run.bat toma una configuración encontrada en `configs/server_config_noVulkan` y
 runVulkan.bat toma una configuración encontrada en `configs/server_config_vulkan` y la copia a server_config.json
 
 Para poder configurar los documentos disponbiles para usar en el RAG, modificar `rag_config.json`. Cada entrada tiene 3 campos, pathDatabase es la ruta donde se almacenará los embeddings generados, pathContent es la ruta al pdf con el contenido, y ragCollectionName es el nombre identificador del documento en el sistema RAG. 
+En el caso del documento del caso del juego, no es posible configurarlo a través de rag_config, ya que utilizará el documento encontrado en `"./documentos_rag/case_data"`, y su id es el nombre del pdf. Durante la ejecución del juego es posible cambiarlo, de forma que se sobreescribirá el pdf encontrado en esa carpeta, y se regenerarán los embeddings en su carpeta `./vector_db/CasoBase_db`
 
 ### Ejecutar el servidor
 

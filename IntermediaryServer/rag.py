@@ -38,7 +38,7 @@ def get_rag_data(prompt, ragIndex, vectorStores):
 
 # Metodo publico para obtener el id del caso actual
 def get_case_data_id():
-    caseDataFolder = "./case_data"
+    caseDataFolder = "./documentos_rag/case_data"
     # Verificamos si la carpeta existe antes de escanear
     if not os.path.exists(caseDataFolder):
         return -1
@@ -56,7 +56,7 @@ def get_case_data_id():
 # Metodo publico para cambiar el pdf caso de RAG, borra los pdf y borra la carpeta de vector_db suya y actualiza los vectorStore
 def override_case_RAG(newPDF, id, vectorStores, OLLAMA_HOST):
     db_path = "./vector_db/CasoBase_db"
-    caseDataFolder = "./case_data"
+    caseDataFolder = "./documentos_rag/case_data"
 
     # borramos antiguo caso
     # se quita la referencia para quitar locks de Chroma
@@ -64,7 +64,7 @@ def override_case_RAG(newPDF, id, vectorStores, OLLAMA_HOST):
         try:
             vectorStores[0].delete_collection()
         except Exception as e:
-            print(f"Aviso interno al intentar borrar colección en Chroma: {e}")
+            print(f"Aviso interno al intentar borrar coleccion en Chroma: {e}")
         
         vectorStores[0] = None
 
@@ -150,7 +150,7 @@ def _get_RAG_files():
     return ragsFiles
 
 def _get_case_RAG_file():
-    caseDataFolder = "./case_data"
+    caseDataFolder = "./documentos_rag/case_data"
 
     if not os.path.exists(caseDataFolder):
         return None
