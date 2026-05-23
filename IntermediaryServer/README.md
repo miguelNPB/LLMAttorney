@@ -1,4 +1,4 @@
-# LLMAttorney - MediatorServer
+# LLMAttorney - IntermediaryServer
 
 Esta carpeta almacena el servidor de python intermediario, que gestiona las peticiones enviadas del simulador para configurar y hacer peticiones al LLM, en este caso Ollama.  
 ## Requisitos
