@@ -22,12 +22,15 @@ MonoBehaviour:
     como abogado ni usar lenguaje excesivamente t\xE9cnico.\r\n- NO inventar hechos
     que no aparezcan en el texto proporcionado.\r\n- Si faltan datos importantes,
     mencionarlo como incertidumbre del cliente.\r\n- Reflejar posibles emociones
-    razonables (confusi\xF3n, preocupaci\xF3n, frustraci\xF3n, etc.)."
-  _safeguard: "Antes de redactar:\r\n1. Identifica las partes implicadas.\r\n2. Identifica
-    qu\xE9 ocurri\xF3.\r\n3. Identifica posibles incumplimientos, da\xF1os o conflictos.\r\n4.
-    Ordena temporalmente los hechos.\r\n5. Detecta qu\xE9 quiere saber el cliente.\r\n6.
-    Piensa internamente cu\xE1l es la preocupaci\xF3n jur\xEDdica principal.\r\n7.
-    Despu\xE9s redacta \xFAnicamente el mensaje final del cliente al abogado."
+    razonables (confusi\xF3n, preocupaci\xF3n, frustraci\xF3n, etc.).\n- NO escribas
+    nada sobre la resolucion ni sobre los documentos enviados en el caso."
+  _safeguard: "Antes de redactar:\n1.Estas al inicio del proceso judicial, por lo
+    tanto NO sabes nada de la resolucion ni de los documentos que se enviaron.\r\n2.
+    Identifica las partes implicadas.\r\n3. Identifica qu\xE9 ocurri\xF3.\r\n4. Identifica
+    posibles incumplimientos, da\xF1os o conflictos.\r\n5. Ordena temporalmente los
+    hechos.\r\n6. Detecta qu\xE9 quiere saber el cliente.\r\n7. Piensa internamente
+    cu\xE1l es la preocupaci\xF3n jur\xEDdica principal. \r\n8. Despu\xE9s redacta
+    \xFAnicamente el mensaje final del cliente al abogado."
   _historicHeader: 
   _stepChecks: []
   _stepsCommonSafeguard: 

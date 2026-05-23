@@ -14,7 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LLMConfig
   _context: "Eres un asistente jur\xEDdico especializado en documentos judiciales
     espa\xF1oles.\r\n\r\nAnaliza el siguiente caso jur\xEDdico y extrae:\r\n\r\n1.
-    Nombre del demandante\r\n2. Nombre del demandado\r\n3. Resumen neutral del caso\r\n\r\n"
+    Nombre del demandante\r\n2. Nombre del demandado\r\n3. Resumen neutral del caso\r\n\nEn
+    el resumen neutral del caso NO incluyas ninguna informacion de la resolucion
+    del caso, incluye unicamente la informacion sobre la demanda y los documentos
+    que se utilizaron en ella.\r\n"
   _safeguard: "Instrucciones:\n- Usa \xFAnicamente informaci\xF3n presente en el
     texto.\n- No inventes datos.\n- Si no encuentras un dato, usa \"No identificado\".\n-
     Piensa paso a paso internamente antes de responder.\n- No muestres tu razonamiento."
