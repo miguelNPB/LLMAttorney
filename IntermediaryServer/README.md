@@ -16,6 +16,8 @@ El servidor toma un json llamado `server_config.json` para configurarse y elegir
 run.bat toma una configuración encontrada en `configs/server_config_noVulkan` y la copia a server_config.json
 runVulkan.bat toma una configuración encontrada en `configs/server_config_vulkan` y la copia a server_config.json
 
+Para poder configurar los documentos disponbiles para usar en el RAG, modificar `rag_config.json`. Cada entrada tiene 3 campos, pathDatabase es la ruta donde se almacenará los embeddings generados, pathContent es la ruta al pdf con el contenido, y ragCollectionName es el nombre identificador del documento en el sistema RAG. 
+
 ### Ejecutar el servidor
 
 El servidor se ejecuta desde un docker, recomendamos usar los .bat diseñados para ello, sino manualmente compilar el docker manualmente con ```docker build -t llmattorney .``` y ejecutarlo con este comando: ```docker run -p 8000:8000 llmattorney```
