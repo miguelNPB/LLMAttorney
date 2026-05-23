@@ -19,27 +19,28 @@ class LLMAttorneyAskQuery(BaseModel):
 
 
 # --- Constantes
-OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://localhost:11434")
-OLLAMA_ENDPOINT_NVIDIA = "http://ollama-server:11434/v1"
-OLLAMA_ENDPOINT_AMD_VULKAN = "http://host.docker.internal:11434/v1"
+OLLAMA_LLM_ENDPOINT_NVIDIA = "http://ollama-server:11434/v1"
+OLLAMA_LLM_ENDPOINT_AMD= "http://host.docker.internal:11434/v1"
+OLLAMA_EMBEDDINGS_ENDPOINT_NVIDIA = "http://ollama-server:11434/"
+OLLAMA_EMBEDDINGS_ENDPOINT_AMD = "http://host.docker.internal:11434/"
 CASE_DATA_DIR = os.path.join(os.path.abspath(__file__), "case_rag")
 # ---
 
 # --- Variables
 app = FastAPI(title="LLMAttorney Server")
 vectorStores = []
-useVulkan = False
+isAMD = False
 modelName = ""
 # --- 
 
 
 # Carga la configuracion del servidor
 def load_config():
-    global useVulkan, modelName
+    global isAMD, modelName
     try:
         with open("./server_config.json", "r", encoding="utf-8") as f:
             config = json.load(f)
-            useVulkan = config.get("useVulkan")
+            isAMD = config.get("isAMD")
             modelName = config.get("modelName")
     except FileNotFoundError:
         raise RuntimeError("ERROR, server_config.json no encontrado")
@@ -53,17 +54,17 @@ def startup():
     load_config()
 
     global vectorStores
-    vectorStores = init_RAG(OLLAMA_HOST)
+    vectorStores = init_RAG(OLLAMA_EMBEDDINGS_ENDPOINT_AMD if isAMD else OLLAMA_EMBEDDINGS_ENDPOINT_NVIDIA)
 
 # endpoint principal para peticiones al LLM
 @app.post("/ask")
 def ask_LLMAttorney(query: LLMAttorneyAskQuery):
-    global vectorStores, useVulkan, modelName
+    global vectorStores, isAMD, modelName
     try:
         if query.rag_use:
             query.LLMConfig += get_rag_data(query.prompt, query.rag_index, vectorStores)  
         
-        answer = sendOllamaQuery(query.prompt, query.LLMConfig, query.temperature, query.json_schema, modelName, OLLAMA_ENDPOINT_AMD_VULKAN if useVulkan else OLLAMA_ENDPOINT_NVIDIA)
+        answer = sendOllamaQuery(query.prompt, query.LLMConfig, query.temperature, query.json_schema, modelName, OLLAMA_LLM_ENDPOINT_AMD if isAMD else OLLAMA_LLM_ENDPOINT_NVIDIA)
         return answer
     except httpx.HTTPStatusError as e:
         raise HTTPException(status_code=e.response.status_code, detail=str(e))
@@ -91,7 +92,7 @@ def upload_pdf(id: int = Form(...),
         raise HTTPException(status_code=400, detail="ERROR, debe ser un .pdf")
     
     try:
-        override_case_RAG(file, id, vectorStores, OLLAMA_HOST)
+        override_case_RAG(file, id, vectorStores, OLLAMA_EMBEDDINGS_ENDPOINT_AMD if isAMD else OLLAMA_EMBEDDINGS_ENDPOINT_NVIDIA)
         return {"status": "success"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

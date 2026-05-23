@@ -165,7 +165,7 @@ def _get_case_RAG_file():
 # metodo privado para cargar un rag al vectorStores
 def _load_rag_file(vectorStores, rag_file, index, OLLAMA_HOST):
     if (index >= len(vectorStores)):
-        print("Error, intentado modificar un index del array de vectorStores fuera de rango")
+        print("ERROR, intentado modificar un index del array de vectorStores fuera de rango")
         return
 
     databasePath = Path(rag_file.pathDatabase)
@@ -178,7 +178,7 @@ def _load_rag_file(vectorStores, rag_file, index, OLLAMA_HOST):
     )
 
     if not any(databasePath.iterdir()):
-        print("No existe el directorio del database vector store, creando uno nuevo a partir del PDF...")
+        print(f"No existe el directorio del database con vector store de {databasePath}, creando uno nuevo a partir del PDF...")
 
         if not os.path.exists(rag_file.pathContent):
             raise Exception(f"Archivo RAG no encontrado: {rag_file.pathContent}")
@@ -196,7 +196,6 @@ def _load_rag_file(vectorStores, rag_file, index, OLLAMA_HOST):
 
         all_splits = text_splitter.split_documents(docs)   
 
-        print(OLLAMA_HOST)
         #Vector Store
         vector_store = Chroma.from_documents(
             documents=all_splits,
@@ -208,8 +207,9 @@ def _load_rag_file(vectorStores, rag_file, index, OLLAMA_HOST):
         vector_store.persist()
 
         vectorStores[index] = vector_store
+        print(f"Vector stores creados en {databasePath}")
     else:
-        print("Existe el directorio del vector store, cargando el vector store...")
+        print(f"Existe el directorio del vector store {databasePath}, cargando su vector store...")
 
         vector_store = Chroma(
             persist_directory=str(databasePath),
@@ -218,3 +218,4 @@ def _load_rag_file(vectorStores, rag_file, index, OLLAMA_HOST):
         )
 
         vectorStores[index] = vector_store
+        print(f"Vector stores creados en {databasePath}")

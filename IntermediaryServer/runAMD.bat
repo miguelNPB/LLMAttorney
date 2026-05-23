@@ -76,8 +76,6 @@ echo.
 echo Iniciando Ollama local con soporte Vulkan...
 echo.
 
-set OLLAMA_VULKAN=1
-set OLLAMA_HOST=0.0.0.0:11434
 start "" ollama serve
 
 timeout /t 5 >nul

@@ -1,4 +1,4 @@
 {
-    "modelName": "llama3.1:8b",
-    "useVulkan": true
+    "modelName": "qwen2.5:7b",
+    "isAMD": true
 }
