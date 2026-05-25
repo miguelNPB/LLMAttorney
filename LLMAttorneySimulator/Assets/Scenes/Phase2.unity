@@ -2180,8 +2180,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::OpponentDocProcuration
   _minIntervalSeconds: 60
   _maxIntervalSeconds: 120
-  _maxStartingDocs: 1
-  _minStartingDocs: 1
+  _maxStartingDocs: 3
+  _minStartingDocs: 5
   _phase2Manager: {fileID: 1550168515}
   _computerSystem: {fileID: 2877935314983381774}
   _documentGenerationManager: {fileID: 516469886}
