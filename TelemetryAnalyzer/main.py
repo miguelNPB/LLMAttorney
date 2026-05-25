@@ -5,7 +5,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import warnings
 import matplotlib.ticker as ticker
-import numpy as np
 
 # Ignora los futureWarnings en consola
 warnings.simplefilter(action='ignore', category=FutureWarning)

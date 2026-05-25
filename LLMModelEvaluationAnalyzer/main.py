@@ -4,7 +4,6 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 import warnings
-import matplotlib.ticker as ticker
 import numpy as np
 
 # Ignora los futureWarnings en consola
@@ -157,8 +156,8 @@ def main():
 
     database = get_data()
 
-    queryPostEvents = database[database["eventType"] == 5]
-    queryRecievedEvents = database[database["eventType"] == 6]
+    queryPostEvents = database[database["eventType"] == 4]
+    queryRecievedEvents = database[database["eventType"] == 5]
     qualityAnswerScore = database[database["eventType"] == 7]
 
     analyze_time_between_query_and_response(queryPostEvents, queryRecievedEvents, plot_title)
