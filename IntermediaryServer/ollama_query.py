@@ -36,17 +36,13 @@ def sendOllamaQuery(prompt, LLMConfig, temperature, json_schema, modelName, olla
             api_key="ollama"
         )
 
-        print("Modelo Llama configurado, preparando prompt...")
-
         with guidance.system():
             lm += LLMConfig
 
-        print("guidance system preparado, añadiendo prompt...")
 
         with guidance.user():
             lm += prompt
 
-        print("guidance user preparado, añadiendo prompt...")
 
         if json_schema:
             with guidance.assistant():
