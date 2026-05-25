@@ -9,6 +9,7 @@ Tutorizado por: Carlos León Aznar y Guillermo Jiménez Díaz
 
 En este repositorio encontarás los siguientes contenidos en las siguientes carpetas:
 - LLMAttorneySimulator: El proyecto de Unity con el simulador.
+- LLMAttorneyBuild: Build del proyecto de Unity lista para ser jugada.
 - IntermediaryServer: El servidor intermediario que además ejecuta el servidor Ollama. Este servidor debe estar activo para que funcione el proyecto de Unity.
 - LLMAttorneyBuild: Build lista para usar del proyecto de Unity.
 - TelemetryAnalyzer: Script de Python analizador y graficador de las trazas de telemetría generadas en la ejecución del simulador.
